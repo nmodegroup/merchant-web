@@ -1,0 +1,3 @@
+<view class="panel" style="background-color:{{ bgColor }};height:{{ height }}rpx;line-height:{{ height }}rpx">
+  {{ title }}
+</view>

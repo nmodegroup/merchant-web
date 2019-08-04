@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>mdpi/mine_list_icon_status</title>
+    <desc>Created with Sketch.</desc>
+    <g id="商家端" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0.0.1图标_商家端" transform="translate(-14.000000, -224.000000)" fill-rule="nonzero">
+            <g id="1-copy-7" transform="translate(0.000000, 206.000000)">
+                <rect id="Rectangle" x="0" y="0" width="375" height="50"></rect>
+                <g id="mine_list_icon_status" opacity="0.800000012" transform="translate(22.000000, 25.500000) rotate(-315.000000) translate(-22.000000, -25.500000) translate(17.000000, 18.000000)" stroke="#FFFFFF" stroke-width="0.857142857">
+                    <path d="M0.755411926,2.48447209 C0.555824481,2.57899804 0.428571429,2.7800692 0.428571429,3.0009092 L0.428571429,13.2012857 C0.428571429,13.516877 0.684408714,13.7727142 1,13.7727142 L9,13.7727142 C9.31559129,13.7727142 9.57142857,13.516877 9.57142857,13.2012857 L9.57142857,3.0009092 C9.57142857,2.7800692 9.44417552,2.57899804 9.24458807,2.48447209 L5.24458807,0.590045294 C5.08977195,0.516723343 4.91022805,0.516723343 4.75541193,0.590045294 L0.755411926,2.48447209 Z" id="Rectangle"></path>
+                    <circle id="Oval" cx="5" cy="5" r="1.57142857"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

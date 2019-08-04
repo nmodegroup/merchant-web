@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>mdpi/mine_list_icon_contact</title>
+    <desc>Created with Sketch.</desc>
+    <g id="商家端" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0.0.1图标_商家端" transform="translate(-14.000000, -525.000000)" fill-rule="nonzero">
+            <g id="1-copy-4" transform="translate(0.000000, 507.000000)">
+                <rect id="Rectangle" x="0" y="0" width="375" height="50"></rect>
+                <path d="M21.4598172,27.5228779 C21.9058186,26.6477585 22.8020193,26.0688933 23.810889,26.0688933 C25.275381,26.0688933 26.4585792,27.2775772 26.4585792,28.7637363 C26.4585792,30.2498953 25.275381,31.4585792 23.810889,31.4585792 C23.7750293,31.4584171 23.7750293,31.4584171 23.7518017,31.4577783 C18.7991511,31.4586191 14.7400404,27.4647704 14.5451357,22.452665 C14.5403853,22.3919526 14.5404037,22.2686363 14.5452005,22.0190359 C14.6546125,20.6260769 15.799665,19.5414208 17.1843908,19.5414208 C18.6488829,19.5414208 19.832081,20.7501047 19.832081,22.2362637 C19.832081,23.2252855 19.3035249,24.1129563 18.4881139,24.5825107 C19.0928854,25.8987306 20.1545238,26.9491515 21.4598172,27.5228779 Z" id="mine_list_icon_contact" stroke="#FFFFFF" stroke-width="0.917158405" opacity="0.800000012"></path>
+            </g>
+        </g>
+    </g>
+</svg>

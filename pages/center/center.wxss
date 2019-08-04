@@ -1,0 +1,105 @@
+/* pages/center/center.wxss */
+page {
+  background-color: #11113d;
+}
+
+.center {
+  padding-bottom: 98rpx;
+}
+
+.main {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.user-info {
+  position: relative;
+  width: 100%;
+  height: calc((180 / 375) * 100vw);
+}
+
+.user-info .header-bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.user-wrapper {
+  height: calc((116 / 375) * 100vw);
+  position: absolute;
+  bottom: 0;
+  left: 60rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.avatar {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  border: 4rpx solid #ddd;
+  box-sizing: border-box;
+}
+
+.detail {
+  margin-left: 40rpx;
+}
+
+.username {
+  font-size: 36rpx;
+  color: rgba(255, 255, 255, 1);
+  font-weight: 500;
+}
+
+.phone-auth-btn {
+  background: none;
+  padding: 0;
+  margin: 0;
+  font-size: 28rpx;
+}
+
+.phone-auth {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 12rpx;
+}
+
+.phone-auth > text {
+  font-size: 28rpx;
+}
+
+.phone-auth > image {
+  width: 26rpx;
+  height: 26rpx;
+  margin-left: 20rpx;
+}
+
+.col-item {
+  height: 260rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-image {
+  width: 96rpx;
+  height: 96rpx;
+}
+
+.col-item > text {
+  font-size: 28rpx;
+  margin: 8rpx 0;
+}
+
+.business-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.business-status > text {
+  font-size: 24rpx;
+  margin-right: 16rpx;
+}

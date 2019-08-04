@@ -1,0 +1,4 @@
+<!--pages/activity/activity.wxml-->
+<view class="activity main-container">
+  <nav-bar title="活动"></nav-bar>
+</view>

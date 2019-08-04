@@ -1,0 +1,25 @@
+/* components/cell/index.wxss */
+.cell-container {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.right-icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 30rpx;
+}
+
+.title {
+  flex: 1;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.arrow {
+  width: 12rpx;
+  height: 20rpx;
+  margin-left: 14rpx;
+}

@@ -1,0 +1,17 @@
+.tag-wrapper {
+  min-width: 100rpx;
+  border-radius: 16rpx;
+  text-align: center;
+  display: inline-block;
+  padding: 3rpx 10rpx;
+  color: #fff;
+  font-size: 20rpx;
+}
+
+.tag-wrapper > image {
+  width: 18rpx;
+  height: 18rpx;
+  margin-right: 4rpx;
+  vertical-align: middle;
+  margin-bottom: 2rpx;
+}

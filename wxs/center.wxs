@@ -1,0 +1,12 @@
+function getBusinessStatus(statusChecked) {
+  return statusChecked ? '当前状态：营业中' : '当前状态：休业中';
+}
+
+function getReserveStatus(reserveChecked) {
+  return reserveChecked ? '当前状态：可预定' : '当前状态：不可预定';
+}
+
+module.exports = {
+  getBusinessStatus: getBusinessStatus,
+  getReserveStatus: getReserveStatus
+};

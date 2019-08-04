@@ -1,0 +1,21 @@
+<view>
+  <view class='navbar' style="height: {{navigationBarHeight}}px;background: {{bgColor}}">
+    <view style="height:{{statusBarHeight}}px" />
+    <view class='title-container' style="height: {{navigationBarHeight - statusBarHeight}}px">
+      <view class='capsule' wx:if="{{back || home}}">
+        <block wx:if="{{back}}">
+            <view bindtap="handleBack">
+                <image src="../../image/global/nav-arrow.svg" />
+            </view>
+        </block>
+        <block wx:if="{{home}}">
+            <view bindtap="handleGoHome">
+                <image src="../../image/global/nav_home.svg" />
+            </view>
+        </block>
+      </view>
+      <view class='title'>{{title}}</view>
+    </view>
+  </view>
+  <view wx:if="{{showHolder}}" style="height: {{navigationBarHeight}}px;background:white" />
+</view>

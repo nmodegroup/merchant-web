@@ -1,0 +1,4 @@
+<!--module/pages/code/code.wxml-->
+<view class="code-page">
+  <nav-bar title="商家二维码" back home></nav-bar>
+</view>

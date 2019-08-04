@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>mdpi/mine_list_icon_about</title>
+    <desc>Created with Sketch.</desc>
+    <g id="商家端" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0.0.1图标_商家端" transform="translate(-14.000000, -574.000000)">
+            <g id="1-copy-5" transform="translate(0.000000, 557.000000)">
+                <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="375" height="50"></rect>
+                <g id="mine_list_icon_about" opacity="0.800000012" transform="translate(15.000000, 16.000000)">
+                    <circle id="Oval" stroke="#FFFFFF" stroke-width="0.888888889" fill-rule="nonzero" cx="6.66666667" cy="8.44444444" r="6.22222222"></circle>
+                    <text id="！" font-family="PingFangSC-Regular, PingFang SC" font-size="11.5555556" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="4" y="12">！</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,10 @@
+<view class="cell-container" style="backgroundColor: {{ bgColor }}" bindtap="onCellClick">
+  <block wx:if="{{ showIcon }}">
+    <image class="right-icon" src="{{ iconUrl }}"></image>
+  </block>
+  <text class="title">{{ title }}</text>
+  <slot></slot>
+  <block wx:if="{{ showArrow }}">
+    <image class="arrow" src="../../image/global/cell_arrow.svg"></image>
+  </block>
+</view>

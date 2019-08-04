@@ -1,0 +1,6 @@
+<view class="tag-wrapper" style="background-color:{{ bgColor }}">
+  <block wx:if="{{ showIcon }}">
+    <image src="{{ iconPath }}"></image>
+  </block>
+  {{ title }}
+</view>

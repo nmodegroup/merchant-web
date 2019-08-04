@@ -1,13 +1,56 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/logs/logs"
-  ],
+  "pages": ["pages/home/home", "pages/activity/activity", "pages/center/center"],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white",
+    "navigationStyle": "custom"
+  },
+  "subpackages": [
+    {
+      "root": "module",
+      "pages": [
+        "pages/about/about",
+        "pages/order/order",
+        "pages/code/code",
+        "pages/help/help",
+        "pages/arrival-time/arrival-time",
+        "pages/business-time/business-time"
+      ]
+    }
+  ],
+  "tabBar": {
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "image/global/icon_tab_home.png",
+        "selectedIconPath": "image/global/icon_tab_home_HL.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/activity/activity",
+        "iconPath": "image/global/icon_tab_activity.png",
+        "selectedIconPath": "image/global/icon_tab_activity_HL.png",
+        "text": "活动"
+      },
+      {
+        "pagePath": "pages/center/center",
+        "iconPath": "image/global/icon_tab_mine.png",
+        "selectedIconPath": "image/global/icon_tab_mine_HL.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {
+    "nav-bar": "./components/nav-bar/index",
+    "cell": "./components/cell/index",
+    "van-row": "./components/vant-weapp/row/index",
+    "van-col": "./components/vant-weapp/col/index",
+    "panel": "./components/panel/index",
+    "tag": "./components/tag/index",
+    "van-switch": "./components/vant-weapp/switch/index"
   },
   "sitemapLocation": "sitemap.json"
 }
