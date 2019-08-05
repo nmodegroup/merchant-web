@@ -5,7 +5,10 @@
   <view class="main">
     <!-- 用户信息 -->
     <view class="user-info">
+      <!-- 背景图 -->
       <image class="header-bg" src="../../image/center/center-top-bg.png"></image>
+      <!-- 渐变蒙板 -->
+      <view class="mask"></view>
       <view class="user-wrapper">
         <image class="avatar"></image>
         <view class="detail">
@@ -34,7 +37,7 @@
             <van-col span='12'>
                 <view class='col-item'>
                     <image class='col-image' src="../../image/center/center_seat.png"></image>
-                    <text>店铺信息</text>
+                    <text>桌位管理</text>
                     <tag title='未设定' />
                 </view>
             </van-col>

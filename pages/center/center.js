@@ -2,6 +2,7 @@
 const PageConstant = require('../../constant/page');
 const { throttle } = require('../../utils/throttle-debounce/index');
 const WxManager = require('../../utils/wxManager');
+const httpManager = require('../../lib/request/httpManager');
 
 Page({
   /**
@@ -22,12 +23,20 @@ Page({
     WxManager.getSystemInfo().then(res => {
       this.scrollHeight = res.windowWidth * (180 / 375);
     });
-    // 定义滚动节流函数
+    // 导航栏背景色渐变
     this.scrollThrottle = throttle(100, event => {
       this.setData({
         navBgColor: `rgba(22, 21, 73, ${event.scrollTop / this.scrollHeight})`
       });
     });
+    httpManager
+      .post('/test/stone')
+      .then(res => {
+        console.log('res:', res);
+      })
+      .catch(err => {
+        console.log('err:', err);
+      });
   },
 
   /**
