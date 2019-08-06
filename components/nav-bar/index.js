@@ -1,5 +1,6 @@
 // components/nav-bar/index.js
 const PathConstant = require('../../constant/page');
+const wxManager = require('../../utils/wxManager');
 
 Component({
   /**
@@ -48,24 +49,26 @@ Component({
 
   ready() {
     // 计算标题栏和状态栏高度
-    const systemInfo = wx.getSystemInfoSync();
-    const reg = /ios/i;
-    let pt = 20;
-    let h = 44;
-    if (reg.test(systemInfo.system)) {
-      pt = systemInfo.statusBarHeight;
-      h = 44;
-    } else {
-      pt = systemInfo.statusBarHeight;
-      h = 48;
-    }
+    wxManager.getSystemInfo().then(systemInfo => {
+      console.log('systemInfo:', systemInfo);
+      const reg = /ios/i;
+      let pt = 20;
+      let h = 44;
+      if (reg.test(systemInfo.system)) {
+        pt = systemInfo.statusBarHeight;
+        h = 44;
+      } else {
+        pt = systemInfo.statusBarHeight;
+        h = 48;
+      }
 
-    //计算当前页面是否在栈底
-    const pages = getCurrentPages();
-    this.setData({
-      showBack: this.data.back && pages.length > 1,
-      statusBarHeight: pt,
-      navigationBarHeight: h + pt
+      //计算当前页面是否在栈底
+      const pages = getCurrentPages();
+      this.setData({
+        showBack: this.data.back && pages.length > 1,
+        statusBarHeight: pt,
+        navigationBarHeight: h + pt
+      });
     });
   },
 

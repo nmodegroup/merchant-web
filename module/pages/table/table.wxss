@@ -1,1 +1,60 @@
 /* module/pages/table/table.wxss */
+page {
+  font-size: 30rpx;
+  color: rgb(255, 255, 255);
+  padding-bottom: 98rpx;
+}
+
+.action-item {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-item > image {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.action-item > text {
+  margin-left: 10rpx;
+}
+
+.table-wrapper {
+  padding: 0 4vw;
+}
+
+.table-wrapper .table-panel {
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 40rpx;
+}
+
+.table-wrapper .table-flex {
+  margin: 20rpx 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  width: calc((50 / 375) * 100vw);
+  height: calc((50 / 375) * 100vw);
+  margin-right: calc((9 / 375) * 100vw);
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #456aec;
+  border-radius: 8rpx;
+}
+
+.item:nth-child(6n) {
+  margin-right: 0;
+}
+
+.item .num {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+}

@@ -1,4 +1,33 @@
 /**
+ * 普通路由跳转
+ * @param {string} url    目标页面地址
+ * @param {object} params 携带的参数对象
+ */
+function navigateTo(url, params) {
+  wx.navigateTo({
+    url: joinPath(url, params)
+  });
+}
+
+/**
+ * path 拼接
+ */
+function joinPath(url, params) {
+  if (!params || typeof params !== 'object') {
+    return url;
+  }
+  const keys = Object.keys(params);
+  if (keys && keys.length) {
+    const path = keys.reduce((url, key) => {
+      return `${url}${key}=${params[key]}&`;
+    }, `${url}?`);
+    return path.substring(0, path.length - 1);
+  } else {
+    return url;
+  }
+}
+
+/**
  * 检测当前登录态
  */
 function checkSession() {
@@ -141,10 +170,10 @@ function getSystemInfo() {
 /**
  * 获取系统信息同步方法
  */
-function getStorageInfoSync() {
+function getSystemInfoSync() {
   return new Promise(resolve => {
     try {
-      const res = wx.getStorageInfoSync();
+      const res = wx.getSystemInfoSync();
       resolve(res);
     } catch (e) {
       reject(e);
@@ -153,11 +182,12 @@ function getStorageInfoSync() {
 }
 
 module.exports = {
+  navigateTo,
   checkSession,
   login,
   getUserInfo,
   getLocation,
   saveImageToPhotosAlbum,
   getSystemInfo,
-  getStorageInfoSync
+  getSystemInfoSync
 };

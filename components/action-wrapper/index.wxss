@@ -1,0 +1,13 @@
+/* components/action/index.wxss */
+.action-wrapper {
+  position: fixed;
+  height: 98rpx;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(10, 10, 41, 0.7);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

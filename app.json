@@ -22,7 +22,9 @@
         "pages/arrival-time/arrival-time",
         "pages/business-time/business-time",
         "pages/table/table",
-        "pages/shop/shop"
+        "pages/shop/shop",
+        "pages/table-edit/table-edit",
+        "pages/area/area"
       ]
     }
   ],
@@ -52,8 +54,6 @@
   "usingComponents": {
     "nav-bar": "./components/nav-bar/index",
     "cell": "./components/cell/index",
-    "van-row": "./components/vant-weapp/row/index",
-    "van-col": "./components/vant-weapp/col/index",
     "panel": "./components/panel/index",
     "tag": "./components/tag/index",
     "van-switch": "./components/vant-weapp/switch/index"

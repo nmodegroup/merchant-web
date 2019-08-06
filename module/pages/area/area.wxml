@@ -1,0 +1,4 @@
+<!--module/pages/area/area.wxml-->
+<view class="area-page">
+    <nav-bar title="新增区域" back home></nav-bar>
+</view>

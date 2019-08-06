@@ -1,0 +1,4 @@
+<!--components/action/index.wxml-->
+<view class="action-wrapper">
+    <slot></slot>
+</view>

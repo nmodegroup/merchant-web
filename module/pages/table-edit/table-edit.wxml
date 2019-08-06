@@ -1,0 +1,4 @@
+<!--module/pages/table-edit/table-edit.wxml-->
+<view class="table-edit-page">
+    <nav-bar title="新增桌位" back home></nav-bar>
+</view>
