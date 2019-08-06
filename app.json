@@ -1,5 +1,9 @@
 {
-  "pages": ["pages/home/home", "pages/activity/activity", "pages/center/center"],
+  "pages": [
+    "pages/home/home",
+    "pages/activity/activity",
+    "pages/center/center"
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -16,7 +20,9 @@
         "pages/code/code",
         "pages/help/help",
         "pages/arrival-time/arrival-time",
-        "pages/business-time/business-time"
+        "pages/business-time/business-time",
+        "pages/table/table",
+        "pages/shop/shop"
       ]
     }
   ],

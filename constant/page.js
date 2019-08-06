@@ -16,6 +16,10 @@ const QR_CODE_URL = '/module/pages/code/code';
 
 const HELP_URL = '/module/pages/help/help';
 
+const TABLE_URL = '/module/pages/table/table';
+
+const SHOP_URL = '/module/pages/shop/shop';
+
 module.exports = {
   HOME_URL,
   CENTER_URL,
@@ -25,5 +29,7 @@ module.exports = {
   ORDER_URL,
   QR_CODE_URL,
   HELP_URL,
-  BUSINESS_TIME_URL
+  BUSINESS_TIME_URL,
+  TABLE_URL,
+  SHOP_URL
 };

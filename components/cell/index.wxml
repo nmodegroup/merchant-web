@@ -1,4 +1,5 @@
-<view class="cell-container" style="backgroundColor: {{ bgColor }}" bindtap="onCellClick">
+<view class="cell-container {{ showBorder ? 'cell-border' : '' }}" style="backgroundColor: {{ bgColor }}"
+  bindtap="onCellClick">
   <block wx:if="{{ showIcon }}">
     <image class="right-icon" src="{{ iconUrl }}"></image>
   </block>

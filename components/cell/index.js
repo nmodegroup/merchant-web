@@ -12,7 +12,7 @@ Component({
     /* 是否显示左侧图标 */
     showIcon: {
       type: Boolean,
-      value: false
+      value: true
     },
     /* 单元格背景颜色 */
     bgColor: {
@@ -22,11 +22,17 @@ Component({
     /* 是否显示右侧箭头图片 */
     showArrow: {
       type: Boolean,
-      value: false
+      value: true
     },
+    /* cell 类型， 用于判断显示图片 */
     type: {
       type: String,
       value: ''
+    },
+    /* 是否显示底部 border 边框 */
+    showBorder: {
+      type: Boolean,
+      value: true
     }
   },
 

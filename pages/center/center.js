@@ -61,6 +61,9 @@ Page({
     this.scrollThrottle(event);
   },
 
+  /**
+   * 手机号授权回调
+   */
   handleGetPhoneNUmber() {},
 
   onStatusChange() {
@@ -77,10 +80,18 @@ Page({
     });
   },
 
+  handleColClick(event) {
+    console.log(event);
+    const type = event.currentTarget.dataset.type;
+    const colStrategy = {
+      shop: () => this.navigation(PageConstant.SHOP_URL),
+      table: () => this.navigation(PageConstant.TABLE_URL)
+    };
+    return colStrategy[type] ? colStrategy[type]() : console.error('type error');
+  },
+
   handleCellClick(event) {
-    console.log('event:', event);
     const { type } = event.detail;
-    console.log('PageConstant:', PageConstant);
     const cellStrategy = {
       businessTime: () => this.navigation(PageConstant.BUSINESS_TIME_URL),
       arrivalTime: () => this.navigation(PageConstant.ARRIVAL_TIME_URL),

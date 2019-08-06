@@ -1,8 +1,4 @@
 /* pages/center/center.wxss */
-page {
-  background-color: #11113d;
-}
-
 .center {
   padding-bottom: 98rpx;
 }
@@ -84,7 +80,13 @@ page {
   margin-left: 20rpx;
 }
 
+.item-row {
+  display: flex;
+  flex-direction: row;
+}
+
 .col-item {
+  flex: 1;
   height: 260rpx;
   display: flex;
   flex-direction: column;
@@ -100,6 +102,18 @@ page {
 .col-item > text {
   font-size: 28rpx;
   margin: 8rpx 0;
+}
+
+.line {
+  height: 100%;
+  width: 1px;
+  padding-top: 90rpx;
+}
+
+.line > view {
+  height: 80rpx;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .business-status {

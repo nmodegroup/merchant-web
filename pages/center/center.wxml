@@ -20,57 +20,57 @@
             </view>
           </block>
           <block wx:else>
-            <button class="phone-auth-btn" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhoneNUmber">手机号授权</button>
+            <button class="phone-auth-btn" open-type="getPhoneNumber"
+              bindgetphonenumber="handleGetPhoneNUmber">手机号授权</button>
           </block>
         </view>
       </view>
     </view>
     <!-- 店铺桌位 -->
-    <van-row>
-            <van-col span='12'>
-                <view class='col-item'>
-                    <image class='col-image' src="../../image/center/center_shop.png"></image>
-                    <text>店铺信息</text>
-                    <tag title='审核未通过' showIcon iconPath="../../image/global/icon_reason.svg" />
-                </view>
-            </van-col>
-            <van-col span='12'>
-                <view class='col-item'>
-                    <image class='col-image' src="../../image/center/center_seat.png"></image>
-                    <text>桌位管理</text>
-                    <tag title='未设定' />
-                </view>
-            </van-col>
-        </van-row>
-        <!-- 营业管理 -->
-        <panel title='营业管理' />
-        <cell title='营业时间设置' showArrow showIcon iconType='home' type="businessTime" bind:cellClick="handleCellClick" />
-        <cell title='营业状态设置' showIcon type="businessStatus">
-            <view class='business-status'>
-                <text>{{centerModule.getBusinessStatus(statusChecked)}}</text> 
-                <!--  -->
-                <van-switch checked="{{statusChecked}}" size='18px' active-color='#456AEC' inactive-color='#162766' bind:change="onStatusChange" />
-            </view>
-        </cell>
-        <cell title='预约开关(自动接单)' showIcon type="reserve">
-            <view class='business-status'>
-                <text>{{centerModule.getReserveStatus(reserveChecked)}}</text>
-                <!--  -->
-                <van-switch checked="{{reserveChecked}}" size='18px'  active-color='#456AEC' inactive-color='#162766' bind:change="onReserveChange" />
-            </view>
-        </cell>
-        <cell title='预约到店时间设置' showArrow showIcon type="arrivalTime" bind:cellClick="handleCellClick" >
-            <text class='font-size-24'>设置用户可预约的时间点</text>
-        </cell>
-        <!-- 其他 -->
-        <panel title='其他' />
-        <cell title='订单管理' showArrow showIcon type="order" bind:cellClick="handleCellClick" />
-        <cell title='商家二维码' showArrow showIcon type="qrCode" bind:cellClick="handleCellClick" />
-        <cell title='帮助中心' showArrow showIcon type="help" bind:cellClick="handleCellClick" />
-        <cell title='联系我们' showArrow showIcon type="contact" bind:cellClick="handleCellClick" >
-            <text class='font-size-24'>{{contactPhoneNumber}}</text>
-        </cell>
-        <cell title='关于我们' showArrow showIcon type="about" bind:cellClick="handleCellClick" />
+    <view class="item-row">
+      <view class='col-item' bindtap="handleColClick" data-type="shop">
+        <image class='col-image' src="../../image/center/center_shop.png"></image>
+        <text>店铺信息</text>
+        <tag title='审核未通过' showIcon iconPath="../../image/global/icon_reason.svg" />
+      </view>
+      <view class="line">
         <view></view>
+      </view>
+      <view class='col-item' bindtap="handleColClick" data-type="table">
+        <image class='col-image' src="../../image/center/center_seat.png"></image>
+        <text>桌位管理</text>
+        <tag title='未设定' />
+      </view>
+    </view>
+    <!-- 营业管理 -->
+    <panel title='营业管理' />
+    <cell title='营业时间设置' iconType='home' type="businessTime" bind:cellClick="handleCellClick" />
+    <cell title='营业状态设置' showArrow="{{ false }}" type="businessStatus">
+      <view class='business-status'>
+        <text>{{centerModule.getBusinessStatus(statusChecked)}}</text>
+        <van-switch checked="{{statusChecked}}" size='18px' active-color='#456AEC' inactive-color='#162766'
+          bind:change="onStatusChange" />
+      </view>
+    </cell>
+    <cell title='预约开关(自动接单)' showArrow="{{ false }}" type="reserve">
+      <view class='business-status'>
+        <text>{{centerModule.getReserveStatus(reserveChecked)}}</text>
+        <van-switch checked="{{reserveChecked}}" size='18px' active-color='#456AEC' inactive-color='#162766'
+          bind:change="onReserveChange" />
+      </view>
+    </cell>
+    <cell title='预约到店时间设置' showBorder="{{ false }}" type="arrivalTime" bind:cellClick="handleCellClick">
+      <text class='font-size-24'>设置用户可预约的时间点</text>
+    </cell>
+    <!-- 其他 -->
+    <panel title='其他' />
+    <cell title='订单管理' type="order" bind:cellClick="handleCellClick" />
+    <cell title='商家二维码' type="qrCode" bind:cellClick="handleCellClick" />
+    <cell title='帮助中心' type="help" bind:cellClick="handleCellClick" />
+    <cell title='联系我们' type="contact" bind:cellClick="handleCellClick">
+      <text class='font-size-24'>{{contactPhoneNumber}}</text>
+    </cell>
+    <cell title='关于我们' type="about" bind:cellClick="handleCellClick" />
+    <view></view>
   </view>
 </view>

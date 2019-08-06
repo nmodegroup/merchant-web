@@ -1,0 +1,4 @@
+<!--module/pages/shop/shop.wxml-->
+<view class="shop-page">
+    <nav-bar title="NIGHT MODE" back home></nav-bar>
+</view>
