@@ -1,9 +1,5 @@
 {
-  "pages": [
-    "pages/home/home",
-    "pages/activity/activity",
-    "pages/center/center"
-  ],
+  "pages": ["pages/home/home", "pages/activity/activity", "pages/center/center"],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -24,12 +20,13 @@
         "pages/table/table",
         "pages/shop/shop",
         "pages/table-edit/table-edit",
-        "pages/area/area"
+        "pages/area/area",
+        "pages/area-edit/area-edit"
       ]
     }
   ],
   "tabBar": {
-    "custom": true,
+    "custom": false,
     "list": [
       {
         "pagePath": "pages/home/home",
@@ -56,7 +53,11 @@
     "cell": "./components/cell/index",
     "panel": "./components/panel/index",
     "tag": "./components/tag/index",
-    "van-switch": "./components/vant-weapp/switch/index"
+    "van-switch": "./components/vant-weapp/switch/index",
+    "action-wrapper": "./components/action-wrapper/index",
+    "action-bottom": "/components/action-bottom/index",
+    "cell-input": "/components/cell-input/index",
+    "toast": "/components/toast/index"
   },
   "sitemapLocation": "sitemap.json"
 }

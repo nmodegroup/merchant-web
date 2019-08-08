@@ -1,0 +1,15 @@
+<!--module/pages/area-edit/area-edit.wxml-->
+<view class="area-edit-page">
+    <nav-bar title="{{title}}" back home></nav-bar>
+    <cell-input title="门店名称">
+        <input class="input-view" placeholder-class="placeholder" value="{{areaName}}" maxlength="10"
+            placeholder="请填写区域名称(如：包房，大厅，吧台等)" bindinput="handleInput" />
+    </cell-input>
+    <block wx:if="{{!isEdit}}">
+        <action-bottom bind:click="handleCreateArea" />
+    </block>
+    <block wx:if="{{isEdit}}">
+        <action-bottom single="{{ false }}" rightText="删除" bind:click="handleEditArea" />
+    </block>
+    <toast id="toast"></toast>
+</view>

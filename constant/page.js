@@ -24,6 +24,8 @@ const SHOP_URL = '/module/pages/shop/shop';
 
 const AREA_URL = '/module/pages/area/area';
 
+const AREA_EDIT_URL = '/module/pages/area-edit/area-edit';
+
 module.exports = {
   HOME_URL,
   CENTER_URL,
@@ -37,5 +39,6 @@ module.exports = {
   TABLE_URL,
   TABLE_EDIT_URL,
   SHOP_URL,
-  AREA_URL
+  AREA_URL,
+  AREA_EDIT_URL
 };

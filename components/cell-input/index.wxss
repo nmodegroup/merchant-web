@@ -1,0 +1,34 @@
+/* components/cell-input/index.wxss */
+
+.cell-input {
+  display: flex;
+  flex-direction: row;
+  height: 100rpx;
+  align-items: center;
+}
+
+.title {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-left: 30rpx;
+}
+
+.wrapper {
+  flex: 1;
+}
+
+.cell-border {
+  position: relative;
+}
+
+.cell-border::after {
+  content: '';
+  position: absolute;
+  left: 30rpx;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform-origin: 0 0;
+  transform: scaleY(0.5);
+}

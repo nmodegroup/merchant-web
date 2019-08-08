@@ -1,0 +1,9 @@
+<view class='wx-toast-box' animation="{{animationData}}">
+  <view class='wx-toast-content-base {{ iconImg ? "wx-toast-content-with-icon" : "wx-toast-content" }}'>
+    <view class="tips-img-bar" wx:if="{{iconImg}}">
+      <image class="tips-img" src="{{iconImg}}"></image>
+    </view>
+    <text class='wx-toast-toast'>{{ content }}</text>
+    <text class='wx-toast-toast' wx:if="{{multContent}}">{{ multContent }}</text>
+  </view>
+</view>

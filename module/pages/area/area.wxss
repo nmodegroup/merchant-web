@@ -1,1 +1,23 @@
 /* module/pages/area/area.wxss */
+.area-page {
+  padding-bottom: 98rpx;
+}
+
+.action-item {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-item > image {
+  width: 26rpx;
+  height: 26rpx;
+}
+
+.action-item > text {
+  font-size: 30rpx;
+  color: #fff;
+  margin-left: 10rpx;
+}

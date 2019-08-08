@@ -1,0 +1,8 @@
+<!--components/cell-input/index.wxml-->
+
+<view class="cell-input cell-border">
+    <view class="title">{{title}}</view>
+    <view class="wrapper">
+        <slot></slot>
+    </view>
+</view>

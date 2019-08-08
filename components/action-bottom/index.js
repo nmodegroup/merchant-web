@@ -4,20 +4,33 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    single: {
+      type: Boolean,
+      value: true
+    },
+    leftText: {
+      type: String,
+      value: '保存'
+    },
+    rightText: {
+      type: String,
+      value: '确认创建'
+    }
   },
 
   /**
    * 组件的初始数据
    */
-  data: {
-
-  },
+  data: {},
 
   /**
    * 组件的方法列表
    */
   methods: {
-
+    handleClick(event) {
+      const { type } = event.currentTarget.dataset;
+      const myEventDetail = { type: type };
+      this.triggerEvent('click', myEventDetail);
+    }
   }
-})
+});

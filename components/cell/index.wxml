@@ -1,9 +1,9 @@
-<view class="cell-container {{ showBorder ? 'cell-border' : '' }}" style="backgroundColor: {{ bgColor }}"
-  bindtap="onCellClick">
+<view class="cell-container {{ !showBorder ? '' : showIcon ? 'cell-border' : 'cell-border-two' }}"
+  style="backgroundColor: {{ bgColor }}" bindtap="onCellClick">
   <block wx:if="{{ showIcon }}">
     <image class="right-icon" src="{{ iconUrl }}"></image>
   </block>
-  <text class="title">{{ title }}</text>
+  <div class="title">{{ title }}</div>
   <slot></slot>
   <block wx:if="{{ showArrow }}">
     <image class="arrow" src="../../image/global/cell_arrow.svg"></image>

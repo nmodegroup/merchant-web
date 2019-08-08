@@ -1,2 +1,13 @@
 <!--components/action-buttom/index.wxml-->
-<text>components/action-buttom/index.wxml</text>
+<view class="action-container">
+    <block wx:if="{{!single}}">
+        <view class="btn-common left-btn" bindtap="handleClick" data-type="left">
+            {{leftText}}
+        </view>
+    </block>
+    <block>
+        <view class="btn-common right-btn" bindtap="handleClick" data-type="right">
+            {{rightText}}
+        </view>
+    </block>
+</view>
