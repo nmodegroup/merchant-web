@@ -4,7 +4,7 @@
 
 初始化
 
-```
+```javascript
 # 1、app.json 全局引入或者当前页面 .json 文件引入
 "toast": "/components/toast/index"
 
@@ -17,29 +17,28 @@ this.toast = this.selectComponent('#toast');
 
 单行文字 toast
 
-```
-      this.toast.showToast({
-        content: '区域名2-10个字符'
-      });
-
+```javascript
+this.toast.showToast({
+  content: '区域名2-10个字符'
+});
 ```
 
 多行文字 toast
 
-```
-      this.toast.showToast({
-        content: '区域名2-10个字符',
-        multContent: '可包含中文字母数字'
-      });
+```javascript
+this.toast.showToast({
+  content: '区域名2-10个字符',
+  multContent: '可包含中文字母数字'
+});
 ```
 
 需要显示图标 toast
 
-```
-      return this.toast.showToast({
-        content: '区域名2-10个字符',
-        icon: 'success'
-      });
+```javascript
+return this.toast.showToast({
+  content: '区域名2-10个字符',
+  icon: 'success'
+});
 ```
 
 ### API
