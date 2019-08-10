@@ -181,6 +181,21 @@ function getSystemInfoSync() {
   });
 }
 
+/**
+ * 显示 loading 提示框
+ */
+function showLoading(title) {
+  title = title ? title : '';
+  wx.showLoading({
+    title: title,
+    mask: true
+  });
+}
+
+function hideLoading() {
+  wx.hideLoading();
+}
+
 module.exports = {
   navigateTo,
   checkSession,
@@ -189,5 +204,7 @@ module.exports = {
   getLocation,
   saveImageToPhotosAlbum,
   getSystemInfo,
-  getSystemInfoSync
+  getSystemInfoSync,
+  showLoading,
+  hideLoading
 };

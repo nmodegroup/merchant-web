@@ -1,4 +1,23 @@
 <!--module/pages/table-edit/table-edit.wxml-->
 <view class="table-edit-page">
-    <nav-bar title="新增桌位" back home></nav-bar>
+    <nav-bar title="{{title}}" back home></nav-bar>
+    <cell title="区域名称" showIcon="{{false}}">
+        <text class="area-name">{{areaName}}</text>
+    </cell>
+    <cell-input title="桌位名称">
+        <input class="input-view" placeholder-class="placeholder" value="{{tableName}}" maxlength="10"
+            placeholder="请填写桌位名称（例如编号，花名等)" bindinput="handleInput" data-type="name" />
+    </cell-input>
+
+    <cell-input title="桌位人数">
+        <input class="input-view" placeholder-class="placeholder" value="{{tableNum}}" maxlength="10"
+            placeholder="请填写桌位最多容纳人数" bindinput="handleInput" data-type="num" />
+    </cell-input>
+    <block wx:if="{{!isEdit}}">
+        <action-bottom bind:click="handleCreateTable" />
+    </block>
+    <block wx:if="{{isEdit}}">
+        <action-bottom single="{{ false }}" rightText="删除" bind:click="handleEditTable" />
+    </block>
+    <toast id="toast"></toast>
 </view>

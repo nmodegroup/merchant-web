@@ -1,5 +1,6 @@
 // module/pages/table/table.js
 const pageConstant = require('../../../constant/page');
+const pageFlag = require('../../../constant/pageFlag');
 const wxManager = require('../../../utils/wxManager');
 Page({
   /**
@@ -92,7 +93,25 @@ Page({
     if (type === 'area') {
       wxManager.navigateTo(pageConstant.AREA_URL);
     } else {
-      wxManager.navigateTo(pageConstant.TABLE_EDIT_URL);
+      wxManager.navigateTo(pageConstant.TABLE_EDIT_URL, {
+        flag: pageFlag.TABLE_CREATE
+      });
     }
+  },
+
+  /**
+   * 编辑桌位
+   */
+  handleTableItemClick(event) {
+    console.log(event);
+    const { areaname, areaid, item } = event.currentTarget.dataset;
+    wxManager.navigateTo(pageConstant.TABLE_EDIT_URL, {
+      flag: pageFlag.TABLE_EDIT,
+      areaName: areaname,
+      areaId: areaid,
+      tableName: item.name,
+      tableId: item.id,
+      tableNum: item.num
+    });
   }
 });

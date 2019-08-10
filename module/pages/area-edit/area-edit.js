@@ -32,12 +32,14 @@ Page({
   initData({ flag = PageFlag.AREA_CREATE, areaName }) {
     if (flag === PageFlag.AREA_CREATE) {
       this.setData({
-        title: '新增区域'
+        title: '新增区域',
+        isEdit: false
       });
     } else if (flag === PageFlag.AREA_EDIT) {
       this.setData({
         title: '编辑区域',
-        areaName: areaName
+        areaName: areaName,
+        isEdit: true
       });
     }
   },
@@ -60,7 +62,7 @@ Page({
    * @param {object} event
    */
   handleEditArea(event) {
-    const { type } = event.currentTarget.dataset;
+    const { type } = event.detail;
     if (type === 'left') {
       wx.showToast({
         title: '保存'
@@ -73,7 +75,6 @@ Page({
   },
 
   handleInput(event) {
-    console.log(event);
     const { value } = event.detail;
     this.setData({
       areaName: value
