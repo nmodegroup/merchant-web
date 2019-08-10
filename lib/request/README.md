@@ -72,7 +72,7 @@ const tableService = require('../../../service/table');
 
 ③ 如果需要 mock 数据，只需在开发阶段替换对应的 uri，mock 的 url 需为完整路径
 
-```
+```javascript
 const httpManager = require('../lib/request/httpManager');
 
 /**
@@ -91,8 +91,6 @@ export function getTableAreaList() {
       });
   });
 }
-
-
 ```
 
 ④ resolve 与 reject 数据说明
