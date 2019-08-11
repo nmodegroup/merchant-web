@@ -1,0 +1,50 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-11 11:42:54
+ * @LastEditTime: 2019-08-11 15:07:00
+ * @LastEditors: Please set LastEditors
+ */
+var TODAY = 1; // 今日预定
+var FUTURE = 2; // 未来订单
+var HISTORY = 3; // 历史订单
+
+function isToday(type) {
+  return TODAY === type;
+}
+
+function isFuture(type) {
+  return FUTURE === type;
+}
+
+function isHistory(type) {
+  return HISTORY === type;
+}
+
+function getOrderStatusTitle(status) {
+  switch (status) {
+    case 0:
+      return '等待确认';
+    case 1:
+      return '已确认';
+    case 2:
+      return '未通过确认';
+    case 3:
+      return '已取消';
+    case 4:
+      return '超时取消';
+    case 5:
+      return '已到店';
+    case 5:
+      return '已到店';
+    default:
+      return '';
+  }
+}
+
+module.exports = {
+  isToday: isToday,
+  isFuture: isFuture,
+  isHistory: isHistory,
+  getOrderStatusTitle: getOrderStatusTitle
+};

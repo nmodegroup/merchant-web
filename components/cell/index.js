@@ -1,11 +1,17 @@
 // components/cell/index.js
 Component({
+  externalClasses: ['cell-extra'],
   /**
    * 组件的属性列表
    */
   properties: {
     /* 标题 */
     title: {
+      type: String,
+      value: ''
+    },
+    /* 二级次要内容, 位于标题下方 */
+    minor: {
       type: String,
       value: ''
     },

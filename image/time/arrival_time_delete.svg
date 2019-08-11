@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>mdpi/time_icon_delete</title>
+    <desc>Created with Sketch.</desc>
+    <g id="商家端" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.600000024">
+        <g id="0.0.1图标_商家端" transform="translate(-137.000000, -971.000000)" fill-rule="nonzero" stroke="#FFFFFF">
+            <g id="time_icon_delete" transform="translate(138.000000, 972.000000)">
+                <path d="M14.1176471,2.82352941 L14.1176471,13.6470588 C14.1176471,14.9465524 13.0641994,16 11.7647059,16 L4.23529412,16 C2.93580059,16 1.88235294,14.9465524 1.88235294,13.6470588 L1.88235294,2.82352941" id="Rectangle"></path>
+                <path d="M11.2941176,0 L11.2941176,0.705882353 C11.2941176,1.35562912 10.7673938,1.88235294 10.1176471,1.88235294 L5.88235294,1.88235294 C5.23260618,1.88235294 4.70588235,1.35562912 4.70588235,0.705882353 L4.70588235,0" id="Rectangle" transform="translate(8.000000, 0.941176) scale(1, -1) translate(-8.000000, -0.941176) "></path>
+                <path d="M2.30926389e-14,2.35294118 L16,2.35294118" id="Path-7" stroke-linecap="round"></path>
+                <path d="M8,5.64705882 L8,13.0143955" id="Path-8" stroke-linecap="round"></path>
+                <path d="M5.17647059,7.16722866 L5.17647059,11.9624129" id="Path-8-Copy" stroke-linecap="round"></path>
+                <path d="M10.8235294,7.16722866 L10.8235294,11.9624129" id="Path-8-Copy-2" stroke-linecap="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

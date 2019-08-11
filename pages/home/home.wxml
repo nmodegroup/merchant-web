@@ -1,2 +1,28 @@
 <!--pages/home/home.wxml-->
-<nav-bar title="NIGHT MODE"></nav-bar>
+<wxs src="../../wxs/order.wxs" module="orderModule" />
+
+<view class="home-page">
+    <nav-bar title="NIGHT MODE"></nav-bar>
+    <view class="tab-container">
+        <block wx:for="{{tabList}}" wx:key="index">
+            <view class="tab {{ item.checked ? 'tab-checked' : '' }}" bindtap="handleTabChange" data-tab="{{item}}"
+                data-index="{{index}}">
+                {{item.title}}</view>
+        </block>
+    </view>
+    <block wx:if="{{ orderModule.isToday(currentType) }}">
+        <block wx:for="{{todayList}}" wx:key="index">
+            <order-item order="{{item}}"></order-item>
+        </block>
+    </block>
+    <block wx:if="{{ orderModule.isFuture(currentType) }}">
+        <block wx:for="{{futureList}}" wx:key="index">
+            <order-item order="{{futureList}}"></order-item>
+        </block>
+    </block>
+    <block wx:if="{{ orderModule.isHistory(currentType) }}">
+        <block wx:for="{{historyList}}" wx:key="index">
+            <order-item order="{{historyList}}"></order-item>
+        </block>
+    </block>
+</view>

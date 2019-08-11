@@ -1,4 +1,0 @@
-<!--module/pages/business-time/business-time.wxml-->
-<view class="business-page">
-  <nav-bar title="营业时间" back home></nav-bar>
-</view>

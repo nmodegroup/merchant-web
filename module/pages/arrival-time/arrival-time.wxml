@@ -1,4 +1,0 @@
-<!--module/pages/arrival-time/arrival-time.wxml-->
-<view class="arrival-page">
-  <nav-bar title="预约到店时间" back home></nav-bar>
-</view>

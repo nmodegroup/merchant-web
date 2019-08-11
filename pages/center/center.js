@@ -29,14 +29,6 @@ Page({
         navBgColor: `rgba(22, 21, 73, ${event.scrollTop / this.scrollHeight})`
       });
     });
-    httpManager
-      .post('/test/stone')
-      .then(res => {
-        console.log('res:', res);
-      })
-      .catch(err => {
-        console.log('err:', err);
-      });
   },
 
   /**

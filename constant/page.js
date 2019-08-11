@@ -1,44 +1,34 @@
-const HOME_URL = '/pages/home/home';
+/* 主包 pages */
+export const HOME_URL = '/pages/home/home';
 
-const CENTER_URL = '/pages/center/center';
+export const CENTER_URL = '/pages/center/center';
 
-const ACTIVITY_URL = '/pages/activity/activity';
+export const ACTIVITY_URL = '/pages/activity/activity';
 
-const BUSINESS_TIME_URL = '/module/pages/business-time/business-time';
+/* 分包 module */
 
-const ABOUT_URL = '/module/pages/about/about';
+export const ABOUT_URL = '/module/pages/about/about';
 
-const ARRIVAL_TIME_URL = '/module/pages/arrival-time/arrival-time';
+export const ORDER_URL = '/module/pages/order/order';
 
-const ORDER_URL = '/module/pages/order/order';
+export const QR_CODE_URL = '/module/pages/code/code';
 
-const QR_CODE_URL = '/module/pages/code/code';
+export const HELP_URL = '/module/pages/help/help';
 
-const HELP_URL = '/module/pages/help/help';
+export const TABLE_URL = '/module/pages/table/table';
 
-const TABLE_URL = '/module/pages/table/table';
+export const TABLE_EDIT_URL = '/module/pages/table-edit/table-edit';
 
-const TABLE_EDIT_URL = '/module/pages/table-edit/table-edit';
+export const SHOP_URL = '/module/pages/shop/shop';
 
-const SHOP_URL = '/module/pages/shop/shop';
+export const AREA_URL = '/module/pages/area/area';
 
-const AREA_URL = '/module/pages/area/area';
+export const AREA_EDIT_URL = '/module/pages/area-edit/area-edit';
 
-const AREA_EDIT_URL = '/module/pages/area-edit/area-edit';
+/* 分包 module-business */
 
-module.exports = {
-  HOME_URL,
-  CENTER_URL,
-  ACTIVITY_URL,
-  ABOUT_URL,
-  ARRIVAL_TIME_URL,
-  ORDER_URL,
-  QR_CODE_URL,
-  HELP_URL,
-  BUSINESS_TIME_URL,
-  TABLE_URL,
-  TABLE_EDIT_URL,
-  SHOP_URL,
-  AREA_URL,
-  AREA_EDIT_URL
-};
+export const BUSINESS_TIME_URL = '/module-business/pages/business-time/business-time';
+
+export const ARRIVAL_TIME_URL = '/module-business/pages/arrival-time/arrival-time';
+
+export const BUSINESS_TIME_EDIT_URL = '/module-business/pages/business-time-edit/business-time-edit';

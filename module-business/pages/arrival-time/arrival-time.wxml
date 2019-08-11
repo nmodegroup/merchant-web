@@ -1,0 +1,25 @@
+<!--module/pages/arrival-time/arrival-time.wxml-->
+<view class="arrival-page">
+  <nav-bar title="预约到店时间" back home></nav-bar>
+  <van-swipe-cell id="swipe-cell" right-width="{{ 67 }}" async-close bind:close="handleClose">
+    <cell cell-extra="cell-extra" title="20:00" showIcon="{{false}}" showArrow="{{false}}">
+      <view class="switch-wrapper">
+        <van-switch checked="{{arrivalChecked}}" size='20px' active-color='#456AEC' inactive-color='#162766'
+          bind:change="handleSwitchChange" />
+      </view>
+    </cell>
+    <view slot="right" class="delete">
+      <image src="../../../image/time/arrival_time_delete.svg"></image>
+      <view>删除</view>
+    </view>
+  </van-swipe-cell>
+  <view class="desc">
+    <text>解释说明 \n1.到店时间为用户预约时可选的到到店时间 \n2.设置合理的时间可避免店铺桌位浪费 \n3.可以合理的管理用户预订信息</text>
+  </view>
+  <action-wrapper>
+    <view class="action-item" bindtap="handleActionClick">
+      <image src="../../../image/table/table_add.svg"></image>
+      <text>新增预约到店时间</text>
+    </view>
+  </action-wrapper>
+</view>

@@ -1,0 +1,23 @@
+<!--components/order-item/index.wxml-->
+<wxs src="../../wxs/order.wxs" module="orderModule" />
+
+<view class="item">
+    <view class="name-status">
+        <view class="table-name">{{order.tableAreaName}}</view>
+        <view class="order-status">{{orderModule.getOrderStatusTitle(order.status)}}</view>
+    </view>
+    <view class="num-code">
+        <view class="table-num">{{order.tableNum}}人</view>
+        <block wx:if="{{order.confirmCode}}">
+            <view class="confirm-code">{{order.confirmCode}}</view>
+        </block>
+    </view>
+    <view class="user-time-action">
+        <view class="user-time-info">
+            <view class="arrival-time">到店时间：{{order.appointArriveTime}}</view>
+            <view class="reserve-time">预订时间：{{order.appointTime}}</view>
+            <view class="user-info">{{order.nickName + " " + order.phone}}</view>
+        </view>
+        <view class="confirm-btn">确认预定</view>
+    </view>
+</view>

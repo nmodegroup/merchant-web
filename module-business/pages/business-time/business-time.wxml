@@ -1,0 +1,43 @@
+<!--module/pages/business-time/business-time.wxml-->
+<view class="business-page">
+  <nav-bar title="营业时间" back home></nav-bar>
+  <!-- 商铺营业时间 -->
+  <block>
+    <van-swipe-cell id="swipe-cell" right-width="{{ 67 }}" async-close bind:close="handleClose">
+      <cell cell-extra="cell-extra" title="20:00 - 凌晨2：00" minor="周一 周二 周三 周四 周五" showIcon="{{false}}"
+        showArrow="{{false}}">
+        <view class="switch-wrapper">
+          <van-switch checked="{{checked}}" size='20px' active-color='#456AEC' inactive-color='#162766'
+            bind:change="handleSwitchChange" />
+        </view>
+      </cell>
+      <view slot="right" class="delete">
+        <image src="../../../image/time/arrival_time_delete.svg"></image>
+        <view>删除</view>
+      </view>
+    </van-swipe-cell>
+  </block>
+  <!-- 商铺特殊时间 -->
+  <block>
+    <van-swipe-cell id="swipe-cell" right-width="{{ 67 }}" async-close bind:close="handleClose">
+      <cell cell-extra="cell-extra" title="20:00 - 凌晨2：00" minor="特殊日期，该日不可预订" showIcon="{{false}}"
+        showArrow="{{false}}">
+        <image class="icon-special" src="../../../image/time/time_icon_special.svg"></image>
+      </cell>
+      <view slot="right" class="delete">
+        <image src="../../../image/time/arrival_time_delete.svg"></image>
+        <view>删除</view>
+      </view>
+    </van-swipe-cell>
+  </block>
+  <!-- 特殊日期设定 -->
+  <view class="setting-special-time">
+    特殊日期设定
+  </view>
+  <action-wrapper>
+    <view class="action-item" bindtap="handleActionClick">
+      <image src="../../../image/table/table_add.svg"></image>
+      <text>新增预约到店时间</text>
+    </view>
+  </action-wrapper>
+</view>

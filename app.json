@@ -15,14 +15,16 @@
         "pages/order/order",
         "pages/code/code",
         "pages/help/help",
-        "pages/arrival-time/arrival-time",
-        "pages/business-time/business-time",
         "pages/table/table",
         "pages/shop/shop",
         "pages/table-edit/table-edit",
         "pages/area/area",
         "pages/area-edit/area-edit"
       ]
+    },
+    {
+      "root": "module-business",
+      "pages": ["pages/arrival-time/arrival-time", "pages/business-time/business-time", "pages/business-time-edit/business-time-edit"]
     }
   ],
   "tabBar": {
