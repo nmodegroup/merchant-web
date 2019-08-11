@@ -45,18 +45,22 @@
     <!-- 营业管理 -->
     <panel title='营业管理' />
     <cell title='营业时间设置' iconType='home' type="businessTime" bind:cellClick="handleCellClick" />
-    <cell title='营业状态设置' showArrow="{{ false }}" type="businessStatus">
+    <cell cell-extra="cell-extra" title='营业状态设置' showArrow="{{ false }}" type="businessStatus">
       <view class='business-status'>
         <text>{{centerModule.getBusinessStatus(statusChecked)}}</text>
-        <van-switch checked="{{statusChecked}}" size='18px' active-color='#456AEC' inactive-color='#162766'
-          bind:change="onStatusChange" />
+        <view class="switch-wrapper">
+          <van-switch checked="{{statusChecked}}" size='18px' active-color='#456AEC' inactive-color='#162766'
+            bind:change="onStatusChange" />
+        </view>
       </view>
     </cell>
-    <cell title='预约开关(自动接单)' showArrow="{{ false }}" type="reserve">
+    <cell cell-extra="cell-extra" title='预约开关(自动接单)' showArrow="{{ false }}" type="reserve">
       <view class='business-status'>
         <text>{{centerModule.getReserveStatus(reserveChecked)}}</text>
-        <van-switch checked="{{reserveChecked}}" size='18px' active-color='#456AEC' inactive-color='#162766'
-          bind:change="onReserveChange" />
+        <view class="switch-wrapper">
+          <van-switch checked="{{reserveChecked}}" size='18px' active-color='#456AEC' inactive-color='#162766'
+            bind:change="onReserveChange" />
+        </view>
       </view>
     </cell>
     <cell title='预约到店时间设置' showBorder="{{ false }}" type="arrivalTime" bind:cellClick="handleCellClick">

@@ -1,47 +1,45 @@
-// pages/activity/activity.js
-const wxManager = require('../../utils/wxManager');
-const PageConstant = require('../../constant/page');
-const activityService = require('../../service/activity');
+// module-business/pages/activity-user/activity-user.js
+const activityService = require('../../../service/activity');
+const wxManager = require('../../../utils/wxManager');
 
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    activityList: []
+    tabList: [
+      {
+        title: '微信昵称'
+      },
+      {
+        title: '电话号码'
+      },
+      {
+        title: '预定时间'
+      }
+    ],
+    userList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.id = options.id;
     this.initPageConfig();
+    this.requestUserList();
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-      this.getTabBar().setData({
-        selected: 1
-      });
-    }
-    this.requestActivityList();
-  },
-
-  handleGoReserveDetail(event) {
-    console.log(event);
-    wxManager.navigateTo(PageConstant.ACTIVITY_USER_URL, {
-      id: event.currentTarget.dataset.id
-    });
-  },
+  onShow: function() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    this.requestActivityList();
+    this.requestUserList();
   },
 
   /**
@@ -51,7 +49,7 @@ Page({
     if (!this.hasmore) {
       return false;
     }
-    this.requestActivityList(this.pageNum + 1);
+    this.requestUserList(this.pageNum + 1);
   },
 
   /**
@@ -59,7 +57,7 @@ Page({
    */
   initPageConfig() {
     this.pageNum = 1;
-    this.pageSize = 10;
+    this.pageSize = 20;
   },
 
   /**
@@ -68,6 +66,7 @@ Page({
    */
   queryParams(currentPage = this.pageNum) {
     return {
+      id: this.id,
       pageNum: currentPage,
       pageSize: this.pageSize
     };
@@ -87,17 +86,17 @@ Page({
     this.hasmore = this.pageSize * (remotePageNum - 1) + remotePageSize < totalSize;
   },
 
-  requestActivityList(currentPage = 1) {
+  requestUserList(currentPage = 1) {
     wxManager.showLoading();
     const params = this.queryParams(currentPage);
     activityService
-      .getActivityList(params)
+      .getActivityUser(params)
       .then(result => {
         this.setPageNum(currentPage);
         this.checkHasmore(result.pageNum, result.pageSize, result.totalSize);
-        const oldList = this.data.activityList;
+        const oldList = this.data.userList;
         this.setData({
-          activityList: currentPage === 1 ? result.list : oldList.concat(result.list)
+          userList: currentPage === 1 ? result.list : oldList.concat(result.list)
         });
         wxManager.stopRefreshAndLoading();
       })
@@ -107,10 +106,7 @@ Page({
       });
   },
 
-  /**
-   * 审核失败原因
-   */
-  handleShowReason(event) {
-    console.log(event);
+  makeCall(event) {
+    wxManager.makePhoneCall(event.currentTarget.dataset.phone);
   }
 });

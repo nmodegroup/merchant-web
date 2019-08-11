@@ -1,4 +1,8 @@
 /* pages/center/center.wxss */
+page {
+  background: #15153e;
+}
+
 .center {
   padding-bottom: 98rpx;
 }
@@ -125,4 +129,9 @@
 .business-status > text {
   font-size: 24rpx;
   margin-right: 16rpx;
+}
+
+/* cell 单元格扩展样式 */
+.cell-extra {
+  padding: 24rpx 30rpx !important;
 }

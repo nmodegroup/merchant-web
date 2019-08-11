@@ -11,7 +11,6 @@
 .tag-wrapper > image {
   width: 18rpx;
   height: 18rpx;
-  margin-right: 4rpx;
   vertical-align: middle;
   margin-bottom: 2rpx;
 }

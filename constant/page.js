@@ -32,3 +32,5 @@ export const BUSINESS_TIME_URL = '/module-business/pages/business-time/business-
 export const ARRIVAL_TIME_URL = '/module-business/pages/arrival-time/arrival-time';
 
 export const BUSINESS_TIME_EDIT_URL = '/module-business/pages/business-time-edit/business-time-edit';
+
+export const ACTIVITY_USER_URL = '/module-business/pages/activity-user/activity-user';

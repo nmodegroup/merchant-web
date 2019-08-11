@@ -1,4 +1,74 @@
 <!--pages/activity/activity.wxml-->
-<view class="activity main-container">
+<wxs src="../../wxs/activity.wxs" module="activityModule" />
+
+<view class="main-container">
   <nav-bar title="活动"></nav-bar>
+  <view class="activity-page">
+    <!-- 创建活动 -->
+    <view class="create-activity">
+      <image src="../../image/activity/icon_add.svg"></image>
+      <text>创建活动</text>
+    </view>
+    <!-- 活动列表 -->
+    <block wx:for="{{activityList}}" wx:key="index">
+      <view class="activity-item">
+        <view class="banner-wrapper">
+          <image src="{{item.banner}}"></image>
+          <view>剩余：{{ activityModule.getRemainTitle(item.num) }}</view>
+        </view>
+        <view class="activity-info">
+          <view class="name-location">
+            <view class="activity-name">{{item.theme}}</view>
+            <view class="activity-location">
+              <image src="../../image/activity/icon_location.svg"></image>
+              <text>南山区</text>
+            </view>
+          </view>
+          <view class="activity-reserve">
+            <view class="left">
+              <view class="reserve-detail" bindtap="handleGoReserveDetail" data-id="{{item.id}}">
+                <view>{{item.orderNum}}人预订</view>
+                <view class="go-detail">查看详情</view>
+              </view>
+              <!-- TODO: 时间处理 -->
+              <view>活动时间：{{item.beginTime}}</view>
+            </view>
+            <!-- 审核未通过 -->
+            <block wx:if="{{ activityModule.isAuditFail(item.auditStatus) }}">
+              <view class="right">
+                <tag title='审核未通过' showIcon iconPath="../../image/global/icon_reason.svg"
+                  bind:tagClick="handleShowReason" data-reason="{{item.reason}}" />
+              </view>
+            </block>
+            <!-- 审核中... -->
+            <block wx:elif="{{ activityModule.isAuditing(item.auditStatus) }}">
+              <view class="right">
+                <tag title='审核中' showIcon="{{false}}" bgColor="#456AEC" />
+              </view>
+            </block>
+            <!-- 开放预定中 -->
+            <block wx:elif="{{ activityModule.isAuditSuccessAndOpen(item.auditStatus, item.onStatus) }}">
+              <view class="right">
+                <view class="switch-wrapper">
+                  <van-switch checked="{{true}}" size='18px' active-color='#456AEC' inactive-color='#162766'
+                    bind:change="onStatusChange" />
+                </view>
+                <view class="reserve-status">开放预定中</view>
+              </view>
+            </block>
+            <!-- 暂停预定 -->
+            <block wx:elif="{{ activityModule.isAuditSuccessAndClose(item.auditStatus, item.onStatus) }}">
+              <view class="right">
+                <view class="switch-wrapper">
+                  <van-switch checked="{{false}}" size='18px' active-color='#456AEC' inactive-color='#162766'
+                    bind:change="onStatusChange" />
+                </view>
+                <view class="reserve-status">暂停预定</view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
 </view>

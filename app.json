@@ -1,5 +1,9 @@
 {
-  "pages": ["pages/home/home", "pages/activity/activity", "pages/center/center"],
+  "pages": [
+    "pages/home/home",
+    "pages/activity/activity",
+    "pages/center/center"
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -24,7 +28,12 @@
     },
     {
       "root": "module-business",
-      "pages": ["pages/arrival-time/arrival-time", "pages/business-time/business-time", "pages/business-time-edit/business-time-edit"]
+      "pages": [
+        "pages/arrival-time/arrival-time",
+        "pages/business-time/business-time",
+        "pages/business-time-edit/business-time-edit",
+        "pages/activity-user/activity-user"
+      ]
     }
   ],
   "tabBar": {

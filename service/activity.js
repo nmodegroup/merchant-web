@@ -6,7 +6,8 @@ const httpManager = require('../lib/request/httpManager');
 export function getActivityList(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/merchant/activity/list', params)
+      // .get('/merchant/activity/list', params)
+      .get('https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/activity/list', params)
       .then(res => {
         resolve(res);
       })
@@ -22,7 +23,8 @@ export function getActivityList(params) {
 export function getActivityUser(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/merchant/activity/user', params)
+      // .get('/merchant/activity/user', params)
+      .get('https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/activity/user', params)
       .then(res => {
         resolve(res);
       })

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="35px" viewBox="0 0 35 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>mdpi/icon_add</title>
+    <desc>Created with Sketch.</desc>
+    <g id="活动管理" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0.0.1图标_商家端_活动管理" transform="translate(-39.000000, -40.000000)" fill-rule="nonzero" stroke="#FFFFFF">
+            <g id="icon_add" transform="translate(39.000000, 40.000000)">
+                <circle id="Oval" cx="17.5" cy="17.5" r="17"></circle>
+                <path d="M8.07692308,17.5 L26.9230769,17.5" id="Path-2" stroke-linecap="round"></path>
+                <path d="M8.07692308,17.5 L26.9230769,17.5" id="Path-2" stroke-linecap="round" transform="translate(17.500000, 17.500000) rotate(-90.000000) translate(-17.500000, -17.500000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -192,8 +192,30 @@ function showLoading(title) {
   });
 }
 
+/**
+ * 隐藏 loading
+ */
 function hideLoading() {
   wx.hideLoading();
+}
+
+/**
+ * 隐藏 loading 关闭 refresh 动画
+ */
+function stopRefreshAndLoading() {
+  wx.hideLoading();
+  wx.stopPullDownRefresh();
+}
+
+/**
+ * 拨打电话
+ *
+ * @param {string || number} phone 电话号码
+ */
+function makePhoneCall(phone) {
+  wx.makePhoneCall({
+    phoneNumber: phone
+  });
 }
 
 module.exports = {
@@ -206,5 +228,7 @@ module.exports = {
   getSystemInfo,
   getSystemInfoSync,
   showLoading,
-  hideLoading
+  hideLoading,
+  stopRefreshAndLoading,
+  makePhoneCall
 };

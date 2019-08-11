@@ -1,4 +1,4 @@
-<view class="tag-wrapper" style="background-color:{{ bgColor }}">
+<view class="tag-wrapper" style="background-color:{{ bgColor }}" bindtap="handleTagClick">
   <block wx:if="{{ showIcon }}">
     <image src="{{ iconPath }}"></image>
   </block>

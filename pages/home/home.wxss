@@ -1,4 +1,7 @@
 /* pages/home/home.wxss */
+page {
+  background: #15153e;
+}
 
 .tab-container {
   height: 80rpx;
@@ -7,6 +10,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .tab {
