@@ -77,4 +77,5 @@
     <cell title='关于我们' type="about" bind:cellClick="handleCellClick" />
     <view></view>
   </view>
+
 </view>

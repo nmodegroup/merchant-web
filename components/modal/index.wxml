@@ -1,0 +1,10 @@
+<view class='wx-modal-box' wx:if="{{show}}">
+  <view class='wx-modal-content'>
+    <view class="wx-modal-title">{{title}}</view>
+    <text class='wx-modal-toast'>{{ content }}</text>
+    <view class="btn-frame">
+      <view class="btn-cancel" bindtap="cancel" wx:if="{{!hideCancel}}">{{cancelText}}</view>
+      <view class="btn-confirm" bindtap="confirm">{{confirmText}}</view>
+    </view>
+  </view>
+</view>

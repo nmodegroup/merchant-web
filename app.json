@@ -1,9 +1,5 @@
 {
-  "pages": [
-    "pages/home/home",
-    "pages/activity/activity",
-    "pages/center/center"
-  ],
+  "pages": ["pages/auth/auth", "pages/home/home", "pages/activity/activity", "pages/center/center"],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -68,7 +64,8 @@
     "action-wrapper": "./components/action-wrapper/index",
     "action-bottom": "/components/action-bottom/index",
     "cell-input": "/components/cell-input/index",
-    "toast": "/components/toast/index"
+    "toast": "/components/toast/index",
+    "modal": "/components/modal/index"
   },
   "sitemapLocation": "sitemap.json"
 }

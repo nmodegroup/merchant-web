@@ -1,7 +1,4 @@
 /* pages/center/center.wxss */
-page {
-  background: #15153e;
-}
 
 .center {
   padding-bottom: 98rpx;

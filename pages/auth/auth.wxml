@@ -1,0 +1,25 @@
+<!--pages/auth/auth.wxml-->
+<view class="auth-page">
+    <nav-bar title="认证信息"></nav-bar>
+    <cell-input title="门店名称">
+        <input class="input-view" placeholder-class="placeholder" value="{{shopName}}" maxlength="10"
+            placeholder="请输入门店名称" bindinput="handleInput" data-type="name" />
+    </cell-input>
+    <cell title="所在区域" showIcon="{{false}}">
+        <text>请选择所在区域</text>
+    </cell>
+    <cell-input title="详细地址">
+        <input class="input-view" placeholder-class="placeholder" value="{{shopName}}" maxlength="10"
+            placeholder="门店详细地址" bindinput="handleInput" data-type="name" />
+    </cell-input>
+    <cell title="所属类型" showIcon="{{false}}">
+        <text>请选择门店类型</text>
+    </cell>
+    <cell-input title="门店电话">
+        <input class="input-view" placeholder-class="placeholder" value="{{shopName}}" maxlength="10"
+            placeholder="请输入门店电话" bindinput="handleInput" data-type="name" />
+    </cell-input>
+    <cell title="品牌LOGO(选填)" showIcon="{{false}}">
+        <image class="shop-logo" src="{{ selectImageUrl ? selectImageUrl : '../../image/user/auth-add.svg' }}"></image>
+    </cell>
+</view>

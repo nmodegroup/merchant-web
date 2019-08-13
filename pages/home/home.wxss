@@ -1,7 +1,4 @@
 /* pages/home/home.wxss */
-page {
-  background: #15153e;
-}
 
 .tab-container {
   height: 80rpx;

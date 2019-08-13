@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>mdpi/icon_add</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="30" height="30" rx="1.69230769"></rect>
+    </defs>
+    <g id="填写商家基本信息" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+        <g id="0.0.1图标_商家基本信息" transform="translate(-76.000000, -20.000000)" fill-rule="nonzero">
+            <g id="Group-3" transform="translate(77.000000, 21.000000)">
+                <g id="Rectangle" stroke-linejoin="round" stroke-dasharray="1.692307692307692">
+                    <use stroke="#FFFFFF" stroke-width="0.5" xlink:href="#path-1"></use>
+                    <use stroke="#979797" stroke-width="1" xlink:href="#path-1"></use>
+                </g>
+                <path d="M13.8461538,13.8461538 L13.8461538,6.92307692 C13.8461538,6.28582529 14.3627484,5.76923077 15,5.76923077 C15.6372516,5.76923077 16.1538462,6.28582529 16.1538462,6.92307692 L16.1538462,13.8461538 L23.0769231,13.8461538 C23.7141747,13.8461538 24.2307692,14.3627484 24.2307692,15 C24.2307692,15.6372516 23.7141747,16.1538462 23.0769231,16.1538462 L16.1538462,16.1538462 L16.1538462,23.0769231 C16.1538462,23.7141747 15.6372516,24.2307692 15,24.2307692 C14.3627484,24.2307692 13.8461538,23.7141747 13.8461538,23.0769231 L13.8461538,16.1538462 L6.92307692,16.1538462 C6.28582529,16.1538462 5.76923077,15.6372516 5.76923077,15 C5.76923077,14.3627484 6.28582529,13.8461538 6.92307692,13.8461538 L13.8461538,13.8461538 Z" id="Combined-Shape" fill="#FFFFFF" transform="translate(15.000000, 15.000000) rotate(-360.000000) translate(-15.000000, -15.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>
