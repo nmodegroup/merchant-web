@@ -34,7 +34,7 @@ App({
     });
   },
   globalData: {
-    userInfo: null,
-    token: ''
+    token: '', // 登录标识 token
+    phone: '' // 用户手机号
   }
 });

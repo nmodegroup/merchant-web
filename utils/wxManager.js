@@ -3,9 +3,28 @@
  * @param {string} url    目标页面地址
  * @param {object} params 携带的参数对象
  */
-function navigateTo(url, params) {
+export function navigateTo(url, params) {
   wx.navigateTo({
     url: joinPath(url, params)
+  });
+}
+
+/**
+ * 跳转并销毁当前页面
+ */
+export function redirectTo(url, params) {
+  console.log('joinPath:', joinPath(url, params));
+  wx.redirectTo({
+    url: joinPath(url, params)
+  });
+}
+
+/**
+ * tabBar switch
+ */
+export function switchTab(url) {
+  wx.switchTab({
+    url: url
   });
 }
 
@@ -30,7 +49,7 @@ function joinPath(url, params) {
 /**
  * 检测当前登录态
  */
-function checkSession() {
+export function checkSession() {
   return new Promise((resolve, reject) => {
     wx.checkSession({
       success: () => {
@@ -46,7 +65,7 @@ function checkSession() {
 /**
  * 微信登录
  */
-function login() {
+export function login() {
   return new Promise(resolve => {
     wx.login({
       success: res => {
@@ -59,7 +78,7 @@ function login() {
 /**
  * 获取用户信息
  */
-function getUserInfo() {
+export function getUserInfo() {
   return new Promise((resolve, reject) => {
     wx.getSetting({
       success: res => {
@@ -72,7 +91,7 @@ function getUserInfo() {
             }
           });
         } else {
-          reject();
+          reject('获取用户信息失败');
         }
       }
     });
@@ -82,7 +101,7 @@ function getUserInfo() {
 /**
  * 请求定位信息
  */
-function getLocation() {
+export function getLocation() {
   return new Promise((resolve, reject) => {
     wx.getSetting({
       success: res => {
@@ -98,7 +117,7 @@ function getLocation() {
             },
             fail: () => {
               // 授权失败
-              reject();
+              reject('获取地理位置信息失败');
             }
           });
         }
@@ -107,7 +126,7 @@ function getLocation() {
   });
 }
 
-function getLocationDetail(resolve) {
+export function getLocationDetail(resolve) {
   wx.getLocation({
     success: location => {
       console.log('location', location);
@@ -119,7 +138,7 @@ function getLocationDetail(resolve) {
 /**
  * 保存图片到相册
  */
-function saveImageToPhotosAlbum(imagePath) {
+export function saveImageToPhotosAlbum(imagePath) {
   return new Promise((resolve, reject) => {
     wx.getSetting({
       success: res => {
@@ -156,7 +175,7 @@ function saveImage(resolve, imagePath) {
 /**
  * 获取系统信息异步方法
  */
-function getSystemInfo() {
+export function getSystemInfo() {
   return new Promise(resolve => {
     wx.getSystemInfo({
       success: function(res) {
@@ -170,7 +189,7 @@ function getSystemInfo() {
 /**
  * 获取系统信息同步方法
  */
-function getSystemInfoSync() {
+export function getSystemInfoSync() {
   return new Promise(resolve => {
     try {
       const res = wx.getSystemInfoSync();
@@ -184,7 +203,7 @@ function getSystemInfoSync() {
 /**
  * 显示 loading 提示框
  */
-function showLoading(title) {
+export function showLoading(title) {
   title = title ? title : '';
   wx.showLoading({
     title: title,
@@ -195,14 +214,14 @@ function showLoading(title) {
 /**
  * 隐藏 loading
  */
-function hideLoading() {
+export function hideLoading() {
   wx.hideLoading();
 }
 
 /**
  * 隐藏 loading 关闭 refresh 动画
  */
-function stopRefreshAndLoading() {
+export function stopRefreshAndLoading() {
   wx.hideLoading();
   wx.stopPullDownRefresh();
 }
@@ -212,23 +231,8 @@ function stopRefreshAndLoading() {
  *
  * @param {string || number} phone 电话号码
  */
-function makePhoneCall(phone) {
+export function makePhoneCall(phone) {
   wx.makePhoneCall({
     phoneNumber: phone
   });
 }
-
-module.exports = {
-  navigateTo,
-  checkSession,
-  login,
-  getUserInfo,
-  getLocation,
-  saveImageToPhotosAlbum,
-  getSystemInfo,
-  getSystemInfoSync,
-  showLoading,
-  hideLoading,
-  stopRefreshAndLoading,
-  makePhoneCall
-};

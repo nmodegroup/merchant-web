@@ -1,4 +1,4 @@
-<view class='wx-toast-box' animation="{{animationData}}">
+<view class='wx-toast-box' animation="{{animationData}}" wx:if="{{visible}}">
   <view class='wx-toast-content-base {{ iconImg ? "wx-toast-content-with-icon" : "wx-toast-content" }}'>
     <view class="tips-img-bar" wx:if="{{iconImg}}">
       <image class="tips-img" src="{{iconImg}}"></image>

@@ -5,6 +5,10 @@ export const CENTER_URL = '/pages/center/center';
 
 export const ACTIVITY_URL = '/pages/activity/activity';
 
+export const AUTH_URL = '/pages/auth/auth';
+
+export const INFO_URL = '/pages/info/info';
+
 /* 分包 module */
 
 export const ABOUT_URL = '/module/pages/about/about';

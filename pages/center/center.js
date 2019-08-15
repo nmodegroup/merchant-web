@@ -46,7 +46,6 @@ Page({
    * 监听用户滑动页面事件
    */
   onPageScroll(event) {
-    const { scrollTop } = event;
     if (event.scrollTop > this.scrollHeight) {
       return false;
     }

@@ -1,14 +1,11 @@
 /* pages/auth/auth.wxss */
-.auth-page {
-  font-size: 26rpx;
-  color: rgba(255, 255, 255, 0.5);
-}
 
-.shop-logo {
-  width: 60rpx;
-  height: 60rpx;
-}
-
-.input-view {
-  margin-right: 60rpx;
+.btn-auth {
+  padding: 0;
+  outline: none;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 30rpx;
+  left: 30rpx;
+  right: 30rpx;
 }

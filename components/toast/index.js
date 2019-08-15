@@ -7,6 +7,7 @@ Component({
    * 可用于模版渲染
    */
   data: {
+    visible: false,
     // 弹窗显示控制
     animationData: {},
     content: '提示内容',
@@ -38,8 +39,9 @@ Component({
       this.setData({
         animationData: animation.export(),
         content: content,
-        multContent: multContent,
-        iconImg: iconImg
+        multContent: multContent || '',
+        iconImg: iconImg || '',
+        visible: true
       });
       /**
        * 延时消失
@@ -48,7 +50,8 @@ Component({
         function() {
           animation.opacity(0).step();
           this.setData({
-            animationData: animation.export()
+            animationData: animation.export(),
+            visible: false
           });
         }.bind(this),
         1500
