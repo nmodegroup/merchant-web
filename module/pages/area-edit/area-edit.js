@@ -51,8 +51,7 @@ Page({
     const { areaName } = this.data;
     if (!areaName || areaName.length < 2) {
       return this.toast.showToast({
-        content: '区域名2-10个字符',
-        multContent: '可包含中文字母数字'
+        content: '区域名2-10个字符\n可包含中文字母数字'
       });
     }
   },

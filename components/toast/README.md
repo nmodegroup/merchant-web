@@ -15,20 +15,11 @@
 this.toast = this.selectComponent('#toast');
 ```
 
-单行文字 toast
+仅有文字 toast
 
 ```javascript
 this.toast.showToast({
   content: '区域名2-10个字符'
-});
-```
-
-多行文字 toast
-
-```javascript
-this.toast.showToast({
-  content: '区域名2-10个字符',
-  multContent: '可包含中文字母数字'
 });
 ```
 
@@ -43,11 +34,10 @@ return this.toast.showToast({
 
 ### API
 
-| 参数        | 是否必须 | 说明             | 类型   | 默认值 |
-| ----------- | -------- | ---------------- | ------ | ------ |
-| content     | Y        | toast 文字       | String | 空     |
-| multContent | N        | toast 第二行文字 | String | 空     |
-| icon        | N        | toast 图标       | String | 空     |
+| 参数    | 是否必须 | 说明       | 类型   | 默认值 |
+| ------- | -------- | ---------- | ------ | ------ |
+| content | Y        | toast 文字 | String | 空     |
+| icon    | N        | toast 图标 | String | 空     |
 
 ### icon 可选值
 

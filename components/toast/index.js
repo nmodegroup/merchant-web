@@ -11,8 +11,6 @@ Component({
     // 弹窗显示控制
     animationData: {},
     content: '提示内容',
-    // 多行提示时，因为单个view换行文字不居中
-    extraContent: '',
     iconImg: '', //图标
     icon: {
       success: '/image/toast/icon_succed.svg',
@@ -28,7 +26,7 @@ Component({
     /**
      * 显示toast，定义动画
      */
-    showToast({ content, multContent, icon }) {
+    showToast({ content, icon }) {
       let iconImg = icon ? this.data.icon[icon] : '';
       var animation = wx.createAnimation({
         duration: 300,
@@ -39,7 +37,6 @@ Component({
       this.setData({
         animationData: animation.export(),
         content: content,
-        multContent: multContent || '',
         iconImg: iconImg || '',
         visible: true
       });

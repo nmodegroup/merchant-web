@@ -4,6 +4,5 @@
       <image class="tips-img" src="{{iconImg}}"></image>
     </view>
     <text class='wx-toast-toast'>{{ content }}</text>
-    <text class='wx-toast-toast' wx:if="{{multContent}}">{{ multContent }}</text>
   </view>
 </view>

@@ -35,11 +35,11 @@ Page({
     // TODO: test
     this.modal = this.selectComponent('#modal');
     this.modal.showModal({
-      content: '确定要删除此收藏吗？\n删除就没有了哦~',
+      content: '设确认为用户通过预订吗？通过后他将预\n订成功，并尽可能按照预订时间到店！',
       title: '温馨提示',
-      cancelText: '拒绝',
-      confirmText: '残忍删除',
-      hideCancel: true
+      cancelText: '不通过',
+      confirmText: '通过',
+      hideCancel: false
     });
   },
 

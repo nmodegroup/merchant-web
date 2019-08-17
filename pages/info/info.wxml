@@ -16,8 +16,8 @@
         <text>{{ selectShopType.text || "请选择门店类型" }}</text>
     </cell>
     <cell-input title="门店电话">
-        <input class="input-view" placeholder-class="placeholder" value="{{shopPhone}}" placeholder="请输入门店电话"
-            bindinput="handleInput" data-type="shopPhone" />
+        <input class="input-view" placeholder-class="placeholder" type="number" value="{{shopPhone}}"
+            placeholder="请输入门店电话" bindinput="handleInput" data-type="shopPhone" />
     </cell-input>
     <cell title="品牌LOGO(选填)" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="logo">
         <image class="shop-logo" src="{{ logo ? logo : '../../image/user/auth-add.svg' }}"></image>

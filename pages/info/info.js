@@ -26,7 +26,7 @@ Page({
     shopPhone: '', // 门店电话
     logo: '', // logo url
     visibleCity: false, // 选择城市 popup
-    visibleShopType: true, // 店铺类型 popup
+    visibleShopType: false, // 店铺类型 popup
     latitude: '', // 纬度
     longitude: '', // 经度
     columns: staticResource.TYPE_LIST,
@@ -49,6 +49,7 @@ Page({
   initData() {
     // 初始化 toast
     this.Toast = this.selectComponent('#toast');
+    this.showToast('这是测试的借款方\n哈哈哈哈');
     // 初始化店铺类型数据
     this.typeColumnList = [{}];
     // 输入防抖
@@ -99,10 +100,9 @@ Page({
     return shopName && address && shopPhone;
   },
 
-  showToast(content, multContent = '') {
+  showToast(content) {
     this.Toast.showToast({
-      content: content,
-      multContent: multContent
+      content: content
     });
   },
 

@@ -10,21 +10,21 @@
                 {{item.title}}</view>
         </block>
     </view>
+    <!-- 今日订单 -->
     <block wx:if="{{ orderModule.isToday(currentType) }}">
         <block wx:for="{{todayList}}" wx:key="index">
             <order-item order="{{item}}"></order-item>
         </block>
     </block>
+    <!-- 未来订单 -->
     <block wx:if="{{ orderModule.isFuture(currentType) }}">
         <block wx:for="{{futureList}}" wx:key="index">
             <order-item order="{{futureList}}"></order-item>
         </block>
     </block>
-    <block wx:if="{{ orderModule.isHistory(currentType) }}">
-        <block wx:for="{{historyList}}" wx:key="index">
-            <order-item order="{{historyList}}"></order-item>
-        </block>
-    </block>
-</view>
 
-<modal id="modal" bind:get="getResult"></modal>
+    <!--  -->
+    <modal id="modal" bind:get="getResult">
+        <view>我也是醉了</view>
+    </modal>
+</view>
