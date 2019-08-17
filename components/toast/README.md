@@ -26,7 +26,7 @@ this.toast.showToast({
 需要显示图标 toast
 
 ```javascript
-return this.toast.showToast({
+this.toast.showToast({
   content: '区域名2-10个字符',
   icon: 'success'
 });
