@@ -2,7 +2,7 @@
 const PageConstant = require('../../constant/page');
 const { throttle } = require('../../utils/throttle-debounce/index');
 const WxManager = require('../../utils/wxManager');
-const httpManager = require('../../lib/request/httpManager');
+const pageFlag = require('../../constant/pageFlag');
 
 Page({
   /**
@@ -75,7 +75,10 @@ Page({
     console.log(event);
     const type = event.currentTarget.dataset.type;
     const colStrategy = {
-      shop: () => this.navigation(PageConstant.SHOP_URL),
+      shop: () =>
+        this.navigation(PageConstant.INFO_URL, {
+          enterType: pageFlag.INFO_TOTAL
+        }),
       table: () => this.navigation(PageConstant.TABLE_URL)
     };
     return colStrategy[type] ? colStrategy[type]() : console.error('type error');

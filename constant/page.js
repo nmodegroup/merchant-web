@@ -23,8 +23,6 @@ export const TABLE_URL = '/module/pages/table/table';
 
 export const TABLE_EDIT_URL = '/module/pages/table-edit/table-edit';
 
-export const SHOP_URL = '/module/pages/shop/shop';
-
 export const AREA_URL = '/module/pages/area/area';
 
 export const AREA_EDIT_URL = '/module/pages/area-edit/area-edit';
