@@ -33,6 +33,7 @@ Page({
         this.setData({
           visibleAuthBtn: false
         });
+        this.storeUserInfo(res.userInfo);
         this.wxLogin(res);
       })
       .catch(e => {
@@ -49,8 +50,16 @@ Page({
         content: '授权失败'
       });
     } else {
+      this.storeUserInfo(event.detail.userInfo);
       this.wxLogin(event.detail);
     }
+  },
+
+  /**
+   * 用户信息存到全局
+   */
+  storeUserInfo(userInfo) {
+    store.userInfo = userInfo;
   },
 
   /**
@@ -60,10 +69,8 @@ Page({
    */
   wxLogin(wxUserInfo) {
     wxManager.login().then(code => {
-      console.log('code:', code);
       if (code) {
         const params = this.queryParams(code, wxUserInfo);
-        console.log('params:', params);
         this.requestLogin(params);
       } else {
         this.Toast.showToast({
@@ -79,7 +86,11 @@ Page({
       .then(res => {
         store.token = res.token;
         store.phone = res.phone;
-        this.goInfoPage();
+        if (res.isFirst) {
+          this.goInfoPage();
+        } else {
+          this.goCenter();
+        }
       })
       .catch(e => {
         this.Toast.showToast({
@@ -97,6 +108,13 @@ Page({
     });
   },
 
+  /**
+   * 去个人中心页
+   */
+  goCenter() {
+    wxManager.switchTab(pageConstant.CENTER_URL);
+  },
+
   queryParams(code, wxUserInfo) {
     const { encryptedData, iv, userInfo } = wxUserInfo;
     return {
@@ -105,7 +123,7 @@ Page({
       iv: iv,
       nickName: userInfo.nickName,
       portrait: userInfo.avatarUrl,
-      // TODO: 性别 0：未知、1：男、2：女
+      // 性别 0：未知、1：男、2：女
       sex: parseInt(userInfo.gender) - 1
     };
   }

@@ -22,7 +22,12 @@
     <cell title="品牌LOGO(选填)" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="logo">
         <image class="shop-logo" src="{{ logo ? logo : '../../image/user/auth-add.svg' }}"></image>
     </cell>
-    <view class="btn-commit {{ verifyed ? 'enable' : 'disable' }}" bindtap="commitForm">确认提交</view>
+    <view class="commit-wrapper">
+        <view class="btn-commit {{ verifyed ? 'enable' : 'disable' }}" bindtap="commitForm">确认提交</view>
+        <!-- 不可见的授权手机号按钮，授权成功后隐藏 -->
+        <button class="btn-auth-phone" wx:if="{{verifyed && !authPhoneSuccess}}" open-type="getPhoneNumber"
+            bindgetphonenumber="onGetPhoneCallback"></button>
+    </view>
     <view class="skip" bindtap="handleSkip">跳过</view>
 
     <!-- 省市区选择 -->

@@ -35,6 +35,7 @@ App({
   },
   globalData: {
     token: '', // 登录标识 token
-    phone: '' // 用户手机号
+    phone: '', // 用户手机号
+    userInfo: {} // 用户信息
   }
 });

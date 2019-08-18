@@ -2,6 +2,7 @@
 const wxManager = require('../../utils/wxManager');
 const shopService = require('../../service/shop');
 const commonService = require('../../service/common');
+const userService = require('../../service/user');
 const pageConstant = require('../../constant/page');
 const pageFlag = require('../../constant/pageFlag');
 const { debounce } = require('../../utils/throttle-debounce/index');
@@ -35,7 +36,8 @@ Page({
     longitude: '', // 经度
     selectShopType: {}, // 选中的门店类型
     columns: staticResource.TYPE_LIST, // 门店类型数组
-    areaList: [] // 省市区列表
+    areaList: [], // 省市区列表
+    authPhoneSuccess: false // 授权手机号状态
   },
 
   /**
@@ -66,6 +68,8 @@ Page({
     this.requestCityList();
     // 初始化 pageConfig
     this.setupPageConfig();
+    // 初始化手机号状态
+    this.setupPhone();
   },
 
   requestCityList() {
@@ -78,6 +82,12 @@ Page({
 
   setupPageConfig() {
     this.pageConfig = new PageConfig(this);
+  },
+
+  setupPhone() {
+    this.setData({
+      authPhoneSuccess: !!store.phone
+    });
   },
 
   getLocation() {
@@ -281,21 +291,12 @@ Page({
 
   requestCommitInfo() {
     const params = this.queryParams();
-    this.pageConfig
-      .requestWrapper(shopService.saveShopBasicInfo(params))
-      .then(res => {
-        this.pageConfig.showSuccessToast('提交成功');
-        setTimeout(() => {
-          wxManager.switchTab(pageConstant.CENTER_URL);
-        }, 1000);
-      })
-      .catch(e => {
-        // TODO: DELETE
-        this.pageConfig.showSuccessToast('提交成功');
-        setTimeout(() => {
-          wxManager.switchTab(pageConstant.CENTER_URL);
-        }, 300);
-      });
+    this.pageConfig.requestWrapper(shopService.saveShopBasicInfo(params)).then(res => {
+      this.pageConfig.showSuccessToast('提交成功');
+      setTimeout(() => {
+        wxManager.switchTab(pageConstant.CENTER_URL);
+      }, 1000);
+    });
   },
 
   queryParams() {
@@ -313,6 +314,51 @@ Page({
       lng: longitude,
       lat: latitude
     };
+  },
+
+  /**
+   * 手机号授权回调
+   */
+  onGetPhoneCallback(event) {
+    console.log(event);
+    const { encryptedData, iv } = event.detail;
+    if (encryptedData && iv) {
+      this.requestParsePhone(encryptedData, iv);
+    }
+  },
+
+  /**
+   * 解析手机号
+   */
+  requestParsePhone(encryptedData, iv) {
+    wxManager.showLoading();
+    wxManager.login().then(
+      code => {
+        // 解析手机号
+        userService
+          .parsePhone({
+            encrypted: encryptedData,
+            iv: iv,
+            code: code
+          })
+          .then(
+            phone => {
+              wxManager.hideLoading();
+              this.setData({
+                authPhoneSuccess: true
+              });
+              // 将手机号存到全局
+              store.phone = phone;
+            },
+            e => {
+              wxManager.hideLoading();
+            }
+          );
+      },
+      e => {
+        wxManager.hideLoading();
+      }
+    );
   },
 
   handleSkip() {

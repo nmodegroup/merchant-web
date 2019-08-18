@@ -27,6 +27,8 @@ export const AREA_URL = '/module/pages/area/area';
 
 export const AREA_EDIT_URL = '/module/pages/area-edit/area-edit';
 
+export const REPLACE_PHONE_URL = '/module/pages/replace/replace';
+
 /* 分包 module-business */
 
 export const BUSINESS_TIME_URL = '/module-business/pages/business-time/business-time';

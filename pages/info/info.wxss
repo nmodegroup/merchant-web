@@ -59,6 +59,24 @@
   color: #fff;
 }
 
+.commit-wrapper {
+  position: relative;
+}
+
+.btn-auth-phone {
+  position: absolute;
+  height: 88rpx;
+  line-height: 88rpx;
+  top: 0;
+  left: 50rpx;
+  right: 50rpx;
+  border-radius: 44rpx;
+  opacity: 0;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 500;
+}
+
 /* 修改vant下弹出框样式样式start */
 .van-picker__toolbar {
   background: rgba(21, 21, 62, 1);

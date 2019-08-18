@@ -3,6 +3,8 @@ const PageConstant = require('../../constant/page');
 const { throttle } = require('../../utils/throttle-debounce/index');
 const WxManager = require('../../utils/wxManager');
 const pageFlag = require('../../constant/pageFlag');
+const globalUtil = require('../../utils/global');
+const store = getApp().globalData;
 
 Page({
   /**
@@ -13,22 +15,16 @@ Page({
     contactPhoneNumber: '159 0904 0903', //TODO:手机号修改
     statusChecked: false, // 营业状态选中
     reserveChecked: false, // 预约开关
-    hasPhoneAuth: true
+    avatarUrl: '',
+    nickName: '',
+    phone: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    WxManager.getSystemInfo().then(res => {
-      this.scrollHeight = res.windowWidth * (180 / 375);
-    });
-    // 导航栏背景色渐变
-    this.scrollThrottle = throttle(100, event => {
-      this.setData({
-        navBgColor: `rgba(22, 21, 73, ${event.scrollTop / this.scrollHeight})`
-      });
-    });
+    this.initData();
   },
 
   /**
@@ -40,6 +36,31 @@ Page({
         selected: 2
       });
     }
+  },
+
+  initData() {
+    this.setupUserInfo();
+    this.setupScroll();
+  },
+
+  setupUserInfo() {
+    this.setData({
+      nickName: store.userInfo.nickName,
+      avatarUrl: store.userInfo.avatarUrl,
+      phone: store.phone
+    });
+  },
+
+  setupScroll() {
+    WxManager.getSystemInfo().then(res => {
+      this.scrollHeight = res.windowWidth * (180 / 375);
+    });
+    // 导航栏背景色渐变
+    this.scrollThrottle = throttle(100, event => {
+      this.setData({
+        navBgColor: `rgba(22, 21, 73, ${event.scrollTop / this.scrollHeight})`
+      });
+    });
   },
 
   /**
@@ -108,6 +129,13 @@ Page({
     wx.makePhoneCall({
       phoneNumber: this.data.contactPhoneNumber
     });
+  },
+
+  /**
+   * 换绑手机号
+   */
+  handleReplacePhone() {
+    WxManager.navigateTo(PageConstant.REPLACE_PHONE_URL);
   },
 
   /**

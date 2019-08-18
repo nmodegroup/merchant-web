@@ -10,12 +10,12 @@
       <!-- 渐变蒙板 -->
       <view class="mask"></view>
       <view class="user-wrapper">
-        <image class="avatar"></image>
+        <image class="avatar" src="{{ avatarUrl }}"></image>
         <view class="detail">
-          <text class="username">stone</text>
-          <block wx:if="{{ hasPhoneAuth }}">
-            <view class="phone-auth">
-              <text>18617169508</text>
+          <text class="username">{{ nickName || "未知" }}</text>
+          <block wx:if="{{ phone }}">
+            <view class="phone-auth" bindtap="handleReplacePhone">
+              <text>{{phone}}</text>
               <image src="../../image/center/center_modify.svg"></image>
             </view>
           </block>
