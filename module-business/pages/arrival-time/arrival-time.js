@@ -11,7 +11,9 @@ Page({
   data: {
     hours: [],
     minutes: [],
-    timeList: []
+    timeList: [],
+    selectHour: '',
+    selectMinute: ''
   },
 
   /**
@@ -84,6 +86,10 @@ Page({
 
   handleActionClick() {
     this.isEdit = false;
+    this.showSelectModal();
+  },
+
+  showSelectModal() {
     this.modalSelect.showModal({
       title: '到店时间设置',
       cancelText: '取消',
@@ -93,15 +99,33 @@ Page({
     });
   },
 
+  selectCallback(event) {
+    if (this.modal.isConfirm(event.detail.result)) {
+      if (this.isEdit) {
+        return this.requestEditTime();
+      }
+      this.requestCreateTime();
+    }
+  },
+
   requestEditTime() {
-    this.pageConfig.requestWrapper(timeService.editAppointTime()).then(res => {
+    const { selectHour, selectMinute } = this.data;
+    const editParams = {
+      time: `${selectHour}:${selectMinute}`
+      // id:
+    };
+    this.pageConfig.requestWrapper(timeService.editAppointTime(editParams)).then(res => {
       this.showSuccessToast('编辑成功');
       this.requestAppointTimeList();
     });
   },
 
   requestCreateTime() {
-    this.pageConfig.requestWrapper(timeService.editAppointTime()).then(res => {
+    const { selectHour, selectMinute } = this.data;
+    const createParams = {
+      time: `${selectHour}:${selectMinute}`
+    };
+    this.pageConfig.requestWrapper(timeService.editAppointTime(createParams)).then(res => {
       this.showSuccessToast('新增成功');
       this.requestAppointTimeList();
     });
@@ -143,6 +167,28 @@ Page({
   requestDetelteTime() {
     this.pageConfig.requestWrapper(timeService.deleteAppointTime()).then(res => {
       this.showSuccessToast('删除成功');
+    });
+  },
+
+  handleCellClick(event) {
+    this.isEdit = true;
+    const item = event.currentTarget.dataset.item;
+    const times = item.time.split(':');
+    this.setData({
+      selectHour: times[0],
+      selectMinute: times[1]
+    });
+  },
+
+  /**
+   * 时间选择事件
+   */
+  handleSelectChange(event) {
+    console.log(event);
+    const type = event.currentTarget.dataset.type;
+    const selectOption = event.detail.selectOption;
+    this.setData({
+      [type]: selectOption
     });
   }
 });

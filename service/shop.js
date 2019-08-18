@@ -6,7 +6,11 @@ const httpManager = require('../lib/request/httpManager');
 export function saveShopBasicInfo(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .post('/merchant/info', params)
+      .post({
+        url: '/merchant/info',
+        params: params,
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -17,12 +21,16 @@ export function saveShopBasicInfo(params) {
 }
 
 /**
- * 保存店铺信息
+ * 保存/编辑 店铺信息
  */
 export function saveShopInfo(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .put('/merchant/info', params)
+      .put({
+        url: '/merchant/info',
+        params: params,
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -33,28 +41,15 @@ export function saveShopInfo(params) {
 }
 
 /**
- * 编辑店铺信息
- */
-export function editShopInfo(params) {
-  return new Promise((resolve, reject) => {
-    httpManager
-      .put('/merchant/info', params)
-      .then(res => {
-        resolve(res);
-      })
-      .catch(e => {
-        reject(e);
-      });
-  });
-}
-
-/**
- * 编辑店铺信息
+ * 店铺信息-获取详情
  */
 export function getShopInfo() {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/merchant/info')
+      .get({
+        url: '/merchant/info',
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })

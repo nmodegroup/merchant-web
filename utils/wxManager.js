@@ -135,6 +135,22 @@ export function getLocationDetail(resolve) {
 }
 
 /**
+ * 调起客户端小程序设置界面
+ */
+export function openSetting() {
+  return new Promise((resolve, reject) => {
+    wx.openSetting({
+      success: result => {
+        resolve(result);
+      },
+      fail: () => {
+        reject('openSetting fail');
+      }
+    });
+  });
+}
+
+/**
  * 保存图片到相册
  */
 export function saveImageToPhotosAlbum(imagePath) {

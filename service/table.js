@@ -7,7 +7,10 @@ export function getTableAreaList() {
   return new Promise((resolve, reject) => {
     httpManager
       //   .get('/merchant/table/area')
-      .get('https://api.bmkee.com/mock/21/merchant/table/area')
+      .get({
+        url: 'https://api.bmkee.com/mock/21/merchant/table/area',
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -18,28 +21,16 @@ export function getTableAreaList() {
 }
 
 /**
- * 新增区域
+ * 新增/编辑 区域
  */
 export function createTableArea(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .post('/merchant/table/area', params)
-      .then(res => {
-        resolve(res);
+      .post({
+        url: '/merchant/table/area',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
       })
-      .catch(err => {
-        reject(err);
-      });
-  });
-}
-
-/**
- * 编辑区域
- */
-export function editTableArea(params) {
-  return new Promise((resolve, reject) => {
-    httpManager
-      .post('/merchant/table/area', params)
       .then(res => {
         resolve(res);
       })
@@ -55,7 +46,11 @@ export function editTableArea(params) {
 export function deleteTableArea(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      ._delete('/merchant/table/area', params)
+      ._delete({
+        url: '/merchant/table/area',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -71,7 +66,10 @@ export function deleteTableArea(params) {
 export function getTableList() {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/merchant/table')
+      .get({
+        url: '/merchant/table',
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -82,28 +80,16 @@ export function getTableList() {
 }
 
 /**
- * 新增桌位
+ * 新增/编辑 桌位
  */
 export function createTable(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .post('/merchant/table', params)
-      .then(res => {
-        resolve(res);
+      .post({
+        url: '/merchant/table',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
       })
-      .catch(err => {
-        reject(err);
-      });
-  });
-}
-
-/**
- * 编辑桌位
- */
-export function editTable(params) {
-  return new Promise((resolve, reject) => {
-    httpManager
-      .post('/merchant/table', params)
       .then(res => {
         resolve(res);
       })
@@ -119,7 +105,11 @@ export function editTable(params) {
 export function deleteTable(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      ._delete('/merchant/table', params)
+      ._delete({
+        url: '/merchant/table',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })

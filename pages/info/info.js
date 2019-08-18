@@ -10,6 +10,7 @@ const regular = require('../../utils/regular');
 const globalConstant = require('../../constant/global');
 const { PageConfig } = require('../../utils/page');
 const globalUtil = require('../../utils/global');
+const ENV = require('../../lib/request/env');
 const store = getApp().globalData;
 
 Page({
@@ -53,6 +54,8 @@ Page({
   initData() {
     // 初始化 toast
     this.Toast = this.selectComponent('#toast');
+    // 初始化 modal
+    this.modal = this.selectComponent('#modal');
     // 初始化店铺类型数据
     this.typeColumnList = [{}];
     // 输入防抖
@@ -78,30 +81,53 @@ Page({
   },
 
   getLocation() {
+    wxManager.showLoading();
     wxManager
       .getLocation()
       .then(res => {
-        console.log('location', res);
         this.setData({
           latitude: res.latitude,
           longitude: res.longitude
         });
+        wxManager.hideLoading();
       })
       .catch(e => {
         console.log(e);
-        // TODO: 开启定位弹窗
+        this.showLocationModal();
+        wxManager.hideLoading();
       });
   },
 
+  showLocationModal() {
+    this.modal.showModal({
+      content: '授权定位功能失败，\n可打开设置页面进行手动授权',
+      title: '温馨提示',
+      cancelText: '取消',
+      confirmText: '去授权',
+      hideCancel: false
+    });
+  },
+
+  onLocationClick(event) {
+    // 点击了去授权
+    if (this.modal.isConfirm(event.detail.result)) {
+      wxManager.openSetting().then(res => {
+        console.log(res);
+        if (res.authSetting['scope.userLocation']) {
+          console.log('start get location');
+          this.getLocation();
+        }
+      });
+    }
+  },
+
   handleInput(event) {
-    console.log(event);
     const type = event.currentTarget.dataset.type;
     const value = event.detail.value;
     this.setData({
       [type]: value
     });
     this.inputDebounce(event);
-    console.log('handleInput');
   },
 
   /**
@@ -118,7 +144,6 @@ Page({
    */
   verifyForm() {
     const { shopName, address, shopPhone, cityId, areaId, selectShopType, logo } = this.data;
-    console.log('data:', this.data);
     return shopName && address && shopPhone && cityId && areaId && Object.keys(selectShopType).length && logo;
   },
 
@@ -147,7 +172,6 @@ Page({
    * 点击 cell 事件
    */
   handleCellClick(event) {
-    console.log(event);
     const { type } = event.currentTarget.dataset;
     switch (type) {
       case 'city':
@@ -174,39 +198,38 @@ Page({
     wxManager
       .chooseImage()
       .then(res => {
-        console.log(res);
         const tempFilePaths = res.tempFilePaths;
-        // TODO:  图片需先上传，再展示
-        this.requestUploadImage(tempFilePaths[0]);
-        this.setData({
-          logo: tempFilePaths[0]
-        });
-        this.refreshFormVerify();
+        this.requestUploadLogoImage(tempFilePaths[0]);
       })
       .catch(e => {
         console.error(e);
       });
   },
 
-  requestUploadImage(imageUrl) {
-    const uploadParams = {
-      filePath: imageUrl,
-      name: globalUtil.getFileName(imageUrl),
+  requestUploadLogoImage(imageUrl) {
+    const uploadParams = this.queryUploadParams(imageUrl, globalConstant.FILE_FOLDER_LOGO);
+    this.pageConfig.requestWrapper(commonService.uploadImage(uploadParams)).then(res => {
+      this.setData({
+        logo: `${ENV.sourceHost}${res}`
+      });
+      this.refreshFormVerify();
+    });
+  },
+
+  queryUploadParams(imagePath, floder) {
+    return {
+      filePath: imagePath,
       formData: {
-        floder: globalConstant.FILE_FOLDER_LOGO
+        fileName: globalUtil.getFileName(imagePath),
+        floder: floder
       }
     };
-    console.log('uploadParams:', uploadParams);
-    this.pageConfig.requestWrapper(commonService.uploadImage(uploadParams)).then(res => {
-      console.log('uploadImage:', res);
-    });
   },
 
   /**
    * 选择省市区确认
    */
   onCityConfirm(event) {
-    console.log(event);
     const selectValues = event.detail.values;
     this.setData({
       visibleCity: false,
@@ -232,7 +255,7 @@ Page({
     if (!this.verifyForm()) {
       return false;
     }
-    const { shopName, shopPhone } = this.data;
+    const { shopName, shopPhone, enterType, latitude, longitude } = this.data;
 
     /* 校验门店名称 */
     if (!regular.regCharChineseNumber(shopName) || regular.regAllNumber(shopName)) {
@@ -243,15 +266,36 @@ Page({
     if (!regular.regPhoneNumber(shopPhone) || !regular.regStablePhone(shopPhone)) {
       return this.showToast('请输入正确的电话号码');
     }
+
+    /* 完善店铺信息需要更多校验 */
+    if (enterType === pageFlag.INFO_TOTAL) {
+    }
+
+    /* 地址位置授权校验 */
+    if (!latitude || !longitude) {
+      return this.showLocationModal();
+    }
+
     this.requestCommitInfo();
   },
 
   requestCommitInfo() {
     const params = this.queryParams();
-    shopService
-      .saveShopBasicInfo(params)
-      .then(res => {})
-      .catch(e => {});
+    this.pageConfig
+      .requestWrapper(shopService.saveShopBasicInfo(params))
+      .then(res => {
+        this.pageConfig.showSuccessToast('提交成功');
+        setTimeout(() => {
+          wxManager.switchTab(pageConstant.CENTER_URL);
+        }, 1000);
+      })
+      .catch(e => {
+        // TODO: DELETE
+        this.pageConfig.showSuccessToast('提交成功');
+        setTimeout(() => {
+          wxManager.switchTab(pageConstant.CENTER_URL);
+        }, 300);
+      });
   },
 
   queryParams() {

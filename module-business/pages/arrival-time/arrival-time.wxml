@@ -6,7 +6,7 @@
   <block wx:for="{{timeList}}" wx:key="{{item.id}}">
     <van-swipe-cell id="swipe-cell" right-width="{{ 67 }}" async-close bind:close="handleClose">
       <cell cell-extra="cell-extra" title="{{item.time}}" showIcon="{{false}}" showArrow="{{false}}"
-        bintap="handleCellClick" data-item="{{item}}">
+        bindtap="handleCellClick" data-item="{{item}}">
         <view class="switch-wrapper">
           <van-switch checked="{{ timeModule.isAppointTimeOpen(item.onStatus) }}" size='20px' active-color='#456AEC'
             inactive-color='#162766' bind:change="handleSwitchChange" data-index="{{index}}" />
@@ -37,9 +37,11 @@
   <!-- 选择时间弹窗 -->
   <modal id="modalSelect" bind:get="selectCallback">
     <view class="select-wrapper">
-      <select selectList="{{hours}}" value="{{selectHour}}"></select>
+      <select selectList="{{hours}}" value="{{selectHour}}" bind:onChange="handleSelectChange"
+        data-type="selectHour"></select>
       <view class="split">:</view>
-      <select selectList="{{minutes}}" value="{{selectMinute}}"></select>
+      <select selectList="{{minutes}}" value="{{selectMinute}}" bind:onchange="handleSelectChange"
+        data-type="selectMinute"></select>
     </view>
   </modal>
 </view>

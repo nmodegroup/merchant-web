@@ -10,7 +10,7 @@
     </cell>
     <cell-input title="详细地址">
         <input class="input-view" placeholder-class="placeholder" value="{{address}}" placeholder="门店详细地址"
-            bindinput="handleInput" data-type="address" />
+            maxlength="100" bindinput="handleInput" data-type="address" />
     </cell-input>
     <cell title="所属类型" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="shopType">
         <text class="{{ selectShopType.text ? 'active' : '' }}">{{ selectShopType.text || "请选择门店类型" }}</text>
@@ -37,4 +37,7 @@
     </van-popup>
     <!-- toast -->
     <toast id="toast"></toast>
+
+    <!-- 定位弹窗 -->
+    <modal id="modal" bind:get="onLocationClick"></modal>
 </view>

@@ -13,6 +13,7 @@ export function uploadImage(params) {
         name: params.name
       })
       .then(res => {
+        console.log('service:', res);
         resolve(res);
       })
       .catch(e => {
@@ -27,7 +28,11 @@ export function uploadImage(params) {
 export function sendMessage(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .post('/common/msg', params)
+      .post({
+        url: '/common/msg',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -43,7 +48,11 @@ export function sendMessage(params) {
 export function getCityAll(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/common/city/all', params)
+      .get({
+        url: '/common/city/all',
+        params: params,
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -59,7 +68,11 @@ export function getCityAll(params) {
 export function getCityArea(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/common/city/area', params)
+      .get({
+        url: '/common/city/area',
+        params: params,
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -75,7 +88,11 @@ export function getCityArea(params) {
 export function getCityList(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/common/city/list', params)
+      .get({
+        url: '/common/city/list',
+        params: params,
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -91,7 +108,11 @@ export function getCityList(params) {
 export function getCityLevel(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/common/city/level', params)
+      .get({
+        url: '/common/city/level',
+        params: params,
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })

@@ -7,7 +7,11 @@ export function getActivityList(params) {
   return new Promise((resolve, reject) => {
     httpManager
       // .get('/merchant/activity/list', params)
-      .get('https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/activity/list', params)
+      .get({
+        url: 'https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/activity/list',
+        params: params,
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -24,7 +28,11 @@ export function getActivityUser(params) {
   return new Promise((resolve, reject) => {
     httpManager
       // .get('/merchant/activity/user', params)
-      .get('https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/activity/user', params)
+      .get({
+        url: 'https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/activity/user',
+        params: params,
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -40,7 +48,11 @@ export function getActivityUser(params) {
 export function changeActivityStatus(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .put('/merchant/activity', params)
+      .put({
+        url: '/merchant/activity',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -56,7 +68,11 @@ export function changeActivityStatus(params) {
 export function createActivy(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .post('/merchant/activity', params)
+      .post({
+        url: '/merchant/activity',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -72,7 +88,11 @@ export function createActivy(params) {
 export function editActivy(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .post('/merchant/activity', params)
+      .post({
+        url: '/merchant/activity',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -88,7 +108,11 @@ export function editActivy(params) {
 export function getActivityDetail(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/merchant/activity', params)
+      .get({
+        url: '/merchant/activity',
+        params: params,
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -104,7 +128,11 @@ export function getActivityDetail(params) {
 export function deleteActivy(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      ._delete('/merchant/activity', params)
+      ._delete({
+        url: '/merchant/activity',
+        params: params,
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })

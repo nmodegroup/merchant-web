@@ -6,7 +6,10 @@ const httpManager = require('../lib/request/httpManager');
 export function getCenterInfo() {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/merchant/index')
+      .get({
+        url: '/merchant/index',
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -22,7 +25,10 @@ export function getCenterInfo() {
 export function changeBusinessStatus() {
   return new Promise((resolve, reject) => {
     httpManager
-      .put('/merchant/business/status')
+      .put({
+        url: '/merchant/business/status',
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -38,7 +44,10 @@ export function changeBusinessStatus() {
 export function changeAppointStatus() {
   return new Promise((resolve, reject) => {
     httpManager
-      .put('/merchant/appoint/status')
+      .put({
+        url: '/merchant/appoint/status',
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })

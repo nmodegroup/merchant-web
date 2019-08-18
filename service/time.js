@@ -3,10 +3,13 @@ const httpManager = require('../lib/request/httpManager');
 /**
  * 营业时间-获取时间列表
  */
-export function getBusinessTime(params) {
+export function getBusinessTime() {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/merchant/business/time', params)
+      .get({
+        url: '/merchant/business/time',
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -22,7 +25,11 @@ export function getBusinessTime(params) {
 export function editBusinessTime(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .post('/merchant/business/time', params)
+      .post({
+        url: '/merchant/business/time',
+        params: params,
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -38,7 +45,11 @@ export function editBusinessTime(params) {
 export function switchBusinessTime(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .put('/merchant/business/time', params)
+      .put({
+        url: '/merchant/business/time',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -54,7 +65,11 @@ export function switchBusinessTime(params) {
 export function deleteBusinessTime(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      ._delete('/merchant/business/time', params)
+      ._delete({
+        url: '/merchant/business/time',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -70,7 +85,11 @@ export function deleteBusinessTime(params) {
 export function editSpecialTime(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .post('/merchant/business/special', params)
+      .post({
+        url: '/merchant/business/special',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -86,7 +105,11 @@ export function editSpecialTime(params) {
 export function deleteSpecialTime(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      ._delete('/merchant/business/special', params)
+      ._delete({
+        url: '/merchant/business/special',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -99,10 +122,13 @@ export function deleteSpecialTime(params) {
 /**
  * 预约时间-获取时间列表
  */
-export function getAppointTime(params) {
+export function getAppointTime() {
   return new Promise((resolve, reject) => {
     httpManager
-      .get('/merchant/appoint/time', params)
+      .get({
+        url: '/merchant/appoint/time',
+        contentType: httpManager.JSON
+      })
       .then(res => {
         resolve(res);
       })
@@ -118,7 +144,11 @@ export function getAppointTime(params) {
 export function editAppointTime(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .post('/merchant/appoint/time', params)
+      .post({
+        url: '/merchant/appoint/time',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -134,7 +164,11 @@ export function editAppointTime(params) {
 export function deleteAppointTime(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      ._delete('/merchant/appoint/time', params)
+      ._delete({
+        url: '/merchant/appoint/time',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })
@@ -150,7 +184,11 @@ export function deleteAppointTime(params) {
 export function switchAppointTime(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .put('/merchant/appoint/time', params)
+      .put({
+        url: '/merchant/appoint/time',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
       .then(res => {
         resolve(res);
       })

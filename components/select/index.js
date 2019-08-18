@@ -35,7 +35,7 @@ Component({
         index: index,
         show: !this.data.show
       });
-      this.triggerEvent('cellClick', { selectOption: item });
+      this.triggerEvent('onChange', { selectOption: item });
     }
   }
 });
