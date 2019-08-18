@@ -39,11 +39,6 @@ Component({
     showBorder: {
       type: Boolean,
       value: true
-    },
-    /* 额外扩展信息 */
-    extraData: {
-      type: Object,
-      value: {}
     }
   },
 
@@ -83,7 +78,7 @@ Component({
     },
 
     onCellClick() {
-      const myEventDetail = { type: this.data.type, extra: this.data.extraData }; // detail对象，提供给事件监听函数
+      const myEventDetail = { type: this.data.type }; // detail对象，提供给事件监听函数
       this.triggerEvent('cellClick', myEventDetail);
     }
   }

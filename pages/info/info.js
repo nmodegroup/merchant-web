@@ -7,6 +7,9 @@ const pageFlag = require('../../constant/pageFlag');
 const { debounce } = require('../../utils/throttle-debounce/index');
 const staticResource = require('./staticResource');
 const regular = require('../../utils/regular');
+const globalConstant = require('../../constant/global');
+const { PageConfig } = require('../../utils/page');
+const globalUtil = require('../../utils/global');
 const store = getApp().globalData;
 
 Page({
@@ -17,9 +20,9 @@ Page({
     enterType: pageFlag.INFO_TOTAL,
     verifyed: false, // 校验结果
     shopName: '', // 门店名称
-    province: '', // 省
-    city: '', // 市
-    area: '', // 区
+    selectCity: '', // 省市区
+    cityName: '',
+    areaName: '',
     cityId: '',
     areaId: '',
     address: '', // 详细地址
@@ -29,8 +32,9 @@ Page({
     visibleShopType: false, // 店铺类型 popup
     latitude: '', // 纬度
     longitude: '', // 经度
-    columns: staticResource.TYPE_LIST,
-    selectShopType: {}
+    selectShopType: {}, // 选中的门店类型
+    columns: staticResource.TYPE_LIST, // 门店类型数组
+    areaList: [] // 省市区列表
   },
 
   /**
@@ -49,19 +53,28 @@ Page({
   initData() {
     // 初始化 toast
     this.Toast = this.selectComponent('#toast');
-    this.showToast('这是测试的借款方\n哈哈哈哈');
     // 初始化店铺类型数据
     this.typeColumnList = [{}];
     // 输入防抖
     this.inputDebounce = debounce(300, event => {
-      console.log('inputDebounce');
-      console.log('this.verifyForm():', this.verifyForm());
-      this.setData({
-        verifyed: this.verifyForm()
-      });
+      this.refreshFormVerify();
     });
     // 请求省市区
-    commonService.getCityAll().then(res => {});
+    this.requestCityList();
+    // 初始化 pageConfig
+    this.setupPageConfig();
+  },
+
+  requestCityList() {
+    commonService.getCityAll().then(res => {
+      this.setData({
+        areaList: res
+      });
+    });
+  },
+
+  setupPageConfig() {
+    this.pageConfig = new PageConfig(this);
   },
 
   getLocation() {
@@ -92,12 +105,21 @@ Page({
   },
 
   /**
+   * 刷新表单验证状态
+   */
+  refreshFormVerify() {
+    this.setData({
+      verifyed: this.verifyForm()
+    });
+  },
+
+  /**
    * 验证表单
    */
   verifyForm() {
-    const { shopName, address, shopPhone } = this.data;
+    const { shopName, address, shopPhone, cityId, areaId, selectShopType, logo } = this.data;
     console.log('data:', this.data);
-    return shopName && address && shopPhone;
+    return shopName && address && shopPhone && cityId && areaId && Object.keys(selectShopType).length && logo;
   },
 
   showToast(content) {
@@ -112,6 +134,7 @@ Page({
       selectShopType: value,
       visibleShopType: false
     });
+    this.refreshFormVerify();
   },
 
   onCancel() {
@@ -154,13 +177,29 @@ Page({
         console.log(res);
         const tempFilePaths = res.tempFilePaths;
         // TODO:  图片需先上传，再展示
+        this.requestUploadImage(tempFilePaths[0]);
         this.setData({
           logo: tempFilePaths[0]
         });
+        this.refreshFormVerify();
       })
       .catch(e => {
         console.error(e);
       });
+  },
+
+  requestUploadImage(imageUrl) {
+    const uploadParams = {
+      filePath: imageUrl,
+      name: globalUtil.getFileName(imageUrl),
+      formData: {
+        floder: globalConstant.FILE_FOLDER_LOGO
+      }
+    };
+    console.log('uploadParams:', uploadParams);
+    this.pageConfig.requestWrapper(commonService.uploadImage(uploadParams)).then(res => {
+      console.log('uploadImage:', res);
+    });
   },
 
   /**
@@ -168,9 +207,16 @@ Page({
    */
   onCityConfirm(event) {
     console.log(event);
+    const selectValues = event.detail.values;
     this.setData({
-      visibleCity: false
+      visibleCity: false,
+      selectCity: `${selectValues[0].name} ${selectValues[1].name} ${selectValues[2].name}`,
+      cityName: selectValues[1].name,
+      cityId: selectValues[1].code,
+      areaName: selectValues[2].name,
+      areaId: selectValues[2].code
     });
+    this.refreshFormVerify();
   },
 
   /**
@@ -209,13 +255,13 @@ Page({
   },
 
   queryParams() {
-    const { shopName, shopPhone, cityId, city, areaId, area, address, selectShopType, logo, latitude, longitude } = this.data;
+    const { shopName, shopPhone, cityId, cityName, areaId, areaName, address, selectShopType, logo, latitude, longitude } = this.data;
     return {
       name: shopName,
       cityId: cityId,
       areaId: areaId,
-      cityName: city,
-      areaName: area,
+      cityName: cityName,
+      areaName: areaName,
       address: address,
       type: selectShopType.type,
       phone: shopPhone,

@@ -23,7 +23,5 @@
         </block>
     </block>
 
-    <modal id="modal" bind:get="getResult">
-        <view>我也是醉了</view>
-    </modal>
+    <modal id="modal" bind:get="getResult"></modal>
 </view>

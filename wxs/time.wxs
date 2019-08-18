@@ -1,0 +1,8 @@
+function isAppointTimeOpen(status) {
+  // 0 启用， 1 关闭
+  return parseInt(status) === 0;
+}
+
+module.exports = {
+  isAppointTimeOpen: isAppointTimeOpen
+};

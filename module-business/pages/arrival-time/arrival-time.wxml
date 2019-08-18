@@ -1,18 +1,23 @@
 <!--module/pages/arrival-time/arrival-time.wxml-->
+<wxs src="../../../wxs/time.wxs" module="timeModule" />
+
 <view class="arrival-page">
   <nav-bar title="预约到店时间" back home></nav-bar>
-  <van-swipe-cell id="swipe-cell" right-width="{{ 67 }}" async-close bind:close="handleClose">
-    <cell cell-extra="cell-extra" title="20:00" showIcon="{{false}}" showArrow="{{false}}">
-      <view class="switch-wrapper">
-        <van-switch checked="{{arrivalChecked}}" size='20px' active-color='#456AEC' inactive-color='#162766'
-          bind:change="handleSwitchChange" />
+  <block wx:for="{{timeList}}" wx:key="{{item.id}}">
+    <van-swipe-cell id="swipe-cell" right-width="{{ 67 }}" async-close bind:close="handleClose">
+      <cell cell-extra="cell-extra" title="{{item.time}}" showIcon="{{false}}" showArrow="{{false}}"
+        bintap="handleCellClick" data-item="{{item}}">
+        <view class="switch-wrapper">
+          <van-switch checked="{{ timeModule.isAppointTimeOpen(item.onStatus) }}" size='20px' active-color='#456AEC'
+            inactive-color='#162766' bind:change="handleSwitchChange" data-index="{{index}}" />
+        </view>
+      </cell>
+      <view slot="right" class="delete">
+        <image src="../../../image/time/arrival_time_delete.svg"></image>
+        <view>删除</view>
       </view>
-    </cell>
-    <view slot="right" class="delete">
-      <image src="../../../image/time/arrival_time_delete.svg"></image>
-      <view>删除</view>
-    </view>
-  </van-swipe-cell>
+    </van-swipe-cell>
+  </block>
   <view class="desc">
     <text>解释说明 \n1.到店时间为用户预约时可选的到到店时间 \n2.设置合理的时间可避免店铺桌位浪费 \n3.可以合理的管理用户预订信息</text>
   </view>
@@ -22,4 +27,19 @@
       <text>新增预约到店时间</text>
     </view>
   </action-wrapper>
+
+  <!-- toast -->
+  <toast id="toast"></toast>
+
+  <!-- 删除弹窗 -->
+  <modal id="modal" bind:get="deleteCallback"></modal>
+
+  <!-- 选择时间弹窗 -->
+  <modal id="modalSelect" bind:get="selectCallback">
+    <view class="select-wrapper">
+      <select selectList="{{hours}}" value="{{selectHour}}"></select>
+      <view class="split">:</view>
+      <select selectList="{{minutes}}" value="{{selectMinute}}"></select>
+    </view>
+  </modal>
 </view>

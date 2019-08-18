@@ -16,7 +16,8 @@
   padding: 20rpx 30rpx;
   background: rgba(255, 255, 255, 0.3);
   border-radius: 16rpx;
-  width: 540rpx;
+  width: 72vw;
+  box-sizing: border-box;
 }
 
 .wx-modal-content::after {
@@ -28,9 +29,8 @@
   border-radius: 16rpx;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.3);
   /* 实时模糊 */
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(3px);
   /* filter: blur(3rpx) saturate(0); */
 }
 
@@ -56,7 +56,7 @@
 .btn-cancel {
   flex: 1;
   margin-right: 24rpx;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1rpx solid rgba(255, 255, 255, 0.5);
   height: 60rpx;
   border-radius: 30rpx;
   line-height: 58rpx;

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="6px" height="9px" viewBox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_select</title>
+    <desc>Created with Sketch.</desc>
+    <g id="商家端" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+        <g id="6.1设置时间" transform="translate(-157.000000, -331.000000)" fill="#313131" fill-rule="nonzero">
+            <g id="弹窗" transform="translate(53.000000, 260.000000)">
+                <g id="分组-2-copy-4" transform="translate(50.000000, 60.000000)">
+                    <g id="Group-2">
+                        <g id="icon_select" transform="translate(54.000000, 11.000000)">
+                            <polygon id="Triangle" points="3 0 6 3 0 3"></polygon>
+                            <polygon id="Triangle" transform="translate(3.000000, 7.500000) scale(1, -1) translate(-3.000000, -7.500000) " points="3 6 6 9 0 9"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

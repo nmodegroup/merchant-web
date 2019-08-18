@@ -42,7 +42,7 @@ Page({
     // 编辑区域
     wxManager.navigateTo(PageConstant.AREA_EDIT_URL, {
       flag: PageFlag.AREA_EDIT,
-      areaName: event.detail.extra.name
+      areaName: event.currentTarget.dataset.item.name
     });
   }
 });

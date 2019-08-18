@@ -77,20 +77,20 @@ Page({
     authService
       .login(params)
       .then(res => {
-        globalData.token = res.token;
-        globalData.phone = res.phone;
+        store.token = res.token;
+        store.phone = res.phone;
         this.goInfoPage();
       })
       .catch(e => {
-        // TODO: delete redirect
-        this.goInfoPage();
-
         this.Toast.showToast({
           content: e.msg || '登录失败，请重试'
         });
       });
   },
 
+  /**
+   * 去填写认证信息
+   */
   goInfoPage() {
     wxManager.redirectTo(pageConstant.INFO_URL, {
       enterType: pageFlag.INFO_BASE

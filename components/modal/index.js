@@ -37,17 +37,27 @@ Component({
        * 延时消失
        */
     },
+
     cancel() {
       this.setData({
         show: false
       });
       this.triggerEvent('get', { result: 'cancel' });
     },
+
     confirm() {
       this.setData({
         show: false
       });
       this.triggerEvent('get', { result: 'confirm' });
+    },
+
+    isConfirm(result) {
+      return result === 'confirm';
+    },
+
+    isCancel(result) {
+      return result === 'cancel';
     }
   }
 });

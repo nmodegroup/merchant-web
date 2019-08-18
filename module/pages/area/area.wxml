@@ -2,7 +2,7 @@
 <view class="area-page">
     <nav-bar title="区域管理" back home></nav-bar>
     <block wx:for="{{areaList}}" wx:key="index">
-        <cell title="{{item.name}}" showIcon="{{ false }}" extraData="{{ item }}" bind:cellClick="handleCellClick">
+        <cell title="{{item.name}}" showIcon="{{ false }}" data-item="{{item}}" bind:cellClick="handleCellClick">
         </cell>
     </block>
     <action-wrapper>

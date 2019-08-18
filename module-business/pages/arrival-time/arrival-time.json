@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "van-swipe-cell": "/components/vant-weapp/swipe-cell/index"
+    "van-swipe-cell": "/components/vant-weapp/swipe-cell/index",
+    "select": "/components/select/index"
   }
 }

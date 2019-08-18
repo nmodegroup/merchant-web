@@ -1,0 +1,14 @@
+<!--components/select/index.wxml-->
+<view class='select_box'>
+    <view class='select' catchtap='selectTap'>
+        <text class='select_text'>{{selectList[index]}}</text>
+        <image class='select_img' src='../../image/time/icon_select.svg'></image>
+    </view>
+    <block wx:if="{{show}}">
+        <view class='option_box'
+            style='height:{{ show ? (selectList.length > 5 ? 300 : selectList.length * 60 ) : 0 }}rpx;'>
+            <text class='option' style='{{ index == selectList.length - 1 && "border:0;" }}' wx:for='{{selectList}}'
+                wx:key='this' data-index='{{index}}' data-item="{{item}}" catchtap='optionTap'>{{item}}</text>
+        </view>
+    </block>
+</view>

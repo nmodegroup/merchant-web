@@ -55,6 +55,10 @@
   text-align: center;
 }
 
+.active {
+  color: #fff;
+}
+
 /* 修改vant下弹出框样式样式start */
 .van-picker__toolbar {
   background: rgba(21, 21, 62, 1);
