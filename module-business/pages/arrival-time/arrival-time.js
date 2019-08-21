@@ -2,7 +2,7 @@
 const timeService = require('../../../service/time');
 const wxManager = require('../../../utils/wxManager');
 const globalUtil = require('../../../utils/global');
-const { PageConfig } = require('../../../utils/page');
+const { PageHelper } = require('../../../utils/page');
 
 Page({
   /**
@@ -44,7 +44,7 @@ Page({
   },
 
   setupPageConfig() {
-    this.pageConfig = new PageConfig(this);
+    PageHelper.setupPageConfig(this);
   },
 
   generateArray() {
@@ -59,7 +59,7 @@ Page({
   },
 
   requestAppointTimeList() {
-    this.pageConfig.requestWrapper(timeService.getAppointTime()).then(res => {
+    PageHelper.requestWrapper(timeService.getAppointTime()).then(res => {
       this.setData({
         // TODO:
         // timeList: res,
@@ -100,7 +100,7 @@ Page({
   },
 
   selectCallback(event) {
-    if (this.modal.isConfirm(event.detail.result)) {
+    if (PageHelper.isModalConfirm(event)) {
       if (this.isEdit) {
         return this.requestEditTime();
       }
@@ -114,7 +114,7 @@ Page({
       time: `${selectHour}:${selectMinute}`
       // id:
     };
-    this.pageConfig.requestWrapper(timeService.editAppointTime(editParams)).then(res => {
+    PageHelper.requestWrapper(timeService.editAppointTime(editParams)).then(res => {
       this.showSuccessToast('编辑成功');
       this.requestAppointTimeList();
     });
@@ -125,7 +125,7 @@ Page({
     const createParams = {
       time: `${selectHour}:${selectMinute}`
     };
-    this.pageConfig.requestWrapper(timeService.editAppointTime(createParams)).then(res => {
+    PageHelper.requestWrapper(timeService.editAppointTime(createParams)).then(res => {
       this.showSuccessToast('新增成功');
       this.requestAppointTimeList();
     });
@@ -140,32 +140,22 @@ Page({
         break;
       case 'right':
         instance.close();
-        this.showDeteleModal();
+        PageHelper.showDeleteModal('确认将这项预约到店时间删除吗？');
         break;
       default:
         break;
     }
   },
 
-  showDeteleModal() {
-    this.modal.showModal({
-      content: '确认将这项预约到店时间删除吗？',
-      title: '温馨提示',
-      cancelText: '点错了',
-      confirmText: '删除',
-      hideCancel: false
-    });
-  },
-
   deleteCallback(event) {
     console.log(event);
-    if (this.modal.isConfirm(event.detail.result)) {
+    if (PageHelper.isModalConfirm(event.detail.result)) {
       this.requestDetelteTime();
     }
   },
 
   requestDetelteTime() {
-    this.pageConfig.requestWrapper(timeService.deleteAppointTime()).then(res => {
+    PageHelper.requestWrapper(timeService.deleteAppointTime()).then(res => {
       this.showSuccessToast('删除成功');
     });
   },

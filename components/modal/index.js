@@ -50,14 +50,6 @@ Component({
         show: false
       });
       this.triggerEvent('get', { result: 'confirm' });
-    },
-
-    isConfirm(result) {
-      return result === 'confirm';
-    },
-
-    isCancel(result) {
-      return result === 'cancel';
     }
   }
 });

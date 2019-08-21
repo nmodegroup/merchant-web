@@ -1,0 +1,28 @@
+<!--module-business/pages/special-date/special-date.wxml-->
+<view class="special-date-page">
+    <nav-bar title="特殊日期" back home></nav-bar>
+    <view class="desc">
+        特殊日期是指该日店铺不接受预订，设置了日期后系统会自动跳过该日预订。
+    </view>
+    <view class="cell-container" bindtap="handleSelectDate">
+        <view class="title">选择日期</view>
+        <text class="{{ selectDate ? 'select' : '' }}">{{ selectDate ? selectDate : "请选择特殊日期" }}</text>
+        <image src="../../../image/global/cell_arrow.svg"></image>
+    </view>
+
+    <block wx:if="{{!isEdit}}">
+        <action-bottom single="{{ true }}" rightText="确认创建" bind:click="handleSaveDate" />
+    </block>
+    <block wx:if="{{isEdit}}">
+        <action-bottom single="{{ false }}" rightText="删除" bind:click="handleEditSpecialDate" />
+    </block>
+
+    <van-popup show="{{visiblePicker}}" position="bottom" overlay-style="background:rgba(0,0,0,0.5)">
+        <van-datetime-picker type="date" value="{{ currentDate }}" min-date="{{ minDate }}" bind:input="onInput"
+            bind:confirm="handleConfirm" bind:cancel="handleCancel" />
+    </van-popup>
+
+    <toast id="toast"></toast>
+    <!-- 删除弹窗 -->
+    <modal id="modal" bind:get="onDeleteCallback"></modal>
+</view>

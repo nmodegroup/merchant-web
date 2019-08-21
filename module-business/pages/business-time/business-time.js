@@ -1,4 +1,8 @@
 // module/pages/business-time/business-time.js
+const wxManager = require('../../../utils/wxManager');
+const pageConstant = require('../../../constant/page');
+const pageFlag = require('../../../constant/pageFlag');
+
 Page({
   /**
    * 页面的初始数据
@@ -39,5 +43,14 @@ Page({
         console.log('delete');
         break;
     }
+  },
+
+  /**
+   * 特殊日期
+   */
+  handleSpecialDate() {
+    wxManager.navigateTo(pageConstant.SPECIAL_DATE_URL, {
+      flag: pageFlag.SPECIAL_CREATE
+    });
   }
 });

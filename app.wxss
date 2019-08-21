@@ -63,6 +63,73 @@ page {
   font-size: 26rpx;
 }
 
+/* 修改vant下弹出框样式样式start */
+.van-picker__toolbar {
+  background: rgba(21, 21, 62, 1);
+  height: 100rpx !important;
+  box-shadow: 0px -1rpx 0 0 rgba(255, 255, 255, 0.1);
+  border-radius: 40rpx 40rpx 0 0 !important;
+}
+.van-picker__cancel {
+  font-size: 30rpx !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  line-height: 100rpx !important;
+}
+.van-picker__confirm {
+  font-size: 30rpx !important;
+  color: rgba(255, 255, 255, 1) !important;
+  line-height: 100rpx !important;
+}
+.van-picker__title {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 30rpx !important;
+  line-height: 100rpx;
+}
+.van-picker {
+  background-color: #12122f !important;
+  border-radius: 40rpx 40rpx 0 0 !important;
+}
+.van-picker-column__item {
+  font-size: 28rpx;
+}
+.van-picker-column__item--selected {
+  font-size: 34rpx;
+  font-weight: 500 !important;
+  color: #fff !important;
+}
+.van-picker__toolbar::after {
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.1) !important;
+  border-top: none !important;
+}
+.van-picker__cancel--hover,
+.van-picker__confirm--hover {
+  background-color: rgba(21, 21, 62, 1) !important;
+}
+.van-picker__frame::after {
+  content: '';
+  width: 750rpx !important;
+  height: 1rpx !important;
+  background: linear-gradient(to right, black, rgba(255, 255, 255, 0.5), black) !important;
+  position: absolute;
+  top: 0 !important;
+  left: 0 !important;
+  transform: scale(1) !important;
+  border: none !important;
+}
+.van-picker__frame::before {
+  content: '';
+  width: 750rpx;
+  height: 1rpx;
+  background: linear-gradient(to right, black, rgba(255, 255, 255, 0.5), black);
+  position: absolute;
+  top: 44px;
+  left: 0;
+}
+.van-popup {
+  background-color: transparent !important;
+}
+/* 修改vant样式end */
+
 .main-container {
   min-height: 100%;
   background: rgba(22, 21, 73, 1)

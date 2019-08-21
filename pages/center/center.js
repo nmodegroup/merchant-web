@@ -119,10 +119,8 @@ Page({
     return cellStrategy[type] ? cellStrategy[type]() : console.error('type error');
   },
 
-  navigation(path) {
-    wx.navigateTo({
-      url: path
-    });
+  navigation(path, params) {
+    WxManager.navigateTo(path, params);
   },
 
   makePhoneCall() {

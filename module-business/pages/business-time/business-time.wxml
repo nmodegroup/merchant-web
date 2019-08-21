@@ -31,7 +31,7 @@
     </van-swipe-cell>
   </block>
   <!-- 特殊日期设定 -->
-  <view class="setting-special-time">
+  <view class="setting-special-time" bindtap="handleSpecialDate">
     特殊日期设定
   </view>
   <action-wrapper>

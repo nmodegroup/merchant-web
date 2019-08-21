@@ -9,7 +9,7 @@ const { debounce } = require('../../utils/throttle-debounce/index');
 const staticResource = require('./staticResource');
 const regular = require('../../utils/regular');
 const globalConstant = require('../../constant/global');
-const { PageConfig } = require('../../utils/page');
+const { PageHelper } = require('../../utils/page');
 const globalUtil = require('../../utils/global');
 const ENV = require('../../lib/request/env');
 const store = getApp().globalData;
@@ -37,7 +37,8 @@ Page({
     selectShopType: {}, // 选中的门店类型
     columns: staticResource.TYPE_LIST, // 门店类型数组
     areaList: [], // 省市区列表
-    authPhoneSuccess: false // 授权手机号状态
+    authPhoneSuccess: false, // 授权手机号状态
+    showBack: false
   },
 
   /**
@@ -46,6 +47,8 @@ Page({
   onLoad: function(options) {
     this.initData();
     this.getLocation();
+    // TODO: 个人中心进入需要展示返回
+    this.setupState(options);
   },
 
   /**
@@ -54,10 +57,6 @@ Page({
   onShow: function() {},
 
   initData() {
-    // 初始化 toast
-    this.Toast = this.selectComponent('#toast');
-    // 初始化 modal
-    this.modal = this.selectComponent('#modal');
     // 初始化店铺类型数据
     this.typeColumnList = [{}];
     // 输入防抖
@@ -67,9 +66,7 @@ Page({
     // 请求省市区
     this.requestCityList();
     // 初始化 pageConfig
-    this.setupPageConfig();
-    // 初始化手机号状态
-    this.setupPhone();
+    PageHelper.setupPageConfig(this);
   },
 
   requestCityList() {
@@ -80,13 +77,12 @@ Page({
     });
   },
 
-  setupPageConfig() {
-    this.pageConfig = new PageConfig(this);
-  },
-
-  setupPhone() {
+  setupState(options) {
+    console.log(options);
     this.setData({
-      authPhoneSuccess: !!store.phone
+      authPhoneSuccess: !!store.phone,
+      enterType: options.enterType,
+      showBack: options.enterType === pageFlag.INFO_TOTAL
     });
   },
 
@@ -120,7 +116,7 @@ Page({
 
   onLocationClick(event) {
     // 点击了去授权
-    if (this.modal.isConfirm(event.detail.result)) {
+    if (PageHelper.isModalConfirm(event.detail.result)) {
       wxManager.openSetting().then(res => {
         console.log(res);
         if (res.authSetting['scope.userLocation']) {
@@ -218,7 +214,7 @@ Page({
 
   requestUploadLogoImage(imageUrl) {
     const uploadParams = this.queryUploadParams(imageUrl, globalConstant.FILE_FOLDER_LOGO);
-    this.pageConfig.requestWrapper(commonService.uploadImage(uploadParams)).then(res => {
+    PageHelper.requestWrapper(commonService.uploadImage(uploadParams)).then(res => {
       this.setData({
         logo: `${ENV.sourceHost}${res}`
       });
@@ -291,8 +287,8 @@ Page({
 
   requestCommitInfo() {
     const params = this.queryParams();
-    this.pageConfig.requestWrapper(shopService.saveShopBasicInfo(params)).then(res => {
-      this.pageConfig.showSuccessToast('提交成功');
+    PageHelper.requestWrapper(shopService.saveShopBasicInfo(params)).then(res => {
+      PageHelper.showSuccessToast('提交成功');
       setTimeout(() => {
         wxManager.switchTab(pageConstant.CENTER_URL);
       }, 1000);

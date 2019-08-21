@@ -1,0 +1,36 @@
+/* module-business/pages/special-date/special-date.wxss */
+
+.desc {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 30rpx;
+}
+
+.cell-container {
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 30rpx;
+}
+
+.title {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 28rpx;
+  flex: 1;
+}
+
+.cell-container > text {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 26rpx;
+}
+
+.cell-container .select {
+  color: rgb(255, 255, 255);
+}
+
+.cell-container > image {
+  width: 18rpx;
+  height: 18rpx;
+  margin-left: 12rpx;
+}

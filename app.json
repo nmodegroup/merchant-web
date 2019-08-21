@@ -34,7 +34,8 @@
         "pages/arrival-time/arrival-time",
         "pages/business-time/business-time",
         "pages/business-time-edit/business-time-edit",
-        "pages/activity-user/activity-user"
+        "pages/activity-user/activity-user",
+        "pages/special-date/special-date"
       ]
     }
   ],

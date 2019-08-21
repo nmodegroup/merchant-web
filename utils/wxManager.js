@@ -29,6 +29,15 @@ export function switchTab(url) {
 }
 
 /**
+ * 返回上级页面
+ */
+export function navigateBack(delta = 1) {
+  wx.navigateBack({
+    delta: delta
+  });
+}
+
+/**
  * path 拼接
  */
 function joinPath(url, params) {

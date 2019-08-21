@@ -1,8 +1,14 @@
 const wxManager = require('../utils/wxManager');
 
-export class PageConfig {
-  constructor(context) {
+class PageConfig {
+  constructor() {}
+
+  setupPageConfig(context) {
     this.context = context;
+    // 初始化 toast
+    this.context.Toast = this.context.selectComponent('#toast');
+    // 初始化 modal
+    this.context.modal = this.context.selectComponent('#modal');
   }
 
   /**
@@ -19,10 +25,21 @@ export class PageConfig {
         })
         .catch(res => {
           wxManager.hideLoading();
-          this.context.showToast(res.msg);
+          this.showToast(res.msg);
           reject(res);
         });
     });
+  }
+
+  /**
+   * 新增、修改、删除请求成功后需要回到上一页的回调操作
+   * @param {string} msg toast 消息
+   */
+  requestSuccessCallback(msg) {
+    this.showSuccessToast('创建成功');
+    setTimeout(() => {
+      wxManager.navigateBack();
+    }, 1500);
   }
 
   /**
@@ -51,4 +68,35 @@ export class PageConfig {
       content: msg
     });
   }
+
+  /**
+   * 删除提示弹窗
+   */
+  showDeleteModal(content) {
+    this.modal.showModal({
+      content: content,
+      title: '温馨提示',
+      cancelText: '点错了',
+      confirmText: '删除',
+      hideCancel: false
+    });
+  }
+
+  /**
+   * 校验弹窗是否点击的确认
+   * @param {object} event 点击事件
+   */
+  isModalConfirm(event) {
+    return event.detail.result === 'confirm';
+  }
+
+  /**
+   * 校验弹窗是否点击的取消
+   * @param {object} event 点击事件
+   */
+  isModalCancel(event) {
+    return event.detail.result === 'cancel';
+  }
 }
+
+export const PageHelper = new PageConfig();
