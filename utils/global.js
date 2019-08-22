@@ -33,3 +33,4 @@ export function isAuthPhone() {
 export function isAuthUserInfo() {
   return Object.keys(store.userInfo).length > 0;
 }
+/* -------------------  user  --------------- */

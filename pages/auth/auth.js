@@ -85,7 +85,7 @@ Page({
       .login(params)
       .then(res => {
         store.token = res.token;
-        store.phone = res.phone;
+        store.phone = res.phone || '';
         if (res.isFirst) {
           this.goInfoPage();
         } else {

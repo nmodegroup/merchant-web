@@ -20,7 +20,7 @@
             placeholder="请输入门店电话" bindinput="handleInput" data-type="shopPhone" />
     </cell-input>
     <cell title="品牌LOGO(选填)" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="logo">
-        <image class="shop-logo" src="{{ logo ? logo : '../../image/user/auth-add.svg' }}"></image>
+        <image class="shop-logo" src="{{ logoDisplay ? logoDisplay : '../../image/user/auth-add.svg' }}"></image>
     </cell>
     <view class="commit-wrapper">
         <view class="btn-commit {{ verifyed ? 'enable' : 'disable' }}" bindtap="commitForm">确认提交</view>
@@ -28,7 +28,9 @@
         <button class="btn-auth-phone" wx:if="{{verifyed && !authPhoneSuccess}}" open-type="getPhoneNumber"
             bindgetphonenumber="onGetPhoneCallback"></button>
     </view>
-    <view class="skip" bindtap="handleSkip">跳过</view>
+    <block wx:if="{{ showSkip }}">
+        <view class="skip" bindtap="handleSkip">跳过</view>
+    </block>
 
     <!-- 省市区选择 -->
     <van-popup show="{{visibleCity}}" position="bottom" overlay-style="background:rgba(0,0,0,0.5)">

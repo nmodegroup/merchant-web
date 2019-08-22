@@ -1,4 +1,7 @@
 const wxManager = require('../utils/wxManager');
+const pageConstant = require('../constant/page');
+const pageFlag = require('../constant/pageFlag');
+const { AuditStatus } = require('../constant/global');
 
 class PageConfig {
   constructor() {}
@@ -35,11 +38,36 @@ class PageConfig {
    * 新增、修改、删除请求成功后需要回到上一页的回调操作
    * @param {string} msg toast 消息
    */
-  requestSuccessCallback(msg) {
-    this.showSuccessToast('创建成功');
+  requestSuccessCallback(msg = '创建成功', duration = 1500) {
+    this.showSuccessToast(msg);
     setTimeout(() => {
       wxManager.navigateBack();
-    }, 1500);
+    }, duration);
+  }
+
+  /**
+   * 检查店铺审核状态（认证状态）
+   */
+  checkAuditStatus(auditStatus) {
+    return new Promise((resolve, reject) => {
+      switch (+auditStatus) {
+        case AuditStatus.NOT_AUDIT: // 未提交资料
+          reject(this.showAuthModal());
+          break;
+        case AuditStatus.AUDITING: // 待审核
+          reject(this.showAuthAuditingModal());
+          break;
+        case AuditStatus.AUDIT_SUCCESS: // 审核通过
+          resolve();
+          break;
+        case AuditStatus.AUDIT_FAIL: // 审核未通过
+          reject(this.showAuthFailModal());
+          break;
+        default:
+          reject('checkAuditStatus error: not match');
+          break;
+      }
+    });
   }
 
   /**
@@ -70,10 +98,58 @@ class PageConfig {
   }
 
   /**
+   * 未认证弹窗
+   */
+  showAuthModal() {
+    this.context.modal.showModal({
+      content: '您还没有进行店铺认证',
+      cancelText: '取消',
+      confirmText: '立即认证',
+      hideCancel: false,
+      onConfirm: () => {
+        wxManager.navigateTo(pageConstant.INFO_URL, {
+          flag: pageFlag.INFO_TOTAL
+        });
+      }
+    });
+  }
+
+  /**
+   * 认证审核中弹窗
+   */
+  showAuthAuditingModal() {
+    this.showSingleConfirmModal('您的店铺认证资料正在审核中，\n请耐心等待！');
+  }
+
+  /**
+   * 店铺认证失败弹窗
+   */
+  showAuthFailModal() {
+    this.showSingleConfirmModal('您的店铺认证审核未通过，可以在“我的-店铺信息”中查看未通过原因哦~');
+  }
+
+  /**
+   * 只有确认按钮的提示弹窗
+   * @param {string} content 弹窗文案
+   */
+  showSingleConfirmModal(content) {
+    return new Promise(resolve => {
+      this.context.modal.showModal({
+        content: content,
+        confirmText: '我知道了',
+        hideCancel: true,
+        onConfirm: () => {
+          resolve();
+        }
+      });
+    });
+  }
+
+  /**
    * 删除提示弹窗
    */
   showDeleteModal(content) {
-    this.modal.showModal({
+    this.context.modal.showModal({
       content: content,
       title: '温馨提示',
       cancelText: '点错了',

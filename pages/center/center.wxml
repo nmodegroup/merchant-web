@@ -21,7 +21,7 @@
           </block>
           <block wx:else>
             <button class="phone-auth-btn" open-type="getPhoneNumber"
-              bindgetphonenumber="handleGetPhoneNUmber">手机号授权</button>
+              bindgetphonenumber="handleGetPhoneNUmber">点击授权</button>
           </block>
         </view>
       </view>
@@ -31,13 +31,21 @@
       <view class='col-item' bindtap="handleColClick" data-type="shop">
         <image class='col-image' src="../../image/center/center_shop.png"></image>
         <text>店铺信息</text>
-        <tag title='审核未通过' showIcon iconPath="../../image/global/icon_reason.svg" />
+        <block wx:if="{{ centerModule.isAuditSuccess(auditStatus) }}">
+          <tag title='{{ centerModule.getAuditStatus(auditStatus) }}' showIcon="{{ true }}"
+            iconPath="/image/toast/icon_succed.svg" bgColor="#456AEC" />
+        </block>
+        <block wx:else>
+          <tag title='{{ centerModule.getAuditStatus(auditStatus) }}'
+            showIcon="{{ centerModule.isAuditFail(auditStatus) }}" iconPath="/image/global/icon_reason.svg"
+            bind:tagClick="handleTagClick" />
+        </block>
       </view>
       <view class="line">
         <view></view>
       </view>
       <view class='col-item' bindtap="handleColClick" data-type="table">
-        <image class='col-image' src="../../image/center/center_seat.png"></image>
+        <image class='col-image' src="/image/center/center_seat.png"></image>
         <text>桌位管理</text>
         <tag title='未设定' />
       </view>
@@ -47,19 +55,19 @@
     <cell title='营业时间设置' iconType='home' type="businessTime" bind:cellClick="handleCellClick" />
     <cell cell-extra="cell-extra" title='营业状态设置' showArrow="{{ false }}" type="businessStatus">
       <view class='business-status'>
-        <text>{{centerModule.getBusinessStatus(statusChecked)}}</text>
+        <text>{{centerModule.getBusinessStatus(businessStatusOpen)}}</text>
         <view class="switch-wrapper">
-          <van-switch checked="{{statusChecked}}" size='18px' active-color='#456AEC' inactive-color='#162766'
+          <van-switch checked="{{businessStatusOpen}}" size='18px' active-color='#456AEC' inactive-color='#162766'
             bind:change="onStatusChange" />
         </view>
       </view>
     </cell>
     <cell cell-extra="cell-extra" title='预约开关(自动接单)' showArrow="{{ false }}" type="reserve">
       <view class='business-status'>
-        <text>{{centerModule.getReserveStatus(reserveChecked)}}</text>
+        <text>{{centerModule.getReserveStatus(appointOpen)}}</text>
         <view class="switch-wrapper">
-          <van-switch checked="{{reserveChecked}}" size='18px' active-color='#456AEC' inactive-color='#162766'
-            bind:change="onReserveChange" />
+          <van-switch checked="{{appointOpen}}" size='18px' active-color='#456AEC' inactive-color='#162766'
+            bind:change="onAppointChange" />
         </view>
       </view>
     </cell>
@@ -77,5 +85,8 @@
     <cell title='关于我们' type="about" bind:cellClick="handleCellClick" />
     <view></view>
   </view>
-
+  <!-- toast -->
+  <toast id="toast"></toast>
+  <!-- 定位弹窗 -->
+  <modal id="modal" bind:get="onModalCallback"></modal>
 </view>

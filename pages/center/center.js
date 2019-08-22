@@ -3,7 +3,9 @@ const PageConstant = require('../../constant/page');
 const { throttle } = require('../../utils/throttle-debounce/index');
 const WxManager = require('../../utils/wxManager');
 const pageFlag = require('../../constant/pageFlag');
-const globalUtil = require('../../utils/global');
+const { PageHelper } = require('../../utils/page');
+const centerService = require('../../service/center');
+const { AuditStatus, AppointStatus, BusinessStatus } = require('../../constant/global');
 const store = getApp().globalData;
 
 Page({
@@ -13,11 +15,15 @@ Page({
   data: {
     navBgColor: 'none',
     contactPhoneNumber: '159 0904 0903', //TODO:手机号修改
-    statusChecked: false, // 营业状态选中
-    reserveChecked: false, // 预约开关
+    businessStatusOpen: false, // 营业状态
+    appointOpen: false, // 预约开关
     avatarUrl: '',
     nickName: '',
-    phone: ''
+    phone: '',
+    auditStatus: AuditStatus.NOT_AUDIT,
+    appointStatus: 1,
+    reason: '',
+    shareImg: ''
   },
 
   /**
@@ -36,9 +42,11 @@ Page({
         selected: 2
       });
     }
+    this.requestMerchantInfo();
   },
 
   initData() {
+    PageHelper.setupPageConfig(this);
     this.setupUserInfo();
     this.setupScroll();
   },
@@ -73,22 +81,94 @@ Page({
     this.scrollThrottle(event);
   },
 
+  requestMerchantInfo() {
+    PageHelper.requestWrapper(centerService.getCenterInfo())
+      .then(res => {
+        this.setData({
+          auditStatus: res.auditStatus || AuditStatus.NOT_AUDIT,
+          reason: res.reason || '',
+          businessStatusOpen: this.isBusinessStatusOpen(res.businessStatus || BusinessStatus.CLOSE),
+          appointOpen: this.isAppointOpen(res.appointStatus || AppointStatus.CLOSE),
+          shareImg: res.shareImg || '' // 商家二维码图片链接
+        });
+      })
+      .catch(e => {});
+  },
+
+  isBusinessStatusOpen(businessStatus) {
+    return businessStatus === BusinessStatus.OPEN;
+  },
+
+  isAppointOpen(appointStatus) {
+    return appointStatus === AppointStatus.OPEN;
+  },
+
   /**
    * 手机号授权回调
    */
   handleGetPhoneNUmber() {},
 
+  /**
+   * 切换营业状态
+   */
   onStatusChange() {
-    const { statusChecked } = this.data;
-    this.setData({
-      statusChecked: !statusChecked
+    const { businessStatusOpen, auditStatus } = this.data;
+    PageHelper.checkAuditStatus(auditStatus).then(() => {
+      this.modal
+        .showModal({
+          content: businessStatusOpen ? '确认要将店铺修业吗？' : '确认店铺要开始营业吗？',
+          cancelText: '取消',
+          confirmText: '确认',
+          hideCancel: false,
+          onConfirm: () => {
+            this.requestSwitchBusinessStatus();
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
     });
   },
 
-  onReserveChange() {
-    const { reserveChecked } = this.data;
-    this.setData({
-      reserveChecked: !reserveChecked
+  requestSwitchBusinessStatus() {
+    const { businessStatusOpen } = this.data;
+    PageHelper.requestWrapper(centerService.changeBusinessStatus()).then(res => {
+      PageHelper.showSuccessToast(businessStatusOpen ? '已休业' : '开始营业');
+      this.setData({
+        businessStatusOpen: !businessStatusOpen
+      });
+    });
+  },
+
+  /**
+   * 切换预约状态
+   */
+  onAppointChange() {
+    const { appointOpen, auditStatus } = this.data;
+    PageHelper.checkAuditStatus(auditStatus).then(() => {
+      this.modal
+        .showModal({
+          content: appointOpen ? '确认要开启预约吗？' : '确认要关闭预约吗？',
+          cancelText: '取消',
+          confirmText: '确认',
+          hideCancel: false,
+          onConfirm: () => {
+            this.requestSwitchAppointStatus();
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    });
+  },
+
+  requestSwitchAppointStatus() {
+    const { appointOpen } = this.data;
+    PageHelper.requestWrapper(centerService.changeAppointStatus()).then(() => {
+      PageHelper.showSuccessToast(appointOpen ? '关闭成功' : '开启成功');
+      this.setData({
+        appointOpen: !appointOpen
+      });
     });
   },
 
@@ -96,15 +176,36 @@ Page({
     console.log(event);
     const type = event.currentTarget.dataset.type;
     const colStrategy = {
-      shop: () =>
-        this.navigation(PageConstant.INFO_URL, {
-          enterType: pageFlag.INFO_TOTAL
-        }),
+      shop: () => this.goInfoPage(),
       table: () => this.navigation(PageConstant.TABLE_URL)
     };
     return colStrategy[type] ? colStrategy[type]() : console.error('type error');
   },
 
+  goInfoPage() {
+    if (this.data.auditStatus === AuditStatus.AUDITING) {
+      return PageHelper.showSingleConfirmModal('您的店铺信息需要平台审核，请耐心等待！');
+    }
+    this.navigation(PageConstant.INFO_URL, {
+      enterType: pageFlag.INFO_TOTAL
+    });
+  },
+
+  /**
+   * 审核不通过原因
+   */
+  handleTagClick() {
+    console.log('handleTagClick');
+    const { auditStatus, reason } = this.data;
+    if (auditStatus !== AuditStatus.AUDIT_FAIL) {
+      return false;
+    }
+    PageHelper.showSingleConfirmModal(reason).then(() => {});
+  },
+
+  /**
+   * cell 单元格点击事件
+   */
   handleCellClick(event) {
     const { type } = event.detail;
     const cellStrategy = {

@@ -1,13 +1,15 @@
 <!--module/pages/business-time/business-time.wxml-->
+<wxs src="../../../wxs/time.wxs" module="timeModule" />
+
 <view class="business-page">
   <nav-bar title="营业时间" back home></nav-bar>
   <!-- 商铺营业时间 -->
-  <block>
+  <block wx:for="{{businessTimeList}}" wx:key="index">
     <van-swipe-cell id="swipe-cell" right-width="{{ 67 }}" async-close bind:close="handleClose">
-      <cell cell-extra="cell-extra" title="20:00 - 凌晨2：00" minor="周一 周二 周三 周四 周五" showIcon="{{false}}"
-        showArrow="{{false}}">
+      <cell cell-extra="cell-extra" title="{{ item.begin + ' - ' + item.end }}" minor="{{ item.weekListContent }}"
+        showIcon="{{false}}" showArrow="{{false}}" bind:cellClick="handleCellClick" data-item="{{item}}">
         <view class="switch-wrapper">
-          <van-switch checked="{{checked}}" size='20px' active-color='#456AEC' inactive-color='#162766'
+          <van-switch checked="{{ item.onStatus === 0 }}" size='20px' active-color='#456AEC' inactive-color='#162766'
             bind:change="handleSwitchChange" />
         </view>
       </cell>
@@ -18,10 +20,10 @@
     </van-swipe-cell>
   </block>
   <!-- 商铺特殊时间 -->
-  <block>
+  <block wx:for="{{ specialTimeList }}" wx:key="index">
     <van-swipe-cell id="swipe-cell" right-width="{{ 67 }}" async-close bind:close="handleClose">
-      <cell cell-extra="cell-extra" title="20:00 - 凌晨2：00" minor="特殊日期，该日不可预订" showIcon="{{false}}"
-        showArrow="{{false}}">
+      <cell cell-extra="cell-extra" title="{{ item.date }}" minor="特殊日期，该日不可预订" showIcon="{{false}}"
+        showArrow="{{false}}" bind:cellClick="handleSpecialCellClick" data-item="{{item}}">
         <image class="icon-special" src="../../../image/time/time_icon_special.svg"></image>
       </cell>
       <view slot="right" class="delete">
@@ -37,7 +39,11 @@
   <action-wrapper>
     <view class="action-item" bindtap="handleActionClick">
       <image src="../../../image/table/table_add.svg"></image>
-      <text>新增预约到店时间</text>
+      <text>新增营业时间</text>
     </view>
   </action-wrapper>
+  <!-- toast -->
+  <toast id="toast"></toast>
+  <!-- 定位弹窗 -->
+  <modal id="modal" bind:get="onModalCallback"></modal>
 </view>

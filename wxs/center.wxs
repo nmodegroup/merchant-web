@@ -6,7 +6,46 @@ function getReserveStatus(reserveChecked) {
   return reserveChecked ? '当前状态：可预定' : '当前状态：不可预定';
 }
 
+/**
+ * 审核状态提示
+ * @param auditStatus 审核状态
+ */
+function getAuditStatus(auditStatus) {
+  console.log('getAuditStatus:', auditStatus);
+  switch (auditStatus) {
+    case -1:
+      return '未提交资料';
+    case 0:
+      return '待审核';
+    case 1:
+      return '已认证';
+    case 2:
+      return '审核未通过';
+    default:
+      return '';
+  }
+}
+
+/**
+ * 是否审核失败
+ * @param auditStatus 审核状态
+ */
+function isAuditFail(auditStatus) {
+  return auditStatus === 2;
+}
+
+/**
+ * 是否认证成功
+ * @param auditStatus 审核状态
+ */
+function isAuditSuccess(auditStatus) {
+  return auditStatus === 1;
+}
+
 module.exports = {
   getBusinessStatus: getBusinessStatus,
-  getReserveStatus: getReserveStatus
+  getReserveStatus: getReserveStatus,
+  getAuditStatus: getAuditStatus,
+  isAuditFail: isAuditFail,
+  isAuditSuccess: isAuditSuccess
 };

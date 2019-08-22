@@ -1,4 +1,12 @@
 <!--module/pages/business-time-edit/busine.wxml-->
 <view class="business-edit-page">
     <nav-bar title="营业时间" back home></nav-bar>
+    <!-- 新增 -->
+    <block wx:if="{{!isEdit}}">
+        <action-bottom bind:click="handleCreateTime" />
+    </block>
+    <!-- 编辑删除 -->
+    <block wx:if="{{isEdit}}">
+        <action-bottom single="{{ false }}" rightText="删除" bind:click="handleEditTime" />
+    </block>
 </view>

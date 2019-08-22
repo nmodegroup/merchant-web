@@ -8,7 +8,7 @@ const pageFlag = require('../../constant/pageFlag');
 const { debounce } = require('../../utils/throttle-debounce/index');
 const staticResource = require('./staticResource');
 const regular = require('../../utils/regular');
-const globalConstant = require('../../constant/global');
+const { Folder } = require('../../constant/global');
 const { PageHelper } = require('../../utils/page');
 const globalUtil = require('../../utils/global');
 const ENV = require('../../lib/request/env');
@@ -20,6 +20,8 @@ Page({
    */
   data: {
     enterType: pageFlag.INFO_TOTAL,
+    showBack: false,
+    showSkip: false,
     verifyed: false, // 校验结果
     shopName: '', // 门店名称
     selectCity: '', // 省市区
@@ -29,7 +31,8 @@ Page({
     areaId: '',
     address: '', // 详细地址
     shopPhone: '', // 门店电话
-    logo: '', // logo url
+    logoDisplay: '', // logo url
+    logo: '', // 传回给后端的不完整图片路径
     visibleCity: false, // 选择城市 popup
     visibleShopType: false, // 店铺类型 popup
     latitude: '', // 纬度
@@ -37,8 +40,7 @@ Page({
     selectShopType: {}, // 选中的门店类型
     columns: staticResource.TYPE_LIST, // 门店类型数组
     areaList: [], // 省市区列表
-    authPhoneSuccess: false, // 授权手机号状态
-    showBack: false
+    authPhoneSuccess: false // 授权手机号状态
   },
 
   /**
@@ -47,7 +49,6 @@ Page({
   onLoad: function(options) {
     this.initData();
     this.getLocation();
-    // TODO: 个人中心进入需要展示返回
     this.setupState(options);
   },
 
@@ -82,7 +83,8 @@ Page({
     this.setData({
       authPhoneSuccess: !!store.phone,
       enterType: options.enterType,
-      showBack: options.enterType === pageFlag.INFO_TOTAL
+      showBack: options.enterType === pageFlag.INFO_TOTAL,
+      showSkip: options.enterType === pageFlag.INFO_BASE
     });
   },
 
@@ -213,10 +215,11 @@ Page({
   },
 
   requestUploadLogoImage(imageUrl) {
-    const uploadParams = this.queryUploadParams(imageUrl, globalConstant.FILE_FOLDER_LOGO);
+    const uploadParams = this.queryUploadParams(imageUrl, Folder.FILE_FOLDER_LOGO);
     PageHelper.requestWrapper(commonService.uploadImage(uploadParams)).then(res => {
       this.setData({
-        logo: `${ENV.sourceHost}${res}`
+        logoDisplay: `${ENV.sourceHost}${res}`,
+        logo: res
       });
       this.refreshFormVerify();
     });

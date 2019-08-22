@@ -22,3 +22,12 @@ export function formatUnixDate(timestamp) {
   const D = date.getDate();
   return `${Y}${M}${D}`;
 }
+
+/**
+ * 将已格式化的时间转为时间戳
+ * 2019-7-8 to 1567656768998
+ */
+export function getFormatTimeStamp(formatTime) {
+  const newTime = formatTime.replace(/-/g, '/');
+  return new Date(newTime).getTime();
+}

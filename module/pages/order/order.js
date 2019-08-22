@@ -1,5 +1,5 @@
 // module/pages/order/order.js
-const OrderConstant = require('../../../constant/order');
+const { OrderType } = require('../../../constant/global');
 const homeService = require('../../../service/home');
 
 Page({
@@ -11,20 +11,20 @@ Page({
       {
         title: '今日预定',
         checked: true,
-        type: OrderConstant.TODAY
+        type: OrderType.TODAY
       },
       {
         title: '未来订单',
         checked: false,
-        type: OrderConstant.FUTURE
+        type: OrderType.FUTURE
       },
       {
         title: '历史订单',
         checked: false,
-        type: OrderConstant.HISTORY
+        type: OrderType.HISTORY
       }
     ],
-    currentType: OrderConstant.TODAY,
+    currentType: OrderType.TODAY,
     todayList: [],
     futureList: [],
     historyList: []
@@ -51,18 +51,18 @@ Page({
 
   sendRefreshRequest() {
     const refreshStrategy = {
-      [OrderConstant.TODAY]: () => this.requestTodayOrderList(),
-      [OrderConstant.FUTURE]: () => this.requestFutureOrderList(),
-      [OrderConstant.HISTORY]: () => this.requestHistoryOrderList()
+      [OrderType.TODAY]: () => this.requestTodayOrderList(),
+      [OrderType.FUTURE]: () => this.requestFutureOrderList(),
+      [OrderType.HISTORY]: () => this.requestHistoryOrderList()
     };
     refreshStrategy[this.data.currentType]();
   },
 
   sendLoadMOreRequest() {
     const loadMoreStrategy = {
-      [OrderConstant.TODAY]: () => this.requestTodayOrderList(this.pageNum + 1),
-      [OrderConstant.FUTURE]: () => this.requestFutureOrderList(),
-      [OrderConstant.HISTORY]: () => this.requestHistoryOrderList(this.pageNum + 1)
+      [OrderType.TODAY]: () => this.requestTodayOrderList(this.pageNum + 1),
+      [OrderType.FUTURE]: () => this.requestFutureOrderList(),
+      [OrderType.HISTORY]: () => this.requestHistoryOrderList(this.pageNum + 1)
     };
     loadMoreStrategy[this.data.currentType]();
   },
