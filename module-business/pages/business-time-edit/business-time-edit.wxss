@@ -1,1 +1,30 @@
 /* module/pages/business-time-edit/busine.wxss */
+
+.week {
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.disactive {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* picker */
+
+.picker {
+  height: 340rpx;
+  width: 240rpx;
+  font-size: 28rpx;
+  background: none;
+}
+
+.indicator {
+  font-size: 34rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.column {
+  height: 50rpx;
+  line-height: 50rpx;
+}

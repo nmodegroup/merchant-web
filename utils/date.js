@@ -31,3 +31,63 @@ export function getFormatTimeStamp(formatTime) {
   const newTime = formatTime.replace(/-/g, '/');
   return new Date(newTime).getTime();
 }
+
+/**
+ * 周期匹配
+ */
+export function getWeekTitle(week) {
+  switch (+week) {
+    case 1:
+      return '周一';
+    case 2:
+      return '周二';
+    case 3:
+      return '周三';
+    case 4:
+      return '周四';
+    case 5:
+      return '周五';
+    case 6:
+      return '周六';
+    case 7:
+      return '周日';
+    default:
+      return '';
+  }
+}
+
+/**
+ * 周期匹配
+ */
+export function getEachWeekTitle(week) {
+  switch (+week) {
+    case 1:
+      return '每周一';
+    case 2:
+      return '每周二';
+    case 3:
+      return '每周三';
+    case 4:
+      return '每周四';
+    case 5:
+      return '每周五';
+    case 6:
+      return '每周六';
+    case 7:
+      return '每周日';
+    default:
+      return '';
+  }
+}
+
+export function getHours() {
+  const length = 23;
+  return Array.from({ length }, (v, k) => k);
+}
+
+export function getMinutes() {
+  const length = 59;
+  return Array.from({ length }, (v, k) => {
+    return k < 10 ? `0${k}` : k;
+  });
+}

@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "van-checkbox": "/components/vant-weapp/checkbox/index"
+  }
+}

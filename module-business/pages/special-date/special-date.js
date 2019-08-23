@@ -4,7 +4,7 @@ const timeService = require('../../../service/time');
 const { PageHelper } = require('../../../utils/page');
 const dateUtil = require('../../../utils/date');
 const { getFormatTimeStamp } = require('../../../utils/date');
-
+// TODO: 退出编辑提示
 Page({
   /**
    * 页面的初始数据
@@ -34,8 +34,8 @@ Page({
     PageHelper.setupPageConfig(this);
     this.setData({
       isEdit: !!options.specialId,
-      specialId: options.specialId,
-      selectDate: options.date
+      specialId: options.specialId || '',
+      selectDate: options.date || ''
     });
   },
 
@@ -81,7 +81,7 @@ Page({
 
     PageHelper.requestWrapper(timeService.editSpecialTime(options))
       .then(res => {
-        PageHelper.requestSuccessCallback(isEdit ? '编辑成功' : '创建成功');
+        PageHelper.requestSuccessCallback(isEdit ? '特殊日期编辑成功' : '特殊日期创建成功');
       })
       .catch(e => {
         console.log(e);
@@ -101,7 +101,7 @@ Page({
   },
 
   deleteDate() {
-    PageHelper.showDeleteModal('确认要删除吗');
+    PageHelper.showDeleteModal('是否确认删除特殊日期？');
   },
 
   onDeleteCallback(event) {
@@ -120,7 +120,7 @@ Page({
     const params = this.queryParams();
     PageHelper.requestWrapper(timeService.deleteSpecialTime(params))
       .then(res => {
-        PageHelper.requestSuccessCallback('删除成功');
+        PageHelper.requestSuccessCallback('特殊日期删除成功');
       })
       .catch(e => {});
   }

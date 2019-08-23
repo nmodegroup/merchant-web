@@ -1,0 +1,18 @@
+<!--module-business/pages/week/week.wxml-->
+<view class="business-edit-page">
+    <nav-bar title="新增时间" back home></nav-bar>
+    <block wx:for="{{ weekList }}" wx:key="index">
+        <cell title="{{ item.title }}" showBorder="{{ true }}" showIcon="{{false}}" showArrow="{{false}}"
+            bind:cellClick="handleCellClick" data-item="{{ item }}" data-index="{{ index }}">
+            <van-checkbox value="{{ item.selected }}" />
+        </cell>
+    </block>
+    <!-- 确认选择 -->
+    <block>
+        <action-bottom rightText="确认选择" bind:click="handleSelectWeek" />
+    </block>
+
+    <toast id="toast"></toast>
+    <!-- 删除弹窗 -->
+    <modal id="modal" bind:get="onDeleteCallback"></modal>
+</view>

@@ -40,7 +40,7 @@ export function navigateBack(delta = 1) {
 /**
  * path 拼接
  */
-function joinPath(url, params) {
+export function joinPath(url, params) {
   if (!params || typeof params !== 'object') {
     return url;
   }

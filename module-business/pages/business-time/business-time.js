@@ -1,9 +1,9 @@
 // module/pages/business-time/business-time.js
 const wxManager = require('../../../utils/wxManager');
 const pageConstant = require('../../../constant/page');
-const pageFlag = require('../../../constant/pageFlag');
 const timeService = require('../../../service/time');
 const { PageHelper } = require('../../../utils/page');
+const { getWeekTitle } = require('../../../utils/date');
 
 Page({
   /**
@@ -52,30 +52,9 @@ Page({
     });
     console.log('weekList', weekList);
     businessTime.weekListContent = weekList.reduce((pre, current, currentIndex) => {
-      return `${pre}${current}${currentIndex === contentList.length - 1 ? '' : ' '}`;
+      return `${pre}${current}${currentIndex === weekList.length - 1 ? '' : ' '}`;
     });
     return businessTime;
-  },
-
-  getWeekTitle(week) {
-    switch (+week) {
-      case 1:
-        return '周一';
-      case 2:
-        return '周二';
-      case 3:
-        return '周三';
-      case 4:
-        return '周四';
-      case 5:
-        return '周五';
-      case 6:
-        return '周六';
-      case 7:
-        return '周日';
-      default:
-        return '';
-    }
   },
 
   handleSwitchChange(event) {
