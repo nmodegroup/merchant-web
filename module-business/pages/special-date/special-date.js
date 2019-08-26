@@ -1,9 +1,8 @@
 // module-business/pages/special-date/special-date.js
-const wxManager = require('../../../utils/wxManager');
 const timeService = require('../../../service/time');
-const { PageHelper } = require('../../../utils/page');
 const dateUtil = require('../../../utils/date');
-const { getFormatTimeStamp } = require('../../../utils/date');
+const { PageConfig } = require('../../../utils/page');
+const PageHelper = new PageConfig();
 // TODO: 退出编辑提示
 Page({
   /**
@@ -101,13 +100,9 @@ Page({
   },
 
   deleteDate() {
-    PageHelper.showDeleteModal('是否确认删除特殊日期？');
-  },
-
-  onDeleteCallback(event) {
-    if (PageHelper.isModalConfirm(event)) {
+    PageHelper.showDeleteModal('是否确认删除特殊日期？').then(() => {
       this.requestDeleteDate();
-    }
+    });
   },
 
   queryParams() {

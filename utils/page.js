@@ -3,15 +3,20 @@ const pageConstant = require('../constant/page');
 const pageFlag = require('../constant/pageFlag');
 const { AuditStatus } = require('../constant/global');
 
-class PageConfig {
+export class PageConfig {
   constructor() {}
 
   setupPageConfig(context) {
+    console.log('this:', this);
     this.context = context;
     // 初始化 toast
-    this.context.Toast = this.context.selectComponent('#toast');
+    this.currentPage().Toast = this.currentPage().selectComponent('#toast');
     // 初始化 modal
-    this.context.modal = this.context.selectComponent('#modal');
+    this.currentPage().modal = this.currentPage().selectComponent('#modal');
+  }
+
+  currentPage() {
+    return this.context;
   }
 
   /**
@@ -52,16 +57,16 @@ class PageConfig {
     return new Promise((resolve, reject) => {
       switch (+auditStatus) {
         case AuditStatus.NOT_AUDIT: // 未提交资料
-          reject(this.showAuthModal());
+          this.showAuthModal();
           break;
         case AuditStatus.AUDITING: // 待审核
-          reject(this.showAuthAuditingModal());
+          this.showAuthAuditingModal();
           break;
         case AuditStatus.AUDIT_SUCCESS: // 审核通过
           resolve();
           break;
         case AuditStatus.AUDIT_FAIL: // 审核未通过
-          reject(this.showAuthFailModal());
+          this.showAuthFailModal();
           break;
         default:
           reject('checkAuditStatus error: not match');
@@ -70,15 +75,19 @@ class PageConfig {
     });
   }
 
+  getValue(value) {
+    return value || '';
+  }
+
   /**
    * 成功 toast
    * @param {string} msg 提示消息内容
    */
   showSuccessToast(msg) {
-    if (!this.context.Toast) {
+    if (!this.currentPage().Toast) {
       throw new Error('Toast error: toast is not init in onLoad or toast id is not match（is wrong）');
     }
-    this.context.Toast.showToast({
+    this.currentPage().Toast.showToast({
       content: msg,
       icon: 'success'
     });
@@ -89,10 +98,10 @@ class PageConfig {
    * @param {string} msg 提示消息内容
    */
   showToast(msg) {
-    if (!this.context.Toast) {
+    if (!this.currentPage().Toast) {
       throw new Error('Toast error: toast is not init in onLoad or toast id is not match（is wrong）');
     }
-    this.context.Toast.showToast({
+    this.currentPage().Toast.showToast({
       content: msg
     });
   }
@@ -101,14 +110,16 @@ class PageConfig {
    * 未认证弹窗
    */
   showAuthModal() {
-    this.context.modal.showModal({
+    console.log('showAuthModal');
+    console.log('this', this);
+    this.currentPage().modal.showModal({
       content: '您还没有进行店铺认证',
       cancelText: '取消',
       confirmText: '立即认证',
       hideCancel: false,
       onConfirm: () => {
         wxManager.navigateTo(pageConstant.INFO_URL, {
-          flag: pageFlag.INFO_TOTAL
+          enterType: pageFlag.INFO_TOTAL
         });
       }
     });
@@ -134,7 +145,7 @@ class PageConfig {
    */
   showSingleConfirmModal(content) {
     return new Promise(resolve => {
-      this.context.modal.showModal({
+      this.currentPage().modal.showModal({
         content: content,
         confirmText: '我知道了',
         hideCancel: true,
@@ -149,12 +160,17 @@ class PageConfig {
    * 删除提示弹窗
    */
   showDeleteModal(content) {
-    this.context.modal.showModal({
-      content: content,
-      title: '温馨提示',
-      cancelText: '点错了',
-      confirmText: '删除',
-      hideCancel: false
+    return new Promise(resolve => {
+      this.currentPage().modal.showModal({
+        content: content,
+        title: '温馨提示',
+        cancelText: '点错了',
+        confirmText: '删除',
+        hideCancel: false,
+        onConfirm: () => {
+          resolve();
+        }
+      });
     });
   }
 
@@ -174,5 +190,3 @@ class PageConfig {
     return event.detail.result === 'cancel';
   }
 }
-
-export const PageHelper = new PageConfig();

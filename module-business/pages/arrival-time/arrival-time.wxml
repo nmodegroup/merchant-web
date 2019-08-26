@@ -4,7 +4,7 @@
 <view class="arrival-page">
   <nav-bar title="预约到店时间" back home></nav-bar>
   <block wx:for="{{timeList}}" wx:key="{{item.id}}">
-    <van-swipe-cell id="swipe-cell" right-width="{{ 67 }}" async-close bind:close="handleClose">
+    <van-swipe-cell id="swipe-cell" right-width="{{ 67 }}" async-close bind:close="handleClose" data-id="{{ item.id }}">
       <cell cell-extra="cell-extra" title="{{item.time}}" showIcon="{{false}}" showArrow="{{false}}"
         bindtap="handleCellClick" data-item="{{item}}">
         <view class="switch-wrapper">
@@ -32,7 +32,7 @@
   <toast id="toast"></toast>
 
   <!-- 删除弹窗 -->
-  <modal id="modal" bind:get="deleteCallback"></modal>
+  <modal id="modal"></modal>
 
   <!-- 选择时间弹窗 -->
   <modal id="modalSelect" bind:get="selectCallback">

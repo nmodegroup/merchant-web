@@ -2,8 +2,9 @@
 const wxManager = require('../../../utils/wxManager');
 const pageConstant = require('../../../constant/page');
 const timeService = require('../../../service/time');
-const { PageHelper } = require('../../../utils/page');
 const { getWeekTitle } = require('../../../utils/date');
+const { PageConfig } = require('../../../utils/page');
+const PageHelper = new PageConfig();
 
 Page({
   /**
@@ -101,6 +102,7 @@ Page({
         break;
       case 'right':
         console.log('delete');
+        // TODO: 删除特殊日期
         break;
     }
   },

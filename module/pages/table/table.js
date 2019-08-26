@@ -1,91 +1,43 @@
 // module/pages/table/table.js
 const pageConstant = require('../../../constant/page');
-const pageFlag = require('../../../constant/pageFlag');
 const wxManager = require('../../../utils/wxManager');
+const tableService = require('../../../service/table');
+const { PageConfig } = require('../../../utils/page');
+const PageHelper = new PageConfig();
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    areaList: [
-      {
-        id: 1,
-        name: '大厅',
-        tables: [
-          {
-            id: 1,
-            name: '晚间',
-            num: 4
-          },
-          {
-            id: 1,
-            name: '晚间',
-            num: 4
-          },
-          {
-            id: 1,
-            name: '晚间',
-            num: 4
-          },
-          {
-            id: 1,
-            name: '晚间',
-            num: 4
-          },
-          {
-            id: 1,
-            name: '晚间',
-            num: 4
-          },
-          {
-            id: 1,
-            name: '晚间',
-            num: 4
-          },
-          {
-            id: 1,
-            name: '晚间',
-            num: 4
-          },
-          {
-            id: 1,
-            name: '晚间',
-            num: 4
-          },
-          {
-            id: 1,
-            name: '晚间',
-            num: 4
-          },
-          {
-            id: 1,
-            name: '晚间',
-            num: 4
-          }
-        ]
-      },
-      {
-        id: 2,
-        name: '吧台',
-        tables: []
-      }
-    ]
+    tableList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {},
+  onLoad: function(options) {
+    this.initData();
+  },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function() {
+    this.requestTableList();
+  },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {},
+  initData() {
+    PageHelper.setupPageConfig(this);
+  },
+
+  requestTableList() {
+    PageHelper.requestWrapper(tableService.getTableList()).then(res => {
+      console.log('getTableList:', res);
+      this.setData({
+        tableList: res
+      });
+    });
+  },
 
   handleActionClick(event) {
     console.log(event);
@@ -93,9 +45,7 @@ Page({
     if (type === 'area') {
       wxManager.navigateTo(pageConstant.AREA_URL);
     } else {
-      wxManager.navigateTo(pageConstant.TABLE_EDIT_URL, {
-        flag: pageFlag.TABLE_CREATE
-      });
+      wxManager.navigateTo(pageConstant.TABLE_EDIT_URL);
     }
   },
 
@@ -106,7 +56,6 @@ Page({
     console.log(event);
     const { areaname, areaid, item } = event.currentTarget.dataset;
     wxManager.navigateTo(pageConstant.TABLE_EDIT_URL, {
-      flag: pageFlag.TABLE_EDIT,
       areaName: areaname,
       areaId: areaid,
       tableName: item.name,

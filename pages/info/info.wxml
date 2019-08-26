@@ -1,6 +1,6 @@
 <!--pages/info/info.wxml-->
 <view class="info-page">
-    <nav-bar title="认证信息" back="{{ showBack }}" home="{{ showBack }}"></nav-bar>
+    <nav-bar title="认证信息" back="{{ isTotal }}" home="{{ showBack }}"></nav-bar>
     <cell-input title="门店名称">
         <input class="input-view" placeholder-class="placeholder" value="{{shopName}}" placeholder="请输入门店名称"
             bindinput="handleInput" data-type="shopName" />
@@ -19,16 +19,51 @@
         <input class="input-view" placeholder-class="placeholder" type="number" value="{{shopPhone}}"
             placeholder="请输入门店电话" bindinput="handleInput" data-type="shopPhone" />
     </cell-input>
-    <cell title="品牌LOGO(选填)" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="logo">
+    <cell title="品牌LOGO" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="logo">
         <image class="shop-logo" src="{{ logoDisplay ? logoDisplay : '../../image/user/auth-add.svg' }}"></image>
     </cell>
+    <!-- 店铺信息完善 -->
+    <block wx:if="{{isTotal}}">
+        <cell-input title="人均消费">
+            <input class="input-view" placeholder-class="placeholder" type="digit" value="{{price}}"
+                placeholder="请输入预估人均消费" bindinput="handleInput" data-type="price" />
+        </cell-input>
+        <!-- 封面 -->
+        <view class="cover-container">
+            <view class="title">店铺封面</view>
+            <scroll-view scroll-x='true' class="scroll-container">
+                <view class="scroll-item-wrapper">
+                    <view class='item' wx:for='{{ covers }}' wx:key='index'>
+                        <!-- 未添加图片 -->
+                        <block wx:if='{{!item.img}}'>
+                            <view class="cover-empty" bindtap="handleChooseCover">
+                                <image src="../../image/user/add-image.svg"></image>
+                                <view>请上传一张店铺封面</view>
+                            </view>
+                        </block>
+                        <block wx:if='{{item.img}}'>
+                            <view class="image-container">
+                                <image class="cover-image" src="{{ item.img }}"></image>
+                                <image class="cover-edit" src="../../image/user/edit.svg"></image>
+                                <image class="cover-delete" src="../../image/user/close.svg"></image>
+                            </view>
+                        </block>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+        <view class="bartender-panel">调酒师</view>
+        <view class="bartender-container">
+            <view class="title">店铺封面</view>
+        </view>
+    </block>
     <view class="commit-wrapper">
         <view class="btn-commit {{ verifyed ? 'enable' : 'disable' }}" bindtap="commitForm">确认提交</view>
         <!-- 不可见的授权手机号按钮，授权成功后隐藏 -->
         <button class="btn-auth-phone" wx:if="{{verifyed && !authPhoneSuccess}}" open-type="getPhoneNumber"
             bindgetphonenumber="onGetPhoneCallback"></button>
     </view>
-    <block wx:if="{{ showSkip }}">
+    <block wx:if="{{ !isTotal }}">
         <view class="skip" bindtap="handleSkip">跳过</view>
     </block>
 
@@ -39,8 +74,7 @@
 
     <!-- 店铺类型选择 -->
     <van-popup show="{{visibleShopType}}" position="bottom" overlay-style="background:rgba(0,0,0,0.5)">
-        <van-picker show-toolbar title="选择区域" columns="{{ columns }}" bind:cancel="onCancel" bind:confirm="onConfirm"
-            bind:change="onTypeChange" />
+        <van-picker show-toolbar title="选择类型" columns="{{ columns }}" bind:cancel="onCancel" bind:confirm="onConfirm" />
     </van-popup>
     <!-- toast -->
     <toast id="toast"></toast>

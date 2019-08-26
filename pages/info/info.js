@@ -9,9 +9,10 @@ const { debounce } = require('../../utils/throttle-debounce/index');
 const staticResource = require('./staticResource');
 const regular = require('../../utils/regular');
 const { Folder } = require('../../constant/global');
-const { PageHelper } = require('../../utils/page');
 const globalUtil = require('../../utils/global');
 const ENV = require('../../lib/request/env');
+const { PageConfig } = require('../../utils/page');
+const PageHelper = new PageConfig();
 const store = getApp().globalData;
 
 Page({
@@ -20,8 +21,7 @@ Page({
    */
   data: {
     enterType: pageFlag.INFO_TOTAL,
-    showBack: false,
-    showSkip: false,
+    isTotal: false,
     verifyed: false, // 校验结果
     shopName: '', // 门店名称
     selectCity: '', // 省市区
@@ -40,7 +40,16 @@ Page({
     selectShopType: {}, // 选中的门店类型
     columns: staticResource.TYPE_LIST, // 门店类型数组
     areaList: [], // 省市区列表
-    authPhoneSuccess: false // 授权手机号状态
+    authPhoneSuccess: false, // 授权手机号状态
+    price: '', // 人均消费
+    covers: [
+      {
+        img: 'http://tmp/wxf07f687748208034.o6zAJs82uM9ZFMFQQBbRfju6jjfA.AmsFsiUncqyq69cbb191405df62d1a8dbce48c8b4382.jpeg'
+      },
+      2
+    ], // 商铺封面图信息
+    bartenders: [], // 商铺调酒师信息
+    desc: '' // 店铺简介
   },
 
   /**
@@ -66,6 +75,8 @@ Page({
     });
     // 请求省市区
     this.requestCityList();
+    // 店铺信息
+    this.requestMerchantInfo();
     // 初始化 pageConfig
     PageHelper.setupPageConfig(this);
   },
@@ -78,13 +89,52 @@ Page({
     });
   },
 
+  requestMerchantInfo() {
+    PageHelper.requestWrapper(shopService.getShopInfo()).then(res => {
+      console.log(res);
+      this.setData(
+        {
+          shopName: res.name || '',
+          shopPhone: res.phone || '',
+          cityId: res.cityId || '',
+          areaId: res.areaId || '',
+          cityName: res.cityName || '',
+          areaName: res.areaName || '',
+          selectCity: res.cityName ? `${res.cityName} ${res.areaName}` : '',
+          address: res.address || '',
+          selectShopType: this.getShopType(res.type),
+          logo: res.logo || '',
+          logoDisplay: res.logo ? `${ENV.sourceHost}${res.logo}` : '',
+          price: res.price || '',
+          // covers: res.covers || [],
+          bartenders: res.bartenders || [],
+          desc: res.desc || ''
+        },
+        () => {
+          this.refreshFormVerify();
+        }
+      );
+    });
+  },
+
+  getShopType(type) {
+    const typeList = staticResource.TYPE_LIST.map(item => {
+      return item.type;
+    });
+    if (!typeList.includes(type)) {
+      return {};
+    }
+    return staticResource.TYPE_LIST.filter(item => {
+      return type === item.type;
+    })[0];
+  },
+
   setupState(options) {
     console.log(options);
     this.setData({
       authPhoneSuccess: !!store.phone,
       enterType: options.enterType,
-      showBack: options.enterType === pageFlag.INFO_TOTAL,
-      showSkip: options.enterType === pageFlag.INFO_BASE
+      isTotal: options.enterType === pageFlag.INFO_TOTAL
     });
   },
 
@@ -118,7 +168,7 @@ Page({
 
   onLocationClick(event) {
     // 点击了去授权
-    if (PageHelper.isModalConfirm(event.detail.result)) {
+    if (PageHelper.isModalConfirm(event)) {
       wxManager.openSetting().then(res => {
         console.log(res);
         if (res.authSetting['scope.userLocation']) {
@@ -151,17 +201,23 @@ Page({
    * 验证表单
    */
   verifyForm() {
+    const { isTotal, price, covers } = this.data;
+    if (isTotal) {
+      return this.verifyFormBase() && price && covers.length && bartenders.length && desc;
+    }
+    return this.verifyFormBase();
+  },
+
+  /**
+   * 验证基础信息字段
+   */
+  verifyFormBase() {
     const { shopName, address, shopPhone, cityId, areaId, selectShopType, logo } = this.data;
     return shopName && address && shopPhone && cityId && areaId && Object.keys(selectShopType).length && logo;
   },
 
-  showToast(content) {
-    this.Toast.showToast({
-      content: content
-    });
-  },
-
   onConfirm(event) {
+    console.log(event);
     const { value } = event.detail;
     this.setData({
       selectShopType: value,
@@ -264,20 +320,20 @@ Page({
     if (!this.verifyForm()) {
       return false;
     }
-    const { shopName, shopPhone, enterType, latitude, longitude } = this.data;
+    const { shopName, shopPhone, isTotal, latitude, longitude } = this.data;
 
     /* 校验门店名称 */
     if (!regular.regCharChineseNumber(shopName) || regular.regAllNumber(shopName)) {
-      return this.showToast('门店名称至少1个字符可包含中文', '字母数字但不能全为数字');
+      return PageHelper.showToast('门店名称至少1个字符可包含中文', '字母数字但不能全为数字');
     }
 
     /* 校验手机号 */
     if (!regular.regPhoneNumber(shopPhone) || !regular.regStablePhone(shopPhone)) {
-      return this.showToast('请输入正确的电话号码');
+      return PageHelper.showToast('请输入正确的电话号码');
     }
 
     /* 完善店铺信息需要更多校验 */
-    if (enterType === pageFlag.INFO_TOTAL) {
+    if (isTotal) {
     }
 
     /* 地址位置授权校验 */
@@ -285,9 +341,16 @@ Page({
       return this.showLocationModal();
     }
 
-    this.requestCommitInfo();
+    if (isTotal) {
+      this.requestSaveInfo();
+    } else {
+      this.requestCommitInfo();
+    }
   },
 
+  /**
+   * 基础信息提交
+   */
   requestCommitInfo() {
     const params = this.queryParams();
     PageHelper.requestWrapper(shopService.saveShopBasicInfo(params)).then(res => {
@@ -313,6 +376,42 @@ Page({
       lng: longitude,
       lat: latitude
     };
+  },
+
+  /**
+   * 保存店铺信息
+   */
+  requestSaveInfo() {
+    const params = this.queryTotalParams();
+    PageHelper.requestWrapper(shopService.saveShopInfo(params)).then(res => {
+      PageHelper.showSuccessToast('提交成功');
+      setTimeout(() => {
+        wxManager.navigateBack();
+      }, 1000);
+    });
+  },
+
+  queryTotalParams() {
+    const { shopName, shopPhone, cityId, cityName, areaId, areaName, address, selectShopType, logo, latitude, longitude } = this.data;
+    return {
+      name: shopName,
+      cityId: cityId,
+      areaId: areaId,
+      cityName: cityName,
+      areaName: areaName,
+      address: address,
+      type: selectShopType.type,
+      phone: shopPhone,
+      logo: logo,
+      lng: longitude,
+      lat: latitude
+    };
+  },
+
+  handleChooseCover() {
+    wxManager.chooseImage().then(res => {
+      console.log(res);
+    });
   },
 
   /**
@@ -348,6 +447,7 @@ Page({
               });
               // 将手机号存到全局
               store.phone = phone;
+              // TODO: 获取手机号后直接请求
             },
             e => {
               wxManager.hideLoading();

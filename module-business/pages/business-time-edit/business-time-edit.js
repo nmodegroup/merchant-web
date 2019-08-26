@@ -1,8 +1,9 @@
 // module/pages/business-time-edit/busine.js
 const wxManager = require('../../../utils/wxManager');
 const pageConstant = require('../../../constant/page');
-const { PageHelper } = require('../../../utils/page');
 const { getWeekTitle, getHours, getMinutes } = require('../../../utils/date');
+const { PageConfig } = require('../../../utils/page');
+const PageHelper = new PageConfig();
 
 Page({
   /**

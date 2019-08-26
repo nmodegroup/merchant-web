@@ -6,9 +6,8 @@ const httpManager = require('../lib/request/httpManager');
 export function getTableAreaList() {
   return new Promise((resolve, reject) => {
     httpManager
-      //   .get('/merchant/table/area')
       .get({
-        url: 'https://api.bmkee.com/mock/21/merchant/table/area',
+        url: '/merchant/table/area',
         contentType: httpManager.JSON
       })
       .then(res => {

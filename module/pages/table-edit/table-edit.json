@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-picker": "/components/vant-weapp/picker/index",
+    "van-popup": "/components/vant-weapp/popup/index"
+  }
 }

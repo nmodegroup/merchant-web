@@ -1,7 +1,7 @@
 // module/pages/table-edit/table-edit.js
-const PageFlag = require('../../../constant/pageFlag');
 const wxManager = require('../../../utils/wxManager');
 const tableService = require('../../../service/table');
+const { PageHelper } = require('../../../utils/page');
 
 Page({
   /**
@@ -11,6 +11,8 @@ Page({
     title: '',
     isEdit: false,
     areaList: [],
+    visibleArea: false,
+    selectArea: {},
     areaName: '请选择区域', // 区域名
     areaId: '', // 区域id
     tableName: '', // 桌位名
@@ -23,49 +25,47 @@ Page({
    */
   onLoad: function(options) {
     this.initData(options);
-    this.Toast = this.selectComponent('#toast');
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-    this.requestAreaList();
-  },
+  onShow: function() {},
 
   initData(options) {
-    const { flag, areaName, areaId, tableName, tableId, tableNum } = options;
-    if (flag === PageFlag.TABLE_CREATE) {
-      return this.setData({
-        title: '新增桌位',
-        isEdit: false
-      });
-    }
+    // init PageHelper
+    PageHelper.setupPageConfig(this);
+    // 请求区域列表
+    this.requestAreaList();
+    const { areaName, areaId, tableName, tableId, tableNum } = options;
+    const isEdit = !!areaId;
+    const getValue = PageHelper.getValue;
     this.setData({
-      title: '编辑桌位',
-      isEdit: true,
-      areaName: areaName,
-      areaId: areaId,
-      tableName: tableName,
-      tableId: tableId,
-      tableNum: tableNum
+      title: isEdit ? '编辑桌位' : '新增桌位',
+      isEdit: isEdit,
+      selectArea: this.resolveSelectArea(areaId, areaName),
+      tableName: getValue(tableName),
+      tableId: getValue(tableId),
+      tableNum: getValue(tableNum)
     });
   },
 
+  resolveSelectArea(areaId, areaName) {
+    if (!areaId) {
+      return {};
+    }
+    return {
+      id: areaId,
+      name: areaName
+    };
+  },
+
   requestAreaList() {
-    wxManager.showLoading();
-    tableService
-      .getTableAreaList()
-      .then(res => {
-        this.setData({
-          areaList: res
-        });
-        wxManager.hideLoading();
-      })
-      .catch(e => {
-        wxManager.hideLoading();
-        this.showNormalToast(e.msg);
+    PageHelper.requestWrapper(tableService.getTableAreaList()).then(res => {
+      this.setData({
+        areaList: res
       });
+    });
   },
 
   handleCreateTable(event) {
@@ -75,7 +75,9 @@ Page({
   handleEditTable(event) {
     const type = event.detail.type;
     if (type === 'right') {
-      this.deleteTable();
+      PageHelper.showDeleteModal('是否确认删除桌位').then(() => {
+        this.deleteTable();
+      });
     } else {
       this.resolveFormData();
     }
@@ -84,15 +86,10 @@ Page({
   resolveFormData() {
     this.checkFormData()
       .then(result => {
-        console.log('res:', result);
-        if (this.data.isEdit) {
-          result.id = this.data.tableId;
-          this.requestEditTable(result);
-        }
-        this.requestCreateTable(result);
+        this.requestEditTable(result);
       })
       .catch(msg => {
-        this.showNormalToast(msg);
+        PageHelper.showToast(msg);
       });
   },
 
@@ -100,9 +97,9 @@ Page({
    * 校验表单
    */
   checkFormData() {
-    const { areaId, tableName, tableNum } = this.data;
+    const { selectArea, tableName, tableNum } = this.data;
     return new Promise((resolve, reject) => {
-      if (!areaId) {
+      if (!selectArea.id) {
         return reject('请选择桌位所属区域');
       }
       if (!tableName) {
@@ -112,56 +109,30 @@ Page({
         return reject('请填写桌位最多容纳人数');
       }
       resolve({
-        tableAreaId: areaId,
+        tableAreaId: selectArea.id,
         name: tableName,
         num: tableNum
       });
     });
   },
 
-  requestCreateTable(params) {
-    wxManager.showLoading();
-    tableService
-      .createTable(params)
-      .then(res => {
-        wxManager.hideLoading();
-        this.showSuccessToast('桌位创建成功');
-      })
-      .catch(e => {
-        wxManager.hideLoading();
-        this.showNormalToast(e.msg);
-      });
-  },
-
   requestEditTable(params) {
-    wxManager.showLoading();
-    tableService
-      .editTable(params)
-      .then(res => {
-        wxManager.hideLoading();
-        this.showSuccessToast('桌位编辑成功');
-      })
-      .catch(e => {
-        wxManager.hideLoading();
-        this.showNormalToast(e.msg);
-      });
+    const { isEdit, tableId } = this.data;
+    if (isEdit) {
+      params.id = tableId;
+    }
+    PageHelper.requestWrapper(tableService.createTable(params)).then(res => {
+      PageHelper.requestSuccessCallback(isEdit ? '桌位编辑成功' : '桌位创建成功');
+    });
   },
 
   deleteTable() {
     const params = {
       id: this.data.tableId
     };
-    wxManager.showLoading();
-    tableService
-      .editTable(params)
-      .then(res => {
-        wxManager.hideLoading();
-        this.showSuccessToast('桌位删除成功');
-      })
-      .catch(e => {
-        wxManager.hideLoading();
-        this.showNormalToast(e.msg);
-      });
+    PageHelper.requestWrapper(tableService.deleteTable(params)).then(res => {
+      PageHelper.requestSuccessCallback('桌位删除成功');
+    });
   },
 
   handleInput(event) {
@@ -178,22 +149,24 @@ Page({
     }
   },
 
-  showNormalToast(msg) {
-    if (!msg) {
-      return false;
-    }
-    this.Toast.showToast({
-      content: msg
+  handleCellClick() {
+    this.setData({
+      visibleArea: true
     });
   },
 
-  showSuccessToast(msg) {
-    if (!msg) {
-      return false;
-    }
-    this.Toast.showToast({
-      content: msg,
-      icon: 'success'
+  onConfirm(event) {
+    console.log(event);
+    const { value } = event.detail;
+    this.setData({
+      selectArea: value,
+      visibleArea: false
+    });
+  },
+
+  onCancel() {
+    this.setData({
+      visibleArea: false
     });
   }
 });

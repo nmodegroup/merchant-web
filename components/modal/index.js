@@ -26,6 +26,7 @@ Component({
      * 显示toast，定义动画
      */
     showModal(form) {
+      console.log('showModal', form);
       this.setData({
         show: true,
         content: form.content || '',
@@ -37,9 +38,7 @@ Component({
         onConfirm: form.onConfirm || null,
         onCancel: form.onCancel || null
       });
-      /**
-       * 延时消失
-       */
+      console.log('show', this.data.show);
     },
 
     cancel() {

@@ -1,6 +1,14 @@
 /* module/pages/table-edit/table-edit.wxss */
 
 .area-name {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 1);
   font-size: 26rpx;
+}
+
+.disactive {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.input-view {
+  margin-right: 60rpx;
 }

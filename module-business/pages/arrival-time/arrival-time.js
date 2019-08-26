@@ -1,8 +1,8 @@
 // module/pages/arrival-time/arrival-time.js
 const timeService = require('../../../service/time');
-const wxManager = require('../../../utils/wxManager');
 const globalUtil = require('../../../utils/global');
-const { PageHelper } = require('../../../utils/page');
+const { PageConfig } = require('../../../utils/page');
+const PageHelper = new PageConfig();
 
 Page({
   /**
@@ -13,7 +13,8 @@ Page({
     minutes: [],
     timeList: [],
     selectHour: '',
-    selectMinute: ''
+    selectMinute: '',
+    selectId: ''
   },
 
   /**
@@ -61,9 +62,7 @@ Page({
   requestAppointTimeList() {
     PageHelper.requestWrapper(timeService.getAppointTime()).then(res => {
       this.setData({
-        // TODO:
-        // timeList: res,
-        timeList: res.length || [{ id: 1, time: '20:00', onStatus: 0 }]
+        timeList: res
       });
     });
   },
@@ -101,32 +100,20 @@ Page({
 
   selectCallback(event) {
     if (PageHelper.isModalConfirm(event)) {
-      if (this.isEdit) {
-        return this.requestEditTime();
-      }
-      this.requestCreateTime();
+      this.requestEditTime();
     }
   },
 
   requestEditTime() {
-    const { selectHour, selectMinute } = this.data;
-    const editParams = {
-      time: `${selectHour}:${selectMinute}`
-      // id:
-    };
-    PageHelper.requestWrapper(timeService.editAppointTime(editParams)).then(res => {
-      this.showSuccessToast('编辑成功');
-      this.requestAppointTimeList();
-    });
-  },
-
-  requestCreateTime() {
-    const { selectHour, selectMinute } = this.data;
-    const createParams = {
+    const { selectHour, selectMinute, selectId } = this.data;
+    const params = {
       time: `${selectHour}:${selectMinute}`
     };
-    PageHelper.requestWrapper(timeService.editAppointTime(createParams)).then(res => {
-      this.showSuccessToast('新增成功');
+    if (this.isEdit) {
+      params.id = selectId;
+    }
+    PageHelper.requestWrapper(timeService.editAppointTime(params)).then(res => {
+      PageHelper.showSuccessToast(this.isEdit ? '编辑成功' : '新增成功');
       this.requestAppointTimeList();
     });
   },
@@ -134,29 +121,40 @@ Page({
   handleClose(event) {
     console.log('event:', event);
     const { position, instance } = event.detail;
+    const { id } = event.currentTarget.dataset;
     switch (position) {
       case 'cell':
         instance.close();
         break;
       case 'right':
         instance.close();
-        PageHelper.showDeleteModal('确认将这项预约到店时间删除吗？');
+        this.handleDeleteModal(id);
         break;
       default:
         break;
     }
   },
 
-  deleteCallback(event) {
-    console.log(event);
-    if (PageHelper.isModalConfirm(event.detail.result)) {
-      this.requestDetelteTime();
-    }
+  handleDeleteModal(id) {
+    PageHelper.showDeleteModal('确认删除预约到店时间？').then(() => {
+      this.setData(
+        {
+          selectId: id
+        },
+        () => {
+          this.requestDetelteTime();
+        }
+      );
+    });
   },
 
   requestDetelteTime() {
-    PageHelper.requestWrapper(timeService.deleteAppointTime()).then(res => {
-      this.showSuccessToast('删除成功');
+    const params = {
+      id: this.data.selectId
+    };
+    PageHelper.requestWrapper(timeService.deleteAppointTime(params)).then(res => {
+      PageHelper.showSuccessToast('删除成功');
+      this.requestAppointTimeList();
     });
   },
 
@@ -166,7 +164,8 @@ Page({
     const times = item.time.split(':');
     this.setData({
       selectHour: times[0],
-      selectMinute: times[1]
+      selectMinute: times[1],
+      selectId: item.id
     });
   },
 

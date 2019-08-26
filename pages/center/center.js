@@ -3,11 +3,11 @@ const PageConstant = require('../../constant/page');
 const { throttle } = require('../../utils/throttle-debounce/index');
 const WxManager = require('../../utils/wxManager');
 const pageFlag = require('../../constant/pageFlag');
-const { PageHelper } = require('../../utils/page');
 const centerService = require('../../service/center');
 const { AuditStatus, AppointStatus, BusinessStatus } = require('../../constant/global');
 const store = getApp().globalData;
-
+const { PageConfig } = require('../../utils/page');
+const PageHelper = new PageConfig();
 Page({
   /**
    * 页面的初始数据
@@ -113,21 +113,21 @@ Page({
    */
   onStatusChange() {
     const { businessStatusOpen, auditStatus } = this.data;
-    PageHelper.checkAuditStatus(auditStatus).then(() => {
-      this.modal
-        .showModal({
-          content: businessStatusOpen ? '确认要将店铺修业吗？' : '确认店铺要开始营业吗？',
-          cancelText: '取消',
-          confirmText: '确认',
+    PageHelper.checkAuditStatus(auditStatus)
+      .then(() => {
+        this.modal.showModal({
+          content: businessStatusOpen ? '设置休业状态，用户将无法看到店铺' : '设置营业状态，用户将看到店铺',
+          cancelText: '点错了',
+          confirmText: businessStatusOpen ? '确定修业' : '确定营业',
           hideCancel: false,
           onConfirm: () => {
             this.requestSwitchBusinessStatus();
           }
-        })
-        .catch(e => {
-          console.error(e);
         });
-    });
+      })
+      .catch(e => {
+        console.error(e);
+      });
   },
 
   requestSwitchBusinessStatus() {
@@ -145,9 +145,9 @@ Page({
    */
   onAppointChange() {
     const { appointOpen, auditStatus } = this.data;
-    PageHelper.checkAuditStatus(auditStatus).then(() => {
-      this.modal
-        .showModal({
+    PageHelper.checkAuditStatus(auditStatus)
+      .then(() => {
+        this.modal.showModal({
           content: appointOpen ? '确认要开启预约吗？' : '确认要关闭预约吗？',
           cancelText: '取消',
           confirmText: '确认',
@@ -155,11 +155,11 @@ Page({
           onConfirm: () => {
             this.requestSwitchAppointStatus();
           }
-        })
-        .catch(e => {
-          console.error(e);
         });
-    });
+      })
+      .catch(e => {
+        console.error(e);
+      });
   },
 
   requestSwitchAppointStatus() {

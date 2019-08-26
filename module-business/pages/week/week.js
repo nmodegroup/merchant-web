@@ -1,8 +1,9 @@
 // module-business/pages/week/week.js
 const { createNumberArray } = require('../../../utils/global');
 const { getEachWeekTitle } = require('../../../utils//date');
-const { PageHelper } = require('../../../utils/page');
 const wxManager = require('../../../utils/wxManager');
+const { PageConfig } = require('../../../utils/page');
+const PageHelper = new PageConfig();
 // TODO： checkbox 样式
 Page({
   /**
