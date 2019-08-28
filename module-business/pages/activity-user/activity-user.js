@@ -1,6 +1,8 @@
 // module-business/pages/activity-user/activity-user.js
 const activityService = require('../../../service/activity');
 const wxManager = require('../../../utils/wxManager');
+const { PageConfig } = require('../../../utils/page');
+const PageHelper = new PageConfig();
 
 Page({
   /**
@@ -26,6 +28,7 @@ Page({
    */
   onLoad: function(options) {
     this.id = options.id;
+    PageHelper.setupPageConfig(this);
     this.initPageConfig();
     this.requestUserList();
   },
@@ -87,23 +90,15 @@ Page({
   },
 
   requestUserList(currentPage = 1) {
-    wxManager.showLoading();
     const params = this.queryParams(currentPage);
-    activityService
-      .getActivityUser(params)
-      .then(result => {
-        this.setPageNum(currentPage);
-        this.checkHasmore(result.pageNum, result.pageSize, result.totalSize);
-        const oldList = this.data.userList;
-        this.setData({
-          userList: currentPage === 1 ? result.list : oldList.concat(result.list)
-        });
-        wxManager.stopRefreshAndLoading();
-      })
-      .catch(e => {
-        console.error(e);
-        wxManager.stopRefreshAndLoading();
+    PageHelper.requestWrapper(activityService.getActivityUser(params)).then(result => {
+      this.setPageNum(currentPage);
+      this.checkHasmore(result.pageNum, result.pageSize, result.totalSize);
+      const oldList = this.data.userList;
+      this.setData({
+        userList: currentPage === 1 ? result.list : oldList.concat(result.list)
       });
+    });
   },
 
   makeCall(event) {

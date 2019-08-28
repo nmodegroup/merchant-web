@@ -29,10 +29,12 @@ export class PageConfig {
       service
         .then(res => {
           wxManager.hideLoading();
+          wxManager.stopRefreshAndLoading();
           resolve(res);
         })
         .catch(res => {
           wxManager.hideLoading();
+          wxManager.stopRefreshAndLoading();
           this.showToast(res.msg);
           reject(res);
         });
@@ -129,7 +131,7 @@ export class PageConfig {
    * 认证审核中弹窗
    */
   showAuthAuditingModal() {
-    this.showSingleConfirmModal('您的店铺认证资料正在审核中，\n请耐心等待！');
+    this.showSingleConfirmModal('您的店铺信息需要平台审核，\n请耐心等待！');
   }
 
   /**

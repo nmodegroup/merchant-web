@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-popup": "/components/vant-weapp/popup/index",
+    "van-datetime-picker": "/components/vant-weapp/datetime-picker/index",
+    "van-area": "/components/vant-weapp/area/index"
+  }
+}

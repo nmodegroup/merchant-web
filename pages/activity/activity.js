@@ -2,6 +2,8 @@
 const wxManager = require('../../utils/wxManager');
 const PageConstant = require('../../constant/page');
 const activityService = require('../../service/activity');
+const { PageConfig } = require('../../utils/page');
+const PageHelper = new PageConfig();
 
 Page({
   /**
@@ -16,6 +18,7 @@ Page({
    */
   onLoad: function(options) {
     this.initPageConfig();
+    PageHelper.setupPageConfig(this);
   },
 
   /**
@@ -88,23 +91,15 @@ Page({
   },
 
   requestActivityList(currentPage = 1) {
-    wxManager.showLoading();
     const params = this.queryParams(currentPage);
-    activityService
-      .getActivityList(params)
-      .then(result => {
-        this.setPageNum(currentPage);
-        this.checkHasmore(result.pageNum, result.pageSize, result.totalSize);
-        const oldList = this.data.activityList;
-        this.setData({
-          activityList: currentPage === 1 ? result.list : oldList.concat(result.list)
-        });
-        wxManager.stopRefreshAndLoading();
-      })
-      .catch(e => {
-        console.error(e);
-        wxManager.stopRefreshAndLoading();
+    PageHelper.requestWrapper(activityService.getActivityList(params)).then(result => {
+      this.setPageNum(currentPage);
+      this.checkHasmore(result.pageNum, result.pageSize, result.totalSize);
+      const oldList = this.data.activityList;
+      this.setData({
+        activityList: currentPage === 1 ? result.list : oldList.concat(result.list)
       });
+    });
   },
 
   /**
@@ -112,5 +107,9 @@ Page({
    */
   handleShowReason(event) {
     console.log(event);
+  },
+
+  handleCreateActivity() {
+    wxManager.navigateTo(PageConstant.ACTIVITY_EDIT_URL);
   }
 });

@@ -1,5 +1,5 @@
 {
-  "pages": ["pages/auth/auth", "pages/info/info", "pages/home/home", "pages/activity/activity", "pages/center/center"],
+  "pages": ["pages/activity/activity", "pages/auth/auth", "pages/info/info", "pages/home/home", "pages/center/center"],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -30,7 +30,8 @@
         "pages/business-time-edit/business-time-edit",
         "pages/activity-user/activity-user",
         "pages/special-date/special-date",
-        "pages/week/week"
+        "pages/week/week",
+        "pages/activity-edit/activity-edit"
       ]
     }
   ],

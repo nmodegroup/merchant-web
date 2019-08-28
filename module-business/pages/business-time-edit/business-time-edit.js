@@ -2,8 +2,10 @@
 const wxManager = require('../../../utils/wxManager');
 const pageConstant = require('../../../constant/page');
 const { getWeekTitle, getHours, getMinutes } = require('../../../utils/date');
+const { initValue, isEdit } = require('../../../utils/global');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
+const eventEmitter = getApp().eventEmitter;
 
 Page({
   /**
@@ -26,34 +28,40 @@ Page({
    */
   onLoad: function(options) {
     this.initData(options);
+    this.registerCallbacks();
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-    const { callbackWeeks } = this.data;
-    console.log('callbackWeeks:', callbackWeeks);
-    if (callbackWeeks.length) {
-      this.setData(
-        {
-          weeks: callbackWeeks, // 选择回调的星期赋值给 weeks
-          callbackWeeks: [] // 清空
-        },
-        () => {
-          this.resolveWeeks();
-        }
-      );
-    }
+  onShow: function() {},
+
+  onUnload() {
+    /* 解注册 */
+    eventEmitter.off('callbackWeeks');
+  },
+
+  /**
+   * 注册监听星期选择回调
+   */
+  registerCallbacks() {
+    eventEmitter.on('callbackWeeks', this.setSelectWeeks);
+  },
+
+  setSelectWeeks(selectWeeks) {
+    this.setData({
+      weeks: selectWeeks
+    });
+    this.resolveWeeks();
   },
 
   initData(options) {
     this.setData(
       {
-        isEdit: !!options.businessId,
-        businessId: options.businessId || '',
-        startDate: options.start || '',
-        endDate: options.endDate || '',
+        isEdit: isEdit(options.businessId),
+        businessId: initValue(options.businessId),
+        startDate: initValue(options.start),
+        endDate: initValue(options.endDate),
         weeks: options.weeks ? JSON.parse(options.weeks) : []
       },
       () => {
@@ -71,7 +79,6 @@ Page({
       return getWeekTitle(week);
     });
     const weekListContent = weekList.join(' ');
-    console.log('weekListContent:', weekListContent);
     this.setData({
       weekListContent: weekListContent
     });

@@ -4,6 +4,8 @@ const { getEachWeekTitle } = require('../../../utils//date');
 const wxManager = require('../../../utils/wxManager');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
+const eventEmitter = getApp().eventEmitter;
+
 // TODO： checkbox 样式
 Page({
   /**
@@ -80,14 +82,7 @@ Page({
       return PageHelper.showToast('请选择时间');
     }
     // 将选择的时间回调给上个页面
-    const curPages = getCurrentPages();
-    curPages[curPages.length - 2].setData(
-      {
-        callbackWeeks: selectWeeks
-      },
-      () => {
-        wxManager.navigateBack();
-      }
-    );
+    eventEmitter.emit('callbackWeeks', selectWeeks);
+    wxManager.navigateBack();
   }
 });

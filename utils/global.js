@@ -64,3 +64,33 @@ export function isEmpty(target) {
       return true;
   }
 }
+
+/**
+ * 表单等数据初始赋值处理，防止出现 undefined 等情况报错
+ * @param {any} target       目标赋值
+ * @param {any} defaultValue 默认值
+ */
+export function initValue(target, defaultValue) {
+  if (target == null) {
+    return resolvePlaceHolder(defaultValue);
+  }
+  return target;
+}
+
+function resolvePlaceHolder(defaultValue) {
+  if (defaultValue == null) {
+    return '';
+  }
+  return defaultValue;
+}
+
+/**
+ * 判断当前页面是否为编辑状态
+ * @param {string} value
+ */
+export function isEdit(value) {
+  if (value == null || value === '') {
+    return false;
+  }
+  return true;
+}

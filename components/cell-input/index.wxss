@@ -32,3 +32,19 @@
   transform-origin: 0 0;
   transform: scaleY(0.5);
 }
+
+.cell-border-right-padding {
+  position: relative;
+}
+
+.cell-border-right-padding::after {
+  content: '';
+  position: absolute;
+  left: 30rpx;
+  bottom: 0;
+  right: 30rpx;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform-origin: 0 0;
+  transform: scaleY(0.5);
+}

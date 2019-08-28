@@ -39,6 +39,11 @@ Component({
     showBorder: {
       type: Boolean,
       value: true
+    },
+    /* border 是否含有右间距 */
+    borderRightPadding: {
+      type: Boolean,
+      value: false
     }
   },
 

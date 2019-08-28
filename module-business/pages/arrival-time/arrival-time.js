@@ -1,6 +1,6 @@
 // module/pages/arrival-time/arrival-time.js
 const timeService = require('../../../service/time');
-const globalUtil = require('../../../utils/global');
+const { createNumberArray } = require('../../../utils/global');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
 
@@ -49,7 +49,7 @@ Page({
   },
 
   generateArray() {
-    const hourArr = globalUtil.createNumberArray(24);
+    const hourArr = createNumberArray(24);
     const minuteArr = ['00', '30'];
     this.setData({
       hours: hourArr,

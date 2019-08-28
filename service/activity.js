@@ -63,29 +63,9 @@ export function changeActivityStatus(params) {
 }
 
 /**
- * 活动-新增
+ * 活动-新增/编辑
  */
-export function createActivy(params) {
-  return new Promise((resolve, reject) => {
-    httpManager
-      .post({
-        url: '/merchant/activity',
-        params: params,
-        contentType: httpManager.FORM_URLENCODED
-      })
-      .then(res => {
-        resolve(res);
-      })
-      .catch(e => {
-        reject(e);
-      });
-  });
-}
-
-/**
- * 活动-编辑
- */
-export function editActivy(params) {
+export function createOrEditActivy(params) {
   return new Promise((resolve, reject) => {
     httpManager
       .post({

@@ -4,6 +4,7 @@ const { throttle } = require('../../utils/throttle-debounce/index');
 const WxManager = require('../../utils/wxManager');
 const pageFlag = require('../../constant/pageFlag');
 const centerService = require('../../service/center');
+const { initValue } = require('../../utils/global');
 const { AuditStatus, AppointStatus, BusinessStatus } = require('../../constant/global');
 const store = getApp().globalData;
 const { PageConfig } = require('../../utils/page');
@@ -82,14 +83,15 @@ Page({
   },
 
   requestMerchantInfo() {
+    console.log('requestMerchantInfo');
     PageHelper.requestWrapper(centerService.getCenterInfo())
       .then(res => {
         this.setData({
-          auditStatus: res.auditStatus || AuditStatus.NOT_AUDIT,
-          reason: res.reason || '',
-          businessStatusOpen: this.isBusinessStatusOpen(res.businessStatus || BusinessStatus.CLOSE),
-          appointOpen: this.isAppointOpen(res.appointStatus || AppointStatus.CLOSE),
-          shareImg: res.shareImg || '' // 商家二维码图片链接
+          auditStatus: initValue(res.auditStatus, AuditStatus.NOT_AUDIT),
+          reason: initValue(res.reason),
+          businessStatusOpen: this.isBusinessStatusOpen(initValue(res.businessStatus, BusinessStatus.CLOSE)),
+          appointOpen: this.isAppointOpen(initValue(res.appointStatus, AppointStatus.CLOSE)),
+          shareImg: initValue(res.shareImg) // 商家二维码图片链接
         });
       })
       .catch(e => {});
@@ -184,7 +186,7 @@ Page({
 
   goInfoPage() {
     if (this.data.auditStatus === AuditStatus.AUDITING) {
-      return PageHelper.showSingleConfirmModal('您的店铺信息需要平台审核，请耐心等待！');
+      return PageHelper.showAuthAuditingModal();
     }
     this.navigation(PageConstant.INFO_URL, {
       enterType: pageFlag.INFO_TOTAL
@@ -195,7 +197,6 @@ Page({
    * 审核不通过原因
    */
   handleTagClick() {
-    console.log('handleTagClick');
     const { auditStatus, reason } = this.data;
     if (auditStatus !== AuditStatus.AUDIT_FAIL) {
       return false;

@@ -9,7 +9,7 @@ const { debounce } = require('../../utils/throttle-debounce/index');
 const staticResource = require('./staticResource');
 const regular = require('../../utils/regular');
 const { Folder } = require('../../constant/global');
-const globalUtil = require('../../utils/global');
+const { isEmpty, initValue, createEmptyObjArray, getFileName } = require('../../utils/global');
 const ENV = require('../../lib/request/env');
 const { PageConfig } = require('../../utils/page');
 const PageHelper = new PageConfig();
@@ -78,9 +78,8 @@ Page({
 
   initDefaultImages() {
     this.fillCovers = [];
-    this.defaultCovers = globalUtil.createEmptyObjArray(3);
-    this.defaultBartenders = globalUtil.createEmptyObjArray(5);
-    console.log('defaultCovers', this.defaultCovers);
+    this.defaultCovers = createEmptyObjArray(3);
+    this.defaultBartenders = createEmptyObjArray(5);
     this.setData({
       covers: this.defaultCovers,
       bartenders: this.defaultBartenders
@@ -97,24 +96,23 @@ Page({
 
   requestMerchantInfo() {
     PageHelper.requestWrapper(shopService.getShopInfo()).then(res => {
-      console.log(res);
       this.setData(
         {
-          shopName: res.name || '',
-          shopPhone: res.phone || '',
-          cityId: res.cityId || '',
-          areaId: res.areaId || '',
-          cityName: res.cityName || '',
-          areaName: res.areaName || '',
+          shopName: initValue(res.name),
+          shopPhone: initValue(res.phone),
+          cityId: initValue(res.cityId),
+          areaId: initValue(res.areaId),
+          cityName: initValue(res.cityName),
+          areaName: initValue(res.areaName),
           selectCity: res.cityName ? `${res.cityName} ${res.areaName}` : '',
-          address: res.address || '',
+          address: initValue(res.address),
           selectShopType: this.getShopType(res.type),
-          logo: res.logo || '',
+          logo: initValue(res.logo),
           logoDisplay: res.logo ? `${ENV.sourceHost}${res.logo}` : '',
-          price: res.price || '',
-          covers: globalUtil.isEmpty(res.covers) ? this.defaultCovers : res.covers,
-          bartenders: globalUtil.isEmpty(res.bartenders) ? this.defaultBartenders : res.bartenders,
-          desc: res.desc || ''
+          price: initValue(res.price),
+          covers: isEmpty(res.covers) ? this.defaultCovers : res.covers,
+          bartenders: isEmpty(res.bartenders) ? this.defaultBartenders : res.bartenders,
+          desc: initValue(res.desc)
         },
         () => {
           this.refreshFormVerify();
@@ -136,7 +134,6 @@ Page({
   },
 
   setupState(options) {
-    console.log(options);
     this.setData({
       authPhoneSuccess: !!store.phone,
       enterType: options.enterType,
@@ -176,7 +173,6 @@ Page({
     // 点击了去授权
     if (PageHelper.isModalConfirm(event)) {
       wxManager.openSetting().then(res => {
-        console.log(res);
         if (res.authSetting['scope.userLocation']) {
           console.log('start get location');
           this.getLocation();
@@ -209,7 +205,7 @@ Page({
   verifyForm() {
     const { isTotal, price, desc } = this.data;
     if (isTotal) {
-      return this.verifyFormBase() && price && !globalUtil.isEmpty(this.fillCovers) && this.checkBartenders() && desc;
+      return this.verifyFormBase() && price && !isEmpty(this.fillCovers) && this.checkBartenders() && desc;
     }
     return this.verifyFormBase();
   },
@@ -223,7 +219,7 @@ Page({
   },
 
   checkBartenders() {
-    return !globalUtil.isEmpty(this.getFillBartenders());
+    return !isEmpty(this.getFillBartenders());
   },
 
   onConfirm(event) {
@@ -247,19 +243,12 @@ Page({
    */
   handleCellClick(event) {
     const { type } = event.currentTarget.dataset;
-    switch (type) {
-      case 'city':
-        this.setVisible('visibleCity');
-        break;
-      case 'shopType':
-        this.setVisible('visibleShopType');
-        break;
-      case 'logo':
-        this.chooseImage();
-        break;
-      default:
-        break;
-    }
+    const strategy = {
+      city: () => this.setVisible('visibleCity'),
+      shopType: () => this.setVisible('visibleShopType'),
+      logo: () => this.chooseImage()
+    };
+    strategy[type]();
   },
 
   setVisible(target) {
@@ -295,7 +284,7 @@ Page({
     return {
       filePath: imagePath,
       formData: {
-        fileName: globalUtil.getFileName(imagePath),
+        fileName: getFileName(imagePath),
         floder: floder
       }
     };
@@ -368,7 +357,7 @@ Page({
     const incompleteBartenders = this.data.bartenders.filter(bartender => {
       return (bartender.img && !bartender.desc) || (!bartender.img && bartender.desc);
     });
-    return !globalUtil.isEmpty(incompleteBartenders);
+    return !isEmpty(incompleteBartenders);
   },
 
   getFillBartenders() {

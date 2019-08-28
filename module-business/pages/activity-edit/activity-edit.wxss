@@ -1,0 +1,60 @@
+/* module-business/pages/activity-edit/activity-edit.wxss */
+.activity-content {
+  padding-bottom: 96rpx;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 26rpx;
+}
+.panel {
+  height: 76rpx;
+  line-height: 76rpx;
+  background-color: #0a0a29;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+  padding-left: 30rpx;
+}
+
+.btn-commit {
+  height: 76rpx;
+  line-height: 76rpx;
+  margin: 10rpx 30rpx;
+  border-radius: 38rpx;
+  color: #fff;
+  background: rgba(115, 127, 194, 0.29);
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 500;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.enable {
+  position: relative;
+  color: #fff;
+}
+
+.enable::after {
+  position: absolute;
+  content: '';
+  top: -2rpx;
+  left: -2rpx;
+  bottom: -2rpx;
+  right: -2rpx;
+  border-radius: 38rpx;
+  z-index: -1;
+  background: linear-gradient(225deg, rgba(255, 64, 167, 1) 0%, rgba(210, 51, 255, 1) 45%, rgba(45, 147, 255, 1) 100%);
+}
+
+.disable {
+  background: rgba(69, 80, 138, 0.62);
+  border: 1px solid rgba(112, 116, 152, 1);
+}
+
+.active {
+  color: #fff;
+}
+
+.input-view {
+  margin-right: 60rpx;
+}

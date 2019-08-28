@@ -7,6 +7,11 @@ Component({
     title: {
       type: String,
       value: ''
+    },
+    /* border 是否含有右间距 */
+    borderRightPadding: {
+      type: Boolean,
+      value: false
     }
   },
 
