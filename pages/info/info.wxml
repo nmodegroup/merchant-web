@@ -34,27 +34,66 @@
             <scroll-view scroll-x='true' class="scroll-container">
                 <view class="scroll-item-wrapper">
                     <view class='item' wx:for='{{ covers }}' wx:key='index'>
+                        <block wx:if='{{item.displayImg}}'>
+                            <view class="image-container">
+                                <image class="cover-image" src="{{ item.displayImg }}"></image>
+                                <image class="cover-edit" src="../../image/user/edit.svg" bindtap="handleEditCover"
+                                    data-index="{{index}}"></image>
+                                <image class="cover-delete" src="../../image/user/close.svg" bindtap="handleDeleteCover"
+                                    data-index="{{index}}"></image>
+                            </view>
+                        </block>
                         <!-- 未添加图片 -->
-                        <block wx:if='{{!item.img}}'>
+                        <block wx:else>
                             <view class="cover-empty" bindtap="handleChooseCover">
                                 <image src="../../image/user/add-image.svg"></image>
                                 <view>请上传一张店铺封面</view>
-                            </view>
-                        </block>
-                        <block wx:if='{{item.img}}'>
-                            <view class="image-container">
-                                <image class="cover-image" src="{{ item.img }}"></image>
-                                <image class="cover-edit" src="../../image/user/edit.svg"></image>
-                                <image class="cover-delete" src="../../image/user/close.svg"></image>
                             </view>
                         </block>
                     </view>
                 </view>
             </scroll-view>
         </view>
+        <!-- 调酒师信息 -->
         <view class="bartender-panel">调酒师</view>
         <view class="bartender-container">
-            <view class="title">店铺封面</view>
+            <view class="title">调酒师信息</view>
+            <scroll-view scroll-x='true' class="scroll-container">
+                <view class="bartender-item-wrapper">
+                    <view class="bartender-item" wx:for="{{ bartenders }}" wx:key="index">
+                        <textarea class="bartender-textarea" value="{{ item.desc }}"
+                            placeholder="请输入调酒师信息 \n例如：Chris Wu 吴家乐" placeholder-class="area-placeholder" maxlength="50"
+                            data-index="{{ index }}" bindinput="handleBartenderDescInput">
+                            <view class="input-count">{{ item.desc ? item.desc.length : "0" }}/50</view>
+                        </textarea>
+                        <block wx:if='{{item.displayImg}}'>
+                            <view class="image-container">
+                                <image class="bartender-image" src="{{ item.displayImg }}"></image>
+                                <image class="bartender-edit" src="../../image/user/edit.svg"
+                                    bindtap="handleEditBartender" data-index="{{index}}"></image>
+                            </view>
+                        </block>
+                        <!-- 未添加图片 -->
+                        <block wx:else>
+                            <view class="bartender-empty" bindtap="handleChooseBartenderImage" data-index="{{ index }}">
+                                <image src="../../image/user/add-image.svg"></image>
+                                <view>请上传一张调酒师个人宣传照片</view>
+                            </view>
+                        </block>
+                        <image wx:if="{{ item.displayImg || item.desc }}" class="bartender-delete"
+                            src="../../image/user/close.svg" bindtap="handleDeleteBartender" data-index="{{index}}">
+                        </image>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+        <!-- 店铺故事 -->
+        <view>
+            <view class="story-panel">店铺故事</view>
+            <textarea class="story-textarea" value="{{ desc }}" placeholder="描述最多200字" maxlength="200"
+                placeholder-class="area-placeholder" bindinput="handleStoryInput">
+                <view class="input-count">{{ desc ? desc.length : "0" }}/200</view>
+            </textarea>
         </view>
     </block>
     <view class="commit-wrapper">

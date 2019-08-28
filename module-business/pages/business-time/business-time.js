@@ -52,9 +52,7 @@ Page({
       return getWeekTitle(week);
     });
     console.log('weekList', weekList);
-    businessTime.weekListContent = weekList.reduce((pre, current, currentIndex) => {
-      return `${pre}${current}${currentIndex === weekList.length - 1 ? '' : ' '}`;
-    });
+    businessTime.weekListContent = weekList.join(' ');
     return businessTime;
   },
 

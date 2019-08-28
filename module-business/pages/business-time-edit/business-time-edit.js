@@ -70,10 +70,7 @@ Page({
     const weekList = weeks.map(week => {
       return getWeekTitle(week);
     });
-    console.log('weekList', weekList);
-    const weekListContent = weekList.reduce((pre, current, currentIndex) => {
-      return `${pre}${current}${currentIndex === weekList.length - 1 ? '' : ' '}`;
-    });
+    const weekListContent = weekList.join(' ');
     console.log('weekListContent:', weekListContent);
     this.setData({
       weekListContent: weekListContent

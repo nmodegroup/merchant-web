@@ -42,12 +42,7 @@ Page({
     areaList: [], // 省市区列表
     authPhoneSuccess: false, // 授权手机号状态
     price: '', // 人均消费
-    covers: [
-      {
-        img: 'http://tmp/wxf07f687748208034.o6zAJs82uM9ZFMFQQBbRfju6jjfA.AmsFsiUncqyq69cbb191405df62d1a8dbce48c8b4382.jpeg'
-      },
-      2
-    ], // 商铺封面图信息
+    covers: [], // 商铺封面图信息
     bartenders: [], // 商铺调酒师信息
     desc: '' // 店铺简介
   },
@@ -67,10 +62,10 @@ Page({
   onShow: function() {},
 
   initData() {
-    // 初始化店铺类型数据
-    this.typeColumnList = [{}];
+    // 初始化图片默认空数组
+    this.initDefaultImages();
     // 输入防抖
-    this.inputDebounce = debounce(300, event => {
+    this.inputDebounce = debounce(300, () => {
       this.refreshFormVerify();
     });
     // 请求省市区
@@ -79,6 +74,17 @@ Page({
     this.requestMerchantInfo();
     // 初始化 pageConfig
     PageHelper.setupPageConfig(this);
+  },
+
+  initDefaultImages() {
+    this.fillCovers = [];
+    this.defaultCovers = globalUtil.createEmptyObjArray(3);
+    this.defaultBartenders = globalUtil.createEmptyObjArray(5);
+    console.log('defaultCovers', this.defaultCovers);
+    this.setData({
+      covers: this.defaultCovers,
+      bartenders: this.defaultBartenders
+    });
   },
 
   requestCityList() {
@@ -106,8 +112,8 @@ Page({
           logo: res.logo || '',
           logoDisplay: res.logo ? `${ENV.sourceHost}${res.logo}` : '',
           price: res.price || '',
-          // covers: res.covers || [],
-          bartenders: res.bartenders || [],
+          covers: globalUtil.isEmpty(res.covers) ? this.defaultCovers : res.covers,
+          bartenders: globalUtil.isEmpty(res.bartenders) ? this.defaultBartenders : res.bartenders,
           desc: res.desc || ''
         },
         () => {
@@ -185,7 +191,7 @@ Page({
     this.setData({
       [type]: value
     });
-    this.inputDebounce(event);
+    this.inputDebounce();
   },
 
   /**
@@ -201,9 +207,9 @@ Page({
    * 验证表单
    */
   verifyForm() {
-    const { isTotal, price, covers } = this.data;
+    const { isTotal, price, desc } = this.data;
     if (isTotal) {
-      return this.verifyFormBase() && price && covers.length && bartenders.length && desc;
+      return this.verifyFormBase() && price && !globalUtil.isEmpty(this.fillCovers) && this.checkBartenders() && desc;
     }
     return this.verifyFormBase();
   },
@@ -214,6 +220,10 @@ Page({
   verifyFormBase() {
     const { shopName, address, shopPhone, cityId, areaId, selectShopType, logo } = this.data;
     return shopName && address && shopPhone && cityId && areaId && Object.keys(selectShopType).length && logo;
+  },
+
+  checkBartenders() {
+    return !globalUtil.isEmpty(this.getFillBartenders());
   },
 
   onConfirm(event) {
@@ -320,7 +330,7 @@ Page({
     if (!this.verifyForm()) {
       return false;
     }
-    const { shopName, shopPhone, isTotal, latitude, longitude } = this.data;
+    const { shopName, shopPhone, isTotal, latitude, longitude, price, desc } = this.data;
 
     /* 校验门店名称 */
     if (!regular.regCharChineseNumber(shopName) || regular.regAllNumber(shopName)) {
@@ -334,6 +344,9 @@ Page({
 
     /* 完善店铺信息需要更多校验 */
     if (isTotal) {
+      if (this.checkBartendersInfo()) {
+        return PageHelper.showToast('调酒师信息或宣传照片填写不完整');
+      }
     }
 
     /* 地址位置授权校验 */
@@ -346,6 +359,22 @@ Page({
     } else {
       this.requestCommitInfo();
     }
+  },
+
+  /**
+   * 校验填写的完整性
+   */
+  checkBartendersInfo() {
+    const incompleteBartenders = this.data.bartenders.filter(bartender => {
+      return (bartender.img && !bartender.desc) || (!bartender.img && bartender.desc);
+    });
+    return !globalUtil.isEmpty(incompleteBartenders);
+  },
+
+  getFillBartenders() {
+    return this.data.bartenders.filter(bartender => {
+      return bartender.img && bartender.desc;
+    });
   },
 
   /**
@@ -382,7 +411,7 @@ Page({
    * 保存店铺信息
    */
   requestSaveInfo() {
-    const params = this.queryTotalParams();
+    const params = { ...this.queryParams(), ...this.queryTotalParams() };
     PageHelper.requestWrapper(shopService.saveShopInfo(params)).then(res => {
       PageHelper.showSuccessToast('提交成功');
       setTimeout(() => {
@@ -392,26 +421,176 @@ Page({
   },
 
   queryTotalParams() {
-    const { shopName, shopPhone, cityId, cityName, areaId, areaName, address, selectShopType, logo, latitude, longitude } = this.data;
+    const { price, desc } = this.data;
     return {
-      name: shopName,
-      cityId: cityId,
-      areaId: areaId,
-      cityName: cityName,
-      areaName: areaName,
-      address: address,
-      type: selectShopType.type,
-      phone: shopPhone,
-      logo: logo,
-      lng: longitude,
-      lat: latitude
+      price: Number(price),
+      covers: this.filterCovers(),
+      bartenders: this.filterBartenders(),
+      desc: desc
     };
   },
 
+  filterCovers() {
+    return this.fillCovers.map(cover => {
+      return {
+        img: cover.img
+      };
+    });
+  },
+
+  filterBartenders() {
+    return this.getFillBartenders().map(bartender => {
+      return {
+        img: bartender.img,
+        desc: bartender.desc
+      };
+    });
+  },
+
+  /**
+   * 更新封面图数组
+   */
+  updateCovers() {
+    const newCovers = Object.assign([], this.defaultCovers, this.fillCovers);
+    this.setData({
+      covers: newCovers
+    });
+    this.refreshFormVerify();
+  },
+
+  /**
+   * 选择封面图片
+   */
   handleChooseCover() {
     wxManager.chooseImage().then(res => {
-      console.log(res);
+      this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_COVER).then(result => {
+        this.fillCovers.push({
+          img: result,
+          displayImg: `${ENV.sourceHost}${result}`
+        });
+        this.updateCovers();
+      });
     });
+  },
+
+  /**
+   * 通用上传
+   * @param {string} imageUrl 图片地址
+   * @param {string} folder   存储的文件夹路径
+   */
+  uploadImage(imageUrl, folder) {
+    return new Promise(resolve => {
+      const uploadParams = this.queryUploadParams(imageUrl, folder);
+      PageHelper.requestWrapper(commonService.uploadImage(uploadParams)).then(res => {
+        resolve(res);
+      });
+    });
+  },
+
+  /**
+   * 编辑封面
+   */
+  handleEditCover(event) {
+    console.log(event);
+    const { index } = event.currentTarget.dataset;
+    wxManager.chooseImage().then(res => {
+      this.uploadCoverImage(res.tempFilePaths[0], Folder.FILE_FOLDER_COVER).then(result => {
+        this.fillCovers.forEach((cover, i) => {
+          if (index === i) {
+            cover.img = result;
+            cover.displayImg = `${ENV.sourceHost}${result}`;
+          }
+        });
+        this.updateCovers();
+      });
+    });
+  },
+
+  /**
+   * 删除封面
+   */
+  handleDeleteCover(event) {
+    console.log(event);
+    const { index } = event.currentTarget.dataset;
+    this.fillCovers.splice(index, index + 1);
+    console.log('fillCovers', this.fillCovers);
+    this.updateCovers();
+  },
+
+  /**
+   * 更新调酒师数组
+   */
+  updateBartenders() {
+    this.setData({
+      bartenders: this.defaultBartenders
+    });
+    this.refreshFormVerify();
+  },
+
+  /**
+   * 选择调酒师宣传照
+   */
+  handleChooseBartenderImage(event) {
+    const { index } = event.currentTarget.dataset;
+    this.uploadBartenderImage(index);
+  },
+
+  /**
+   * 上传调酒师宣传照
+   */
+  uploadBartenderImage(index) {
+    wxManager.chooseImage().then(res => {
+      this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_BARTENDER).then(result => {
+        this.defaultBartenders.forEach((bartender, i) => {
+          if (index === i) {
+            bartender.img = result;
+            bartender.displayImg = `${ENV.sourceHost}${result}`;
+          }
+        });
+        this.updateBartenders();
+      });
+    });
+  },
+
+  /**
+   * 编辑调酒师宣传照片
+   */
+  handleEditBartender(event) {
+    const { index } = event.currentTarget.dataset;
+    this.uploadBartenderImage(index);
+  },
+
+  /**
+   * 删除调酒师信息
+   */
+  handleDeleteBartender(event) {
+    const { index } = event.currentTarget.dataset;
+    this.defaultBartenders[index] = {};
+    this.updateBartenders();
+  },
+
+  /**
+   * 调酒师信息输入
+   */
+  handleBartenderDescInput(event) {
+    const value = event.detail.value;
+    const index = event.currentTarget.dataset.index;
+    this.defaultBartenders.forEach((bartender, i) => {
+      if (index === i) {
+        bartender.desc = value;
+      }
+      this.updateBartenders();
+    });
+  },
+
+  /**
+   * 店铺故事
+   */
+  handleStoryInput(event) {
+    this.setData({
+      desc: event.detail.value
+    });
+    this.inputDebounce();
   },
 
   /**
