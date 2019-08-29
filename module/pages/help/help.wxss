@@ -1,1 +1,5 @@
 /* module/pages/help/help.wxss */
+
+page {
+  background-color: #fff;
+}

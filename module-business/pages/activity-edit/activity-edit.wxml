@@ -7,8 +7,13 @@
             <input class="input-view" placeholder-class="placeholder" value="{{shopName}}" placeholder="请输入活动主题"
                 bindinput="handleInput" data-type="shopName" />
         </cell-input>
-        <cell title="活动时间" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="time" borderRightPadding>
-            <text class="{{ selectTime ? 'active' : '' }}">{{ selectTime || "请选择活动时间" }}</text>
+        <cell title="活动开始时间" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="beginTime"
+            borderRightPadding>
+            <text class="{{ beginTime ? 'active' : '' }}">{{ beginTime || "请选择活动开始时间" }}</text>
+        </cell>
+        <cell title="活动结束时间" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="endTime"
+            borderRightPadding>
+            <text class="{{ endTime ? 'active' : '' }}">{{ endTime || "请选择活动结束时间" }}</text>
         </cell>
         <cell title="活动区域" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="area" borderRightPadding>
             <text class="{{ selectArea ? 'active' : '' }}">{{ selectArea || "请选择所在区域" }}</text>
@@ -25,13 +30,40 @@
             <input class="input-view" placeholder-class="placeholder" value="{{shopName}}"
                 placeholder="请输入嘉宾姓名(可多个，用“，”隔开)" bindinput="handleInput" data-type="shopName" />
         </cell-input>
+        <view class="reserve-count">
+            <view class="reserve-title">限制预定数量</view>
+            <view class="reserve-radio">
+                <van-radio-group value="{{ quotaType }}" bind:change="onRadioChange">
+                    <view class="radio-item">
+                        <view>不限制</view>
+                        <van-radio name="0"></van-radio>
+                    </view>
+                    <view class="radio-item">
+                        <view>按系统已有桌位限制</view>
+                        <van-radio name="1"></van-radio>
+                    </view>
+                    <view class="radio-item">
+                        <view>按固定名额限制</view>
+                        <input class="quota-input" wx:if="{{ quotaType == 2 }}" placeholder-class="placeholder-quota"
+                            placeholder="输入数量" value="{{ quotaValue }}" />
+                        <van-radio name="2"></van-radio>
+                    </view>
+                </van-radio-group>
+            </view>
+        </view>
     </view>
     <view class="btn-commit {{ verifyed ? 'enable' : 'disable' }}" bindtap="commitForm">确认提交</view>
 
-    <!-- 完整时间选择 -->
-    <van-popup show="{{visibleDateTime}}" position="bottom" overlay-style="background:rgba(0,0,0,0.5)">
+    <!-- 完整时间选择 开始时间 -->
+    <van-popup show="{{visibleStartTime}}" position="bottom" overlay-style="background:rgba(0,0,0,0.5)">
         <van-datetime-picker type="datetime" value="{{ currentDate }}" min-date="{{ minDate }}" max-date="{{ maxDate }}"
-            bind:input="onInput" />
+            bind:input="onStartInput" bind:cancel="onTimeCancel" bind:confirm="onTimeConfirm" data-type="beginTime" />
+    </van-popup>
+
+    <!-- 完整时间选择 结束时间 -->
+    <van-popup show="{{visibleEndTime}}" position="bottom" overlay-style="background:rgba(0,0,0,0.5)">
+        <van-datetime-picker type="datetime" value="{{ currentDate }}" min-date="{{ minDate }}" max-date="{{ maxDate }}"
+            bind:input="onEndInput" bind:cancel="onTimeCancel" bind:confirm="onTimeConfirm" data-type="endTime" />
     </van-popup>
 
     <!-- 省市区选择 -->

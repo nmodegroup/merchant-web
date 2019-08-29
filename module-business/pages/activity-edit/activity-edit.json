@@ -2,6 +2,8 @@
   "usingComponents": {
     "van-popup": "/components/vant-weapp/popup/index",
     "van-datetime-picker": "/components/vant-weapp/datetime-picker/index",
-    "van-area": "/components/vant-weapp/area/index"
+    "van-area": "/components/vant-weapp/area/index",
+    "van-radio": "/components/vant-weapp/radio/index",
+    "van-radio-group": "/components/vant-weapp/radio-group/index"
   }
 }
