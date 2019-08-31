@@ -6,8 +6,12 @@
         </view>
     </block>
     <block>
-        <view class="btn-common right-btn" bindtap="handleClick" data-type="right">
+        <view class="btn-common right-btn disable }}" wx:if="{{ !enabled }}" bindtap="handleClick" data-type="right">
             {{rightText}}
+        </view>
+        <view class="btn-common right-btn" wx:else bindtap="handleClick" data-type="right">
+            <view class="enable-bg"></view>
+            <view class="enable">{{rightText}}</view>
         </view>
     </block>
 </view>

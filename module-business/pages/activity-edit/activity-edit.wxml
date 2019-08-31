@@ -4,8 +4,8 @@
     <view class="activity-content">
         <view class="panel">活动信息</view>
         <cell-input title="活动主题" borderRightPadding>
-            <input class="input-view" placeholder-class="placeholder" value="{{shopName}}" placeholder="请输入活动主题"
-                bindinput="handleInput" data-type="shopName" />
+            <input class="input-view" placeholder-class="placeholder" value="{{theme}}" placeholder="请输入活动主题"
+                bindinput="handleInput" data-type="theme" />
         </cell-input>
         <cell title="活动开始时间" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="beginTime"
             borderRightPadding>
@@ -19,40 +19,66 @@
             <text class="{{ selectArea ? 'active' : '' }}">{{ selectArea || "请选择所在区域" }}</text>
         </cell>
         <cell-input title="详细地址" borderRightPadding>
-            <input class="input-view" placeholder-class="placeholder" value="{{shopName}}" placeholder="活动详细地址"
-                bindinput="handleInput" data-type="shopName" />
+            <input class="input-view" placeholder-class="placeholder" value="{{address}}" placeholder="活动详细地址"
+                bindinput="handleInput" data-type="address" />
         </cell-input>
         <cell-input title="联系电话" borderRightPadding>
-            <input class="input-view" placeholder-class="placeholder" value="{{shopName}}" placeholder="请输入活动联系电话"
-                bindinput="handleInput" data-type="shopName" />
+            <input class="input-view" placeholder-class="placeholder" value="{{phone}}" placeholder="请输入活动联系电话"
+                bindinput="handleInput" data-type="phone" />
         </cell-input>
         <cell-input title="嘉宾信息" borderRightPadding>
-            <input class="input-view" placeholder-class="placeholder" value="{{shopName}}"
-                placeholder="请输入嘉宾姓名(可多个，用“，”隔开)" bindinput="handleInput" data-type="shopName" />
+            <input class="input-view" placeholder-class="placeholder" value="{{guest}}"
+                placeholder="请输入嘉宾姓名(可多个，用“，”隔开)" bindinput="handleInput" data-type="guest" />
         </cell-input>
         <view class="reserve-count">
             <view class="reserve-title">限制预定数量</view>
             <view class="reserve-radio">
                 <van-radio-group value="{{ quotaType }}" bind:change="onRadioChange">
-                    <view class="radio-item">
-                        <view>不限制</view>
-                        <van-radio name="0"></van-radio>
-                    </view>
-                    <view class="radio-item">
-                        <view>按系统已有桌位限制</view>
-                        <van-radio name="1"></van-radio>
-                    </view>
-                    <view class="radio-item">
-                        <view>按固定名额限制</view>
-                        <input class="quota-input" wx:if="{{ quotaType == 2 }}" placeholder-class="placeholder-quota"
-                            placeholder="输入数量" value="{{ quotaValue }}" />
-                        <van-radio name="2"></van-radio>
-                    </view>
+                    <block wx:for="{{ quotaList }}" wx:key="{{ item.name }}">
+                        <view class="radio-item">
+                            <view>{{ item.title }}</view>
+                            <input name="quotaType" class="quota-input" wx:if="{{ item.name == 2 && quotaType == 2 }}"
+                                placeholder-class="placeholder-quota" placeholder="输入数量" value="{{ quota }}"
+                                type="number" bindfocus="handleCardElectFocus" bindblur="handleCardElectNumBlur"
+                                bindinput="handleInput" data-type="quota" />
+                            <van-radio name="{{ item.name }}" use-icon-slot>
+                                <image class="radio-custom-icon" slot="icon"
+                                    src="{{ quotaType == item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">
+                                </image>
+                            </van-radio>
+                        </view>
+                    </block>
                 </van-radio-group>
             </view>
         </view>
+        <view class="activity-image-container">
+            <view>活动图片</view>
+            <!-- banner -->
+            <block wx:if="{{ displayBanner }}">
+                <image class="banner" src="{{ displayBanner}}" mode="aspectFill" bindtap="handleChooseBanner"></image>
+            </block>
+            <block wx:else>
+                <choose-image empty-class="banner-empty-class" title="请上传一张活动宣传banner图" bind:click="handleChooseBanner">
+                </choose-image>
+            </block>
+
+            <!-- 海报 -->
+            <block wx:if="{{ displayPost }}">
+                <image class="poster" src="{{ displayPost }}" mode="aspectFill" bindtap="handleChoosePoster"></image>
+            </block>
+            <block wx:else>
+                <choose-image empty-class="post-empty-class" title="请上传一张活动海报" height="140.8vw"
+                    bind:click="handleChoosePoster"></choose-image>
+            </block>
+        </view>
     </view>
-    <view class="btn-commit {{ verifyed ? 'enable' : 'disable' }}" bindtap="commitForm">确认提交</view>
+
+    <block wx:if="{{!isEdit}}">
+        <action-bottom single="{{ true }}" enabled="{{ verifyed }}" rightText="确认创建" bind:click="commitForm" />
+    </block>
+    <block wx:if="{{isEdit}}">
+        <action-bottom single="{{ false }}" rightText="删除" bind:click="handleEditActivity" />
+    </block>
 
     <!-- 完整时间选择 开始时间 -->
     <van-popup show="{{visibleStartTime}}" position="bottom" overlay-style="background:rgba(0,0,0,0.5)">
@@ -71,4 +97,9 @@
         <van-area area-list="{{ areaList }}" bind:cancel="onCityCancel" bind:confirm="onCityConfirm" />
     </van-popup>
 
+    <!-- toast -->
+    <toast id="toast"></toast>
+
+    <!-- 定位弹窗 -->
+    <modal id="modal" bind:get="onLocationClick"></modal>
 </view>

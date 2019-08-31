@@ -5,6 +5,8 @@ export class Folder {
   static FILE_FOLDER_LOGO = 'merchant/logo'; // 店铺 logo 文件夹
   static FILE_FOLDER_COVER = 'merchant/cover'; // 店铺封面文件夹
   static FILE_FOLDER_BARTENDER = 'merchant/bartender'; // 调酒师个人宣传照文件夹
+  static FILE_FOLDER_ACTIVITY_BANNER = 'merchant/activity/banner'; // 活动banner
+  static FILE_FOLDER_ACTIVITY_POSTER = 'merchant/activity/poster'; // 活动海报
 }
 
 /**
@@ -42,4 +44,13 @@ export class BusinessStatus {
 export class AppointStatus {
   static OPEN = 0;
   static CLOSE = 1;
+}
+
+/**
+ * 限制预订数量类型（0不限 1按系统已有桌位限制 2按固定名额限制）
+ */
+export class QuotaType {
+  static NOT_LIMIT = 0;
+  static EXIST_LIMIT = 1;
+  static FIXED_LIMIT = 2;
 }

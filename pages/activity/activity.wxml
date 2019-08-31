@@ -11,9 +11,9 @@
     </view>
     <!-- 活动列表 -->
     <block wx:for="{{activityList}}" wx:key="index">
-      <view class="activity-item">
+      <view class="activity-item" bindtap="handleEditActivity" data-id="{{item.id}}">
         <view class="banner-wrapper">
-          <image src="{{item.banner}}"></image>
+          <image src="{{item.banner}}" mode="aspectFill"></image>
           <view>剩余：{{ activityModule.getRemainTitle(item.num) }}</view>
         </view>
         <view class="activity-info">
@@ -71,4 +71,10 @@
       </view>
     </block>
   </view>
+
+  <!-- toast -->
+  <toast id="toast"></toast>
+
+  <!-- 定位弹窗 -->
+  <modal id="modal" bind:get="onLocationClick"></modal>
 </view>

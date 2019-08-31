@@ -1,10 +1,16 @@
-// module-business/pages/activity-edit/activity-edit.js
 const activityService = require('../../../service/activity');
 const commonService = require('../../../service/common');
-const { isEdit, initValue, isEmpty } = require('../../../utils/global');
+const { isEdit, initValue, isEmpty, getFileName } = require('../../../utils/global');
+const dateUtil = require('../../../utils/date');
+const regular = require('../../../utils/regular');
+const wxManager = require('../../../utils/wxManager');
+const { debounce } = require('../../../utils/throttle-debounce/index');
+const { QuotaType } = require('../../../constant/global');
+const { Folder } = require('../../../constant/global');
+const ENV = require('../../../lib/request/env');
+const { quotaList } = require('./data');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
-const dateUtil = require('../../../utils/date');
 
 Page({
   /**
@@ -12,9 +18,11 @@ Page({
    */
   data: {
     minDate: new Date().getTime(),
-    maxDate: new Date(2019, 10, 1).getTime(),
+    maxDate: new Date(2019, 10, 1).getTime(), // TODO: 时间修改
     currentDate: new Date().getTime(),
+    quotaList: quotaList,
     title: '创建活动',
+    isEdit: false, // 是否编辑状态
     theme: '', // 活动主题
     beginTime: '', // 活动开始时间
     endTime: '', // 活动结束时间
@@ -28,14 +36,18 @@ Page({
     quotaType: '', // 限制预订数量类型（0不限 1按系统已有桌位限制 2按固定名额限制）
     quota: '', // 预订限额数量
     banner: '', // 活动宣传 banner 图 url
-    post: '', // 活动海报url
+    post: '', // 活动海报 url
+    displayBanner: '', // 活动宣传 banner 图完整 url
+    displayPost: '', // 活动海报完整展示 url
     verifyed: false, // 表单是否校验通过
     visibleStartTime: false, // 开始时间选择
     visibleEndTime: false, // 结束时间选择
     visibleArea: false, // 省市区选择
     areaList: [], // 省市区列表
     selectArea: '', // 选择的区域
-    selectTime: '' // 选择的时间
+    selectTime: '', // 选择的时间
+    longitude: '', // 经度
+    latitude: '' // 纬度
   },
 
   /**
@@ -58,8 +70,17 @@ Page({
       activityId: initValue(activityId)
     });
     PageHelper.setupPageConfig(this);
+    this.initDebounce();
     this.requestActivityInfo();
     this.requestCityList();
+    this.getLocation();
+  },
+
+  initDebounce() {
+    // 输入防抖
+    this.inputDebounce = debounce(300, () => {
+      this.refreshFormVerify();
+    });
   },
 
   requestCityList() {
@@ -68,6 +89,42 @@ Page({
         areaList: res
       });
     });
+  },
+
+  getLocation() {
+    PageHelper.requestWrapper(wxManager.getLocation())
+      .then(res => {
+        this.setData({
+          latitude: res.latitude,
+          longitude: res.longitude
+        });
+      })
+      .catch(e => {
+        console.log(e);
+        this.showLocationModal();
+      });
+  },
+
+  showLocationModal() {
+    this.modal.showModal({
+      content: '授权定位功能失败，\n可打开设置页面进行手动授权',
+      title: '温馨提示',
+      cancelText: '取消',
+      confirmText: '去授权',
+      hideCancel: false
+    });
+  },
+
+  onLocationClick(event) {
+    // 点击了去授权
+    if (PageHelper.isModalConfirm(event)) {
+      wxManager.openSetting().then(res => {
+        if (res.authSetting['scope.userLocation']) {
+          console.log('start get location');
+          this.getLocation();
+        }
+      });
+    }
   },
 
   /**
@@ -83,20 +140,36 @@ Page({
     };
     PageHelper.requestWrapper(activityService.getActivityDetail(params)).then(res => {
       this.setData({
-        ...res
+        ...res,
+        selectArea: `${res.cityName} ${res.areaName}`,
+        displayBanner: `${ENV.sourceHost}${res.banner}`,
+        displayPost: `${ENV.sourceHost}${res.post}`
       });
     });
   },
 
+  handleInput(event) {
+    const type = event.currentTarget.dataset.type;
+    const value = event.detail.value;
+    this.setData({
+      [type]: value
+    });
+    this.inputDebounce();
+  },
+
+  /**
+   * 选择活动开始时间
+   */
   onStartInput(event) {
-    console.log('onStartInput', event);
     this.setData({
       currentDate: event.detail
     });
   },
 
+  /**
+   * 选择活动结束时间
+   */
   onEndInput(event) {
-    console.log('onEndInput', event);
     this.setData({
       currentDate: event.detail
     });
@@ -138,6 +211,7 @@ Page({
       visibleStartTime: false,
       visibleEndTime: false
     });
+    this.refreshFormVerify();
   },
 
   /**
@@ -185,12 +259,198 @@ Page({
     this.setData({
       quotaType: event.detail
     });
+    this.refreshFormVerify();
   },
 
-  commitForm() {},
+  /**
+   * 选择宣传 banner
+   */
+  handleChooseBanner() {
+    wxManager.chooseImage().then(res => {
+      this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_ACTIVITY_BANNER).then(res => {
+        this.setData({
+          banner: res,
+          displayBanner: `${ENV.sourceHost}${res}`
+        });
+        this.refreshFormVerify();
+      });
+    });
+  },
+
+  /**
+   * 选择海报
+   */
+  handleChoosePoster() {
+    wxManager.chooseImage().then(res => {
+      this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_ACTIVITY_BANNER).then(res => {
+        this.setData({
+          post: res,
+          displayPost: `${ENV.sourceHost}${res}`
+        });
+        this.refreshFormVerify();
+      });
+    });
+  },
+
+  /**
+   * 通用上传
+   * @param {string} imageUrl 图片地址
+   * @param {string} folder   存储的文件夹路径
+   */
+  uploadImage(imageUrl, folder) {
+    return new Promise(resolve => {
+      const uploadParams = this.queryUploadParams(imageUrl, folder);
+      PageHelper.requestWrapper(commonService.uploadImage(uploadParams)).then(res => {
+        resolve(res);
+      });
+    });
+  },
+
+  queryUploadParams(imagePath, floder) {
+    return {
+      filePath: imagePath,
+      formData: {
+        fileName: getFileName(imagePath),
+        floder: floder
+      }
+    };
+  },
+
+  /**
+   * 校验输入字段，刷新校验状态
+   */
+  refreshFormVerify() {
+    this.setData({
+      verifyed: this.verifyedFrom()
+    });
+    console.log('verifyed', this.verifyedFrom());
+  },
+
+  verifyedFrom() {
+    const { theme, beginTime, endTime, cityId, address, phone, guest, quotaType, banner, post } = this.data;
+    return (
+      !isEmpty(theme) &&
+      !isEmpty(beginTime) &&
+      !isEmpty(endTime) &&
+      !isEmpty(cityId) &&
+      !isEmpty(address) &&
+      !isEmpty(phone) &&
+      !isEmpty(guest) &&
+      !isEmpty(quotaType) &&
+      !isEmpty(banner) &&
+      !isEmpty(post)
+    );
+  },
+
+  /**
+   * 编辑、删除活动
+   */
+  handleEditActivity(event) {
+    const type = event.detail.type;
+    if (type === 'right') {
+      this.deleteActivity();
+    } else {
+      this.commitForm();
+    }
+  },
+
+  /**
+   * 删除活动
+   */
+  deleteActivity() {
+    PageHelper.showDeleteModal('确定要删除活动吗？ \n删除后不可恢复！').then(() => {
+      this.requestDeleteActivity();
+    });
+  },
+
+  requestDeleteActivity() {
+    const params = {
+      id: this.data.activityId
+    };
+    PageHelper.requestWrapper(activityService.deleteActivy(params)).then(() => {
+      PageHelper.requestSuccessCallback('活动删除成功');
+    });
+  },
+
+  /**
+   * 提交表单
+   */
+  commitForm() {
+    const { theme, phone, quotaType, quota, longitude, latitude } = this.data;
+    if (!this.verifyedFrom()) {
+      return false;
+    }
+
+    /* 校验门店名称 */
+    if (!regular.regActivityTheme(theme) || regular.regAllNumber(theme)) {
+      return PageHelper.showToast('活动主题1-15个字符可包含中文\n字母数字但不能全为数字');
+    }
+
+    /* 校验手机号 */
+    if (!regular.regPhoneNumber(phone) || !regular.regStablePhone(phone)) {
+      return PageHelper.showToast('请输入正确的电话号码');
+    }
+
+    /* 按固定名额限制需要填写限额数量 */
+    if (quotaType === QuotaType.FIXED_LIMIT && isEmpty(quota)) {
+      return PageHelper.showToast('请输入预定限额数量');
+    }
+
+    /* 地址位置授权校验 */
+    if (!latitude || !longitude) {
+      return this.showLocationModal();
+    }
+
+    this.requestCommitActivityInfo();
+  },
 
   requestCommitActivityInfo() {
-    const params = {};
-    PageHelper.requestWrapper(activityService.createOrEditActivy(params)).then(() => {});
+    const { isEdit, activityId } = this.data;
+    const params = this.queryFormParams();
+    if (isEdit) {
+      params.id = activityId;
+    }
+    PageHelper.requestWrapper(activityService.createOrEditActivy(params)).then(() => {
+      PageHelper.requestSuccessCallback(isEdit ? '活动编辑成功' : '创建成功\n您的活动信息需要平台审核\n请耐心等待');
+    });
+  },
+
+  queryFormParams() {
+    const {
+      theme,
+      beginTime,
+      endTime,
+      cityId,
+      areaId,
+      cityName,
+      areaName,
+      address,
+      phone,
+      guest,
+      quotaType,
+      quota,
+      banner,
+      post,
+      latitude,
+      longitude
+    } = this.data;
+    return {
+      theme,
+      beginTime,
+      endTime,
+      cityId,
+      areaId,
+      cityName,
+      areaName,
+      address,
+      phone,
+      guest,
+      quotaType,
+      quota,
+      banner,
+      post,
+      lng: longitude,
+      lat: latitude
+    };
   }
 });

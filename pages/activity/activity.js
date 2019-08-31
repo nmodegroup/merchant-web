@@ -2,6 +2,7 @@
 const wxManager = require('../../utils/wxManager');
 const PageConstant = require('../../constant/page');
 const activityService = require('../../service/activity');
+const ENV = require('../../lib/request/env');
 const { PageConfig } = require('../../utils/page');
 const PageHelper = new PageConfig();
 
@@ -96,9 +97,17 @@ Page({
       this.setPageNum(currentPage);
       this.checkHasmore(result.pageNum, result.pageSize, result.totalSize);
       const oldList = this.data.activityList;
+      const activityList = this.resolveActivityList(result.list);
       this.setData({
-        activityList: currentPage === 1 ? result.list : oldList.concat(result.list)
+        activityList: currentPage === 1 ? activityList : oldList.concat(activityList)
       });
+    });
+  },
+
+  resolveActivityList(list) {
+    return list.map(item => {
+      item.banner = `${ENV.sourceHost}${item.banner}`;
+      return item;
     });
   },
 
@@ -111,5 +120,12 @@ Page({
 
   handleCreateActivity() {
     wxManager.navigateTo(PageConstant.ACTIVITY_EDIT_URL);
+  },
+
+  // TODO: delete
+  handleEditActivity(event) {
+    wxManager.navigateTo(PageConstant.ACTIVITY_EDIT_URL, {
+      activityId: event.currentTarget.dataset.id
+    });
   }
 });

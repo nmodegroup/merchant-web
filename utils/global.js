@@ -47,10 +47,12 @@ export function isAuthUserInfo() {
 
 /**
  * 检测对象是否为空
+ * null、undefined、'' 为 true
+ * 空对象{}、空数组[] 为 true
  * @param {any} target
  */
 export function isEmpty(target) {
-  if (!target) {
+  if (target == null || target === '') {
     return true;
   }
   const targetString = Object.prototype.toString.call(target).split(' ')[1];
@@ -61,7 +63,7 @@ export function isEmpty(target) {
     case 'Array':
       return target.length === 0;
     default:
-      return true;
+      return false;
   }
 }
 

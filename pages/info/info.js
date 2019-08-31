@@ -65,9 +65,7 @@ Page({
     // 初始化图片默认空数组
     this.initDefaultImages();
     // 输入防抖
-    this.inputDebounce = debounce(300, () => {
-      this.refreshFormVerify();
-    });
+    this.setupDebounce();
     // 请求省市区
     this.requestCityList();
     // 店铺信息
@@ -83,6 +81,13 @@ Page({
     this.setData({
       covers: this.defaultCovers,
       bartenders: this.defaultBartenders
+    });
+  },
+
+  setupDebounce() {
+    /* 输入防抖，func 为需要执行的函数，不传则默认 refreshFormVerify */
+    this.inputDebounce = debounce(300, (func = this.refreshFormVerify) => {
+      func();
     });
   },
 
@@ -142,20 +147,16 @@ Page({
   },
 
   getLocation() {
-    wxManager.showLoading();
-    wxManager
-      .getLocation()
+    PageHelper.requestWrapper(wxManager.getLocation())
       .then(res => {
         this.setData({
           latitude: res.latitude,
           longitude: res.longitude
         });
-        wxManager.hideLoading();
       })
       .catch(e => {
         console.log(e);
         this.showLocationModal();
-        wxManager.hideLoading();
       });
   },
 
@@ -315,127 +316,6 @@ Page({
     });
   },
 
-  commitForm() {
-    if (!this.verifyForm()) {
-      return false;
-    }
-    const { shopName, shopPhone, isTotal, latitude, longitude, price, desc } = this.data;
-
-    /* 校验门店名称 */
-    if (!regular.regCharChineseNumber(shopName) || regular.regAllNumber(shopName)) {
-      return PageHelper.showToast('门店名称至少1个字符可包含中文', '字母数字但不能全为数字');
-    }
-
-    /* 校验手机号 */
-    if (!regular.regPhoneNumber(shopPhone) || !regular.regStablePhone(shopPhone)) {
-      return PageHelper.showToast('请输入正确的电话号码');
-    }
-
-    /* 完善店铺信息需要更多校验 */
-    if (isTotal) {
-      if (this.checkBartendersInfo()) {
-        return PageHelper.showToast('调酒师信息或宣传照片填写不完整');
-      }
-    }
-
-    /* 地址位置授权校验 */
-    if (!latitude || !longitude) {
-      return this.showLocationModal();
-    }
-
-    if (isTotal) {
-      this.requestSaveInfo();
-    } else {
-      this.requestCommitInfo();
-    }
-  },
-
-  /**
-   * 校验填写的完整性
-   */
-  checkBartendersInfo() {
-    const incompleteBartenders = this.data.bartenders.filter(bartender => {
-      return (bartender.img && !bartender.desc) || (!bartender.img && bartender.desc);
-    });
-    return !isEmpty(incompleteBartenders);
-  },
-
-  getFillBartenders() {
-    return this.data.bartenders.filter(bartender => {
-      return bartender.img && bartender.desc;
-    });
-  },
-
-  /**
-   * 基础信息提交
-   */
-  requestCommitInfo() {
-    const params = this.queryParams();
-    PageHelper.requestWrapper(shopService.saveShopBasicInfo(params)).then(res => {
-      PageHelper.showSuccessToast('提交成功');
-      setTimeout(() => {
-        wxManager.switchTab(pageConstant.CENTER_URL);
-      }, 1000);
-    });
-  },
-
-  queryParams() {
-    const { shopName, shopPhone, cityId, cityName, areaId, areaName, address, selectShopType, logo, latitude, longitude } = this.data;
-    return {
-      name: shopName,
-      cityId: cityId,
-      areaId: areaId,
-      cityName: cityName,
-      areaName: areaName,
-      address: address,
-      type: selectShopType.type,
-      phone: shopPhone,
-      logo: logo,
-      lng: longitude,
-      lat: latitude
-    };
-  },
-
-  /**
-   * 保存店铺信息
-   */
-  requestSaveInfo() {
-    const params = { ...this.queryParams(), ...this.queryTotalParams() };
-    PageHelper.requestWrapper(shopService.saveShopInfo(params)).then(res => {
-      PageHelper.showSuccessToast('提交成功');
-      setTimeout(() => {
-        wxManager.navigateBack();
-      }, 1000);
-    });
-  },
-
-  queryTotalParams() {
-    const { price, desc } = this.data;
-    return {
-      price: Number(price),
-      covers: this.filterCovers(),
-      bartenders: this.filterBartenders(),
-      desc: desc
-    };
-  },
-
-  filterCovers() {
-    return this.fillCovers.map(cover => {
-      return {
-        img: cover.img
-      };
-    });
-  },
-
-  filterBartenders() {
-    return this.getFillBartenders().map(bartender => {
-      return {
-        img: bartender.img,
-        desc: bartender.desc
-      };
-    });
-  },
-
   /**
    * 更新封面图数组
    */
@@ -568,18 +448,8 @@ Page({
       if (index === i) {
         bartender.desc = value;
       }
-      this.updateBartenders();
     });
-  },
-
-  /**
-   * 店铺故事
-   */
-  handleStoryInput(event) {
-    this.setData({
-      desc: event.detail.value
-    });
-    this.inputDebounce();
+    this.inputDebounce(this.updateBartenders);
   },
 
   /**
@@ -630,5 +500,123 @@ Page({
 
   handleSkip() {
     wxManager.switchTab(pageConstant.CENTER_URL);
+  },
+
+  commitForm() {
+    if (!this.verifyForm()) {
+      return false;
+    }
+    const { shopName, shopPhone, isTotal, latitude, longitude } = this.data;
+
+    /* 校验门店名称 */
+    if (!regular.regShopName(shopName) || regular.regAllNumber(shopName)) {
+      return PageHelper.showToast('门店名称至少1个字符可包含中文\n字母数字但不能全为数字');
+    }
+
+    /* 校验手机号 */
+    if (!regular.regPhoneNumber(shopPhone) || !regular.regStablePhone(shopPhone)) {
+      return PageHelper.showToast('请输入正确的电话号码');
+    }
+
+    /* 完善店铺信息需要更多校验 */
+    if (isTotal) {
+      if (this.checkBartendersInfo()) {
+        return PageHelper.showToast('调酒师信息或宣传照片填写不完整');
+      }
+    }
+
+    /* 地址位置授权校验 */
+    if (!latitude || !longitude) {
+      return this.showLocationModal();
+    }
+
+    if (isTotal) {
+      this.requestSaveInfo();
+    } else {
+      this.requestCommitInfo();
+    }
+  },
+
+  /**
+   * 校验填写的完整性
+   */
+  checkBartendersInfo() {
+    const incompleteBartenders = this.data.bartenders.filter(bartender => {
+      return (bartender.img && !bartender.desc) || (!bartender.img && bartender.desc);
+    });
+    return !isEmpty(incompleteBartenders);
+  },
+
+  getFillBartenders() {
+    return this.data.bartenders.filter(bartender => {
+      return bartender.img && bartender.desc;
+    });
+  },
+
+  /**
+   * 基础信息提交
+   */
+  requestCommitInfo() {
+    const params = this.queryParams();
+    PageHelper.requestWrapper(shopService.saveShopBasicInfo(params)).then(res => {
+      PageHelper.showSuccessToast('提交成功');
+      setTimeout(() => {
+        wxManager.switchTab(pageConstant.CENTER_URL);
+      }, 1000);
+    });
+  },
+
+  queryParams() {
+    const { shopName, shopPhone, cityId, cityName, areaId, areaName, address, selectShopType, logo, latitude, longitude } = this.data;
+    return {
+      name: shopName,
+      cityId: cityId,
+      areaId: areaId,
+      cityName: cityName,
+      areaName: areaName,
+      address: address,
+      type: selectShopType.type,
+      phone: shopPhone,
+      logo: logo,
+      lng: longitude,
+      lat: latitude
+    };
+  },
+
+  /**
+   * 保存店铺信息
+   */
+  requestSaveInfo() {
+    const params = { ...this.queryParams(), ...this.queryTotalParams() };
+    PageHelper.requestWrapper(shopService.saveShopInfo(params)).then(res => {
+      PageHelper.requestSuccessCallback('提交成功');
+    });
+  },
+
+  queryTotalParams() {
+    const { price, desc } = this.data;
+    return {
+      price: Number(price),
+      covers: this.filterCovers(),
+      bartenders: this.filterBartenders(),
+      desc: desc
+    };
+  },
+
+  filterCovers() {
+    return this.fillCovers.map(cover => {
+      return {
+        img: cover.img
+      };
+    });
+  },
+
+  filterBartenders() {
+    return this.getFillBartenders().map(bartender => {
+      return {
+        img: bartender.img,
+        desc: bartender.desc
+      };
+    });
   }
 });

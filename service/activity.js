@@ -6,9 +6,8 @@ const httpManager = require('../lib/request/httpManager');
 export function getActivityList(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      // .get('/merchant/activity/list', params)
       .get({
-        url: 'https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/activity/list',
+        url: '/merchant/activity/list',
         params: params,
         contentType: httpManager.JSON
       })

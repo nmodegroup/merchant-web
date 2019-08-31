@@ -1,0 +1,24 @@
+/* components/choose-image/index.wxss */
+
+.choose-image-empty {
+  width: 88vw;
+  height: 50vw;
+  border: 2rpx solid rgba(255, 255, 255, 0.2);
+  border-radius: 8rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.choose-image-empty > image {
+  height: 148rpx;
+  width: 148rpx;
+}
+
+.choose-image-empty > view {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 30rpx;
+}

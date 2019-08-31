@@ -167,10 +167,28 @@ export class PageConfig {
         content: content,
         title: '温馨提示',
         cancelText: '点错了',
-        confirmText: '删除',
+        confirmText: '确定删除',
         hideCancel: false,
         onConfirm: () => {
           resolve();
+        }
+      });
+    });
+  }
+
+  /**
+   * 退出编辑提示
+   */
+  showGoBackModal(content = '是否放弃本次编辑？') {
+    return new Promise(resolve => {
+      this.currentPage().modal.showModal({
+        content: content,
+        title: '温馨提示',
+        cancelText: '点错了',
+        confirmText: '放弃',
+        hideCancel: false,
+        onConfirm: () => {
+          wxManager.navigateBack();
         }
       });
     });

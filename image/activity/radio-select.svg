@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>mdpi/icon_list_select_click</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="78.7676369%" y1="-36.0801197%" x2="-38.5585159%" y2="200.494451%" id="linearGradient-1">
+            <stop stop-color="#FF26BA" offset="0%"></stop>
+            <stop stop-color="#0084FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="活动管理" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0.0.1图标_商家端_活动管理" transform="translate(-138.000000, -51.000000)" fill-rule="nonzero">
+            <g id="icon_list_select_click" transform="translate(138.000000, 51.000000)">
+                <circle id="Oval" fill="url(#linearGradient-1)" cx="6.5" cy="6.5" r="6.5"></circle>
+                <polyline id="Path-5" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" points="2.7 6.13446175 5.46112553 8.89558728 10.2567128 4.1"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

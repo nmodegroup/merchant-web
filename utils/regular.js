@@ -9,8 +9,16 @@ export function regAllNumber(str) {
 /**
  * 校验只能包含中文字母和数字
  */
-export function regCharChineseNumber(str) {
+export function regShopName(str) {
   const reg = /^[\u4e00-\u9fa5a-zA-Z0-9]+$/;
+  return reg.test(str);
+}
+
+/**
+ * 校验只能包含中文字母和数字, 1到15位
+ */
+export function regActivityTheme(str) {
+  const reg = /^[\u4e00-\u9fa5a-zA-Z0-9]{1,15}$/;
   return reg.test(str);
 }
 

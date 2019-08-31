@@ -15,6 +15,11 @@ Component({
     rightText: {
       type: String,
       value: '确认创建'
+    },
+    /* 按钮是否高亮 */
+    enabled: {
+      type: Boolean,
+      value: true
     }
   },
 
