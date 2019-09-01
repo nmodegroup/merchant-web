@@ -32,7 +32,7 @@ Component({
       type: String,
       value: '#161549'
     },
-    /* 是否拦截默认返回事件 */
+    /* 是否拦截默认返回以及回首页事件 */
     propagation: {
       type: Boolean,
       value: false
@@ -48,6 +48,9 @@ Component({
   },
 
   ready() {
+    // 初始化 modal
+    this.modal = this.selectComponent('#modal');
+    console.log('modal', this.modal);
     // 计算标题栏和状态栏高度
     wxManager.getSystemInfo().then(systemInfo => {
       console.log('systemInfo:', systemInfo);
@@ -79,15 +82,39 @@ Component({
     handleBack() {
       const { propagation } = this.data;
       if (propagation) {
-        return this.triggerEvent('handleBack');
+        this.triggerEvent('goback');
+        return this.showGiveUpModal();
       }
-      wx.navigateBack({
-        delta: 1 // 回退前 delta(默认为1) 页面
+      wxManager.navigateBack();
+    },
+
+    showGiveUpModal(isGOBack = true) {
+      this.modal.showModal({
+        content: '是否放弃本次编辑？',
+        title: '温馨提示',
+        cancelText: '点错了',
+        confirmText: '放弃',
+        hideCancel: false,
+        onConfirm: () => {
+          if (isGOBack) {
+            wxManager.navigateBack();
+          } else {
+            this.goHome();
+          }
+        }
       });
     },
 
     handleGoHome() {
-      console.log('handleGoHome:', '/pages/home/home');
+      const { propagation } = this.data;
+      if (propagation) {
+        this.triggerEvent('gohome');
+        return this.showGiveUpModal(false);
+      }
+      this.goHome();
+    },
+
+    goHome() {
       wx.switchTab({
         url: PathConstant.HOME_URL
       });

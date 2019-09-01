@@ -88,7 +88,7 @@ Page({
 
   resolveWeeks() {
     const { weeks } = this.data;
-    if (!weeks.length) {
+    if (isEmpty(weeks)) {
       return false;
     }
     const weekList = weeks.map(week => {
@@ -101,14 +101,12 @@ Page({
   },
 
   handleStartInput(event) {
-    console.log('handleStartInput:', event);
     this.setData({
       begin: event.detail
     });
   },
 
   handleEndInput(event) {
-    console.log('handleEndInput:', event);
     this.setData({
       end: event.detail
     });

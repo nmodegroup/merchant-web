@@ -1,6 +1,6 @@
 <!--module-business/pages/activity-edit/activity-edit.wxml-->
 <view class="activity-user-page">
-    <nav-bar title="{{title}}" back home></nav-bar>
+    <nav-bar title="{{title}}" back home propagation></nav-bar>
     <view class="activity-content">
         <view class="panel">活动信息</view>
         <cell-input title="活动主题" borderRightPadding>

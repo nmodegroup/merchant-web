@@ -1,6 +1,6 @@
 <!--module-business/pages/special-date/special-date.wxml-->
 <view class="special-date-page">
-    <nav-bar title="特殊日期" back home></nav-bar>
+    <nav-bar title="特殊日期" back home propagation></nav-bar>
     <view class="desc">
         特殊日期是指该日店铺不接受预订，设置了日期后系统会自动跳过该日预订。
     </view>

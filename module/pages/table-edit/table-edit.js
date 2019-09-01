@@ -1,7 +1,8 @@
 // module/pages/table-edit/table-edit.js
 const wxManager = require('../../../utils/wxManager');
 const tableService = require('../../../service/table');
-const { PageHelper } = require('../../../utils/page');
+const { PageConfig } = require('../../../utils/page');
+const PageHelper = new PageConfig();
 
 Page({
   /**
