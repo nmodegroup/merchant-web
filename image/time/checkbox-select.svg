@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>mdpi/time_icon_select_click</title>
+    <desc>Created with Sketch.</desc>
+    <g id="商家端" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0.0.1图标_商家端" transform="translate(-79.000000, -921.000000)" fill-rule="nonzero" stroke="#FFFFFF">
+            <g id="Group-Copy-4" transform="translate(79.000000, 921.000000)">
+                <g id="time_icon_select_click" transform="translate(1.000000, 1.000000)">
+                    <circle id="Oval" stroke-opacity="0.184442935" stroke-width="0.5" fill="#212064" cx="10" cy="10" r="10.25"></circle>
+                    <polyline id="Path-3" stroke-linecap="round" stroke-linejoin="round" points="5 10.2274421 8.66499161 13.8924337 15 7.55742535"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

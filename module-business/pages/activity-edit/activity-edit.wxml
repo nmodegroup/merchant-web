@@ -37,13 +37,13 @@
                     <block wx:for="{{ quotaList }}" wx:key="{{ item.name }}">
                         <view class="radio-item">
                             <view>{{ item.title }}</view>
-                            <input name="quotaType" class="quota-input" wx:if="{{ item.name == 2 && quotaType == 2 }}"
+                            <input name="quotaType" class="quota-input" wx:if="{{ item.name === 2 && quotaType === 2 }}"
                                 placeholder-class="placeholder-quota" placeholder="输入数量" value="{{ quota }}"
                                 type="number" bindfocus="handleCardElectFocus" bindblur="handleCardElectNumBlur"
                                 bindinput="handleInput" data-type="quota" />
                             <van-radio name="{{ item.name }}" use-icon-slot>
                                 <image class="radio-custom-icon" slot="icon"
-                                    src="{{ quotaType == item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">
+                                    src="{{ quotaType === item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">
                                 </image>
                             </van-radio>
                         </view>

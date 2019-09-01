@@ -3,6 +3,7 @@ const wxManager = require('../../utils/wxManager');
 const PageConstant = require('../../constant/page');
 const activityService = require('../../service/activity');
 const ENV = require('../../lib/request/env');
+const { ActivityStatus } = require('../../constant/global');
 const { PageConfig } = require('../../utils/page');
 const PageHelper = new PageConfig();
 
@@ -116,6 +117,19 @@ Page({
    */
   handleShowReason(event) {
     console.log(event);
+    const { reason } = event.currentTarget.dataset;
+    if (reason) {
+      this.modal.showModal({
+        content: reason,
+        title: '未通过原因',
+        cancelText: '取消',
+        confirmText: '去编辑',
+        hideCancel: false,
+        onConfirm: () => {
+          this.handleEditActivity(event);
+        }
+      });
+    }
   },
 
   handleCreateActivity() {
@@ -126,6 +140,34 @@ Page({
   handleEditActivity(event) {
     wxManager.navigateTo(PageConstant.ACTIVITY_EDIT_URL, {
       activityId: event.currentTarget.dataset.id
+    });
+  },
+
+  /**
+   * 切换预定状态
+   */
+  onStatusChange(event) {
+    console.log(event);
+    const { item, index } = event.currentTarget.dataset;
+    this.requestSwitchActivityStatus(item, index);
+    if (parseInt(item.onStatus) === 1) {
+    } else {
+    }
+  },
+
+  requestSwitchActivityStatus(item, index) {
+    let activity = Object.assign({}, item);
+    const params = {
+      id: activity.id
+    };
+
+    PageHelper.requestWrapper(activityService.changeActivityStatus(params)).then(() => {
+      PageHelper.showSuccessToast(activity.onStatus === ActivityStatus.OPEN ? '已关闭预定' : '已开放预定');
+      const key = `activityList[${index}]`;
+      activity.onStatus = activity.onStatus === ActivityStatus.OPEN ? ActivityStatus.CLOSE : ActivityStatus.OPEN;
+      this.setData({
+        [key]: activity
+      });
     });
   }
 });

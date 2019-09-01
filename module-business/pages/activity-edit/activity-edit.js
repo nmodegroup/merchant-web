@@ -141,9 +141,9 @@ Page({
     PageHelper.requestWrapper(activityService.getActivityDetail(params)).then(res => {
       this.setData({
         ...res,
-        selectArea: `${res.cityName} ${res.areaName}`,
-        displayBanner: `${ENV.sourceHost}${res.banner}`,
-        displayPost: `${ENV.sourceHost}${res.post}`
+        selectArea: isEmpty(res.cityName) ? '' : `${res.cityName} ${res.areaName}`,
+        displayBanner: isEmpty(res.banner) ? '' : `${ENV.sourceHost}${res.banner}`,
+        displayPost: isEmpty(res.post) ? '' : `${ENV.sourceHost}${res.post}`
       });
     });
   },
@@ -205,9 +205,17 @@ Page({
    */
   onTimeConfirm(event) {
     const { type } = event.currentTarget.dataset;
-    console.log('type', type);
+    const { beginTime, endTime } = this.data;
+    const selectTime = dateUtil.formatDateNoSeconds(event.detail);
+    if (type === 'beginTime' && endTime && selectTime > endTime) {
+      return PageHelper.showToast('开始时间不能大于结束时间');
+    }
+    if (type === 'endTime' && beginTime && selectTime < beginTime) {
+      return PageHelper.showToast('结束时间不能小于开始时间');
+    }
+
     this.setData({
-      [type]: dateUtil.formatDate(event.detail),
+      [type]: selectTime,
       visibleStartTime: false,
       visibleEndTime: false
     });
@@ -257,7 +265,7 @@ Page({
   onRadioChange(event) {
     console.log(event);
     this.setData({
-      quotaType: event.detail
+      quotaType: parseInt(event.detail)
     });
     this.refreshFormVerify();
   },
@@ -323,7 +331,6 @@ Page({
     this.setData({
       verifyed: this.verifyedFrom()
     });
-    console.log('verifyed', this.verifyedFrom());
   },
 
   verifyedFrom() {

@@ -116,9 +116,9 @@ VantComponent({
           return formatter(type, value);
         });
         // 对分钟过滤
-        if (type === 'minute') {
-          return { values: values.filter(option => option % 5 === 0) };
-        }
+        // if (type === 'minute') {
+        //   return { values: values.filter(option => option % 5 === 0) };
+        // }
         return { values };
       });
       return this.set({ columns: results });

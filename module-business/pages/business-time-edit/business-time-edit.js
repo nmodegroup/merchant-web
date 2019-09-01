@@ -2,10 +2,12 @@
 const wxManager = require('../../../utils/wxManager');
 const pageConstant = require('../../../constant/page');
 const { getWeekTitle, getHours, getMinutes } = require('../../../utils/date');
-const { initValue, isEdit } = require('../../../utils/global');
+const { initValue, isEdit, isEmpty } = require('../../../utils/global');
+const eventEmitter = getApp().eventEmitter;
+const { createNumberArray } = require('../../../utils/global');
+const timeService = require('../../../service/time');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
-const eventEmitter = getApp().eventEmitter;
 
 Page({
   /**
@@ -16,10 +18,11 @@ Page({
     minutes: getMinutes(),
     isEdit: false,
     businessId: '',
-    startDate: '', // 编辑时营业开始时间
-    endDate: '', // 编辑时营业结束时间
+    currentBeginDate: '',
+    currentEndDate: '',
+    begin: '', // 编辑时营业开始时间
+    end: '', // 编辑时营业结束时间
     weeks: [], // 重复日期数组
-    callbackWeeks: [], // 已选中的日期数组（星期几）
     weekListContent: ''
   },
 
@@ -27,6 +30,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    PageHelper.setupPageConfig(this);
     this.initData(options);
     this.registerCallbacks();
   },
@@ -60,14 +64,26 @@ Page({
       {
         isEdit: isEdit(options.businessId),
         businessId: initValue(options.businessId),
-        startDate: initValue(options.start),
-        endDate: initValue(options.endDate),
-        weeks: options.weeks ? JSON.parse(options.weeks) : []
+        // 将设置初始 value 和 变化设置的目标值分离，不然会触发 vant bug，无限 setData
+        currentBeginDate: initValue(options.begin, '20:00'),
+        currentEndDate: initValue(options.end, '02:00'),
+        begin: initValue(options.begin, '20:00'),
+        end: initValue(options.end, '02:00'),
+        weeks: options.weeks ? JSON.parse(options.weeks) : this.createDefaultWeeks()
       },
       () => {
         this.resolveWeeks();
       }
     );
+  },
+
+  createDefaultWeeks() {
+    const numberOfWeeks = createNumberArray(7);
+    return numberOfWeeks.map(item => {
+      return {
+        date: item
+      };
+    });
   },
 
   resolveWeeks() {
@@ -76,7 +92,7 @@ Page({
       return false;
     }
     const weekList = weeks.map(week => {
-      return getWeekTitle(week);
+      return getWeekTitle(week.date);
     });
     const weekListContent = weekList.join(' ');
     this.setData({
@@ -84,23 +100,77 @@ Page({
     });
   },
 
-  handleCreateTime() {},
+  handleStartInput(event) {
+    console.log('handleStartInput:', event);
+    this.setData({
+      begin: event.detail
+    });
+  },
+
+  handleEndInput(event) {
+    console.log('handleEndInput:', event);
+    this.setData({
+      end: event.detail
+    });
+  },
+
+  handleCreateTime() {
+    this.requestEditTime();
+  },
 
   handleEditTime(event) {
     const type = event.detail.type;
     if (type === 'right') {
       this.deleteBusinessTime();
     } else {
-      this.resolveFormData();
+      this.requestEditTime();
     }
   },
 
-  deleteBusinessTime() {},
+  requestEditTime() {
+    const { begin, end, weeks, isEdit, businessId } = this.data;
+    const params = {
+      begin,
+      end,
+      weeks
+    };
+    // 编辑带 id
+    if (isEdit) {
+      params.id = businessId;
+    }
+    PageHelper.requestWrapper(timeService.editBusinessTime(params))
+      .then(() => {
+        PageHelper.requestSuccessCallback(isEdit ? '营业时间编辑成功' : '营业时间创建成功');
+      })
+      .catch(e => {});
+  },
+
+  /**
+   * 删除营业时间
+   */
+  deleteBusinessTime() {
+    PageHelper.showDeleteModal('是否确定删除营业时间？').then(() => {
+      this.requestDeleteBusinessTime();
+    });
+  },
+
+  requestDeleteBusinessTime() {
+    const params = {
+      id: this.data.businessId
+    };
+    PageHelper.requestWrapper(timeService.deleteBusinessTime(params))
+      .then(() => {
+        PageHelper.requestSuccessCallback('营业时间删除成功');
+      })
+      .catch(e => {});
+  },
 
   /**
    * 新增每周重复日期
    */
   handleCellClick() {
-    wxManager.navigateTo(pageConstant.WEEK_URL);
+    wxManager.navigateTo(pageConstant.WEEK_URL, {
+      weeks: JSON.stringify(this.data.weeks)
+    });
   }
 });

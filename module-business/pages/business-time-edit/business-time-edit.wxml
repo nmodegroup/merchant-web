@@ -1,13 +1,16 @@
 <!--module/pages/business-time-edit/busine.wxml-->
 <view class="business-edit-page">
     <nav-bar title="营业时间" back home></nav-bar>
-    <view>
-        <van-picker columns="{{ hours }}" bind:change="onChange" />
-        <van-picker columns="{{ minutes }}" bind:change="onChange" />
+    <view class="time-picker-container">
+        <view class="time-label">营业开始</view>
+        <van-datetime-picker item-height="30" type="time" show-toolbar="{{ false }}" bind:input="handleStartInput"
+            value="{{ currentBeginDate }}" />
+        <view class="time-label">营业结束</view>
+        <van-datetime-picker item-height="30" type="time" show-toolbar="{{ false }}" bind:input="handleEndInput"
+            value="{{ currentEndDate }}" />
     </view>
     <cell title='重复' showBorder="{{ true }}" showIcon="{{false}}" bind:cellClick="handleCellClick">
-        <text
-            class='week {{ weekListContent ? "" : "disactive" }}'>{{ weekListContent ? weekListContent : '请选择时间' }}</text>
+        <text class='week {{ weekListContent ? "" : "disactive" }}'>{{ weekListContent }}</text>
     </cell>
     <!-- 新增 -->
     <block wx:if="{{!isEdit}}">
@@ -17,4 +20,9 @@
     <block wx:if="{{isEdit}}">
         <action-bottom single="{{ false }}" rightText="删除" bind:click="handleEditTime" />
     </block>
+
+    <toast id="toast"></toast>
+
+    <!-- 删除弹窗 -->
+    <modal id="modal"></modal>
 </view>

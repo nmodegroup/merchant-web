@@ -20,28 +20,28 @@ function getRemainTitle(num) {
  * 是否待审核
  */
 function isAuditing(auditStatus) {
-  return +auditStatus === AUDITING;
+  return parseInt(auditStatus) === AUDITING;
 }
 
 /**
  * 是否审核失败
  */
 function isAuditFail(auditStatus) {
-  return +auditStatus === AUDIT_FAIL;
+  return parseInt(auditStatus) === AUDIT_FAIL;
 }
 
 /**
  * 是否审核成功并且开启
  */
 function isAuditSuccessAndOpen(auditStatus, onStatus) {
-  return +auditStatus === AUDIT_FAIL && +onStatus === OPEN;
+  return parseInt(auditStatus) === AUDIT_SUCCESS && parseInt(onStatus) === OPEN;
 }
 
 /**
  * 是否审核成功并且关闭
  */
 function isAuditSuccessAndClose(auditStatus, onStatus) {
-  return +auditStatus === AUDIT_FAIL && +onStatus === CLOSE;
+  return parseInt(auditStatus) === AUDIT_SUCCESS && parseInt(onStatus) === CLOSE;
 }
 
 module.exports = {

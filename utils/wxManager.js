@@ -79,6 +79,9 @@ export function login() {
     wx.login({
       success: res => {
         resolve(res.code);
+      },
+      fail: err => {
+        console.log('微信登录err', err);
       }
     });
   });

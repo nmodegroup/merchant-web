@@ -1,5 +1,5 @@
 {
-  "pages": ["pages/auth/auth", "pages/activity/activity", "pages/info/info", "pages/home/home", "pages/center/center"],
+  "pages": ["pages/auth/auth", "pages/center/center", "pages/activity/activity", "pages/info/info", "pages/home/home"],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

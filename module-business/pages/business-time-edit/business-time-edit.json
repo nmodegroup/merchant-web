@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "van-picker": "/components/vant-weapp/picker/index"
+    "van-datetime-picker": "/components/vant-weapp/datetime-picker/index"
   }
 }

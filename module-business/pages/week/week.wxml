@@ -4,7 +4,10 @@
     <block wx:for="{{ weekList }}" wx:key="index">
         <cell title="{{ item.title }}" showBorder="{{ true }}" showIcon="{{false}}" showArrow="{{false}}"
             bind:cellClick="handleCellClick" data-item="{{ item }}" data-index="{{ index }}">
-            <van-checkbox value="{{ item.selected }}" />
+            <van-checkbox value="{{ item.selected }}" use-icon-slot>
+                <image class="checkbox-icon" slot="icon"
+                    src="{{ item.selected ? '/image/time/checkbox-select.svg' : '/image/time/checkbox-unselect.svg' }}" />
+            </van-checkbox>
         </cell>
     </block>
     <!-- 确认选择 -->

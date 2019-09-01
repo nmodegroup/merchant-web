@@ -54,3 +54,12 @@ export class QuotaType {
   static EXIST_LIMIT = 1;
   static FIXED_LIMIT = 2;
 }
+
+/**
+ * 活动启用状态
+ * 启用状态(0开启 1关闭)
+ */
+export class ActivityStatus {
+  static OPEN = 0;
+  static CLOSE = 1;
+}

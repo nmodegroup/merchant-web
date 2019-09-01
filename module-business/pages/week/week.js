@@ -43,18 +43,20 @@ Page({
         selected: this.resolveWeekSelected(id)
       };
     });
-    console.log('weekList:', weekList);
     this.setData({
       weekList: weekList
     });
   },
 
+  /**
+   * 日期是否已选
+   * @param {string} weekId 日期id
+   */
   resolveWeekSelected(weekId) {
-    console.log('weeks:', this.weeks);
     if (!this.weeks.length) {
       return false;
     }
-    return this.weeks.includes(weekId);
+    return this.weeks.map(weekItem => weekItem.date).includes(weekId);
   },
 
   handleCellClick(event) {
@@ -74,12 +76,12 @@ Page({
         return week.selected;
       })
       .map(item => {
-        return item.id;
+        return {
+          date: item.id
+        };
       });
     if (!selectWeeks.length) {
-      console.log('showToast');
-      // TODO: 文本
-      return PageHelper.showToast('请选择时间');
+      return PageHelper.showToast('请选择要重复的日期');
     }
     // 将选择的时间回调给上个页面
     eventEmitter.emit('callbackWeeks', selectWeeks);

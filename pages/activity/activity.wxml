@@ -11,7 +11,7 @@
     </view>
     <!-- 活动列表 -->
     <block wx:for="{{activityList}}" wx:key="index">
-      <view class="activity-item" bindtap="handleEditActivity" data-id="{{item.id}}">
+      <view class="activity-item">
         <view class="banner-wrapper">
           <image src="{{item.banner}}" mode="aspectFill"></image>
           <view>剩余：{{ activityModule.getRemainTitle(item.num) }}</view>
@@ -21,7 +21,7 @@
             <view class="activity-name">{{item.theme}}</view>
             <view class="activity-location">
               <image src="../../image/activity/icon_location.svg"></image>
-              <text>南山区</text>
+              <text>{{ item.areaName }}</text>
             </view>
           </view>
           <view class="activity-reserve">
@@ -37,7 +37,7 @@
             <block wx:if="{{ activityModule.isAuditFail(item.auditStatus) }}">
               <view class="right">
                 <tag title='审核未通过' showIcon iconPath="../../image/global/icon_reason.svg"
-                  bind:tagClick="handleShowReason" data-reason="{{item.reason}}" />
+                  bind:tagClick="handleShowReason" data-reason="{{item.reason}}" data-id="{{item.id}}" />
               </view>
             </block>
             <!-- 审核中... -->
@@ -51,7 +51,7 @@
               <view class="right">
                 <view class="switch-wrapper">
                   <van-switch checked="{{true}}" size='18px' active-color='#456AEC' inactive-color='#162766'
-                    bind:change="onStatusChange" />
+                    bind:change="onStatusChange" data-item="{{ item }}" data-index="{{ index }}" />
                 </view>
                 <view class="reserve-status">开放预定中</view>
               </view>
@@ -61,7 +61,7 @@
               <view class="right">
                 <view class="switch-wrapper">
                   <van-switch checked="{{false}}" size='18px' active-color='#456AEC' inactive-color='#162766'
-                    bind:change="onStatusChange" />
+                    bind:change="onStatusChange" data-item="{{ item }}" data-index="{{ index }}" />
                 </view>
                 <view class="reserve-status">暂停预定</view>
               </view>

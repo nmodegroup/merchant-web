@@ -48,18 +48,36 @@ Page({
     if (!businessTime.length) {
       return false;
     }
-    const weekList = businessTime.weeks.map(week => {
-      return getWeekTitle(week);
+    businessTime.forEach(timeItem => {
+      timeItem.weekListContent = timeItem.weeks
+        .map(week => {
+          return getWeekTitle(week.date);
+        })
+        .join(' ');
     });
-    console.log('weekList', weekList);
-    businessTime.weekListContent = weekList.join(' ');
+    console.log('businessTime', businessTime);
     return businessTime;
   },
 
   handleSwitchChange(event) {
     console.log(event);
-    this.setData({
-      checked: event.detail
+    this.requestSwitchBusinessStatus(event);
+  },
+
+  requestSwitchBusinessStatus(event) {
+    const { item, index } = event.currentTarget.dataset;
+    const switchStatus = event.detail;
+    const params = {
+      id: item.id
+    };
+    PageHelper.requestWrapper(timeService.switchBusinessTime(params)).then(() => {
+      let selectItem = Object.assign({}, item);
+      const key = `businessTimeList[${index}]`;
+      selectItem.onStatus = switchStatus ? 0 : 1;
+      this.setData({
+        [key]: selectItem
+      });
+      PageHelper.showToast(switchStatus ? '已启用' : '已关闭');
     });
   },
 
@@ -74,7 +92,7 @@ Page({
     const businessItem = event.currentTarget.dataset.item;
     wxManager.navigateTo(pageConstant.BUSINESS_TIME_EDIT_URL, {
       businessId: businessItem.id,
-      start: businessItem.start,
+      begin: businessItem.begin,
       end: businessItem.end,
       weeks: JSON.stringify(businessItem.weeks)
     });
@@ -89,20 +107,6 @@ Page({
       specialId: specialItem.id,
       date: specialItem.date
     });
-  },
-
-  handleClose(event) {
-    console.log('event:', event);
-    const { position, instance } = event.detail;
-    switch (position) {
-      case 'cell':
-        instance.close();
-        break;
-      case 'right':
-        console.log('delete');
-        // TODO: 删除特殊日期
-        break;
-    }
   },
 
   /**
