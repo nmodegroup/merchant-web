@@ -63,7 +63,7 @@ export function verifyPhone(params) {
 /**
  * 绑定新手机-完成
  */
-export function editPhone(params) {
+export function bindNewPhone(params) {
   return new Promise((resolve, reject) => {
     httpManager
       .put({
