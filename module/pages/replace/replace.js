@@ -12,7 +12,7 @@ Page({
    */
   data: {
     isSecondStep: false, // 是否已经验证了旧手机，进入到下一步
-    codeBtn: '获取验证码',
+    codeText: '获取验证码',
     isFormVerify: false, // 表单验证
     phone: '', // 新旧手机号
     oldCode: '', // 旧验证码
@@ -30,6 +30,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {},
+
+  onUnload() {
+    this.clearCodeTimer();
+  },
 
   initData() {
     PageHelper.setupPageConfig(this);
@@ -73,7 +77,7 @@ Page({
       });
     } else {
       this.setData({
-        oldPhone: value
+        oldCode: value
       });
     }
     this.inputDebounce();
@@ -93,12 +97,18 @@ Page({
     if (isSecondStep) {
       return !isEmpty(phone) && !isEmpty(newCode);
     }
+    console.log('phone', !isEmpty(phone));
+    console.log('oldCode', !isEmpty(oldCode));
     return !isEmpty(phone) && !isEmpty(oldCode);
   },
 
-  getCode(event) {
-    console.log(event);
+  sendCode() {
     const { isSecondStep, phone } = this.data;
+
+    // 判断是否已经发送验证码正在倒计时
+    if (this.isCountdown) {
+      return false;
+    }
 
     if (isEmpty(phone)) {
       return false;
@@ -109,14 +119,68 @@ Page({
       phone: phone,
       type: isSecondStep ? 4 : 3
     };
-    PageHelper.requestWrapper(commonService.sendMessage(params)).then(res => {});
+    PageHelper.requestWrapper(commonService.sendMessage(params)).then(res => {
+      this.startCountdown();
+    });
+  },
+
+  /**
+   * 验证码倒计时
+   */
+  startCountdown() {
+    let times = 60;
+    this.updateCodeText(`${times}s`);
+    this.isCountdown = true;
+    // timer 对象
+    this.timer = setInterval(() => {
+      if (times <= 0) {
+        this.updateCodeText('重新发送');
+        return this.clearCodeTimer();
+      }
+      times--;
+      this.updateCodeText(`${times}s`);
+    }, 1000);
+  },
+
+  updateCodeText(content) {
+    this.setData({
+      codeText: content
+    });
+  },
+
+  clearCodeTimer() {
+    if (isEmpty(this.timer)) {
+      return false;
+    }
+    clearTimeout(this.timer);
+    this.isCountdown = false;
   },
 
   verifyOldPhone() {
-    PageHelper.requestWrapper(userService.verifyPhone(params)).then(res => {});
+    console.log('verifyOldPhone');
+    const { phone, oldCode } = this.data;
+
+    if (isEmpty(phone) || isEmpty(oldCode)) {
+      return false;
+    }
+
+    const params = {
+      phone: phone,
+      code: oldCode
+    };
+    PageHelper.requestWrapper(userService.verifyPhone(params)).then(res => {
+      this.setData({
+        isSecondStep: true,
+        isFormVerify: false,
+        phone: ''
+      });
+      this.updateCodeText('发送验证码');
+      this.clearCodeTimer();
+    });
   },
 
   commitFrom() {
+    console.log('commitFrom');
     const { phone, oldCode, newCode } = this.data;
 
     if (isEmpty(phone) || isEmpty(oldCode) || isEmpty(newCode)) {
@@ -126,9 +190,12 @@ Page({
     const params = {
       oldCode,
       newCode,
-      phone
+      newPhone: phone
     };
 
-    PageHelper.requestWrapper(userService.bindNewPhone(params)).then(res => {});
+    PageHelper.requestWrapper(userService.bindNewPhone(params)).then(res => {
+      app.globalData.phone = res;
+      PageHelper.requestSuccessCallback('您的手机号换绑成功');
+    });
   }
 });

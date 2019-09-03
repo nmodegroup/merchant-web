@@ -25,6 +25,7 @@
         <van-picker show-toolbar title="选择区域" columns="{{ areaList }}" value-key="name" bind:cancel="onCancel"
             bind:confirm="onConfirm" />
     </van-popup>
+    <!-- toast -->
     <toast id="toast"></toast>
     <!-- 删除弹窗 -->
     <modal id="modal" bind:get="onDeleteCallback"></modal>

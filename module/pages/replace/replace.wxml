@@ -18,27 +18,25 @@
         <!-- 输入 -->
         <view class="input-frame">
             <view class="input-group">
-                <input placeholder="请输入旧手机号" value="{{ phone }}" type="number"
+                <input placeholder="{{ isSecondStep ? '请输入新手机号' : '请输入旧手机号' }}" value="{{ phone }}" type="number"
                     placeholder-style="color:rgba(255, 255, 255, .3)" bindinput="handlePhoneInput"></input>
             </view>
             <view class="input-group">
                 <input placeholder="请输入验证码" placeholder-style="color:rgba(255, 255, 255, .3)"
-                    bindinput="handleCodeInput"></input>
-                <view class="btn-code" data-second="60" bindtap="getCode">{{codeBtn}}</view>
+                    bindinput="handleCodeInput" value="{{ isSecondStep ? newCode : oldCode }}"></input>
+                <view class="btn-code" bindtap="sendCode">{{codeText}}</view>
             </view>
         </view>
         <view class="btn-bar">
-            <view class="btn-frame active">
-                <block wx:if="{{ isSecondStep }}">
-                    <view class="btn-confirm {{  isFormVerify ? 'active' : '' }}" bindtap="commitFrom">完成</view>
-                </block>
-                <block wx:else>
-                    <view class="btn-confirm {{  isFormVerify ? 'active' : '' }}" bindtap="commitFrom">下一步</view>
-                </block>
-            </view>
+            <!-- TODO:  -->
+            <view class="btn-confirm {{  isFormVerify ? 'enable' : 'disabled' }}"
+                bindtap="{{ isSecondStep ? 'commitFrom' : 'verifyOldPhone' }}">{{ isSecondStep ? "完成" : "下一步" }}</view>
         </view>
         <view class="code-tips">收不到验证码</view>
         <!-- TODO: 客服电话 -->
         <view class="code-tips">请拨打 ***-***-**** 联系客服</view>
     </view>
+
+    <!-- toast -->
+    <toast id="toast"></toast>
 </view>
