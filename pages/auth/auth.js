@@ -3,22 +3,26 @@ const wxManager = require('../../utils/wxManager');
 const authService = require('../../service/user');
 const pageConstant = require('../../constant/page');
 const pageFlag = require('../../constant/pageFlag');
+const { isEmpty } = require('../../utils/global');
 const store = getApp().globalData;
+const { PageConfig } = require('../../utils/page');
+const PageHelper = new PageConfig();
 
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    visibleAuthBtn: false
+    visibleAuthBtn: false,
+    code: '' // 登录 code
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.Toast = this.selectComponent('#toast');
-    this.requestUserInfo();
+    this.initData();
+    this.wxLogin();
   },
 
   /**
@@ -26,15 +30,37 @@ Page({
    */
   onShow: function() {},
 
+  initData() {
+    PageHelper.setupPageConfig(this);
+  },
+
+  /**
+   * 微信登录
+   *
+   */
+  wxLogin() {
+    wxManager.login().then(code => {
+      if (code) {
+        this.setData({
+          code
+        });
+        this.requestUserInfo();
+      } else {
+        this.Toast.showToast({
+          content: '微信登录失败'
+        });
+      }
+    });
+  },
+
   requestUserInfo() {
-    wxManager
-      .getUserInfo()
+    PageHelper.requestWrapper(wxManager.getUserInfo())
       .then(res => {
         this.setData({
           visibleAuthBtn: false
         });
         this.storeUserInfo(res.userInfo);
-        this.wxLogin(res);
+        this.requestLogin(res);
       })
       .catch(e => {
         this.setData({
@@ -45,13 +71,14 @@ Page({
 
   getUserInfoCallback(event) {
     console.log(event);
-    if (!event.detail.userInfo) {
+    const { userInfo } = event.detail;
+    if (isEmpty(userInfo)) {
       this.Toast.showToast({
         content: '授权失败'
       });
     } else {
-      this.storeUserInfo(event.detail.userInfo);
-      this.wxLogin(event.detail);
+      this.storeUserInfo(userInfo);
+      this.requestLogin(event.detail);
     }
   },
 
@@ -63,26 +90,14 @@ Page({
   },
 
   /**
-   * 微信登录
+   * 请求微信登录
    *
    * @param {object} wxUserInfo 用户信息
    */
-  wxLogin(wxUserInfo) {
-    wxManager.login().then(code => {
-      if (code) {
-        const params = this.queryParams(code, wxUserInfo);
-        this.requestLogin(params);
-      } else {
-        this.Toast.showToast({
-          content: '微信登录失败'
-        });
-      }
-    });
-  },
-
-  requestLogin(params) {
-    authService
-      .login(params)
+  requestLogin(wxUserInfo) {
+    const { code } = this.data;
+    const params = this.queryParams(code, wxUserInfo);
+    PageHelper.requestWrapper(authService.login(params))
       .then(res => {
         store.token = res.token;
         store.phone = res.phone || '';
