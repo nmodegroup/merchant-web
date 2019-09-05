@@ -9,9 +9,13 @@
         bindtap="handleCellClick" data-item="{{item}}">
         <view class="switch-wrapper">
           <van-switch checked="{{ timeModule.isAppointTimeOpen(item.onStatus) }}" size='20px' active-color='#456AEC'
-            inactive-color='#162766' bind:change="handleSwitchChange" data-index="{{index}}" />
+            inactive-color='#162766' bind:change="handleSwitchChange" data-item="{{ item }}" data-index="{{index}}" />
         </view>
       </cell>
+      <view slot="right" class="delete">
+        <image src="../../../image/time/arrival_time_delete.svg"></image>
+        <view>编辑</view>
+      </view>
       <view slot="right" class="delete">
         <image src="../../../image/time/arrival_time_delete.svg"></image>
         <view>删除</view>

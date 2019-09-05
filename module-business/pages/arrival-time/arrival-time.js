@@ -1,6 +1,7 @@
 // module/pages/arrival-time/arrival-time.js
 const timeService = require('../../../service/time');
 const { createNumberArray } = require('../../../utils/global');
+const { AppointTimeStatus } = require('../../../constant/global');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
 
@@ -69,17 +70,26 @@ Page({
 
   handleSwitchChange(event) {
     console.log(event);
-    const { index } = event.currentTarget.dataset;
-    const timeChangedList = this.data.timeList.map((element, i) => {
-      if (index === i) {
-        // 0 开启， 1 关闭
-        element.onStatus = parseInt(element.onStatus) === 0 ? 1 : 0;
-        return element;
-      }
-      return element;
-    });
-    this.setData({
-      timeList: timeChangedList
+    const { index, item } = event.currentTarget.dataset;
+    this.requestSwitchStatus(item, index);
+  },
+
+  /**
+   * 请求修改预约时间的开启、关闭状态
+   * @param {object} item
+   * @param {number} index
+   */
+  requestSwitchStatus(item, index) {
+    let copyItem = Object.assign({}, item);
+    const params = {
+      id: copyItem.id
+    };
+    PageHelper.requestWrapper(timeService.switchAppointTime(params)).then(() => {
+      PageHelper.showSuccessToast(parseInt(copyItem.onStatus) === AppointTimeStatus.OPEN ? '关闭成功' : '开启成功');
+      copyItem.onStatus = parseInt(copyItem.onStatus) === AppointTimeStatus.OPEN ? AppointTimeStatus.CLOSE : AppointTimeStatus.OPEN;
+      this.setData({
+        [`timeList[${index}]`]: copyItem
+      });
     });
   },
 

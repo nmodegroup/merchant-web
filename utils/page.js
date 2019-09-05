@@ -2,6 +2,7 @@ const wxManager = require('../utils/wxManager');
 const pageConstant = require('../constant/page');
 const pageFlag = require('../constant/pageFlag');
 const { AuditStatus } = require('../constant/global');
+const { isEmpty } = require('./global');
 
 export class PageConfig {
   constructor() {}
@@ -102,6 +103,9 @@ export class PageConfig {
   showToast(msg) {
     if (!this.currentPage().Toast) {
       throw new Error('Toast error: toast is not init in onLoad or toast id is not match（is wrong）');
+    }
+    if (isEmpty(msg)) {
+      return console.error('showToast error: msg is null');
     }
     this.currentPage().Toast.showToast({
       content: msg

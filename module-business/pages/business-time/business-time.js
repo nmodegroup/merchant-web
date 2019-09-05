@@ -77,7 +77,6 @@ Page({
       this.setData({
         [key]: selectItem
       });
-      PageHelper.showToast(switchStatus ? '已启用' : '已关闭');
     });
   },
 

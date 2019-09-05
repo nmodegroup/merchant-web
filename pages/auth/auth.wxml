@@ -1,8 +1,10 @@
 <!--pages/auth/auth.wxml-->
 <view class="auth-page">
-    <nav-bar title="Night Mode"></nav-bar>
-    <image></image>
-    <button class="btn-auth" wx:if="{{visibleAuthBtn}}" open-type="getUserInfo"
-        bindgetuserinfo="getUserInfoCallback">免费注册</button>
+    <image class="{{ hasSafeArea ? 'introduction-x' : 'introduction' }}"
+        src="{{ hasSafeArea ? '../../image/user/introduction-x.png' : '../../image/user/introduction.png' }}">
+    </image>
+    <button class="btn-auth {{ hasSafeArea ? 'btn-x' : 'btn-normal' }}" wx:if="{{visibleAuthBtn}}"
+        open-type="getUserInfo" bindgetuserinfo="getUserInfoCallback"></button>
+
     <toast id="toast"></toast>
 </view>

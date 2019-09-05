@@ -3,7 +3,7 @@ const wxManager = require('../../utils/wxManager');
 const authService = require('../../service/user');
 const pageConstant = require('../../constant/page');
 const pageFlag = require('../../constant/pageFlag');
-const { isEmpty } = require('../../utils/global');
+const { isEmpty, hasSafeArea } = require('../../utils/global');
 const store = getApp().globalData;
 const { PageConfig } = require('../../utils/page');
 const PageHelper = new PageConfig();
@@ -14,14 +14,16 @@ Page({
    */
   data: {
     visibleAuthBtn: false,
+    hasSafeArea: false,
     code: '' // 登录 code
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function() {
     this.initData();
+    this.getSystemInfo();
     this.wxLogin();
   },
 
@@ -32,6 +34,16 @@ Page({
 
   initData() {
     PageHelper.setupPageConfig(this);
+  },
+
+  getSystemInfo() {
+    console.log('getSystemInfo');
+    wxManager.getSystemInfoSync().then(result => {
+      store.model = result.model;
+      this.setData({
+        hasSafeArea: hasSafeArea()
+      });
+    });
   },
 
   /**
