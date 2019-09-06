@@ -197,7 +197,7 @@
 .bartender-textarea {
   width: 88vw;
   min-height: 30vw;
-  border: 2rpx solid rgba(255, 255, 255, 0.5);
+  border: 2rpx solid rgba(255, 255, 255, 0.2);
   border-radius: 8rpx;
   padding: 34rpx 20rpx 0 20rpx;
   position: relative;
@@ -229,7 +229,7 @@
   width: calc(100vw - 60rpx);
   margin: 0 auto;
   min-height: 77vw;
-  border: 2rpx solid rgba(255, 255, 255, 0.5);
+  border: 2rpx solid rgba(255, 255, 255, 0.2);
   border-radius: 8rpx;
   padding: 34rpx 20rpx 0 20rpx;
   position: relative;

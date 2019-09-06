@@ -47,7 +47,8 @@
       <view class='col-item' bindtap="handleColClick" data-type="table">
         <image class='col-image' src="/image/center/center_seat.png"></image>
         <text>桌位管理</text>
-        <tag title='未设定' />
+        <!-- TODO: 需要占位 -->
+        <tag custom-tag-class="{{ isTable ? 'tag-unvisible' : '' }}" title='未设定' />
       </view>
     </view>
     <!-- 营业管理 -->

@@ -26,7 +26,7 @@ export class PageConfig {
    */
   requestWrapper(service) {
     return new Promise((resolve, reject) => {
-      wxManager.showLoading();
+      wxManager.showLoading('加载中');
       service
         .then(res => {
           wxManager.hideLoading();

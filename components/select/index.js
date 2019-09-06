@@ -7,6 +7,10 @@ Component({
     selectList: {
       type: Object,
       value: []
+    },
+    value: {
+      type: String,
+      value: ''
     }
   },
 

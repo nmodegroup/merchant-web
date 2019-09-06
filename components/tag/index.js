@@ -1,5 +1,6 @@
 // components/tag/index.js
 Component({
+  externalClasses: ['custom-tag-class'],
   /**
    * 组件的属性列表
    */

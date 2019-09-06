@@ -4,26 +4,32 @@
 <view class="arrival-page">
   <nav-bar title="预约到店时间" back home></nav-bar>
   <block wx:for="{{timeList}}" wx:key="{{item.id}}">
-    <van-swipe-cell id="swipe-cell" right-width="{{ 67 }}" async-close bind:close="handleClose" data-id="{{ item.id }}">
-      <cell cell-extra="cell-extra" title="{{item.time}}" showIcon="{{false}}" showArrow="{{false}}"
-        bindtap="handleCellClick" data-item="{{item}}">
+    <van-swipe-cell id="swipe-cell" right-width="{{ 134 }}" async-close bind:close="handleClose">
+      <cell cell-extra="cell-extra" title="{{item.time}}" showIcon="{{false}}" showArrow="{{false}}">
         <view class="switch-wrapper">
           <van-switch checked="{{ timeModule.isAppointTimeOpen(item.onStatus) }}" size='20px' active-color='#456AEC'
             inactive-color='#162766' bind:change="handleSwitchChange" data-item="{{ item }}" data-index="{{index}}" />
         </view>
       </cell>
-      <view slot="right" class="delete">
-        <image src="../../../image/time/arrival_time_delete.svg"></image>
-        <view>编辑</view>
-      </view>
-      <view slot="right" class="delete">
-        <image src="../../../image/time/arrival_time_delete.svg"></image>
-        <view>删除</view>
+      <view slot="right" class="right-action">
+        <view class="common edit" bindtap="handleEdit" data-item="{{item}}">
+          <!-- <image src="../../../image/time/arrival-time-edit.svg"></image> -->
+          <view>编辑</view>
+        </view>
+        <view class="common delete" bindtap="handleDelete" data-id="{{ item.id }}">
+          <!-- <image src="../../../image/time/arrival_time_delete.svg"></image> -->
+          <view>删除</view>
+        </view>
       </view>
     </van-swipe-cell>
   </block>
   <view class="desc">
-    <text>解释说明 \n1.到店时间为用户预约时可选的到到店时间 \n2.设置合理的时间可避免店铺桌位浪费 \n3.可以合理的管理用户预订信息</text>
+    <text>解释说明</text>
+    <view class="detail">
+      <text>1、到店时间为用户预约时可选的到店时间\n</text>
+      <text>2、设置合理的时间可避免店铺桌位浪费\n</text>
+      <text>3、可以合理的管理用户预订信息</text>
+    </view>
   </view>
   <action-wrapper>
     <view class="action-item" bindtap="handleActionClick">
@@ -44,7 +50,7 @@
       <select selectList="{{hours}}" value="{{selectHour}}" bind:onChange="handleSelectChange"
         data-type="selectHour"></select>
       <view class="split">:</view>
-      <select selectList="{{minutes}}" value="{{selectMinute}}" bind:onchange="handleSelectChange"
+      <select selectList="{{minutes}}" value="{{selectMinute}}" bind:onChange="handleSelectChange"
         data-type="selectMinute"></select>
     </view>
   </modal>

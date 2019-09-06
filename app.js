@@ -10,7 +10,6 @@ App({
   globalData: {
     token: '', // 登录标识 token
     phone: '', // 用户手机号
-    userInfo: {}, // 用户信息
-    isTable: false //是否设定了桌位
+    userInfo: {} // 用户信息
   }
 });

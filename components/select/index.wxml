@@ -1,7 +1,7 @@
 <!--components/select/index.wxml-->
 <view class='select_box'>
     <view class='select' catchtap='selectTap'>
-        <text class='select_text'>{{selectList[index]}}</text>
+        <text class='select_text'>{{value ? value : selectList[index]}}</text>
         <image class='select_img' src='../../image/time/icon_select.svg'></image>
     </view>
     <block wx:if="{{show}}">

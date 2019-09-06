@@ -2,8 +2,11 @@
 const pageConstant = require('../../../constant/page');
 const wxManager = require('../../../utils/wxManager');
 const tableService = require('../../../service/table');
+const { isEmpty } = require('../../../utils/global');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
+const store = getApp().globalData;
+
 Page({
   /**
    * 页面的初始数据
@@ -32,7 +35,6 @@ Page({
 
   requestTableList() {
     PageHelper.requestWrapper(tableService.getTableList()).then(res => {
-      console.log('getTableList:', res);
       this.setData({
         tableList: res
       });

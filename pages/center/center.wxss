@@ -134,6 +134,10 @@ button::after {
   margin-right: 16rpx;
 }
 
+.tag-unvisible {
+  visibility: hidden;
+}
+
 /* cell 单元格扩展样式 */
 .cell-extra {
   padding: 24rpx 30rpx !important;

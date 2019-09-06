@@ -16,6 +16,7 @@ Page({
   data: {
     navBgColor: 'none',
     contactPhoneNumber: '159 0904 0903', //TODO:手机号修改
+    isTable: false, // 桌位是否设定
     businessStatusOpen: false, // 营业状态
     appointOpen: false, // 预约开关
     avatarUrl: '',
@@ -44,11 +45,11 @@ Page({
       });
     }
     this.requestMerchantInfo();
+    this.setupUserInfo();
   },
 
   initData() {
     PageHelper.setupPageConfig(this);
-    this.setupUserInfo();
     this.setupScroll();
   },
 
@@ -91,7 +92,8 @@ Page({
           reason: initValue(res.reason),
           businessStatusOpen: this.isBusinessStatusOpen(initValue(res.businessStatus, BusinessStatus.CLOSE)),
           appointOpen: this.isAppointOpen(initValue(res.appointStatus, AppointStatus.CLOSE)),
-          shareImg: initValue(res.shareImg) // 商家二维码图片链接
+          shareImg: initValue(res.shareImg), // 商家二维码图片链接
+          isTable: initValue(res.isTable, false)
         });
       })
       .catch(e => {});

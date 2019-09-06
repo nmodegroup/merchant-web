@@ -94,7 +94,12 @@ Page({
   },
 
   handleActionClick() {
+    const { hours, minutes } = this.data;
     this.isEdit = false;
+    this.setData({
+      selectHour: hours[0],
+      selectMinute: minutes[0]
+    });
     this.showSelectModal();
   },
 
@@ -131,44 +136,23 @@ Page({
   handleClose(event) {
     console.log('event:', event);
     const { position, instance } = event.detail;
-    const { id } = event.currentTarget.dataset;
     switch (position) {
       case 'cell':
         instance.close();
         break;
       case 'right':
         instance.close();
-        this.handleDeleteModal(id);
         break;
       default:
         break;
     }
   },
 
-  handleDeleteModal(id) {
-    PageHelper.showDeleteModal('确认删除预约到店时间？').then(() => {
-      this.setData(
-        {
-          selectId: id
-        },
-        () => {
-          this.requestDetelteTime();
-        }
-      );
-    });
-  },
-
-  requestDetelteTime() {
-    const params = {
-      id: this.data.selectId
-    };
-    PageHelper.requestWrapper(timeService.deleteAppointTime(params)).then(res => {
-      PageHelper.showSuccessToast('删除成功');
-      this.requestAppointTimeList();
-    });
-  },
-
-  handleCellClick(event) {
+  /**
+   * 编辑时间
+   */
+  handleEdit(event) {
+    console.log('handleEdit', event);
     this.isEdit = true;
     const item = event.currentTarget.dataset.item;
     const times = item.time.split(':');
@@ -176,6 +160,32 @@ Page({
       selectHour: times[0],
       selectMinute: times[1],
       selectId: item.id
+    });
+    this.showSelectModal();
+  },
+
+  /**
+   * 删除时间
+   */
+  handleDelete(event) {
+    console.log('handleDelete', event);
+    const { id } = event.currentTarget.dataset;
+    this.handleDeleteModal(id);
+  },
+
+  handleDeleteModal(id) {
+    PageHelper.showDeleteModal('确认删除预约到店时间？').then(() => {
+      this.requestDetelteTime(id);
+    });
+  },
+
+  requestDetelteTime(id) {
+    const params = {
+      id
+    };
+    PageHelper.requestWrapper(timeService.deleteAppointTime(params)).then(res => {
+      PageHelper.showSuccessToast('删除成功');
+      this.requestAppointTimeList();
     });
   },
 
