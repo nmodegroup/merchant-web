@@ -1,8 +1,8 @@
 /* components/choose-image/index.wxss */
 
 .choose-image-empty {
-  width: 88vw;
-  height: 50vw;
+  width: calc((330 / 375) * 100vw);
+  height: calc((166 / 375) * 100vw);
   border: 2rpx solid rgba(255, 255, 255, 0.2);
   border-radius: 8rpx;
   display: flex;

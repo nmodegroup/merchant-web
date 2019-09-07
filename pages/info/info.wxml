@@ -62,11 +62,12 @@
                         <textarea class="bartender-textarea" value="{{ item.desc }}"
                             placeholder="请输入调酒师信息 \n例如：Chris Wu 吴家乐" placeholder-class="area-placeholder" maxlength="50"
                             data-index="{{ index }}" bindinput="handleBartenderDescInput">
-                            <view class="input-count">{{ item.desc ? item.desc.length : "0" }}/50</view>
-                        </textarea>
+                                        <view class="input-count">{{ item.desc ? item.desc.length : "0" }}/50</view>
+                                    </textarea>
                         <block wx:if='{{item.displayImg}}'>
                             <view class="image-container">
-                                <image class="bartender-image" src="{{ item.displayImg }}" mode="aspectFill"></image>
+                                <image class="bartender-image" src="{{ item.displayImg }}" mode="aspectFill">
+                                </image>
                                 <image class="bartender-edit" src="../../image/user/edit.svg"
                                     bindtap="handleEditBartender" data-index="{{index}}"></image>
                             </view>
@@ -88,12 +89,17 @@
             <view class="story-panel">店铺故事</view>
             <textarea class="story-textarea" value="{{ desc }}" placeholder="描述最多200字" maxlength="200"
                 placeholder-class="area-placeholder" bindinput="handleInput" data-type="desc">
-                <view class="input-count">{{ desc ? desc.length : "0" }}/200</view>
-            </textarea>
+                            <view class="input-count">{{ desc ? desc.length : "0" }}/200</view>
+                        </textarea>
         </view>
     </block>
     <view class="commit-wrapper">
-        <view class="btn-commit {{ verifyed ? 'enable' : 'disable' }}" bindtap="commitForm">确认提交</view>
+        <!-- <block wx:if="{{isTotal}}">
+            <action-bottom single="{{ true }}" enabled="{{ verifyed }}" rightText="确认提交" bind:click="commitForm" />
+        </block>
+        <block wx:else>
+        </block> -->
+        <form-button enabled="{{ verifyed }}" bind:click="commitFrom" buttonText="确认提交" />
         <!-- 不可见的授权手机号按钮，授权成功后隐藏 -->
         <button class="btn-auth-phone" wx:if="{{verifyed && !authPhoneSuccess}}" open-type="getPhoneNumber"
             bindgetphonenumber="onGetPhoneCallback"></button>

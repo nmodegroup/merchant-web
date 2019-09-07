@@ -1,0 +1,2 @@
+<!--components/commit-button/index.wxml-->
+<view class="btn-commit {{ enabled ? 'enable' : 'disable' }}" bindtap="handleClick">{{ buttonText }}</view>

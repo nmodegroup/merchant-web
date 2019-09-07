@@ -4,6 +4,7 @@ const { throttle } = require('../../utils/throttle-debounce/index');
 const WxManager = require('../../utils/wxManager');
 const pageFlag = require('../../constant/pageFlag');
 const centerService = require('../../service/center');
+const userService = require('../../service/user');
 const { initValue } = require('../../utils/global');
 const { AuditStatus, AppointStatus, BusinessStatus } = require('../../constant/global');
 const store = getApp().globalData;
@@ -110,7 +111,35 @@ Page({
   /**
    * 手机号授权回调
    */
-  handleGetPhoneNUmber() {},
+  handleGetPhoneNUmber(event) {
+    const { encryptedData, iv } = event.detail;
+    if (encryptedData && iv) {
+      this.requestParsePhone(encryptedData, iv);
+    }
+  },
+
+  /**
+   * 解析手机号
+   */
+  requestParsePhone(encryptedData, iv) {
+    PageHelper.requestWrapper(WxManager.login()).then(code => {
+      const params = {
+        encrypted: encryptedData,
+        iv: iv,
+        code: code
+      };
+
+      // 解析手机请求
+      PageHelper.requestWrapper(userService.parsePhone(params)).then(phone => {
+        PageHelper.showSuccessToast('授权成功');
+        // 将手机号存到全局
+        store.phone = phone;
+        this.setData({
+          phone
+        });
+      });
+    });
+  },
 
   /**
    * 切换营业状态

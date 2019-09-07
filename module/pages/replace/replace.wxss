@@ -1,5 +1,4 @@
 .phone-container {
-  background-color: rgba(21, 21, 62, 1);
   height: 100%;
 }
 
@@ -24,21 +23,21 @@
   transform: translateY(-50%);
 }
 
-.line-common.left {
+.line-left {
   left: 0;
   border-top-left-radius: 1rpx;
   border-bottom-left-radius: 1rpx;
   background: rgba(190, 63, 204, 1);
 }
 
-.line-common.right {
+.line-right {
   right: 0;
   border-top-right-radius: 1rpx;
   border-bottom-right-radius: 1rpx;
   background: rgba(255, 255, 255, 0.2);
 }
 
-.line-common.active {
+.line-active {
   background: rgba(190, 63, 204, 1);
 }
 
@@ -50,23 +49,35 @@
   border-radius: 50%;
 }
 
-.circle.left {
+.left {
   left: 28rpx;
 }
 
-.circle.right {
+.right {
   right: 28rpx;
 }
 
-.circle.normal {
+.normal {
+  position: absolute;
+  width: 22rpx;
+  height: 22rpx;
+  border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
 }
 
-.circle.active {
+.hover {
+  position: absolute;
+  width: 22rpx;
+  height: 22rpx;
+  border-radius: 50%;
+  background: rgba(21, 21, 62, 1);
+}
+
+.active {
   background: linear-gradient(180deg, rgba(255, 38, 186, 1), rgba(0, 132, 255, 1));
 }
 
-.circle.active::after {
+.active::after {
   content: '';
   position: absolute;
   width: 14rpx;
@@ -123,42 +134,9 @@
   text-align: center;
 }
 
-.btn-bar {
+.commit-wrapper {
   margin-bottom: 60rpx;
-}
-
-.btn-confirm {
-  margin-left: 50rpx;
-  margin-right: 50rpx;
-  height: 88rpx;
-  line-height: 88rpx;
-  border-radius: 44rpx;
-  text-align: center;
-  font-size: 34rpx;
-  font-weight: 500;
-  background: rgba(69, 80, 138, 0.62);
-}
-
-.disabled {
-  color: rgba(255, 255, 255, 0.3);
-  border: 2rpx solid rgba(112, 116, 152, 1);
-}
-
-.enable {
   position: relative;
-  color: #fff;
-}
-
-.enable::after {
-  position: absolute;
-  content: '';
-  top: -2rpx;
-  left: -2rpx;
-  bottom: -2rpx;
-  right: -2rpx;
-  border-radius: 44rpx;
-  z-index: -1;
-  background: linear-gradient(225deg, rgba(255, 64, 167, 1) 0%, rgba(210, 51, 255, 1) 45%, rgba(45, 147, 255, 1) 100%);
 }
 
 .code-tips {

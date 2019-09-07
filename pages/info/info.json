@@ -3,6 +3,7 @@
     "van-picker": "/components/vant-weapp/picker/index",
     "van-popup": "/components/vant-weapp/popup/index",
     "van-area": "/components/vant-weapp/area/index",
-    "choose-image": "/components/choose-image/index"
+    "choose-image": "/components/choose-image/index",
+    "form-button": "/components/form-button/index"
   }
 }

@@ -6,7 +6,6 @@ const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
 const eventEmitter = getApp().eventEmitter;
 
-// TODO： checkbox 样式
 Page({
   /**
    * 页面的初始数据

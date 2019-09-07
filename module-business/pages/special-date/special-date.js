@@ -3,7 +3,6 @@ const timeService = require('../../../service/time');
 const dateUtil = require('../../../utils/date');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
-// TODO: 退出编辑提示
 Page({
   /**
    * 页面的初始数据

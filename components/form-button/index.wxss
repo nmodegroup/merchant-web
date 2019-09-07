@@ -1,0 +1,35 @@
+/* components/commit-button/index.wxss */
+
+.btn-commit {
+  height: 88rpx;
+  line-height: 88rpx;
+  margin: 60rpx 50rpx;
+  border-radius: 44rpx;
+  background: rgba(69, 80, 138, 1);
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 500;
+}
+
+.enable {
+  position: relative;
+  color: #fff;
+}
+
+.enable::after {
+  position: absolute;
+  content: '';
+  top: -2rpx;
+  left: -2rpx;
+  bottom: -2rpx;
+  right: -2rpx;
+  border-radius: 44rpx;
+  z-index: -1;
+  background: linear-gradient(225deg, rgba(255, 64, 167, 1) 0%, rgba(210, 51, 255, 1) 45%, rgba(45, 147, 255, 1) 100%);
+}
+
+.disable {
+  color: rgba(255, 255, 255, 0.3);
+  background: rgba(69, 80, 138, 0.62);
+  border: 1px solid rgba(112, 116, 152, 1);
+}

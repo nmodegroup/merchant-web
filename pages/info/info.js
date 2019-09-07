@@ -21,7 +21,7 @@ Page({
    */
   data: {
     enterType: pageFlag.INFO_TOTAL,
-    isTotal: false,
+    isTotal: false, // false：提交基本信息，true：提交店铺信息
     verifyed: false, // 校验结果
     shopName: '', // 门店名称
     selectCity: '', // 省市区
@@ -363,7 +363,7 @@ Page({
     console.log(event);
     const { index } = event.currentTarget.dataset;
     wxManager.chooseImage().then(res => {
-      this.uploadCoverImage(res.tempFilePaths[0], Folder.FILE_FOLDER_COVER).then(result => {
+      this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_COVER).then(result => {
         this.fillCovers.forEach((cover, i) => {
           if (index === i) {
             cover.img = result;
@@ -382,7 +382,6 @@ Page({
     console.log(event);
     const { index } = event.currentTarget.dataset;
     this.fillCovers.splice(index, index + 1);
-    console.log('fillCovers', this.fillCovers);
     this.updateCovers();
   },
 
@@ -467,35 +466,24 @@ Page({
    * 解析手机号
    */
   requestParsePhone(encryptedData, iv) {
-    wxManager.showLoading();
-    wxManager.login().then(
-      code => {
-        // 解析手机号
-        userService
-          .parsePhone({
-            encrypted: encryptedData,
-            iv: iv,
-            code: code
-          })
-          .then(
-            phone => {
-              wxManager.hideLoading();
-              this.setData({
-                authPhoneSuccess: true
-              });
-              // 将手机号存到全局
-              store.phone = phone;
-              // TODO: 获取手机号后直接请求
-            },
-            e => {
-              wxManager.hideLoading();
-            }
-          );
-      },
-      e => {
-        wxManager.hideLoading();
-      }
-    );
+    PageHelper.requestWrapper(wxManager.login()).then(code => {
+      const params = {
+        encrypted: encryptedData,
+        iv: iv,
+        code: code
+      };
+
+      // 解析手机号
+      PageHelper.requestWrapper(userService.parsePhone(params)).then(phone => {
+        this.setData({
+          authPhoneSuccess: true
+        });
+        // 将手机号存到全局
+        store.phone = phone;
+        // TODO: 获取手机号后直接请求
+        this.commitForm();
+      });
+    });
   },
 
   handleSkip() {
@@ -530,6 +518,9 @@ Page({
       return this.showLocationModal();
     }
 
+    //  TODO: delete
+    console.log('commitForm');
+    return false;
     if (isTotal) {
       this.requestSaveInfo();
     } else {

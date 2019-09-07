@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "form-button": "/components/form-button/index"
+  }
 }

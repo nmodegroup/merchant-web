@@ -5,10 +5,14 @@
         <!-- 步骤条 -->
         <view class="step-container">
             <view class="step-line">
-                <view class="line-common left"></view>
-                <view class="line-common right {{ isSecondStep ? 'active' : ''}}"></view>
+                <view class="line-common line-left"></view>
+                <view class="line-common line-right {{ isSecondStep ? 'line-active' : ''}}"></view>
                 <view class="circle left active"></view>
-                <view class="circle right {{ isSecondStep ? 'active' : 'normal'}}"></view>
+                <view class="circle right active" wx:if="{{ isSecondStep}}"></view>
+                <view class="circle right" wx:if="{{ !isSecondStep}}">
+                    <view class="hover"></view>
+                    <view class="normal"></view>
+                </view>
             </view>
             <view class="title-container">
                 <view class="title-left">验证旧手机</view>
@@ -27,10 +31,10 @@
                 <view class="btn-code" bindtap="sendCode">{{codeText}}</view>
             </view>
         </view>
-        <view class="btn-bar">
+        <view class="commit-wrapper">
             <!-- TODO:  -->
-            <view class="btn-confirm {{  isFormVerify ? 'enable' : 'disabled' }}"
-                bindtap="{{ isSecondStep ? 'commitFrom' : 'verifyOldPhone' }}">{{ isSecondStep ? "完成" : "下一步" }}</view>
+            <form-button enabled="{{ isFormVerify }}" bind:click="{{ isSecondStep ? 'commitFrom' : 'verifyOldPhone' }}"
+                buttonText="{{ isSecondStep ? '完成' : '下一步' }}" />
         </view>
         <view class="code-tips">收不到验证码</view>
         <!-- TODO: 客服电话 -->

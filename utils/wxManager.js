@@ -282,3 +282,20 @@ export function makePhoneCall(phone) {
     phoneNumber: phone
   });
 }
+
+export function showModal({ title = '', content }) {
+  return new Promise(resolve => {
+    wx.showModal({
+      title: title,
+      content: content,
+      showCancel: true,
+      cancelText: '取消',
+      confirmText: '确定',
+      success: result => {
+        if (result.confirm) {
+          resolve();
+        }
+      }
+    });
+  });
+}
