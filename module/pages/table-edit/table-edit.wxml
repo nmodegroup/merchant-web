@@ -6,12 +6,12 @@
             class="area-name {{ selectArea.name ? '' : 'disactive' }}">{{ selectArea.name ? selectArea.name : "请选择区域"}}</text>
     </cell>
     <cell-input title="桌位名称">
-        <input class="input-view" placeholder-class="placeholder" value="{{tableName}}" maxlength="10"
-            placeholder="请填写桌位名称（例如编号，花名等)" bindinput="handleInput" data-type="name" />
+        <input class="input-view" placeholder-class="placeholder" value="{{tableName}}" placeholder="请填写桌位名称（例如编号，花名等)"
+            bindinput="handleInput" data-type="name" />
     </cell-input>
 
     <cell-input title="桌位人数">
-        <input class="input-view" placeholder-class="placeholder" value="{{tableNum}}" maxlength="10"
+        <input class="input-view" placeholder-class="placeholder" value="{{tableNum}}" type="number"
             placeholder="请填写桌位最多容纳人数" bindinput="handleInput" data-type="num" />
     </cell-input>
     <block wx:if="{{!isEdit}}">

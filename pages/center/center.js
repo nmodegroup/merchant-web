@@ -85,7 +85,6 @@ Page({
   },
 
   requestMerchantInfo() {
-    console.log('requestMerchantInfo');
     PageHelper.requestWrapper(centerService.getCenterInfo())
       .then(res => {
         this.setData({
@@ -96,6 +95,7 @@ Page({
           shareImg: initValue(res.shareImg), // 商家二维码图片链接
           isTable: initValue(res.isTable, false)
         });
+        store.auditStatus = initValue(res.auditStatus, AuditStatus.NOT_AUDIT);
       })
       .catch(e => {});
   },
@@ -115,6 +115,8 @@ Page({
     const { encryptedData, iv } = event.detail;
     if (encryptedData && iv) {
       this.requestParsePhone(encryptedData, iv);
+    } else {
+      PageHelper.showFailToast('授权失败');
     }
   },
 
@@ -145,8 +147,8 @@ Page({
    * 切换营业状态
    */
   onStatusChange() {
-    const { businessStatusOpen, auditStatus } = this.data;
-    PageHelper.checkAuditStatus(auditStatus)
+    const { businessStatusOpen } = this.data;
+    PageHelper.checkAuditStatus()
       .then(() => {
         this.modal.showModal({
           content: businessStatusOpen ? '设置休业状态，用户将无法看到店铺' : '设置营业状态，用户将看到店铺',
@@ -177,8 +179,8 @@ Page({
    * 切换预约状态
    */
   onAppointChange() {
-    const { appointOpen, auditStatus } = this.data;
-    PageHelper.checkAuditStatus(auditStatus)
+    const { appointOpen } = this.data;
+    PageHelper.checkAuditStatus()
       .then(() => {
         this.modal.showModal({
           content: appointOpen ? '确认要开启预约吗？' : '确认要关闭预约吗？',
@@ -205,6 +207,9 @@ Page({
     });
   },
 
+  /**
+   * 店铺信息，桌位管理
+   */
   handleColClick(event) {
     console.log(event);
     const type = event.currentTarget.dataset.type;
@@ -216,6 +221,7 @@ Page({
   },
 
   goInfoPage() {
+    // 审核中不能编辑
     if (this.data.auditStatus === AuditStatus.AUDITING) {
       return PageHelper.showAuthAuditingModal();
     }
@@ -266,10 +272,5 @@ Page({
    */
   handleReplacePhone() {
     WxManager.navigateTo(PageConstant.REPLACE_PHONE_URL);
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {}
+  }
 });

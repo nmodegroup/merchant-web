@@ -3,6 +3,7 @@ const pageConstant = require('../constant/page');
 const pageFlag = require('../constant/pageFlag');
 const { AuditStatus } = require('../constant/global');
 const { isEmpty } = require('./global');
+const store = getApp().globalData;
 
 export class PageConfig {
   constructor() {}
@@ -56,9 +57,9 @@ export class PageConfig {
   /**
    * 检查店铺审核状态（认证状态）
    */
-  checkAuditStatus(auditStatus) {
+  checkAuditStatus() {
     return new Promise((resolve, reject) => {
-      switch (+auditStatus) {
+      switch (parseInt(store.auditStatus)) {
         case AuditStatus.NOT_AUDIT: // 未提交资料
           this.showAuthModal();
           break;
@@ -93,6 +94,20 @@ export class PageConfig {
     this.currentPage().Toast.showToast({
       content: msg,
       icon: 'success'
+    });
+  }
+
+  /**
+   * 失败 toast
+   * @param {string} msg 提示消息内容
+   */
+  showFailToast(msg) {
+    if (!this.currentPage().Toast) {
+      throw new Error('Toast error: toast is not init in onLoad or toast id is not match（is wrong）');
+    }
+    this.currentPage().Toast.showToast({
+      content: msg,
+      icon: 'fail'
     });
   }
 

@@ -18,6 +18,6 @@
             <view class="reserve-time">预订时间：{{order.appointTime}}</view>
             <view class="user-info">{{order.nickName + " " + order.phone}}</view>
         </view>
-        <view class="confirm-btn">确认预定</view>
+        <view class="confirm-btn" bindtap="handleConfirm">确认预定</view>
     </view>
 </view>

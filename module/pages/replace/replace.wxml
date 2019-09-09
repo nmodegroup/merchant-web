@@ -16,7 +16,7 @@
             </view>
             <view class="title-container">
                 <view class="title-left">验证旧手机</view>
-                <view class="title-right {{ isSecondStep ? 'active' : ''}}">验证新手机</view>
+                <view class="title-right {{ isSecondStep ? 'title-right-active' : ''}}">验证新手机</view>
             </view>
         </view>
         <!-- 输入 -->
@@ -32,7 +32,6 @@
             </view>
         </view>
         <view class="commit-wrapper">
-            <!-- TODO:  -->
             <form-button enabled="{{ isFormVerify }}" bind:click="{{ isSecondStep ? 'commitFrom' : 'verifyOldPhone' }}"
                 buttonText="{{ isSecondStep ? '完成' : '下一步' }}" />
         </view>

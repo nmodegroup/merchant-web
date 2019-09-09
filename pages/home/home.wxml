@@ -3,25 +3,22 @@
 
 <view class="home-page">
     <nav-bar title="NIGHT MODE"></nav-bar>
-    <view class="tab-container">
-        <block wx:for="{{tabList}}" wx:key="index">
-            <view class="tab {{ item.checked ? 'tab-checked' : '' }}" bindtap="handleTabChange" data-tab="{{item}}"
-                data-index="{{index}}">
-                {{item.title}}</view>
-        </block>
-    </view>
+    <tab tabList="{{ tabList }}" bind:tabclick="handleTabChange"></tab>
     <!-- 今日订单 -->
-    <block wx:if="{{ orderModule.isToday(currentType) }}">
+    <block wx:if="{{ orderModule.isToday(selectType) }}">
         <block wx:for="{{todayList}}" wx:key="index">
-            <order-item order="{{item}}"></order-item>
+            <order-item order="{{item}}" bind:itemClick="handleItemClick"></order-item>
         </block>
     </block>
     <!-- 未来订单 -->
-    <block wx:if="{{ orderModule.isFuture(currentType) }}">
+    <block wx:if="{{ orderModule.isFuture(selectType) }}">
         <block wx:for="{{futureList}}" wx:key="index">
             <order-item order="{{futureList}}"></order-item>
         </block>
     </block>
 
+    <!-- toast -->
+    <toast id="toast"></toast>
+    <!-- modal -->
     <modal id="modal" bind:get="getResult"></modal>
 </view>

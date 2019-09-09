@@ -99,7 +99,7 @@
         </block>
         <block wx:else>
         </block> -->
-        <form-button enabled="{{ verifyed }}" bind:click="commitFrom" buttonText="确认提交" />
+        <form-button enabled="{{ verifyed }}" bind:click="commitForm" buttonText="确认提交" />
         <!-- 不可见的授权手机号按钮，授权成功后隐藏 -->
         <button class="btn-auth-phone" wx:if="{{verifyed && !authPhoneSuccess}}" open-type="getPhoneNumber"
             bindgetphonenumber="onGetPhoneCallback"></button>

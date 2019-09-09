@@ -21,7 +21,6 @@ export function getTodayOrderList(params) {
         contentType: httpManager.JSON
       })
       .then(res => {
-        console.log('res:', res);
         resolve(res);
       })
       .catch(err => {

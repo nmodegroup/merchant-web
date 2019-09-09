@@ -455,10 +455,11 @@ Page({
    * 手机号授权回调
    */
   onGetPhoneCallback(event) {
-    console.log(event);
     const { encryptedData, iv } = event.detail;
     if (encryptedData && iv) {
       this.requestParsePhone(encryptedData, iv);
+    } else {
+      PageHelper.showFailToast('授权失败');
     }
   },
 
@@ -518,9 +519,6 @@ Page({
       return this.showLocationModal();
     }
 
-    //  TODO: delete
-    console.log('commitForm');
-    return false;
     if (isTotal) {
       this.requestSaveInfo();
     } else {

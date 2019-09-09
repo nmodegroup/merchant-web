@@ -24,7 +24,7 @@
         </cell-input>
         <cell-input title="联系电话" borderRightPadding>
             <input class="input-view" placeholder-class="placeholder" value="{{phone}}" placeholder="请输入活动联系电话"
-                bindinput="handleInput" data-type="phone" />
+                type="number" bindinput="handleInput" data-type="phone" />
         </cell-input>
         <cell-input title="嘉宾信息" borderRightPadding>
             <input class="input-view" placeholder-class="placeholder" value="{{guest}}"
@@ -39,8 +39,7 @@
                             <view>{{ item.title }}</view>
                             <input name="quotaType" class="quota-input" wx:if="{{ item.name === 2 && quotaType === 2 }}"
                                 placeholder-class="placeholder-quota" placeholder="输入数量" value="{{ quota }}"
-                                type="number" bindfocus="handleCardElectFocus" bindblur="handleCardElectNumBlur"
-                                bindinput="handleInput" data-type="quota" />
+                                type="number" bindinput="handleInput" data-type="quota" />
                             <van-radio name="{{ item.name }}" use-icon-slot>
                                 <image class="radio-custom-icon" slot="icon"
                                     src="{{ quotaType === item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">

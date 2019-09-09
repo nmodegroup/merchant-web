@@ -133,7 +133,9 @@ Page({
   },
 
   handleCreateActivity() {
-    wxManager.navigateTo(PageConstant.ACTIVITY_EDIT_URL);
+    PageHelper.checkAuditStatus().then(() => {
+      wxManager.navigateTo(PageConstant.ACTIVITY_EDIT_URL);
+    });
   },
 
   // TODO: delete

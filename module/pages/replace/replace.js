@@ -4,7 +4,7 @@ const { isEmpty } = require('../../../utils/global');
 const { debounce } = require('../../../utils/throttle-debounce/index');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
-const app = getApp();
+const store = getApp().globalData;
 
 Page({
   /**
@@ -41,7 +41,7 @@ Page({
     this.setupDebounce();
     // 回填手机号
     this.setData({
-      phone: app.globalData.phone
+      phone: store.phone
     });
   },
 
@@ -194,7 +194,7 @@ Page({
     };
 
     PageHelper.requestWrapper(userService.bindNewPhone(params)).then(res => {
-      app.globalData.phone = res;
+      store.phone = res;
       PageHelper.requestSuccessCallback('您的手机号换绑成功');
     });
   }

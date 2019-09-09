@@ -1,0 +1,8 @@
+<!--components/tab/index.wxml-->
+<view class="tab-container">
+    <block wx:for="{{tabList}}" wx:key="index">
+        <view class="tab {{ selectIndex === index ? 'tab-checked' : '' }}" bindtap="handleTabChange" data-tab="{{item}}"
+            data-index="{{index}}">
+            {{item.title}}</view>
+    </block>
+</view>

@@ -2,6 +2,9 @@
 page {
   font-size: 30rpx;
   color: rgb(255, 255, 255);
+}
+
+.table-page {
   padding-bottom: 98rpx;
 }
 
@@ -48,6 +51,7 @@ page {
   justify-content: center;
   background-color: #456aec;
   border-radius: 8rpx;
+  font-size: 28rpx;
 }
 
 .item:nth-child(6n) {

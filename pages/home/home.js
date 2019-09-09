@@ -1,6 +1,8 @@
 // pages/home/home.js
 const { OrderType } = require('../../constant/global');
 const homeService = require('../../service/home');
+const { PageConfig } = require('../../utils/page');
+const PageHelper = new PageConfig();
 
 Page({
   /**
@@ -10,37 +12,25 @@ Page({
     tabList: [
       {
         title: '今日预定',
-        checked: true,
         type: OrderType.TODAY
       },
       {
         title: '未来订单',
-        checked: false,
         type: OrderType.FUTURE
       }
     ],
-    currentType: OrderType.TODAY,
+    selectType: OrderType.TODAY,
     todayList: [],
-    futureList: [],
-    historyList: []
+    futureList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.initData();
     this.resetQuery();
     this.sendRefreshRequest();
-
-    // TODO: test
-    this.modal = this.selectComponent('#modal');
-    this.modal.showModal({
-      content: '确认为用户通过预订吗？通过后他将预\n订成功，并尽可能按照预订时间到店！',
-      title: '温馨提示',
-      cancelText: '不通过',
-      confirmText: '通过',
-      hideCancel: false
-    });
   },
 
   /**
@@ -54,22 +44,42 @@ Page({
     }
   },
 
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+    this.resetQuery();
+    this.sendRefreshRequest();
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+    this.sendLoadMOreRequest();
+  },
+
+  initData() {
+    PageHelper.setupPageConfig(this);
+  },
+
   sendRefreshRequest() {
     const refreshStrategy = {
       [OrderType.TODAY]: () => this.requestTodayOrderList(),
       [OrderType.FUTURE]: () => this.requestFutureOrderList(),
       [OrderType.HISTORY]: () => this.requestHistoryOrderList()
     };
-    refreshStrategy[this.data.currentType]();
+    const func = refreshStrategy[this.data.selectType];
+    return func ? func() : '';
   },
 
   sendLoadMOreRequest() {
     const loadMoreStrategy = {
       [OrderType.TODAY]: () => this.requestTodayOrderList(this.pageNum + 1),
-      [OrderType.FUTURE]: () => this.requestFutureOrderList(),
       [OrderType.HISTORY]: () => this.requestHistoryOrderList(this.pageNum + 1)
     };
-    loadMoreStrategy[this.data.currentType]();
+    const func = loadMoreStrategy[this.data.selectType];
+    return func ? func() : '';
   },
 
   /**
@@ -77,58 +87,28 @@ Page({
    */
   requestTodayOrderList(pageNum = this.pageNum) {
     const params = this.queryParams(pageNum);
-    homeService
-      .getTodayOrderList(params)
+    PageHelper.requestWrapper(homeService.getTodayOrderList(params))
       .then(res => {
-        console.log('requestTodayOrderList:', res);
+        console.log('res', res);
         this.pageNum = pageNum;
         this.setData({
           todayList: res.list
         });
-        this.stopPullDownRefresh();
       })
-      .catch(e => {
-        console.error(e);
-        this.stopPullDownRefresh();
-      });
+      .catch(err => console.log(err));
   },
 
   /**
    * 未来预定列表
    */
   requestFutureOrderList() {
-    homeService
-      .getFutureOrderList(params)
+    PageHelper.requestWrapper(homeService.getFutureOrderList())
       .then(res => {
         this.setData({
           futureList: res.orders
         });
-        this.stopPullDownRefresh();
       })
-      .catch(e => {
-        console.error(e);
-        this.stopPullDownRefresh();
-      });
-  },
-
-  /**
-   * 历史预定列表
-   */
-  requestHistoryOrderList(pageNum = this.pageNum) {
-    const params = this.queryParams(pageNum);
-    homeService
-      .getHistoryOrderList(params)
-      .then(res => {
-        this.pageNum = pageNum;
-        this.setData({
-          historyList: res.list
-        });
-        this.stopPullDownRefresh();
-      })
-      .catch(e => {
-        console.error(e);
-        this.stopPullDownRefresh();
-      });
+      .catch(err => console.log(err));
   },
 
   checkHasMore() {},
@@ -153,47 +133,27 @@ Page({
 
   handleTabChange(event) {
     console.log(event);
-    const { tab, index } = event.currentTarget.dataset;
-    // 已经选中不处理
-    if (tab.checked) {
-      return false;
-    }
-    this.resetTabListStatus(index, tab.type);
-    this.resetQuery();
-    this.sendRefreshRequest();
-  },
-
-  /**
-   * 重置当前 tablist 选中项
-   */
-  resetTabListStatus(selectedIndex, type) {
-    const tabList = this.data.tabList;
-    tabList.forEach((element, index) => {
-      element.checked = index === selectedIndex;
-    });
+    const { type } = event.detail;
     this.setData({
-      tabList: tabList,
-      currentType: type
+      selectType: type
     });
-  },
 
-  stopPullDownRefresh() {
-    wx.stopPullDownRefresh();
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
     this.resetQuery();
     this.sendRefreshRequest();
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   * 确认预定，确认已到达
    */
-  onReachBottom: function() {
-    this.sendLoadMOreRequest();
+  handleItemClick(event) {
+    console.log('handleItemClick', event);
+    this.modal.showModal({
+      content: '确认为用户通过预订吗？通过后他将预\n订成功，并尽可能按照预订时间到店！',
+      title: '温馨提示',
+      cancelText: '不通过',
+      confirmText: '通过',
+      hideCancel: false
+    });
   },
 
   /**

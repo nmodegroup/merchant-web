@@ -24,7 +24,7 @@ Component({
    */
   methods: {
     handleClick() {
-      this.triggerEvent('commit');
+      this.triggerEvent('click');
     }
   }
 });
