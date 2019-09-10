@@ -579,7 +579,7 @@ Page({
     const { price, desc } = this.data;
     return {
       price: Number(price),
-      covers: this.filterCovers,
+      covers: this.fillCovers,
       bartenders: this.filterBartenders(),
       desc: desc
     };
