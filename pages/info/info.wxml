@@ -20,7 +20,7 @@
             placeholder="请输入门店电话" bindinput="handleInput" data-type="shopPhone" />
     </cell-input>
     <cell title="品牌LOGO" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="logo">
-        <image class="shop-logo" src="{{ logoDisplay ? logoDisplay : '../../image/user/auth-add.svg' }}"
+        <image class="shop-logo" src="{{ logo ? sourceHost + logo : '../../image/user/auth-add.svg' }}"
             mode="aspectFill"></image>
     </cell>
     <!-- 店铺信息完善 -->
@@ -35,9 +35,9 @@
             <scroll-view scroll-x='true' class="scroll-container">
                 <view class="scroll-item-wrapper">
                     <view class='item' wx:for='{{ covers }}' wx:key='index'>
-                        <block wx:if='{{item.displayImg}}'>
+                        <block wx:if='{{item.img}}'>
                             <view class="image-container">
-                                <image class="cover-image" src="{{ item.displayImg }}" mode="aspectFill"></image>
+                                <image class="cover-image" src="{{ sourceHost + item.img }}" mode="aspectFill"></image>
                                 <image class="cover-edit" src="../../image/user/edit.svg" bindtap="handleEditCover"
                                     data-index="{{index}}"></image>
                                 <image class="cover-delete" src="../../image/user/close.svg" bindtap="handleDeleteCover"
@@ -64,9 +64,9 @@
                             data-index="{{ index }}" bindinput="handleBartenderDescInput">
                                         <view class="input-count">{{ item.desc ? item.desc.length : "0" }}/50</view>
                                     </textarea>
-                        <block wx:if='{{item.displayImg}}'>
+                        <block wx:if='{{item.img}}'>
                             <view class="image-container">
-                                <image class="bartender-image" src="{{ item.displayImg }}" mode="aspectFill">
+                                <image class="bartender-image" src="{{ sourceHost + item.img }}" mode="aspectFill">
                                 </image>
                                 <image class="bartender-edit" src="../../image/user/edit.svg"
                                     bindtap="handleEditBartender" data-index="{{index}}"></image>
@@ -77,7 +77,7 @@
                             <choose-image title="请上传一张调酒师个人宣传照片" bind:click="handleChooseBartenderImage"
                                 data-index="{{ index }}"></choose-image>
                         </block>
-                        <image wx:if="{{ item.displayImg || item.desc }}" class="bartender-delete"
+                        <image wx:if="{{ item.img || item.desc }}" class="bartender-delete"
                             src="../../image/user/close.svg" bindtap="handleDeleteBartender" data-index="{{index}}">
                         </image>
                     </view>

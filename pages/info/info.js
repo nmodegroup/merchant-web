@@ -21,6 +21,7 @@ Page({
    */
   data: {
     enterType: pageFlag.INFO_TOTAL,
+    sourceHost: ENV.sourceHost,
     isTotal: false, // false：提交基本信息，true：提交店铺信息
     verifyed: false, // 校验结果
     shopName: '', // 门店名称
@@ -31,7 +32,6 @@ Page({
     areaId: '',
     address: '', // 详细地址
     shopPhone: '', // 门店电话
-    logoDisplay: '', // logo url
     logo: '', // 传回给后端的不完整图片路径
     visibleCity: false, // 选择城市 popup
     visibleShopType: false, // 店铺类型 popup
@@ -113,13 +113,14 @@ Page({
           address: initValue(res.address),
           selectShopType: this.getShopType(res.type),
           logo: initValue(res.logo),
-          logoDisplay: res.logo ? `${ENV.sourceHost}${res.logo}` : '',
           price: initValue(res.price),
-          covers: isEmpty(res.covers) ? this.defaultCovers : res.covers,
-          bartenders: isEmpty(res.bartenders) ? this.defaultBartenders : res.bartenders,
+          covers: isEmpty(res.covers) ? this.defaultCovers : Object.assign([], this.defaultCovers, res.covers),
+          bartenders: isEmpty(res.bartenders) ? this.defaultBartenders : Object.assign([], this.defaultBartenders, res.bartenders),
           desc: initValue(res.desc)
         },
         () => {
+          this.fillCovers = isEmpty(res.covers) ? [] : res.covers;
+          this.defaultBartenders = this.data.bartenders;
           this.refreshFormVerify();
         }
       );
@@ -206,7 +207,7 @@ Page({
   verifyForm() {
     const { isTotal, price, desc } = this.data;
     if (isTotal) {
-      return this.verifyFormBase() && price && !isEmpty(this.fillCovers) && this.checkBartenders() && desc;
+      return this.verifyFormBase() && !isEmpty(price) && !isEmpty(this.fillCovers) && this.checkBartenders() && !isEmpty(desc);
     }
     return this.verifyFormBase();
   },
@@ -216,7 +217,15 @@ Page({
    */
   verifyFormBase() {
     const { shopName, address, shopPhone, cityId, areaId, selectShopType, logo } = this.data;
-    return shopName && address && shopPhone && cityId && areaId && Object.keys(selectShopType).length && logo;
+    return (
+      !isEmpty(shopName) &&
+      !isEmpty(address) &&
+      !isEmpty(shopPhone) &&
+      !isEmpty(cityId) &&
+      !isEmpty(areaId) &&
+      Object.keys(selectShopType).length &&
+      !isEmpty(logo)
+    );
   },
 
   checkBartenders() {
@@ -274,7 +283,6 @@ Page({
     const uploadParams = this.queryUploadParams(imageUrl, Folder.FILE_FOLDER_LOGO);
     PageHelper.requestWrapper(commonService.uploadImage(uploadParams)).then(res => {
       this.setData({
-        logoDisplay: `${ENV.sourceHost}${res}`,
         logo: res
       });
       this.refreshFormVerify();
@@ -334,8 +342,7 @@ Page({
     wxManager.chooseImage().then(res => {
       this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_COVER).then(result => {
         this.fillCovers.push({
-          img: result,
-          displayImg: `${ENV.sourceHost}${result}`
+          img: result
         });
         this.updateCovers();
       });
@@ -364,12 +371,7 @@ Page({
     const { index } = event.currentTarget.dataset;
     wxManager.chooseImage().then(res => {
       this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_COVER).then(result => {
-        this.fillCovers.forEach((cover, i) => {
-          if (index === i) {
-            cover.img = result;
-            cover.displayImg = `${ENV.sourceHost}${result}`;
-          }
-        });
+        this.fillCovers[index].img = result;
         this.updateCovers();
       });
     });
@@ -409,12 +411,8 @@ Page({
   uploadBartenderImage(index) {
     wxManager.chooseImage().then(res => {
       this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_BARTENDER).then(result => {
-        this.defaultBartenders.forEach((bartender, i) => {
-          if (index === i) {
-            bartender.img = result;
-            bartender.displayImg = `${ENV.sourceHost}${result}`;
-          }
-        });
+        console.log('uploadBartenderImage', this.defaultBartenders);
+        this.defaultBartenders[index].img = result;
         this.updateBartenders();
       });
     });
@@ -443,11 +441,7 @@ Page({
   handleBartenderDescInput(event) {
     const value = event.detail.value;
     const index = event.currentTarget.dataset.index;
-    this.defaultBartenders.forEach((bartender, i) => {
-      if (index === i) {
-        bartender.desc = value;
-      }
-    });
+    this.defaultBartenders[index].desc = value;
     this.inputDebounce(this.updateBartenders);
   },
 
@@ -481,7 +475,6 @@ Page({
         });
         // 将手机号存到全局
         store.phone = phone;
-        // TODO: 获取手机号后直接请求
         this.commitForm();
       });
     });
@@ -586,18 +579,10 @@ Page({
     const { price, desc } = this.data;
     return {
       price: Number(price),
-      covers: this.filterCovers(),
+      covers: this.filterCovers,
       bartenders: this.filterBartenders(),
       desc: desc
     };
-  },
-
-  filterCovers() {
-    return this.fillCovers.map(cover => {
-      return {
-        img: cover.img
-      };
-    });
   },
 
   filterBartenders() {
