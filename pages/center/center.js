@@ -250,7 +250,7 @@ Page({
       businessTime: () => this.navigation(PageConstant.BUSINESS_TIME_URL),
       arrivalTime: () => this.navigation(PageConstant.ARRIVAL_TIME_URL),
       order: () => this.navigation(PageConstant.ORDER_URL),
-      qrCode: () => this.navigation(PageConstant.QR_CODE_URL),
+      qrCode: () => this.goCodePage(),
       help: () => this.navigation(PageConstant.HELP_URL),
       contact: () => this.makePhoneCall()
     };
@@ -259,6 +259,15 @@ Page({
 
   navigation(path, params) {
     WxManager.navigateTo(path, params);
+  },
+
+  goCodePage() {
+    const { shareImg } = this.data;
+    PageHelper.checkAuditStatus().then(() => {
+      this.navigation(PageConstant.QR_CODE_URL, {
+        shareImg: shareImg
+      });
+    });
   },
 
   makePhoneCall() {

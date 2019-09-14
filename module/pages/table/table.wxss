@@ -52,6 +52,8 @@ page {
   background-color: #456aec;
   border-radius: 8rpx;
   font-size: 28rpx;
+  padding: 0 5rpx;
+  box-sizing: border-box;
 }
 
 .item:nth-child(6n) {
@@ -61,4 +63,12 @@ page {
 .item .num {
   font-size: 24rpx;
   color: rgba(255, 255, 255, 0.6);
+}
+
+.item .table-name {
+  width: 100%;
+  margin: 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

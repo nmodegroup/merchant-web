@@ -1,18 +1,28 @@
 /* components/tab/index.wxss */
 
+.tab-view {
+  position: relative;
+  height: 40px;
+}
+
 .tab-container {
-  height: 80rpx;
+  height: 40px;
+  position: fixed;
+  background-color: #15153e;
+  left: 0;
+  right: 0;
   border-top: 1rpx solid rgba(255, 255, 255, 0.1);
   border-bottom: 1rpx solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: row;
   align-items: center;
   box-sizing: border-box;
+  z-index: 99;
 }
 
 .tab {
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 40px;
+  line-height: 40px;
   flex: 1;
   font-size: 26rpx;
   color: rgba(255, 255, 255, 0.6);

@@ -59,9 +59,24 @@
             <scroll-view scroll-x='true' class="scroll-container">
                 <view class="bartender-item-wrapper">
                     <view class="bartender-item" wx:for="{{ bartenders }}" wx:key="index">
+                        <cell-input title="调酒师姓名" custom-class="cell-input-custom" custom-title-class="custom-title">
+                            <div class="bartender-name-wrapper">
+                                <input class="input-view" placeholder-class="placeholder" value="{{item.name}}"
+                                    placeholder="请输入调酒师姓名" data-index="{{ index }}" bindinput="handleBartenderInput"
+                                    data-type="name" />
+                            </div>
+                        </cell-input>
+
+                        <cell-input title="英文名" custom-class="cell-input-custom" custom-title-class="custom-title">
+                            <div class="bartender-name-wrapper">
+                                <input class="input-view" placeholder-class="placeholder" value="{{item.engName}}"
+                                    placeholder="请输入调酒师英文名" data-index="{{ index }}" bindinput="handleBartenderInput"
+                                    data-type="engName" />
+                            </div>
+                        </cell-input>
                         <textarea class="bartender-textarea" value="{{ item.desc }}"
                             placeholder="请输入调酒师信息 \n例如：Chris Wu 吴家乐" placeholder-class="area-placeholder" maxlength="50"
-                            data-index="{{ index }}" bindinput="handleBartenderDescInput">
+                            data-index="{{ index }}" bindinput="handleBartenderInput" data-type="desc">
                                         <view class="input-count">{{ item.desc ? item.desc.length : "0" }}/50</view>
                                     </textarea>
                         <block wx:if='{{item.img}}'>

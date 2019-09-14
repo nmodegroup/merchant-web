@@ -1,1 +1,13 @@
 /* module/pages/code/code.wxss */
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20rpx;
+}
+
+.image-container > image {
+  width: calc((345 / 375) * 100vw);
+  height: calc((452 / 375) * 100vw);
+}

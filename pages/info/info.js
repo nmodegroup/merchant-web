@@ -438,10 +438,11 @@ Page({
   /**
    * 调酒师信息输入
    */
-  handleBartenderDescInput(event) {
+  handleBartenderInput(event) {
+    console.log('handleBartenderInput', event);
     const value = event.detail.value;
-    const index = event.currentTarget.dataset.index;
-    this.defaultBartenders[index].desc = value;
+    const { type, index } = event.currentTarget.dataset;
+    this.defaultBartenders[index][type] = value;
     this.inputDebounce(this.updateBartenders);
   },
 
@@ -503,7 +504,7 @@ Page({
     /* 完善店铺信息需要更多校验 */
     if (isTotal) {
       if (this.checkBartendersInfo()) {
-        return PageHelper.showToast('调酒师信息或宣传照片填写不完整');
+        return PageHelper.showToast('调酒师信息填写不完整');
       }
     }
 
@@ -524,14 +525,23 @@ Page({
    */
   checkBartendersInfo() {
     const incompleteBartenders = this.data.bartenders.filter(bartender => {
-      return (bartender.img && !bartender.desc) || (!bartender.img && bartender.desc);
+      // 过滤出未填写完整的调酒师信息
+      return !this.isNotFill(bartender) && !this.isAllFill(bartender);
     });
     return !isEmpty(incompleteBartenders);
   },
 
+  isNotFill(bartender) {
+    return isEmpty(bartender.img) && isEmpty(bartender.desc) && isEmpty(bartender.name) && isEmpty(bartender.engName);
+  },
+
+  isAllFill(bartender) {
+    return !isEmpty(bartender.img) && !isEmpty(bartender.desc) && !isEmpty(bartender.name) && !isEmpty(bartender.engName);
+  },
+
   getFillBartenders() {
     return this.data.bartenders.filter(bartender => {
-      return bartender.img && bartender.desc;
+      return bartender.img && bartender.desc && bartender.name && bartender.engName;
     });
   },
 
@@ -589,7 +599,9 @@ Page({
     return this.getFillBartenders().map(bartender => {
       return {
         img: bartender.img,
-        desc: bartender.desc
+        desc: bartender.desc,
+        name: bartender.name,
+        engName: bartender.engName
       };
     });
   }

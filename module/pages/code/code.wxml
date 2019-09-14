@@ -1,4 +1,11 @@
 <!--module/pages/code/code.wxml-->
 <view class="code-page">
   <nav-bar title="商家二维码" back home></nav-bar>
+  <view class="image-container">
+    <image mode="aspectFill" src="{{ shareImg }}" bindtap="handlePreview"></image>
+  </view>
+  <form-button enabled="{{ true }}" buttonText="保存到相册" bind:click="handleSaveImage"></form-button>
+
+  <!-- toast -->
+  <toast id="toast"></toast>
 </view>

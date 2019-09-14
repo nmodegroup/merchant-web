@@ -2,7 +2,6 @@
 .info-page {
   font-size: 26rpx;
   color: rgba(255, 255, 255, 0.5);
-  padding-bottom: 98rpx;
 }
 
 .shop-logo {
@@ -185,4 +184,18 @@
 .scroll-view {
   width: 100vw;
   height: calc(100vh - 98rpx);
+}
+
+/* 调酒师信息 */
+
+.cell-input-custom {
+  width: 88vw;
+}
+
+.custom-title {
+  margin-left: 0 !important;
+}
+
+.bartender-name-wrapper .input-view {
+  margin-right: 0;
 }

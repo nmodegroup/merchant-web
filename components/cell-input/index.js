@@ -1,5 +1,6 @@
 // components/cell-input/index.js
 Component({
+  externalClasses: ['custom-class', 'custom-title-class'],
   /**
    * 组件的属性列表
    */

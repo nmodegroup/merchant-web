@@ -17,6 +17,24 @@ Component({
     selectIndex: 0
   },
 
+  ready() {
+    wxManager.getSystemInfo().then(systemInfo => {
+      const reg = /ios/i;
+      let pt = 20;
+      let h = 44;
+      if (reg.test(systemInfo.system)) {
+        pt = systemInfo.statusBarHeight;
+        h = 44;
+      } else {
+        pt = systemInfo.statusBarHeight;
+        h = 48;
+      }
+      this.setData({
+        navigationBarHeight: h + pt
+      });
+    });
+  },
+
   /**
    * 组件的方法列表
    */
@@ -24,13 +42,13 @@ Component({
     handleTabChange(event) {
       console.log(event);
       const { tab, index } = event.currentTarget.dataset;
-      const { selectedIndex } = this.data;
+      const { selectIndex } = this.data;
       // 已经选中不处理
-      if (selectedIndex === index) {
+      if (selectIndex === index) {
         return false;
       }
       this.setData({
-        selectedIndex: index
+        selectIndex: index
       });
 
       const myEventDetail = { type: tab.type };

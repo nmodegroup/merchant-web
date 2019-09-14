@@ -171,13 +171,13 @@ export function saveImageToPhotosAlbum(imagePath) {
       success: res => {
         if (res.authSetting['scope.writePhotosAlbum']) {
           // 已经授权，可以直接调用 getLocation
-          saveImage(resolve, imagePath);
+          saveImage(resolve, reject, imagePath);
         } else {
           // 发起授权
           wx.authorize({
             scope: 'scope.writePhotosAlbum',
             success: () => {
-              saveImage(resolve, imagePath);
+              saveImage(resolve, reject, imagePath);
             },
             fail: () => {
               // 授权失败
@@ -190,11 +190,14 @@ export function saveImageToPhotosAlbum(imagePath) {
   });
 }
 
-function saveImage(resolve, imagePath) {
+function saveImage(resolve, reject, imagePath) {
   wx.saveImageToPhotosAlbum({
     filePath: imagePath,
     success: res => {
       resolve(res);
+    },
+    fail: () => {
+      reject();
     }
   });
 }
@@ -280,6 +283,17 @@ export function stopRefreshAndLoading() {
 export function makePhoneCall(phone) {
   wx.makePhoneCall({
     phoneNumber: phone
+  });
+}
+
+/**
+ * 预览图片
+ * @param {string} imageUrl 图片地址
+ */
+export function previewImage(imageUrl) {
+  wx.previewImage({
+    // current: 'String', // 当前显示图片的链接，不填则默认为 urls 的第一张
+    urls: [imageUrl]
   });
 }
 

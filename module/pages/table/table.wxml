@@ -9,7 +9,7 @@
                     <view class="item" bindtap="handleTableItemClick" data-item="{{item}}"
                         data-areaName="{{areaItem.name}}" data-areaId="{{areaItem.id}}">
                         <view class="num">{{item.num}}人桌</view>
-                        <view>{{item.name}}</view>
+                        <view class="table-name">{{item.name}}</view>
                     </view>
                 </block>
             </view>

@@ -1,7 +1,7 @@
 <!--components/cell-input/index.wxml-->
 
-<view class="cell-input  {{ borderRightPadding ? 'cell-border-right-padding' : 'cell-border' }}">
-    <view class="title">{{title}}</view>
+<view class="cell-input  custom-class {{ borderRightPadding ? 'cell-border-right-padding' : 'cell-border' }}">
+    <view class="title custom-title-class">{{title}}</view>
     <view class="wrapper">
         <slot></slot>
     </view>
