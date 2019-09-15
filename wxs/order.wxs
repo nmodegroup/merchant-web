@@ -42,9 +42,27 @@ function getOrderStatusTitle(status) {
   }
 }
 
+/**
+ * 是否显示确认预约按钮，状态为待确认时显示
+ * @param status 订单状态
+ */
+function isShowConfirmAppoint(status) {
+  return parseInt(status) === 0;
+}
+
+/**
+ * 是否显示已到达按钮，确认通过和到店超时状态时显示
+ * @param status 订单状态
+ */
+function isShowArrive(status) {
+  return parseInt(status) === 1 && parseInt(status) === 6;
+}
+
 module.exports = {
   isToday: isToday,
   isFuture: isFuture,
   isHistory: isHistory,
-  getOrderStatusTitle: getOrderStatusTitle
+  getOrderStatusTitle: getOrderStatusTitle,
+  isShowConfirmAppoint: isShowConfirmAppoint,
+  isShowArrive: isShowArrive
 };

@@ -6,7 +6,9 @@ const { isEmpty } = require('./global');
 const store = getApp().globalData;
 
 export class PageConfig {
-  constructor() {}
+  constructor() {
+    this.isShowLoading = true;
+  }
 
   setupPageConfig(context) {
     console.log('this:', this);
@@ -25,17 +27,23 @@ export class PageConfig {
    * 请求包装类（包装了 loading，异常 toast 提示）
    * @param {object} service 请求 service
    */
-  requestWrapper(service) {
+  requestWrapper(service, isShowLoading = true) {
     return new Promise((resolve, reject) => {
-      wxManager.showLoading('加载中');
+      if (isShowLoading) {
+        wxManager.showLoading('加载中');
+      }
       service
         .then(res => {
-          wxManager.hideLoading();
+          if (isShowLoading) {
+            wxManager.hideLoading();
+          }
           wxManager.stopRefreshAndLoading();
           resolve(res);
         })
         .catch(res => {
-          wxManager.hideLoading();
+          if (isShowLoading) {
+            wxManager.hideLoading();
+          }
           wxManager.stopRefreshAndLoading();
           this.showToast(res.msg);
           reject(res);

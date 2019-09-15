@@ -60,14 +60,15 @@ Page({
   },
 
   initData() {
+    this.isLoadTodayFirst = true;
+    this.isLoadFeatureFirst = true;
     PageHelper.setupPageConfig(this);
   },
 
   sendRefreshRequest() {
     const refreshStrategy = {
       [OrderType.TODAY]: () => this.requestTodayOrderList(),
-      [OrderType.FUTURE]: () => this.requestFutureOrderList(),
-      [OrderType.HISTORY]: () => this.requestHistoryOrderList()
+      [OrderType.FUTURE]: () => this.requestFutureOrderList()
     };
     const func = refreshStrategy[this.data.selectType];
     return func ? func() : '';
@@ -75,8 +76,7 @@ Page({
 
   sendLoadMOreRequest() {
     const loadMoreStrategy = {
-      [OrderType.TODAY]: () => this.requestTodayOrderList(this.pageNum + 1),
-      [OrderType.HISTORY]: () => this.requestHistoryOrderList(this.pageNum + 1)
+      [OrderType.TODAY]: () => this.requestTodayOrderList(this.pageNum + 1)
     };
     const func = loadMoreStrategy[this.data.selectType];
     return func ? func() : '';
@@ -87,13 +87,21 @@ Page({
    */
   requestTodayOrderList(pageNum = this.pageNum) {
     const params = this.queryParams(pageNum);
-    PageHelper.requestWrapper(homeService.getTodayOrderList(params))
+    PageHelper.requestWrapper(homeService.getTodayOrderList(params), this.isLoadTodayFirst)
       .then(res => {
-        console.log('res', res);
+        // 更新加载状态
+        this.isLoadTodayFirst = false;
         this.pageNum = pageNum;
-        this.setData({
-          todayList: res.list
-        });
+        const { todayList } = this.data;
+        if (pageNum === 1) {
+          this.setData({
+            todayList: res.list
+          });
+        } else {
+          this.setData({
+            todayList: todayList.concat(res.list)
+          });
+        }
       })
       .catch(err => console.log(err));
   },
@@ -102,8 +110,10 @@ Page({
    * 未来预定列表
    */
   requestFutureOrderList() {
-    PageHelper.requestWrapper(homeService.getFutureOrderList())
+    PageHelper.requestWrapper(homeService.getFutureOrderList(), this.isLoadFeatureFirst)
       .then(res => {
+        // 更新加载状态
+        this.isLoadFeatureFirst = false;
         this.setData({
           futureList: res.orders
         });

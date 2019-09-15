@@ -19,6 +19,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.isLoadActivityFirst = true;
     this.initPageConfig();
     PageHelper.setupPageConfig(this);
   },
@@ -94,7 +95,7 @@ Page({
 
   requestActivityList(currentPage = 1) {
     const params = this.queryParams(currentPage);
-    PageHelper.requestWrapper(activityService.getActivityList(params)).then(result => {
+    PageHelper.requestWrapper(activityService.getActivityList(params), this.isLoadActivityFirst).then(result => {
       this.setPageNum(currentPage);
       this.checkHasmore(result.pageNum, result.pageSize, result.totalSize);
       const oldList = this.data.activityList;
@@ -102,6 +103,8 @@ Page({
       this.setData({
         activityList: currentPage === 1 ? activityList : oldList.concat(activityList)
       });
+      // 更新加载状态
+      this.isLoadActivityFirst = false;
     });
   },
 

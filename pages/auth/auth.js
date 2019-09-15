@@ -51,17 +51,11 @@ Page({
    *
    */
   wxLogin() {
-    wxManager.login().then(code => {
-      if (code) {
-        this.setData({
-          code
-        });
-        this.requestUserInfo();
-      } else {
-        this.Toast.showToast({
-          content: '微信登录失败'
-        });
-      }
+    PageHelper.requestWrapper(wxManager.login()).then(code => {
+      this.setData({
+        code
+      });
+      this.requestUserInfo();
     });
   },
 

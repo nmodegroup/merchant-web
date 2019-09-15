@@ -17,24 +17,6 @@ Component({
     selectIndex: 0
   },
 
-  ready() {
-    wxManager.getSystemInfo().then(systemInfo => {
-      const reg = /ios/i;
-      let pt = 20;
-      let h = 44;
-      if (reg.test(systemInfo.system)) {
-        pt = systemInfo.statusBarHeight;
-        h = 44;
-      } else {
-        pt = systemInfo.statusBarHeight;
-        h = 48;
-      }
-      this.setData({
-        navigationBarHeight: h + pt
-      });
-    });
-  },
-
   /**
    * 组件的方法列表
    */

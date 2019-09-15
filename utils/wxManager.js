@@ -81,7 +81,7 @@ export function login() {
         resolve(res.code);
       },
       fail: err => {
-        console.log('微信登录err', err);
+        reject('微信登录失败');
       }
     });
   });

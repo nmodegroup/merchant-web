@@ -50,6 +50,7 @@ Page({
   },
 
   initData() {
+    this.isLoadFirst = true;
     PageHelper.setupPageConfig(this);
     this.setupScroll();
   },
@@ -85,19 +86,19 @@ Page({
   },
 
   requestMerchantInfo() {
-    PageHelper.requestWrapper(centerService.getCenterInfo())
-      .then(res => {
-        this.setData({
-          auditStatus: initValue(res.auditStatus, AuditStatus.NOT_AUDIT),
-          reason: initValue(res.reason),
-          businessStatusOpen: this.isBusinessStatusOpen(initValue(res.businessStatus, BusinessStatus.CLOSE)),
-          appointOpen: this.isAppointOpen(initValue(res.appointStatus, AppointStatus.CLOSE)),
-          shareImg: initValue(res.shareImg), // 商家二维码图片链接
-          isTable: initValue(res.isTable, false)
-        });
-        store.auditStatus = initValue(res.auditStatus, AuditStatus.NOT_AUDIT);
-      })
-      .catch(e => {});
+    PageHelper.requestWrapper(centerService.getCenterInfo(), this.isLoadFirst).then(res => {
+      this.setData({
+        auditStatus: initValue(res.auditStatus, AuditStatus.NOT_AUDIT),
+        reason: initValue(res.reason),
+        businessStatusOpen: this.isBusinessStatusOpen(initValue(res.businessStatus, BusinessStatus.CLOSE)),
+        appointOpen: this.isAppointOpen(initValue(res.appointStatus, AppointStatus.CLOSE)),
+        shareImg: initValue(res.shareImg), // 商家二维码图片链接
+        isTable: initValue(res.isTable, false)
+      });
+      store.auditStatus = initValue(res.auditStatus, AuditStatus.NOT_AUDIT);
+      // 更新加载状态
+      this.isLoadFirst = false;
+    });
   },
 
   isBusinessStatusOpen(businessStatus) {
