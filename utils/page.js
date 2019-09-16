@@ -172,9 +172,10 @@ export class PageConfig {
    * 只有确认按钮的提示弹窗
    * @param {string} content 弹窗文案
    */
-  showSingleConfirmModal(content) {
+  showSingleConfirmModal(content, title) {
     return new Promise(resolve => {
       this.currentPage().modal.showModal({
+        title: title,
         content: content,
         confirmText: '我知道了',
         hideCancel: true,

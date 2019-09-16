@@ -2,6 +2,7 @@
 .info-page {
   font-size: 26rpx;
   color: rgba(255, 255, 255, 0.5);
+  padding-bottom: 60rpx;
 }
 
 .shop-logo {

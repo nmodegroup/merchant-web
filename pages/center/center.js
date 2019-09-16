@@ -151,15 +151,18 @@ Page({
     const { businessStatusOpen } = this.data;
     PageHelper.checkAuditStatus()
       .then(() => {
-        this.modal.showModal({
-          content: businessStatusOpen ? '设置休业状态，用户将无法看到店铺' : '设置营业状态，用户将看到店铺',
-          cancelText: '点错了',
-          confirmText: businessStatusOpen ? '确定修业' : '确定营业',
-          hideCancel: false,
-          onConfirm: () => {
-            this.requestSwitchBusinessStatus();
-          }
-        });
+        if (businessStatusOpen) {
+          return this.modal.showModal({
+            content: '设置休业状态，用户将无法看到店铺',
+            cancelText: '点错了',
+            confirmText: '确定休业',
+            hideCancel: false,
+            onConfirm: () => {
+              this.requestSwitchBusinessStatus();
+            }
+          });
+        }
+        this.requestSwitchBusinessStatus();
       })
       .catch(e => {
         console.error(e);
@@ -184,9 +187,9 @@ Page({
     PageHelper.checkAuditStatus()
       .then(() => {
         this.modal.showModal({
-          content: appointOpen ? '确认要开启预约吗？' : '确认要关闭预约吗？',
-          cancelText: '取消',
-          confirmText: '确认',
+          content: appointOpen ? '确定要关闭预约吗？' : '确定要开启预约吗？',
+          cancelText: '点错了',
+          confirmText: appointOpen ? '确定关闭' : '确定开启',
           hideCancel: false,
           onConfirm: () => {
             this.requestSwitchAppointStatus();
@@ -239,7 +242,7 @@ Page({
     if (auditStatus !== AuditStatus.AUDIT_FAIL) {
       return false;
     }
-    PageHelper.showSingleConfirmModal(reason).then(() => {});
+    PageHelper.showSingleConfirmModal(reason, '审核未通过原因');
   },
 
   /**
