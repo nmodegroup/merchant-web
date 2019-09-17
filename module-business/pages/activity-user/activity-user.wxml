@@ -11,8 +11,10 @@
         <view class="reserve-container">
             <view class="common nickname">{{item.nickName}}</view>
             <view class="common phone" bindtap="makeCall" data-phone="{{item.phone}}">{{item.phone}}</view>
-            <!-- TODO: 时间处理 -->
-            <view class="common time">{{item.appointTime}}</view>
+            <view class="common time-wrapper time">
+                <view class="appoint-time">{{item.appointTime}}</view>
+                <view class="table-name-num">{{item.tableAreaName + '-' + item.tableNum + '人位'}}</view>
+            </view>
         </view>
     </block>
 </view>

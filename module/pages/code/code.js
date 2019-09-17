@@ -3,6 +3,7 @@ const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
 const wxManager = require('../../../utils/wxManager');
 const httpManager = require('../../../lib/request/httpManager');
+const ENV = require('../../../lib/request/env');
 
 Page({
   /**
@@ -18,7 +19,7 @@ Page({
   onLoad: function(options) {
     PageHelper.setupPageConfig(this);
     this.setData({
-      shareImg: options.shareImg
+      shareImg: `${ENV.sourceHost}${options.shareImg}`
     });
   },
 

@@ -26,9 +26,8 @@ export function getActivityList(params) {
 export function getActivityUser(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      // .get('/merchant/activity/user', params)
       .get({
-        url: 'https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/activity/user',
+        url: '/merchant/activity/user',
         params: params,
         contentType: httpManager.JSON
       })
