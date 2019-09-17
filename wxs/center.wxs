@@ -13,9 +13,9 @@ function getReserveStatus(reserveChecked) {
 function getAuditStatus(auditStatus) {
   switch (auditStatus) {
     case -1:
-      return '未提交资料';
+      return '未认证';
     case 0:
-      return '待审核';
+      return '认证审核中';
     case 1:
       return '已认证';
     case 2:

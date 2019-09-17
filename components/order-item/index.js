@@ -24,6 +24,11 @@ Component({
     handleConfirm() {
       const myEventDetail = { item: this.data.order };
       this.triggerEvent('itemClick', myEventDetail);
+    },
+
+    handleArrive() {
+      const myEventDetail = { item: this.data.order };
+      this.triggerEvent('arriveClick', myEventDetail);
     }
   }
 });

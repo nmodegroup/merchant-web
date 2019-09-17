@@ -1,5 +1,5 @@
 // pages/home/home.js
-const { OrderType } = require('../../constant/global');
+const { OrderType, OrderActionStatus } = require('../../constant/global');
 const homeService = require('../../service/home');
 const { PageConfig } = require('../../utils/page');
 const PageHelper = new PageConfig();
@@ -89,6 +89,7 @@ Page({
     const params = this.queryParams(pageNum);
     PageHelper.requestWrapper(homeService.getTodayOrderList(params), this.isLoadTodayFirst)
       .then(res => {
+        console.log('getTodayOrderList', res);
         // 更新加载状态
         this.isLoadTodayFirst = false;
         this.pageNum = pageNum;
@@ -115,7 +116,7 @@ Page({
         // 更新加载状态
         this.isLoadFeatureFirst = false;
         this.setData({
-          futureList: res.orders
+          futureList: res
         });
       })
       .catch(err => console.log(err));
@@ -153,17 +154,40 @@ Page({
   },
 
   /**
-   * 确认预定，确认已到达
+   * 确认预定
    */
   handleItemClick(event) {
-    console.log('handleItemClick', event);
-    this.modal.showModal({
-      content: '确认为用户通过预订吗？通过后他将预\n订成功，并尽可能按照预订时间到店！',
-      title: '温馨提示',
-      cancelText: '不通过',
-      confirmText: '通过',
-      hideCancel: false
+    const { item } = event.detail;
+    PageHelper.showOrderConfirmModal()
+      .then(() => {
+        this.requestConfirmOrder(item.id, OrderActionStatus.CONFIRM);
+      })
+      .catch(() => {
+        this.requestConfirmOrder(item.id, OrderActionStatus.CONFIRM_NOT);
+      });
+  },
+
+  /**
+   * 确认已到店
+   */
+  handleArriveClick(event) {
+    const { item } = event.detail;
+    PageHelper.showOrderArrivalModal().then(() => {
+      this.requestConfirmOrder(item.id, OrderActionStatus.ARRIVAL);
     });
+  },
+
+  requestConfirmOrder(orderId, actionType) {
+    const params = {
+      id: orderId,
+      type: actionType
+    };
+    PageHelper.requestWrapper(homeService.confirmOrder(params))
+      .then(() => {
+        PageHelper.showSuccessToast('操作成功');
+        this.sendRefreshRequest();
+      })
+      .catch(err => console.log(err));
   },
 
   /**

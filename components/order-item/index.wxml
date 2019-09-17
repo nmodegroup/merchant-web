@@ -9,7 +9,7 @@
     <view class="num-code">
         <view class="table-num">{{order.tableNum}}人</view>
         <block wx:if="{{order.confirmCode}}">
-            <view class="confirm-code">{{order.confirmCode}}</view>
+            <view class="confirm-code">确认码：{{order.confirmCode}}</view>
         </block>
     </view>
     <view class="user-time-action">
@@ -23,7 +23,7 @@
         </block>
 
         <block wx:if="{{ orderModule.isShowArrive(order.status) }}">
-            <view class="confirm-btn" bindtap="handleConfirm">已到达</view>
+            <view class="confirm-btn" bindtap="handleArrive">已到达</view>
         </block>
     </view>
 </view>

@@ -7,18 +7,23 @@
     <!-- 今日订单 -->
     <block wx:if="{{ orderModule.isToday(selectType) }}">
         <block wx:for="{{todayList}}" wx:key="index">
-            <order-item order="{{item}}" bind:itemClick="handleItemClick"></order-item>
+            <order-item order="{{item}}" bind:itemClick="handleItemClick" bind:arriveClick="handleArriveClick">
+            </order-item>
         </block>
     </block>
     <!-- 未来订单 -->
     <block wx:if="{{ orderModule.isFuture(selectType) }}">
         <block wx:for="{{futureList}}" wx:key="index">
-            <order-item order="{{futureList}}"></order-item>
+            <view class="arrival-time">到店日期：{{ item.arriveDate }}</view>
+            <block wx:for="{{item.orders}}" wx:key="orderIndex" wx:for-item="orderItem" wx:for-index="orderIndex">
+                <order-item order="{{orderItem}}" bind:itemClick="handleItemClick"
+                    bind:arriveClick="handleArriveClick" />
+            </block>
         </block>
     </block>
 
     <!-- toast -->
     <toast id="toast"></toast>
     <!-- modal -->
-    <modal id="modal" bind:get="getResult"></modal>
+    <modal id="modal"></modal>
 </view>

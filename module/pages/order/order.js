@@ -1,6 +1,8 @@
 // module/pages/order/order.js
-const { OrderType } = require('../../../constant/global');
+const { OrderType, OrderActionStatus } = require('../../../constant/global');
 const homeService = require('../../../service/home');
+const { PageConfig } = require('../../../utils/page');
+const PageHelper = new PageConfig();
 
 Page({
   /**
@@ -24,7 +26,7 @@ Page({
         type: OrderType.HISTORY
       }
     ],
-    currentType: OrderType.TODAY,
+    selectType: OrderType.TODAY,
     todayList: [],
     futureList: [],
     historyList: []
@@ -34,6 +36,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.initData();
     this.resetQuery();
     this.sendRefreshRequest();
   },
@@ -49,22 +52,40 @@ Page({
     }
   },
 
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+    this.resetQuery();
+    this.sendRefreshRequest();
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+    this.sendLoadMOreRequest();
+  },
+
+  initData() {
+    PageHelper.setupPageConfig(this);
+  },
+
   sendRefreshRequest() {
     const refreshStrategy = {
       [OrderType.TODAY]: () => this.requestTodayOrderList(),
       [OrderType.FUTURE]: () => this.requestFutureOrderList(),
       [OrderType.HISTORY]: () => this.requestHistoryOrderList()
     };
-    refreshStrategy[this.data.currentType]();
+    refreshStrategy[this.data.selectType]();
   },
 
   sendLoadMOreRequest() {
     const loadMoreStrategy = {
       [OrderType.TODAY]: () => this.requestTodayOrderList(this.pageNum + 1),
-      [OrderType.FUTURE]: () => this.requestFutureOrderList(),
       [OrderType.HISTORY]: () => this.requestHistoryOrderList(this.pageNum + 1)
     };
-    loadMoreStrategy[this.data.currentType]();
+    loadMoreStrategy[this.data.selectType]();
   },
 
   /**
@@ -72,38 +93,37 @@ Page({
    */
   requestTodayOrderList(pageNum = this.pageNum) {
     const params = this.queryParams(pageNum);
-    homeService
-      .getTodayOrderList(params)
+    PageHelper.requestWrapper(homeService.getTodayOrderList(params))
       .then(res => {
-        console.log('requestTodayOrderList:', res);
+        // 更新加载状态
         this.pageNum = pageNum;
-        this.setData({
-          todayList: res.list
-        });
-        this.stopPullDownRefresh();
+        const { todayList } = this.data;
+        if (pageNum === 1) {
+          this.setData({
+            todayList: res.list
+          });
+        } else {
+          this.setData({
+            todayList: todayList.concat(res.list)
+          });
+        }
       })
-      .catch(e => {
-        console.error(e);
-        this.stopPullDownRefresh();
-      });
+      .catch(err => console.log(err));
   },
 
   /**
    * 未来预定列表
    */
   requestFutureOrderList() {
-    homeService
-      .getFutureOrderList(params)
+    PageHelper.requestWrapper(homeService.getFutureOrderList(), this.isLoadFeatureFirst)
       .then(res => {
+        // 更新加载状态
+        this.isLoadFeatureFirst = false;
         this.setData({
-          futureList: res.orders
+          futureList: res
         });
-        this.stopPullDownRefresh();
       })
-      .catch(e => {
-        console.error(e);
-        this.stopPullDownRefresh();
-      });
+      .catch(err => console.log(err));
   },
 
   /**
@@ -111,18 +131,23 @@ Page({
    */
   requestHistoryOrderList(pageNum = this.pageNum) {
     const params = this.queryParams(pageNum);
-    homeService
-      .getHistoryOrderList(params)
+    PageHelper.requestWrapper(homeService.getHistoryOrderList(params))
       .then(res => {
+        // 更新加载状态
         this.pageNum = pageNum;
-        this.setData({
-          historyList: res.list
-        });
-        this.stopPullDownRefresh();
+        const { historyList } = this.data;
+        if (pageNum === 1) {
+          this.setData({
+            historyList: res.list
+          });
+        } else {
+          this.setData({
+            historyList: historyList.concat(res.list)
+          });
+        }
       })
       .catch(e => {
         console.error(e);
-        this.stopPullDownRefresh();
       });
   },
 
@@ -148,47 +173,50 @@ Page({
 
   handleTabChange(event) {
     console.log(event);
-    const { tab, index } = event.currentTarget.dataset;
-    // 已经选中不处理
-    if (tab.checked) {
-      return false;
-    }
-    this.resetTabListStatus(index, tab.type);
-    this.resetQuery();
-    this.sendRefreshRequest();
-  },
-
-  /**
-   * 重置当前 tablist 选中项
-   */
-  resetTabListStatus(selectedIndex, type) {
-    const tabList = this.data.tabList;
-    tabList.forEach((element, index) => {
-      element.checked = index === selectedIndex;
-    });
+    const { type } = event.detail;
     this.setData({
-      tabList: tabList,
-      currentType: type
+      selectType: type
     });
-  },
 
-  stopPullDownRefresh() {
-    wx.stopPullDownRefresh();
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
     this.resetQuery();
     this.sendRefreshRequest();
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   * 确认预定
    */
-  onReachBottom: function() {
-    this.sendLoadMOreRequest();
+  handleItemClick(event) {
+    const { item } = event.detail;
+    PageHelper.showOrderConfirmModal()
+      .then(() => {
+        this.requestConfirmOrder(item.id, OrderActionStatus.CONFIRM);
+      })
+      .catch(() => {
+        this.requestConfirmOrder(item.id, OrderActionStatus.CONFIRM_NOT);
+      });
+  },
+
+  /**
+   * 确认已到店
+   */
+  handleArriveClick(event) {
+    const { item } = event.detail;
+    PageHelper.showOrderArrivalModal().then(() => {
+      this.requestConfirmOrder(item.id, OrderActionStatus.ARRIVAL);
+    });
+  },
+
+  requestConfirmOrder(orderId, actionType) {
+    const params = {
+      id: orderId,
+      type: actionType
+    };
+    PageHelper.requestWrapper(homeService.confirmOrder(params))
+      .then(() => {
+        PageHelper.showSuccessToast('操作成功');
+        this.sendRefreshRequest();
+      })
+      .catch(err => console.log(err));
   },
 
   /**

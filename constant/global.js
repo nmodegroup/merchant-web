@@ -72,3 +72,13 @@ export class AppointTimeStatus {
   static OPEN = 0;
   static CLOSE = 1;
 }
+
+/**
+ * 确认通过、确认到店操作
+ * 1确认通过  2确认不通过  3确认到店
+ */
+export class OrderActionStatus {
+  static CONFIRM = 1;
+  static CONFIRM_NOT = 2;
+  static ARRIVAL = 3;
+}

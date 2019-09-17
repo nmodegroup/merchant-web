@@ -22,21 +22,21 @@ function isHistory(type) {
 }
 
 function getOrderStatusTitle(status) {
-  switch (status) {
+  switch (parseInt(status)) {
     case 0:
       return '等待确认';
     case 1:
       return '已确认';
     case 2:
-      return '未通过确认';
+      return '已取消';
     case 3:
       return '已取消';
     case 4:
-      return '超时取消';
+      return '已取消';
     case 5:
       return '已到店';
-    case 5:
-      return '已到店';
+    case 6:
+      return '到店超时';
     default:
       return '';
   }
@@ -55,7 +55,7 @@ function isShowConfirmAppoint(status) {
  * @param status 订单状态
  */
 function isShowArrive(status) {
-  return parseInt(status) === 1 && parseInt(status) === 6;
+  return parseInt(status) === 1 || parseInt(status) === 6;
 }
 
 module.exports = {

@@ -16,6 +16,7 @@ export function getTodayOrderList(params) {
       // .get('/merchant/table/order/today', params)
       .get({
         url: 'https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/table/order/today',
+        // url: 'https://api.bmkee.com/mock/21/merchant/table/order/today',
         params: params,
         contentType: httpManager.JSON
       })
@@ -35,7 +36,8 @@ export function getFutureOrderList(params) {
   return new Promise((resolve, reject) => {
     httpManager
       .get({
-        url: '/merchant/table/order/future',
+        // url: '/merchant/table/order/future',
+        url: 'https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/merchant/table/order/future',
         params: params,
         contentType: httpManager.JSON
       })
@@ -55,7 +57,8 @@ export function getHistoryOrderList(params) {
   return new Promise((resolve, reject) => {
     httpManager
       .get({
-        url: '/merchant/table/order/history',
+        // url: '/merchant/table/order/history',
+        url: 'https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/merchant/table/order/history',
         params: params,
         contentType: httpManager.JSON
       })

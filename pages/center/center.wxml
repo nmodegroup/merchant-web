@@ -31,10 +31,12 @@
       <view class='col-item' bindtap="handleColClick" data-type="shop">
         <image class='col-image' src="../../image/center/center_shop.png"></image>
         <text>店铺信息</text>
+        <!-- 已认证 -->
         <block wx:if="{{ centerModule.isAuditSuccess(auditStatus) }}">
           <tag title='{{ centerModule.getAuditStatus(auditStatus) }}' showIcon="{{ true }}"
             iconPath="/image/toast/icon_succed.svg" bgColor="#456AEC" />
         </block>
+        <!-- 未认证、认证审核中、审核未通过 -->
         <block wx:else>
           <tag title='{{ centerModule.getAuditStatus(auditStatus) }}'
             showIcon="{{ centerModule.isAuditFail(auditStatus) }}" iconPath="/image/global/icon_reason.svg"
