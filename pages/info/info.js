@@ -462,23 +462,25 @@ Page({
    * 解析手机号
    */
   requestParsePhone(encryptedData, iv) {
-    PageHelper.requestWrapper(wxManager.login()).then(code => {
-      const params = {
-        encrypted: encryptedData,
-        iv: iv,
-        code: code
-      };
-
-      // 解析手机号
-      PageHelper.requestWrapper(userService.parsePhone(params)).then(phone => {
-        this.setData({
-          authPhoneSuccess: true
+    PageHelper.requestWrapper(wxManager.login())
+      .then(code => {
+        return {
+          encrypted: encryptedData,
+          iv: iv,
+          code: code
+        };
+      })
+      .then(params => {
+        // 解析手机号
+        PageHelper.requestWrapper(userService.parsePhone(params)).then(phone => {
+          this.setData({
+            authPhoneSuccess: true
+          });
+          // 将手机号存到全局
+          store.phone = phone;
+          this.commitForm();
         });
-        // 将手机号存到全局
-        store.phone = phone;
-        this.commitForm();
       });
-    });
   },
 
   handleSkip() {
@@ -494,11 +496,6 @@ Page({
     /* 校验门店名称 */
     if (!regular.regShopName(shopName) || regular.regAllNumber(shopName)) {
       return PageHelper.showToast('门店名称至少1个字符可包含中文\n字母数字但不能全为数字');
-    }
-
-    /* 校验手机号 */
-    if (!regular.regPhoneNumber(shopPhone) || !regular.regStablePhone(shopPhone)) {
-      return PageHelper.showToast('请输入正确的电话号码');
     }
 
     /* 完善店铺信息需要更多校验 */

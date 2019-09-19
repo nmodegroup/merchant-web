@@ -27,15 +27,6 @@ export function regActivityTheme(str) {
  * @param {string} phone 手机号码
  */
 export function regPhoneNumber(phone) {
-  const reg = /^1(3|4|5|6|7|8|9)\d{9}$/;
-  return reg.test(phone);
-}
-
-/**
- * 校验是否为固定电话
- * @param {string} phone 手机号码
- */
-export function regStablePhone(phone) {
-  const reg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+  const reg = /^(?:(?:\+|00)86)?1\d{10}$/;
   return reg.test(phone);
 }

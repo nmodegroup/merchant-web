@@ -393,11 +393,6 @@ Page({
       return PageHelper.showToast('活动主题1-15个字符可包含中文\n字母数字但不能全为数字');
     }
 
-    /* 校验手机号 */
-    if (!regular.regPhoneNumber(phone) || !regular.regStablePhone(phone)) {
-      return PageHelper.showToast('请输入正确的电话号码');
-    }
-
     /* 按固定名额限制需要填写限额数量 */
     if (quotaType === QuotaType.FIXED_LIMIT && isEmpty(quota)) {
       return PageHelper.showToast('请输入预定限额数量');

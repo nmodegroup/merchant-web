@@ -96,14 +96,22 @@ export function getEachWeekTitle(week) {
   }
 }
 
+/**
+ * 生成小时数组
+ */
 export function getHours() {
-  const length = 23;
-  return Array.from({ length }, (v, k) => k);
+  const length = 24;
+  return Array.from({ length }, (v, k) => {
+    return k < 10 ? `0${k}` : `${k}`;
+  });
 }
 
+/**
+ * 生成分钟数组
+ */
 export function getMinutes() {
   const length = 59;
   return Array.from({ length }, (v, k) => {
-    return k < 10 ? `0${k}` : k;
+    return k < 10 ? `0${k}` : `${k}`;
   });
 }

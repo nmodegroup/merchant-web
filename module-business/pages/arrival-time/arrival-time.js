@@ -1,6 +1,7 @@
 // module/pages/arrival-time/arrival-time.js
 const timeService = require('../../../service/time');
 const { createNumberArray } = require('../../../utils/global');
+const { getHours } = require('../../../utils/date');
 const { AppointTimeStatus } = require('../../../constant/global');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
@@ -50,7 +51,7 @@ Page({
   },
 
   generateArray() {
-    const hourArr = createNumberArray(24);
+    const hourArr = getHours();
     const minuteArr = ['00', '30'];
     this.setData({
       hours: hourArr,
@@ -69,7 +70,6 @@ Page({
   },
 
   handleSwitchChange(event) {
-    console.log(event);
     const { index, item } = event.currentTarget.dataset;
     this.requestSwitchStatus(item, index);
   },
@@ -134,7 +134,6 @@ Page({
   },
 
   handleClose(event) {
-    console.log('event:', event);
     const { position, instance } = event.detail;
     switch (position) {
       case 'cell':
@@ -152,7 +151,6 @@ Page({
    * 编辑时间
    */
   handleEdit(event) {
-    console.log('handleEdit', event);
     this.isEdit = true;
     const item = event.currentTarget.dataset.item;
     const times = item.time.split(':');
@@ -168,7 +166,6 @@ Page({
    * 删除时间
    */
   handleDelete(event) {
-    console.log('handleDelete', event);
     const { id } = event.currentTarget.dataset;
     this.handleDeleteModal(id);
   },
@@ -193,7 +190,6 @@ Page({
    * 时间选择事件
    */
   handleSelectChange(event) {
-    console.log(event);
     const type = event.currentTarget.dataset.type;
     const selectOption = event.detail.selectOption;
     this.setData({

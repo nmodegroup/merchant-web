@@ -58,11 +58,25 @@ function isShowArrive(status) {
   return parseInt(status) === 1 || parseInt(status) === 6;
 }
 
+/**
+ * 格式化手机号 150****0003
+ */
+function formatPhone(phone) {
+  if (phone == null) {
+    return '';
+  }
+  if (phone.length !== 11) {
+    return phone;
+  }
+  return phone.substring(0, 3) + '****' + phone.substring(7);
+}
+
 module.exports = {
   isToday: isToday,
   isFuture: isFuture,
   isHistory: isHistory,
   getOrderStatusTitle: getOrderStatusTitle,
   isShowConfirmAppoint: isShowConfirmAppoint,
-  isShowArrive: isShowArrive
+  isShowArrive: isShowArrive,
+  formatPhone: formatPhone
 };

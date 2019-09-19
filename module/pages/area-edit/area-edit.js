@@ -47,9 +47,7 @@ Page({
   handleCreateArea() {
     const { areaName } = this.data;
     if (!areaName || areaName.length < 2 || areaName.length > 10) {
-      return this.toast.showToast({
-        content: '区域名2-10个字符\n可包含中文字母数字'
-      });
+      return PageHelper.showFailToast('区域名2-10个字符\n可包含中文字母数字');
     }
     this.requestEditArea();
   },

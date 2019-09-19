@@ -6,6 +6,7 @@ page {
 .arrival-page {
   font-size: 30rpx;
   color: #fff;
+  padding-bottom: 120rpx;
 }
 
 .desc {

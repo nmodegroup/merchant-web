@@ -1,6 +1,6 @@
 // module/pages/table-edit/table-edit.js
-const wxManager = require('../../../utils/wxManager');
 const tableService = require('../../../service/table');
+const { regAllNumber } = require('../../../utils/regular');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
 
@@ -108,6 +108,9 @@ Page({
       }
       if (!tableNum) {
         return reject('请填写桌位最多容纳人数');
+      }
+      if (!regAllNumber(tableNum)) {
+        return reject('桌位人数填写不正确');
       }
       resolve({
         tableAreaId: selectArea.id,

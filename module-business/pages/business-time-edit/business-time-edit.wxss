@@ -1,4 +1,7 @@
 /* module/pages/business-time-edit/busine.wxss */
+.business-edit-page {
+  padding-bottom: 98rpx;
+}
 
 .week {
   font-size: 28rpx;

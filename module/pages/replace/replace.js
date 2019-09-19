@@ -3,6 +3,7 @@ const commonService = require('../../../service/common');
 const { isEmpty } = require('../../../utils/global');
 const { debounce } = require('../../../utils/throttle-debounce/index');
 const { PageConfig } = require('../../../utils/page');
+const { regPhoneNumber } = require('../../../utils/regular');
 const PageHelper = new PageConfig();
 const store = getApp().globalData;
 
@@ -164,6 +165,10 @@ Page({
       return false;
     }
 
+    if (!regPhoneNumber(phone)) {
+      return PageHelper.showFailToast('请输入正确的手机号码');
+    }
+
     const params = {
       phone: phone,
       code: oldCode
@@ -180,11 +185,14 @@ Page({
   },
 
   commitFrom() {
-    console.log('commitFrom');
     const { phone, oldCode, newCode } = this.data;
 
     if (isEmpty(phone) || isEmpty(oldCode) || isEmpty(newCode)) {
       return false;
+    }
+
+    if (!regPhoneNumber(phone)) {
+      return PageHelper.showFailToast('请输入正确的手机号码');
     }
 
     const params = {

@@ -1,7 +1,7 @@
 // module/pages/business-time-edit/busine.js
 const wxManager = require('../../../utils/wxManager');
 const pageConstant = require('../../../constant/page');
-const { getWeekTitle, getHours, getMinutes } = require('../../../utils/date');
+const { getWeekTitle } = require('../../../utils/date');
 const { initValue, isEdit, isEmpty } = require('../../../utils/global');
 const eventEmitter = getApp().eventEmitter;
 const { createNumberArray } = require('../../../utils/global');
@@ -14,8 +14,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hours: getHours(),
-    minutes: getMinutes(),
     isEdit: false,
     businessId: '',
     currentBeginDate: '',

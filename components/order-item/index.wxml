@@ -16,7 +16,7 @@
         <view class="user-time-info">
             <view class="arrival-time">到店时间：{{order.appointArriveTime}}</view>
             <view class="reserve-time">预订时间：{{order.appointTime}}</view>
-            <view class="user-info">{{order.nickName + " " + order.phone}}</view>
+            <view class="user-info">{{order.nickName + " " + orderModule.formatPhone(order.phone)}}</view>
         </view>
         <block wx:if="{{ orderModule.isShowConfirmAppoint(order.status) }}">
             <view class="confirm-btn" bindtap="handleConfirm">确认预定</view>

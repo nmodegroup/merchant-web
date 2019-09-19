@@ -5,7 +5,7 @@ page {
 }
 
 .table-page {
-  padding-bottom: 98rpx;
+  padding-bottom: 120rpx;
 }
 
 .action-item {
