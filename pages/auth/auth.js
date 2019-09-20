@@ -107,7 +107,6 @@ Page({
       .then(res => {
         store.token = res.token;
         store.phone = res.phone || '';
-        res.isFirst = true; // TODO: delete
         if (res.isFirst) {
           this.goInfoPage();
         } else {
