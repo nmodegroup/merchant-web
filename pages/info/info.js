@@ -100,31 +100,36 @@ Page({
   },
 
   requestMerchantInfo() {
-    PageHelper.requestWrapper(shopService.getShopInfo()).then(res => {
-      this.setData(
-        {
-          shopName: initValue(res.name),
-          shopPhone: initValue(res.phone),
-          cityId: initValue(res.cityId),
-          areaId: initValue(res.areaId),
-          cityName: initValue(res.cityName),
-          areaName: initValue(res.areaName),
-          selectCity: res.cityName ? `${res.cityName} ${res.areaName}` : '',
-          address: initValue(res.address),
-          selectShopType: this.getShopType(res.type),
-          logo: initValue(res.logo),
-          price: initValue(res.price),
-          covers: isEmpty(res.covers) ? this.defaultCovers : Object.assign([], this.defaultCovers, res.covers),
-          bartenders: isEmpty(res.bartenders) ? this.defaultBartenders : Object.assign([], this.defaultBartenders, res.bartenders),
-          desc: initValue(res.desc)
-        },
-        () => {
-          this.fillCovers = isEmpty(res.covers) ? [] : res.covers;
-          this.defaultBartenders = this.data.bartenders;
-          this.refreshFormVerify();
-        }
-      );
-    });
+    PageHelper.requestWrapper(shopService.getShopInfo())
+      .then(res => {
+        this.setData(
+          {
+            shopName: initValue(res.name),
+            shopPhone: initValue(res.phone),
+            cityId: initValue(res.cityId),
+            areaId: initValue(res.areaId),
+            cityName: initValue(res.cityName),
+            areaName: initValue(res.areaName),
+            selectCity: res.cityName ? `${res.cityName} ${res.areaName}` : '',
+            address: initValue(res.address),
+            selectShopType: this.getShopType(res.type),
+            logo: initValue(res.logo),
+            price: initValue(res.price),
+            covers: isEmpty(res.covers) ? this.defaultCovers : Object.assign([], this.defaultCovers, res.covers),
+            bartenders: isEmpty(res.bartenders) ? this.defaultBartenders : Object.assign([], this.defaultBartenders, res.bartenders),
+            desc: initValue(res.desc)
+          },
+          () => {
+            this.fillCovers = isEmpty(res.covers) ? [] : res.covers;
+            this.defaultBartenders = this.data.bartenders;
+            this.refreshFormVerify();
+          }
+        );
+      })
+      .catch(() => {
+        // 加载出错退出
+        PageHelper.showNetworkFailModal();
+      });
   },
 
   getShopType(type) {

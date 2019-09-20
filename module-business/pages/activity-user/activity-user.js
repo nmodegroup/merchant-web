@@ -82,22 +82,15 @@ Page({
     this.pageNum = currentPage;
   },
 
-  /**
-   * 校验是否有更多
-   */
-  checkHasmore(remotePageNum, remotePageSize, totalSize) {
-    this.hasmore = this.pageSize * (remotePageNum - 1) + remotePageSize < totalSize;
-  },
-
   requestUserList(currentPage = 1) {
     const params = this.queryParams(currentPage);
     PageHelper.requestWrapper(activityService.getActivityUser(params)).then(result => {
       this.setPageNum(currentPage);
-      this.checkHasmore(result.pageNum, result.pageSize, result.totalSize);
       const oldList = this.data.userList;
       this.setData({
         userList: currentPage === 1 ? result.list : oldList.concat(result.list)
       });
+      this.hasmore = PageHelper.checkHasmore(this.data.userList, result.totalSize);
     });
   },
 

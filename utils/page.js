@@ -45,8 +45,8 @@ export class PageConfig {
             wxManager.hideLoading();
           }
           wxManager.stopRefreshAndLoading();
-          this.showToast(res.msg);
           reject(res);
+          this.showToast(res.msg);
         });
     });
   }
@@ -244,6 +244,21 @@ export class PageConfig {
   }
 
   /**
+   * 网络加载失败
+   */
+  showNetworkFailModal() {
+    this.currentPage().modal.showModal({
+      content: '网络似乎加载失败了，请重试~',
+      title: '温馨提示',
+      confirmText: '我知道了',
+      hideCancel: true,
+      onConfirm: () => {
+        wxManager.navigateBack();
+      }
+    });
+  }
+
+  /**
    * 校验弹窗是否点击的确认
    * @param {object} event 点击事件
    */
@@ -257,5 +272,12 @@ export class PageConfig {
    */
   isModalCancel(event) {
     return event.detail.result === 'cancel';
+  }
+
+  /**
+   * 校验是否能够上拉加载更多
+   */
+  checkHasmore(length, totalSize) {
+    return length < totalSize;
   }
 }

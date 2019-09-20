@@ -85,12 +85,15 @@
 
 .appoint-time {
   margin-bottom: 10rpx;
-}
-
-.table-name-num {
-  padding: 0 30rpx;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  max-width: 160rpx;
+  padding: 0 10rpx;
+}
+
+.table-name-num {
+  padding: 0 10rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

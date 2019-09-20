@@ -1,4 +1,8 @@
 /* pages/activity/activity.wxss */
+.main-container {
+  padding-bottom: 120rpx;
+}
+
 .activity-page {
   padding: 30rpx;
 }
@@ -57,6 +61,8 @@
   position: absolute;
   right: 20rpx;
   top: 16rpx;
+  /* text-shadow: 5px 5px 15px #000, -5px 5px 35px #000, 5px -5px 35px #000, -5px -5px 35px #000; */
+  text-shadow: black 0.1em 0.1em 0.2em;
 }
 
 .activity-info {

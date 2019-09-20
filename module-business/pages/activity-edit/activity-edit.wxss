@@ -19,6 +19,7 @@
 
 .input-view {
   margin-right: 60rpx;
+  margin-left: 60rpx;
 }
 
 /* 限制预定数量 */

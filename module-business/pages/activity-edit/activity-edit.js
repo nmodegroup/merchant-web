@@ -18,7 +18,6 @@ Page({
    */
   data: {
     minDate: new Date().getTime(),
-    maxDate: new Date(2019, 10, 1).getTime(), // TODO: 时间修改
     currentDate: new Date().getTime(),
     quotaList: quotaList,
     title: '创建活动',
@@ -138,14 +137,19 @@ Page({
     const params = {
       id: activityId
     };
-    PageHelper.requestWrapper(activityService.getActivityDetail(params)).then(res => {
-      this.setData({
-        ...res,
-        selectArea: isEmpty(res.cityName) ? '' : `${res.cityName} ${res.areaName}`,
-        displayBanner: isEmpty(res.banner) ? '' : `${ENV.sourceHost}${res.banner}`,
-        displayPost: isEmpty(res.post) ? '' : `${ENV.sourceHost}${res.post}`
+    PageHelper.requestWrapper(activityService.getActivityDetail(params))
+      .then(res => {
+        this.setData({
+          ...res,
+          selectArea: isEmpty(res.cityName) ? '' : `${res.cityName} ${res.areaName}`,
+          displayBanner: isEmpty(res.banner) ? '' : `${ENV.sourceHost}${res.banner}`,
+          displayPost: isEmpty(res.post) ? '' : `${ENV.sourceHost}${res.post}`
+        });
+      })
+      .catch(() => {
+        // 加载出错退出
+        PageHelper.showNetworkFailModal();
       });
-    });
   },
 
   handleInput(event) {

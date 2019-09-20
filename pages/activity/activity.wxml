@@ -30,7 +30,6 @@
                 <view>{{item.orderNum}}人预订</view>
                 <view class="go-detail">查看详情</view>
               </view>
-              <!-- TODO: 时间处理 -->
               <view>活动时间：{{item.beginTime}}</view>
             </view>
             <!-- 审核未通过 -->

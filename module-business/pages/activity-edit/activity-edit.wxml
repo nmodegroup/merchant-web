@@ -81,14 +81,14 @@
 
     <!-- 完整时间选择 开始时间 -->
     <van-popup show="{{visibleStartTime}}" position="bottom" overlay-style="background:rgba(0,0,0,0.5)">
-        <van-datetime-picker type="datetime" value="{{ currentDate }}" min-date="{{ minDate }}" max-date="{{ maxDate }}"
+        <van-datetime-picker type="datetime" value="{{ currentDate }}" min-date="{{ minDate }}"
             bind:input="onStartInput" bind:cancel="onTimeCancel" bind:confirm="onTimeConfirm" data-type="beginTime" />
     </van-popup>
 
     <!-- 完整时间选择 结束时间 -->
     <van-popup show="{{visibleEndTime}}" position="bottom" overlay-style="background:rgba(0,0,0,0.5)">
-        <van-datetime-picker type="datetime" value="{{ currentDate }}" min-date="{{ minDate }}" max-date="{{ maxDate }}"
-            bind:input="onEndInput" bind:cancel="onTimeCancel" bind:confirm="onTimeConfirm" data-type="endTime" />
+        <van-datetime-picker type="datetime" value="{{ currentDate }}" min-date="{{ minDate }}" bind:input="onEndInput"
+            bind:cancel="onTimeCancel" bind:confirm="onTimeConfirm" data-type="endTime" />
     </van-popup>
 
     <!-- 省市区选择 -->

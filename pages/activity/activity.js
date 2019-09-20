@@ -86,18 +86,10 @@ Page({
     this.pageNum = currentPage;
   },
 
-  /**
-   * 校验是否有更多
-   */
-  checkHasmore(remotePageNum, remotePageSize, totalSize) {
-    this.hasmore = this.pageSize * (remotePageNum - 1) + remotePageSize < totalSize;
-  },
-
   requestActivityList(currentPage = 1) {
     const params = this.queryParams(currentPage);
     PageHelper.requestWrapper(activityService.getActivityList(params), this.isLoadActivityFirst).then(result => {
       this.setPageNum(currentPage);
-      this.checkHasmore(result.pageNum, result.pageSize, result.totalSize);
       const oldList = this.data.activityList;
       const activityList = this.resolveActivityList(result.list);
       this.setData({
@@ -105,6 +97,7 @@ Page({
       });
       // 更新加载状态
       this.isLoadActivityFirst = false;
+      this.hasmore = PageHelper.checkHasmore(this.data.activityList.length, result.totalSize);
     });
   },
 
@@ -141,7 +134,6 @@ Page({
     });
   },
 
-  // TODO: delete
   handleEditActivity(event) {
     wxManager.navigateTo(PageConstant.ACTIVITY_EDIT_URL, {
       activityId: event.currentTarget.dataset.id

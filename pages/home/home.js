@@ -56,6 +56,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    if (!this.hasmore) {
+      return false;
+    }
     this.sendLoadMOreRequest();
   },
 
@@ -103,6 +106,7 @@ Page({
             todayList: todayList.concat(res.list)
           });
         }
+        this.hasmore = PageHelper.checkHasmore(this.data.todayList.length, res.totalSize);
       })
       .catch(err => console.log(err));
   },
@@ -121,8 +125,6 @@ Page({
       })
       .catch(err => console.log(err));
   },
-
-  checkHasMore() {},
 
   /**
    * query 参数
