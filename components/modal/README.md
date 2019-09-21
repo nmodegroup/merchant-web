@@ -8,19 +8,29 @@
 # 1、app.json 全局引入或者当前页面 .json 文件引入
 "modal": "/components/modal/index"
 
-# 2、在wxml引入 getResult接收组件确认或者取消回调 cancel取消 confirm确认
-<modal id="modal" bind:get="getResult"></modal>
+# 2、在wxml引入
+<modal id="modal" ></modal>
 
 # 3、onLoad 初始化
 this.modal = this.selectComponent('#modal');
 ```
 
-# 4 getResult 接收组件确认或者取消回调 cancel 取消 confirm 确认
+# 4 接收组件确认或者取消回调 onCancel 取消 onConfirm 确认
 
 ```javascript
-getResult: function (e) {
-  console.log(e.detail)
-}
+this.modal.showModal({
+  content: content,
+  title: '温馨提示',
+  cancelText: '点错了',
+  confirmText: '确定删除',
+  hideCancel: false,
+  onConfirm: () => {
+    // do something
+  },
+  onCancel: () => {
+    // do something
+  }
+});
 ```
 
 多行文字\n
@@ -51,7 +61,7 @@ this.modal.showModal({
 });
 
 # 2、在 modal 中自定义内容
-<modal id="modal" bind:get="getResult">
+<modal id="modal">
   <view>我也是醉了</view>
 </modal>
 ```

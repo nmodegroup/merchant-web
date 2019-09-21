@@ -100,5 +100,5 @@
     <toast id="toast"></toast>
 
     <!-- 定位弹窗 -->
-    <modal id="modal" bind:get="onLocationClick"></modal>
+    <modal id="modal"></modal>
 </view>

@@ -2,10 +2,16 @@
 <view class="code-page">
   <nav-bar title="商家二维码" back home></nav-bar>
   <view class="image-container">
-    <image mode="aspectFill" src="{{ shareImg }}" bindtap="handlePreview"></image>
+    <image class="code-bg" src="../../image/code-bg.jpeg"></image>
+    <image class="code-image" src="{{ codeImageUrl }}"></image>
   </view>
+  <!-- canvas 绘制 -->
+  <canvas canvas-id='myCanvas' class='canvas'></canvas>
   <form-button enabled="{{ true }}" buttonText="保存到相册" bind:click="handleSaveImage"></form-button>
 
   <!-- toast -->
   <toast id="toast"></toast>
+
+  <!-- 保存相册授权失败弹窗 -->
+  <modal id="modal"></modal>
 </view>

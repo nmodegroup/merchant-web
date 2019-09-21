@@ -128,7 +128,7 @@ export class PageConfig {
       throw new Error('Toast error: toast is not init in onLoad or toast id is not match（is wrong）');
     }
     if (isEmpty(msg)) {
-      return console.error('showToast error: msg is null');
+      return console.warn('showToast error: msg is null');
     }
     this.currentPage().Toast.showToast({
       content: msg
@@ -139,8 +139,6 @@ export class PageConfig {
    * 未认证弹窗
    */
   showAuthModal() {
-    console.log('showAuthModal');
-    console.log('this', this);
     this.currentPage().modal.showModal({
       content: '您还没有进行店铺认证',
       cancelText: '取消',
@@ -238,6 +236,51 @@ export class PageConfig {
         hideCancel: false,
         onConfirm: () => {
           resolve();
+        }
+      });
+    });
+  }
+
+  /**
+   * 定位授权失败提示弹窗
+   */
+  showLocationModal() {
+    return new Promise(resolve => {
+      this.currentPage().modal.showModal({
+        content: '授权定位功能失败，\n可打开设置页面进行手动授权',
+        title: '温馨提示',
+        cancelText: '取消',
+        confirmText: '去授权',
+        hideCancel: false,
+        onConfirm: () => {
+          wxManager.openSetting().then(res => {
+            if (res.authSetting['scope.userLocation']) {
+              console.log('start get location');
+              resolve();
+            }
+          });
+        }
+      });
+    });
+  }
+
+  /**
+   * 保存相册授权失败提示弹窗
+   */
+  showSaveAlbumModal() {
+    return new Promise(resolve => {
+      this.currentPage().modal.showModal({
+        content: '保存相册授权失败，\n可打开设置页面进行手动授权',
+        title: '温馨提示',
+        cancelText: '取消',
+        confirmText: '去授权',
+        hideCancel: false,
+        onConfirm: () => {
+          wxManager.openSetting().then(res => {
+            if (res.authSetting['scope.writePhotosAlbum']) {
+              resolve();
+            }
+          });
         }
       });
     });

@@ -166,26 +166,13 @@ Page({
       });
   },
 
+  /**
+   * 定位授权弹窗
+   */
   showLocationModal() {
-    this.modal.showModal({
-      content: '授权定位功能失败，\n可打开设置页面进行手动授权',
-      title: '温馨提示',
-      cancelText: '取消',
-      confirmText: '去授权',
-      hideCancel: false
+    PageHelper.showLocationModal().then(() => {
+      this.getLocation();
     });
-  },
-
-  onLocationClick(event) {
-    // 点击了去授权
-    if (PageHelper.isModalConfirm(event)) {
-      wxManager.openSetting().then(res => {
-        if (res.authSetting['scope.userLocation']) {
-          console.log('start get location');
-          this.getLocation();
-        }
-      });
-    }
   },
 
   handleInput(event) {

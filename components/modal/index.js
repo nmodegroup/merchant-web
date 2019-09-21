@@ -48,8 +48,6 @@ Component({
       if (onCancel && typeof onCancel === 'function') {
         return onCancel();
       }
-
-      this.triggerEvent('get', { result: 'cancel' });
     },
 
     confirm() {
@@ -61,8 +59,6 @@ Component({
       if (onConfirm && typeof onConfirm === 'function') {
         return onConfirm();
       }
-
-      this.triggerEvent('get', { result: 'confirm' });
     }
   }
 });

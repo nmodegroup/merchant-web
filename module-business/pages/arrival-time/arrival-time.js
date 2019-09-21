@@ -109,14 +109,11 @@ Page({
       cancelText: '取消',
       confirmText: '保存',
       hideCancel: false,
-      custom: true
+      custom: true,
+      onConfirm: () => {
+        this.requestEditTime();
+      }
     });
-  },
-
-  selectCallback(event) {
-    if (PageHelper.isModalConfirm(event)) {
-      this.requestEditTime();
-    }
   },
 
   requestEditTime() {

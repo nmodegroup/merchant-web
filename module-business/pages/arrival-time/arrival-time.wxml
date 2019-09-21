@@ -45,7 +45,7 @@
   <modal id="modal"></modal>
 
   <!-- 选择时间弹窗 -->
-  <modal id="modalSelect" bind:get="selectCallback">
+  <modal id="modalSelect">
     <view class="select-wrapper">
       <select selectList="{{hours}}" value="{{selectHour}}" bind:onChange="handleSelectChange"
         data-type="selectHour"></select>

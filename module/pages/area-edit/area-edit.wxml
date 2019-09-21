@@ -13,5 +13,5 @@
     </block>
     <toast id="toast"></toast>
     <!-- 删除弹窗 -->
-    <modal id="modal" bind:get="onDeleteCallback"></modal>
+    <modal id="modal"></modal>
 </view>

@@ -34,5 +34,5 @@
   <!-- toast -->
   <toast id="toast"></toast>
   <!-- 定位弹窗 -->
-  <modal id="modal" bind:get="onModalCallback"></modal>
+  <modal id="modal"></modal>
 </view>
