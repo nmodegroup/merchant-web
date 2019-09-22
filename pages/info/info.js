@@ -521,16 +521,16 @@ Page({
   },
 
   isNotFill(bartender) {
-    return isEmpty(bartender.img) && isEmpty(bartender.desc) && isEmpty(bartender.cnName) && isEmpty(bartender.enName);
+    return isEmpty(bartender.img) && isEmpty(bartender.desc) && isEmpty(bartender.chName) && isEmpty(bartender.enName);
   },
 
   isAllFill(bartender) {
-    return !isEmpty(bartender.img) && !isEmpty(bartender.desc) && !isEmpty(bartender.cnName) && !isEmpty(bartender.enName);
+    return !isEmpty(bartender.img) && !isEmpty(bartender.desc) && !isEmpty(bartender.chName) && !isEmpty(bartender.enName);
   },
 
   getFillBartenders() {
     return this.data.bartenders.filter(bartender => {
-      return bartender.img && bartender.desc && bartender.cnName && bartender.enName;
+      return bartender.img && bartender.desc && bartender.chName && bartender.enName;
     });
   },
 
@@ -589,7 +589,7 @@ Page({
       return {
         img: bartender.img,
         desc: bartender.desc,
-        cnName: bartender.cnName,
+        chName: bartender.chName,
         enName: bartender.enName
       };
     });

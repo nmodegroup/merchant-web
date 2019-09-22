@@ -60,9 +60,9 @@
                     <view class="bartender-item" wx:for="{{ bartenders }}" wx:key="index">
                         <cell-input title="调酒师姓名" custom-class="cell-input-custom" custom-title-class="custom-title">
                             <div class="bartender-name-wrapper">
-                                <input class="input-view" placeholder-class="placeholder" value="{{item.cnName}}"
+                                <input class="input-view" placeholder-class="placeholder" value="{{item.chName}}"
                                     placeholder="请输入调酒师姓名" data-index="{{ index }}" bindinput="handleBartenderInput"
-                                    data-type="cnName" />
+                                    data-type="chName" />
                             </div>
                         </cell-input>
 

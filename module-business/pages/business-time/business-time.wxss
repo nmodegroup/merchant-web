@@ -1,7 +1,7 @@
 /* module/pages/business-time/business-time.wxss */
 
 .business-page {
-  padding-bottom: 120rpx;
+  padding-bottom: 176rpx;
 }
 
 .business-page {
