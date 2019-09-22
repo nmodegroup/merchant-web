@@ -24,6 +24,10 @@
 
 .nickname {
   flex: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-right: 30rpx;
 }
 
 .phone {

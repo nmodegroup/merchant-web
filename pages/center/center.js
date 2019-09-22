@@ -16,7 +16,7 @@ Page({
    */
   data: {
     navBgColor: 'none',
-    contactPhoneNumber: '159 0904 0903', //TODO:手机号修改
+    contactPhoneNumber: '130 2543 7441',
     isTable: false, // 桌位是否设定
     businessStatusOpen: false, // 营业状态
     appointOpen: false, // 预约开关
@@ -255,7 +255,7 @@ Page({
       arrivalTime: () => this.navigation(PageConstant.ARRIVAL_TIME_URL),
       order: () => this.navigation(PageConstant.ORDER_URL),
       qrCode: () => this.goCodePage(),
-      help: () => this.navigation(PageConstant.HELP_URL),
+      protocol: () => this.navigation(PageConstant.PROTOCOL_URL),
       contact: () => this.makePhoneCall()
     };
     return cellStrategy[type] ? cellStrategy[type]() : console.error('type error');

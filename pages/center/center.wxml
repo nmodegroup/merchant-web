@@ -80,7 +80,7 @@
     <panel title='其他' />
     <cell title='订单管理' type="order" bind:cellClick="handleCellClick" />
     <cell title='商家二维码' type="qrCode" bind:cellClick="handleCellClick" />
-    <cell title='帮助中心' type="help" bind:cellClick="handleCellClick" />
+    <cell title='用户协议' type="protocol" bind:cellClick="handleCellClick" />
     <cell title='联系我们' type="contact" bind:cellClick="handleCellClick">
       <text class='font-size-24'>{{contactPhoneNumber}}</text>
     </cell>

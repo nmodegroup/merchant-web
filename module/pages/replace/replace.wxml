@@ -36,8 +36,7 @@
                 buttonText="{{ isSecondStep ? '完成' : '下一步' }}" />
         </view>
         <view class="code-tips">收不到验证码</view>
-        <!-- TODO: 客服电话 -->
-        <view class="code-tips">请拨打 ***-***-**** 联系客服</view>
+        <view class="code-tips">请拨打 130-2543-7441 联系客服</view>
     </view>
 
     <!-- toast -->

@@ -17,7 +17,7 @@ export const ORDER_URL = '/module/pages/order/order';
 
 export const QR_CODE_URL = '/module/pages/code/code';
 
-export const HELP_URL = '/module/pages/help/help';
+export const PROTOCOL_URL = '/module/pages/protocol/protocol';
 
 export const TABLE_URL = '/module/pages/table/table';
 

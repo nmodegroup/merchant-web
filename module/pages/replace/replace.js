@@ -98,8 +98,6 @@ Page({
     if (isSecondStep) {
       return !isEmpty(phone) && !isEmpty(newCode);
     }
-    console.log('phone', !isEmpty(phone));
-    console.log('oldCode', !isEmpty(oldCode));
     return !isEmpty(phone) && !isEmpty(oldCode);
   },
 
@@ -202,7 +200,7 @@ Page({
     };
 
     PageHelper.requestWrapper(userService.bindNewPhone(params)).then(res => {
-      store.phone = res;
+      store.phone = phone;
       PageHelper.requestSuccessCallback('您的手机号换绑成功');
     });
   }

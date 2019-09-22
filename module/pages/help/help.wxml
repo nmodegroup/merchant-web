@@ -1,4 +1,0 @@
-<!--module/pages/help/help.wxml-->
-<view class="help-page">
-  <nav-bar title="帮助中心" back home></nav-bar>
-</view>

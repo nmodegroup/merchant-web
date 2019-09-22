@@ -377,7 +377,7 @@ Page({
     }
 
     /* 校验门店名称 */
-    if (!regular.regActivityTheme(theme) || regular.regAllNumber(theme)) {
+    if (theme.length === 0 || theme.length > 15 || regular.regAllNumber(theme)) {
       return PageHelper.showToast('活动主题1-15个字符可包含中文\n字母数字但不能全为数字');
     }
 

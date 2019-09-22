@@ -73,7 +73,7 @@ Component({
         arrivalTime: '../../image/center/center_arrival_time.svg',
         order: '../../image/center/center_order.svg',
         qrCode: '../../image/center/center_qr_code.svg',
-        help: '../../image/center/center_help.svg',
+        protocol: '../../image/center/center_about.svg',
         contact: '../../image/center/center_contact.svg',
         about: '../../image/center/center_about.svg'
       };

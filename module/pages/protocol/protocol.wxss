@@ -1,0 +1,56 @@
+/* module/pages/help/help.wxss */
+
+.little-margin {
+  margin-bottom: 20rpx;
+}
+
+.middle-margin {
+  margin-bottom: 30rpx;
+}
+
+.QA-container {
+  margin: 30rpx;
+  padding: 20rpx 40rpx;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8rpx;
+}
+
+.QA-title {
+  font-size: 30rpx;
+  color: #fff;
+  font-weight: bold;
+  padding-bottom: 10rpx;
+}
+
+.QA-text {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+}
+
+.QA-official {
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.QA-parse-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+}
+
+.QA-parse {
+  width: 80rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  padding: 0;
+  border-radius: 10rpx;
+  background-color: #fff;
+  color: #333;
+  font-size: 24rpx;
+  border: 2rpx solid #333;
+}
