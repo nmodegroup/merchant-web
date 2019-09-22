@@ -9,17 +9,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabList: [
-      {
-        title: '微信昵称'
-      },
-      {
-        title: '电话号码'
-      },
-      {
-        title: '预定时间'
-      }
-    ],
     userList: []
   },
 

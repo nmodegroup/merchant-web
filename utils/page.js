@@ -193,7 +193,7 @@ export class PageConfig {
         content: content,
         title: '温馨提示',
         cancelText: '点错了',
-        confirmText: '确定删除',
+        confirmText: '删除',
         hideCancel: false,
         onConfirm: () => {
           resolve();

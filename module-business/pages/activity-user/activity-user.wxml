@@ -1,17 +1,13 @@
 <!--module-business/pages/activity-user/activity-user.wxml-->
 <view class="activity-user-page">
     <nav-bar title="预定详情" back home></nav-bar>
-    <view class="tab-container">
-        <block wx:for="{{tabList}}" wx:key="index">
-            <view class="tab">
-                {{item.title}}</view>
-        </block>
-    </view>
     <block wx:for="{{userList}}" wx:key="index">
         <view class="reserve-container">
-            <view class="common nickname">{{item.nickName}}</view>
-            <view class="common phone" bindtap="makeCall" data-phone="{{item.phone}}">{{item.phone}}</view>
-            <view class="common time">
+            <view class="top">
+                <view class="nickname">{{item.nickName}}</view>
+                <view class="phone">{{item.phone}}</view>
+            </view>
+            <view class="bottom">
                 <view class="appoint-time">{{item.appointTime}}</view>
                 <view class="table-name-num" wx:if="{{item.tableAreaName}}">
                     {{item.tableAreaName + '-' + item.tableNum + '人位'}}</view>

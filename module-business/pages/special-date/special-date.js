@@ -10,8 +10,8 @@ Page({
   data: {
     isEdit: false,
     specialId: '',
-    currentDate: new Date().getTime(),
-    minDate: new Date().getTime(),
+    currentDate: new Date().getTime() + 24 * 60 * 60 * 1000,
+    minDate: new Date().getTime() + 24 * 60 * 60 * 1000,
     visiblePicker: false,
     selectDate: ''
   },
