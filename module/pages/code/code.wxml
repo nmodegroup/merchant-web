@@ -2,12 +2,14 @@
 <view class="code-page">
   <nav-bar title="商家二维码" back home></nav-bar>
   <view class="image-container">
-    <image class="code-bg" src="../../image/code-bg.jpeg"></image>
-    <image class="code-image" src="{{ codeImageUrl }}"></image>
+    <image class="code-bg" src="../../image/code-bg.png"></image>
+    <view class="code-wrapper">
+      <image class="code-image" src="{{ codeImageUrl }}"></image>
+    </view>
   </view>
   <!-- canvas 绘制 -->
   <canvas canvas-id='myCanvas' class='canvas'></canvas>
-  <form-button enabled="{{ true }}" buttonText="保存到相册" bind:click="handleSaveImage"></form-button>
+  <view class='btn-commit' bindtap='handleSaveImage'>保存到相册</view>
 
   <!-- toast -->
   <toast id="toast"></toast>

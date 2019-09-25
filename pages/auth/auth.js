@@ -3,7 +3,7 @@ const wxManager = require('../../utils/wxManager');
 const authService = require('../../service/user');
 const pageConstant = require('../../constant/page');
 const pageFlag = require('../../constant/pageFlag');
-const { isEmpty, hasSafeArea } = require('../../utils/global');
+const { isEmpty } = require('../../utils/global');
 const store = getApp().globalData;
 const { PageConfig } = require('../../utils/page');
 const PageHelper = new PageConfig();
@@ -14,7 +14,7 @@ Page({
    */
   data: {
     visibleAuthBtn: false,
-    hasSafeArea: false,
+    isIphoneX: false,
     code: '' // 登录 code
   },
 
@@ -38,10 +38,12 @@ Page({
 
   getSystemInfo() {
     console.log('getSystemInfo');
-    wxManager.getSystemInfoSync().then(result => {
-      store.model = result.model;
+    wxManager.getSystemInfoSync().then(({ model, screenHeight }) => {
+      const iphoneX = /iphone x/i.test(model);
+      const iphoneNew = /iPhone11/i.test(model) && screenHeight === 812;
+      store.isIphoneX = iphoneX || iphoneNew;
       this.setData({
-        hasSafeArea: hasSafeArea()
+        isIphoneX: iphoneX || iphoneNew
       });
     });
   },

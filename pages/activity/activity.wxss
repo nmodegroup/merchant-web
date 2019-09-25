@@ -1,6 +1,6 @@
 /* pages/activity/activity.wxss */
 .main-container {
-  padding-bottom: 120rpx;
+  padding-bottom: 166rpx;
 }
 
 .activity-page {

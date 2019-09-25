@@ -1,12 +1,11 @@
 /* module/pages/arrival-time/arrival-time.wxss */
 page {
-  padding-bottom: 98rpx;
+  padding-bottom: 166rpx;
 }
 
 .arrival-page {
   font-size: 30rpx;
   color: #fff;
-  padding-bottom: 120rpx;
 }
 
 .desc {

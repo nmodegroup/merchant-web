@@ -11,6 +11,8 @@ App({
     token: '', // 登录标识 token
     phone: '', // 用户手机号
     userInfo: {}, // 用户信息
-    auditStatus: '' // 审核状态
+    auditStatus: '', // 审核状态,
+    isAuth: false, // 是否认证通过
+    isIphoneX: false // 是否是 iPhone X 及以上机型
   }
 });

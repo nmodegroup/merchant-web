@@ -67,6 +67,11 @@ export class PageConfig {
    */
   checkAuditStatus() {
     return new Promise((resolve, reject) => {
+      console.log('isAuth', store.isAuth);
+      // 已经认证通过
+      if (store.isAuth) {
+        return resolve();
+      }
       switch (parseInt(store.auditStatus)) {
         case AuditStatus.NOT_AUDIT: // 未提交资料
           this.showAuthModal();

@@ -34,6 +34,14 @@ Page({
    */
   onLoad: function(options) {
     this.initData();
+    wx.checkSession({
+      success: function(res) {
+        console.log('checkSession', res);
+      },
+      fail: function() {
+        console.log('checkSession-fail');
+      }
+    });
   },
 
   /**
@@ -95,6 +103,7 @@ Page({
         shareImg: initValue(res.shareImg), // 商家二维码图片链接
         isTable: initValue(res.isTable, false)
       });
+      store.isAuth = initValue(res.isAuth, false);
       store.auditStatus = initValue(res.auditStatus, AuditStatus.NOT_AUDIT);
       // 更新加载状态
       this.isLoadFirst = false;

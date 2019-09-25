@@ -1,10 +1,10 @@
 <!--pages/auth/auth.wxml-->
 <view class="auth-page">
-    <image class="{{ hasSafeArea ? 'introduction-x' : 'introduction' }}"
-        src="{{ hasSafeArea ? '../../image/user/introduction-x.png' : '../../image/user/introduction.png' }}">
+    <image class="{{ isIphoneX ? 'introduction-x' : 'introduction' }}"
+        src="{{ isIphoneX ? '../../image/user/introduction-x.png' : '../../image/user/introduction.png' }}">
     </image>
-    <button class="btn-auth {{ hasSafeArea ? 'btn-x' : 'btn-normal' }}" wx:if="{{visibleAuthBtn}}"
-        open-type="getUserInfo" bindgetuserinfo="getUserInfoCallback"></button>
+    <button class="btn-auth {{ isIphoneX ? 'btn-x' : 'btn-normal' }}" wx:if="{{visibleAuthBtn}}" open-type="getUserInfo"
+        bindgetuserinfo="getUserInfoCallback"></button>
 
     <toast id="toast"></toast>
 </view>

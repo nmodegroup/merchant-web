@@ -1,6 +1,6 @@
 /* module/pages/area/area.wxss */
 .area-page {
-  padding-bottom: 98rpx;
+  padding-bottom: 166rpx;
 }
 
 .action-item {

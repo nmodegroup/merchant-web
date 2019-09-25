@@ -88,23 +88,23 @@ Page({
     // 背景色
     const WHITE_COLOR = '#FFFFFF';
     // code 半径
-    const codeRadius = 0.2 * width;
+    const codeRadius = 37.5;
 
     // canvas 上下文
     const ctx = wx.createCanvasContext('myCanvas', this);
     ctx.setFillStyle(WHITE_COLOR);
     ctx.fillRect(0, 0, height, width);
 
-    //绘制背景图片 TODO: 替换背景图
-    ctx.drawImage('/module/image/code-bg.jpeg', 0, 0, width, height);
+    ctx.drawImage('/module/image/code-bg.png', 0, 0, width, height);
 
     // 二维码背景圆，圆的原点x坐标，y坐标，半径，起始弧度，终止弧度
-    ctx.arc(0.5 * width, 0.5 * height + codeRadius, codeRadius, 0, 2 * Math.PI);
+    const arcRadius = 44;
+    ctx.arc(0.5 * width, 368, arcRadius, 0, 2 * Math.PI);
     ctx.setFillStyle(WHITE_COLOR);
     ctx.fill();
 
     // 绘制二维码，图片路径，左上角x坐标，左上角y坐标，宽，高
-    ctx.drawImage(codeImagePath, 0.3 * width, 0.5 * height, 2 * codeRadius, 2 * codeRadius);
+    ctx.drawImage(codeImagePath, 112, 330, 2 * codeRadius, 2 * codeRadius);
     ctx.restore();
 
     //绘制到 canvas 上

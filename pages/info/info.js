@@ -225,7 +225,6 @@ Page({
   },
 
   onConfirm(event) {
-    console.log(event);
     const { value } = event.detail;
     this.setData({
       selectShopType: value,
@@ -359,7 +358,6 @@ Page({
    * 编辑封面
    */
   handleEditCover(event) {
-    console.log(event);
     const { index } = event.currentTarget.dataset;
     wxManager.chooseImage().then(res => {
       this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_COVER).then(result => {
@@ -373,7 +371,6 @@ Page({
    * 删除封面
    */
   handleDeleteCover(event) {
-    console.log(event);
     const { index } = event.currentTarget.dataset;
     this.fillCovers.splice(index, index + 1);
     this.updateCovers();
@@ -403,7 +400,6 @@ Page({
   uploadBartenderImage(index) {
     wxManager.chooseImage().then(res => {
       this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_BARTENDER).then(result => {
-        console.log('uploadBartenderImage', this.defaultBartenders);
         this.defaultBartenders[index].img = result;
         this.updateBartenders();
       });
@@ -431,7 +427,6 @@ Page({
    * 调酒师信息输入
    */
   handleBartenderInput(event) {
-    console.log('handleBartenderInput', event);
     const value = event.detail.value;
     const { type, index } = event.currentTarget.dataset;
     this.defaultBartenders[index][type] = value;
@@ -483,7 +478,7 @@ Page({
     if (!this.verifyForm()) {
       return false;
     }
-    const { shopName, shopPhone, isTotal, latitude, longitude } = this.data;
+    const { shopName, isTotal, latitude, longitude, price } = this.data;
 
     /* 校验门店名称 */
     if (!regular.regShopName(shopName) || regular.regAllNumber(shopName)) {
@@ -492,6 +487,10 @@ Page({
 
     /* 完善店铺信息需要更多校验 */
     if (isTotal) {
+      if (isNaN(Number(price))) {
+        return PageHelper.showToast('消费金额需为数字');
+      }
+
       if (this.checkBartendersInfo()) {
         return PageHelper.showToast('调酒师信息填写不完整');
       }

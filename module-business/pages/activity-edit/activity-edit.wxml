@@ -24,7 +24,7 @@
         </cell-input>
         <cell-input title="联系电话" borderRightPadding>
             <input class="input-view" placeholder-class="placeholder" value="{{phone}}" placeholder="请输入活动联系电话"
-                type="number" bindinput="handleInput" data-type="phone" />
+                bindinput="handleInput" data-type="phone" />
         </cell-input>
         <cell-input title="嘉宾信息" borderRightPadding>
             <input class="input-view" placeholder-class="placeholder" value="{{guest}}"

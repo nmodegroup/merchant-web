@@ -1,6 +1,6 @@
 /* module/pages/business-time-edit/busine.wxss */
 .business-edit-page {
-  padding-bottom: 98rpx;
+  padding-bottom: 166rpx;
 }
 
 .week {

@@ -96,11 +96,3 @@ export function isEdit(value) {
   }
   return true;
 }
-
-/**
- * 判断是否是iPhone X等以上机型，需要留出安全区域
- * @param {string} modal 手机型号
- */
-export function hasSafeArea() {
-  return store.model.includes('iPhone X');
-}

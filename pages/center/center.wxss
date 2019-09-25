@@ -1,7 +1,7 @@
 /* pages/center/center.wxss */
 
 .center {
-  padding-bottom: 98rpx;
+  padding-bottom: 166rpx;
 }
 
 .main {

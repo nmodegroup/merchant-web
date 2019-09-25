@@ -92,7 +92,6 @@ Page({
     const params = this.queryParams(pageNum);
     PageHelper.requestWrapper(homeService.getTodayOrderList(params), this.isLoadTodayFirst)
       .then(res => {
-        console.log('getTodayOrderList', res);
         // 更新加载状态
         this.isLoadTodayFirst = false;
         this.pageNum = pageNum;
