@@ -20,8 +20,8 @@
             </view>
           </block>
           <block wx:else>
-            <button class="phone-auth-btn" open-type="getPhoneNumber"
-              bindgetphonenumber="handleGetPhoneNUmber">点击授权</button>
+            <button class="phone-auth-btn" open-type="getPhoneNumber" bindgetphonenumber="handleGetPhoneNUmber">绑定手机号
+              ></button>
           </block>
         </view>
       </view>

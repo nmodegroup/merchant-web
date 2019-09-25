@@ -1,8 +1,9 @@
 /* pages/info/info.wxss */
+
 .info-page {
   font-size: 26rpx;
   color: rgba(255, 255, 255, 0.5);
-  padding-bottom: 60rpx;
+  padding-bottom: 166rpx;
 }
 
 .shop-logo {
@@ -132,14 +133,14 @@
   margin-top: 40rpx;
 }
 
-.area-placeholder {
+view .area-placeholder {
   color: rgba(255, 255, 255, 0.5);
   font-size: 28rpx;
 }
 
 .bartender-textarea {
   width: 88vw;
-  min-height: 30vw;
+  height: 224rpx;
   border: 2rpx solid rgba(255, 255, 255, 0.2);
   border-radius: 8rpx;
   padding: 34rpx 20rpx 0 20rpx;
@@ -171,7 +172,7 @@
 .story-textarea {
   width: calc(100vw - 60rpx);
   margin: 0 auto;
-  min-height: 77vw;
+  height: 580rpx;
   border: 2rpx solid rgba(255, 255, 255, 0.2);
   border-radius: 8rpx;
   padding: 30rpx;

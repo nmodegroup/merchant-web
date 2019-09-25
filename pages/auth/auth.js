@@ -37,7 +37,6 @@ Page({
   },
 
   getSystemInfo() {
-    console.log('getSystemInfo');
     wxManager.getSystemInfoSync().then(({ model, screenHeight }) => {
       const iphoneX = /iphone x/i.test(model);
       const iphoneNew = /iPhone11/i.test(model) && screenHeight === 812;

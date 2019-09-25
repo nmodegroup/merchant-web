@@ -58,7 +58,7 @@ Page({
   },
 
   initData() {
-    this.isLoadFirst = true;
+    this.isLoadFirst = true; // 用于判断第二次加载不显示 loading
     PageHelper.setupPageConfig(this);
     this.setupScroll();
   },

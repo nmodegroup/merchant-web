@@ -1,4 +1,4 @@
 <!--components/action/index.wxml-->
-<view class="action-wrapper">
+<view class="action-wrapper {{ isIphoneX ? 'safe-area__padding' : ''}}">
     <slot></slot>
 </view>

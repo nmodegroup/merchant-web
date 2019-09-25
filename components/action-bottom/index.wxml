@@ -1,5 +1,5 @@
 <!--components/action-buttom/index.wxml-->
-<view class="action-container">
+<view class="action-container {{ isIphoneX ? 'safe-area__padding' : '' }}">
     <block wx:if="{{!single}}">
         <view class="btn-common left-btn" bindtap="handleClick" data-type="left">
             {{leftText}}

@@ -9,8 +9,8 @@
       <text class='wx-modal-toast'>{{ content }}</text>
     </block>
     <view class="btn-frame">
-      <view class="btn-cancel" bindtap="cancel" wx:if="{{!hideCancel}}">{{cancelText}}</view>
-      <view class="btn-confirm" bindtap="confirm">{{confirmText}}</view>
+      <view class="btn-cancel" catchtap="cancel" wx:if="{{!hideCancel}}">{{cancelText}}</view>
+      <view class="btn-confirm" catchtap="confirm">{{confirmText}}</view>
     </view>
   </view>
 </view>

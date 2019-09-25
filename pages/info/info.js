@@ -44,7 +44,10 @@ Page({
     price: '', // 人均消费
     covers: [], // 商铺封面图信息
     bartenders: [], // 商铺调酒师信息
-    desc: '' // 店铺简介
+    desc: '', // 店铺简介
+    isAreaFocus: false, // 调酒师输入框聚焦
+    isStoryFocus: false, // 店铺故事聚焦
+    focusIndex: 0 // 调酒师信息改变的输入框的索引
   },
 
   /**
@@ -182,6 +185,51 @@ Page({
       [type]: value
     });
     this.inputDebounce();
+  },
+
+  /**
+   * 调酒师某一项输入框聚焦事件
+   */
+  handleFocus(event) {
+    this.setData({
+      isAreaFocus: true,
+      focusIndex: event.currentTarget.dataset.index
+    });
+  },
+
+  handleBlur(event) {
+    this.setData({
+      isAreaFocus: false,
+      focusIndex: event.currentTarget.dataset.index
+    });
+  },
+
+  changeBartenderFocusStatus(event) {
+    this.setData({
+      isAreaFocus: true,
+      focusIndex: event.currentTarget.dataset.index
+    });
+  },
+
+  /**
+   * 店铺故事输入聚焦
+   */
+  handleStoryFocus() {
+    this.setData({
+      isStoryFocus: true
+    });
+  },
+
+  handleStoryBlur() {
+    this.setData({
+      isStoryFocus: false
+    });
+  },
+
+  changeStoryFocusStatus() {
+    this.setData({
+      isStoryFocus: true
+    });
   },
 
   /**

@@ -1,7 +1,8 @@
 /* components/action/index.wxss */
+@import '../../app.wxss';
 .action-wrapper {
   position: fixed;
-  height: 98rpx;
+  min-height: 98rpx;
   left: 0;
   bottom: 0;
   right: 0;

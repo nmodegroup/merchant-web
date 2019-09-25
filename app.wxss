@@ -44,6 +44,10 @@ page {
   font-size: 26rpx;
 }
 
+.safe-area__padding {
+  padding-bottom: 34px;
+}
+
 /* 修改vant下弹出框样式样式start */
 .van-picker__toolbar {
   background: rgba(21, 21, 62, 1);

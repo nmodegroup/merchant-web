@@ -73,11 +73,21 @@
                                     data-type="enName" />
                             </div>
                         </cell-input>
-                        <textarea class="bartender-textarea" value="{{ item.desc }}" placeholder="请输入调酒师信息"
-                            placeholder-class="area-placeholder" maxlength="50" data-index="{{ index }}"
-                            bindinput="handleBartenderInput" data-type="desc">
-                                        <view class="input-count">{{ item.desc ? item.desc.length : "0" }}/50</view>
-                                    </textarea>
+                        <block wx:if="{{isAreaFocus && focusIndex === index}}">
+                            <textarea class="bartender-textarea" value="{{ item.desc }}" focus="{{isAreaFocus}}"
+                                placeholder="请输入调酒师信息" placeholder-class="area-placeholder" maxlength="50"
+                                data-index="{{ index }}" bindfocus="handleFocus" bindblur="handleBlur"
+                                bindinput="handleBartenderInput" data-type="desc">
+                                            <view class="input-count">{{ item.desc ? item.desc.length : "0" }}/50</view>
+                                        </textarea>
+                        </block>
+                        <block wx:else>
+                            <view class="bartender-textarea {{ item.desc ? '' : 'area-placeholder' }}"
+                                bindtap="changeBartenderFocusStatus" data-index="{{ index }}">
+                                {{ item.desc ? item.desc : "请输入调酒师信息" }}
+                                <view class="input-count">{{ item.desc ? item.desc.length : "0" }}/50</view>
+                            </view>
+                        </block>
                         <block wx:if='{{item.img}}'>
                             <view class="image-container">
                                 <image class="bartender-image" src="{{ sourceHost + item.img }}" mode="aspectFill">
@@ -98,22 +108,31 @@
                 </view>
             </scroll-view>
         </view>
-        <!-- 店铺故事 -->
+        <!-- 店铺故事, 因为 textarea 是原生组件，层级太过恶心，在输入框失去焦点后替换输入组件为文本 -->
         <view>
             <view class="story-panel">店铺故事</view>
-            <textarea class="story-textarea" value="{{ desc }}" placeholder="描述最多200字" maxlength="200"
-                placeholder-class="area-placeholder" bindinput="handleInput" data-type="desc">
+            <block wx:if="{{ isStoryFocus }}">
+                <textarea class="story-textarea" value="{{ desc }}" focus="{{ isStoryFocus }}" placeholder="描述最多200字"
+                    maxlength="200" placeholder-class="area-placeholder" bindfocus="handleStoryFocus"
+                    bindblur="handleStoryBlur" bindinput="handleInput" data-type="desc">
                             <view class="input-count">{{ desc ? desc.length : "0" }}/200</view>
                         </textarea>
+            </block>
+            <block wx:else>
+                <view class="story-textarea {{ desc ? '' : 'area-placeholder' }}" bindtap="changeStoryFocusStatus">
+                    {{ desc ? desc : "描述最多200字" }}
+                    <view class="input-count">{{ desc ? desc.length : "0" }}/200</view>
+                </view>
+            </block>
         </view>
     </block>
     <view class="commit-wrapper">
-        <!-- <block wx:if="{{isTotal}}">
+        <block wx:if="{{isTotal}}">
             <action-bottom single="{{ true }}" enabled="{{ verifyed }}" rightText="确认提交" bind:click="commitForm" />
         </block>
         <block wx:else>
-        </block> -->
-        <form-button enabled="{{ verifyed }}" bind:click="commitForm" buttonText="确认提交" />
+            <form-button enabled="{{ verifyed }}" bind:click="commitForm" buttonText="确认提交" />
+        </block>
         <!-- 不可见的授权手机号按钮，授权成功后隐藏 -->
         <button class="btn-auth-phone" wx:if="{{verifyed && !authPhoneSuccess}}" open-type="getPhoneNumber"
             bindgetphonenumber="onGetPhoneCallback"></button>
