@@ -10,7 +10,15 @@
     </block>
     <view class="btn-frame">
       <view class="btn-cancel" catchtap="cancel" wx:if="{{!hideCancel}}">{{cancelText}}</view>
-      <view class="btn-confirm" catchtap="confirm">{{confirmText}}</view>
+      <!-- 微信开放能力-获取手机号 -->
+      <block wx:if="{{openType === 'getPhoneNumber' }}">
+        <button class="btn-confirm" open-type="getPhoneNumber"
+          bindgetphonenumber="onGetPhoneCallback">{{confirmText}}</button>
+      </block>
+      <!-- 自定义确认点击事件 -->
+      <block wx:else>
+        <view class="btn-confirm" catchtap="confirm">{{confirmText}}</view>
+      </block>
     </view>
   </view>
 </view>

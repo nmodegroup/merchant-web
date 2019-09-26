@@ -297,6 +297,46 @@ export function previewImage(imageUrl) {
   });
 }
 
+/**
+ * 打开地图选择位置
+ */
+export function chooseLocation() {
+  return new Promise((resolve, reject) => {
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userLocation']) {
+          // 已经授权，可以直接调用 getLocation
+          startChooseLocation(resolve);
+        } else {
+          // 发起授权
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success: () => {
+              startChooseLocation(resolve);
+            },
+            fail: () => {
+              // 授权失败
+              reject('授权地理位置信息失败');
+            }
+          });
+        }
+      }
+    });
+  });
+}
+
+function startChooseLocation(resolve) {
+  wx.chooseLocation({
+    success: function(res) {
+      // success
+      resolve(res);
+    }
+  });
+}
+
+/**
+ * 微信默认弹窗
+ */
 export function showModal({ title = '', content }) {
   return new Promise(resolve => {
     wx.showModal({

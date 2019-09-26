@@ -18,17 +18,16 @@
         <cell title="活动区域" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="area" borderRightPadding>
             <text class="{{ selectArea ? 'active' : '' }}">{{ selectArea || "请选择所在区域" }}</text>
         </cell>
-        <cell-input title="详细地址" borderRightPadding>
-            <input class="input-view" placeholder-class="placeholder" value="{{address}}" placeholder="活动详细地址"
-                bindinput="handleInput" data-type="address" />
-        </cell-input>
+        <cell title="详细地址" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="address">
+            <div class="address {{ address ? 'active' : '' }}">{{address || "活动详细地址"}}</div>
+        </cell>
         <cell-input title="联系电话" borderRightPadding>
             <input class="input-view" placeholder-class="placeholder" value="{{phone}}" placeholder="请输入活动联系电话"
                 bindinput="handleInput" data-type="phone" />
         </cell-input>
         <cell-input title="嘉宾信息" borderRightPadding>
             <input class="input-view" placeholder-class="placeholder" value="{{guest}}"
-                placeholder="请输入嘉宾姓名(可多个，用“，”隔开)" bindinput="handleInput" data-type="guest" />
+                placeholder="请输入嘉宾姓名(可多个，用“|”隔开)" bindinput="handleInput" data-type="guest" />
         </cell-input>
         <view class="reserve-count">
             <view class="reserve-title">限制预定数量</view>

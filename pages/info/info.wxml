@@ -8,10 +8,9 @@
     <cell title="所在区域" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="city">
         <text class="{{ selectCity ? 'active' : '' }}">{{selectCity || "请选择所在区域"}}</text>
     </cell>
-    <cell-input title="详细地址">
-        <input class="input-view" placeholder-class="placeholder" value="{{address}}" placeholder="门店详细地址"
-            maxlength="100" bindinput="handleInput" data-type="address" />
-    </cell-input>
+    <cell title="详细地址" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="address">
+        <div class="address {{ address ? 'active' : '' }}">{{address || "门店详细地址"}}</div>
+    </cell>
     <cell title="所属类型" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="shopType">
         <text class="{{ selectShopType.text ? 'active' : '' }}">{{ selectShopType.text || "请选择门店类型" }}</text>
     </cell>
@@ -134,8 +133,7 @@
             <form-button enabled="{{ verifyed }}" bind:click="commitForm" buttonText="确认提交" />
         </block>
         <!-- 不可见的授权手机号按钮，授权成功后隐藏 -->
-        <button class="btn-auth-phone" wx:if="{{verifyed && !authPhoneSuccess}}" open-type="getPhoneNumber"
-            bindgetphonenumber="onGetPhoneCallback"></button>
+        <button class="btn-auth-phone" wx:if="{{verifyed && !authPhoneSuccess}}" bindtap="onGetPhoneClick"></button>
     </view>
     <block wx:if="{{ !isTotal }}">
         <view class="skip" bindtap="handleSkip">跳过</view>

@@ -1,12 +1,11 @@
 /* module-business/pages/activity-edit/activity-edit.wxss */
-page {
-  padding-bottom: 166rpx;
-}
 
 .activity-content {
   color: rgba(255, 255, 255, 0.5);
   font-size: 26rpx;
+  padding-bottom: 166rpx;
 }
+
 .panel {
   height: 76rpx;
   line-height: 76rpx;
@@ -109,6 +108,13 @@ page {
   height: calc(100vw * (552 / 375));
   border-radius: 8rpx;
   margin-top: 30rpx;
+}
+
+.address {
+  text-align: right;
+  width: 60vw;
+  word-wrap: break-word;
+  word-break: normal;
 }
 
 /* radio 样式 */

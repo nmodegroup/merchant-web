@@ -59,6 +59,13 @@
   margin-bottom: 20rpx;
 }
 
+.address {
+  text-align: right;
+  width: 60vw;
+  word-wrap: break-word;
+  word-break: normal;
+}
+
 .scroll-container {
   box-sizing: border-box;
 }

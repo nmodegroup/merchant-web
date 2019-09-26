@@ -72,7 +72,6 @@ Page({
     this.initDebounce();
     this.requestActivityInfo();
     this.requestCityList();
-    this.getLocation();
   },
 
   initDebounce() {
@@ -87,26 +86,6 @@ Page({
       this.setData({
         areaList: res
       });
-    });
-  },
-
-  getLocation() {
-    PageHelper.requestWrapper(wxManager.getLocation())
-      .then(res => {
-        this.setData({
-          latitude: res.latitude,
-          longitude: res.longitude
-        });
-      })
-      .catch(e => {
-        console.log(e);
-        this.showLocationModal();
-      });
-  },
-
-  showLocationModal() {
-    PageHelper.showLocationModal().then(() => {
-      this.getLocation();
     });
   },
 
@@ -171,7 +150,8 @@ Page({
     const strategy = {
       beginTime: () => this.setVisible('visibleStartTime'),
       endTime: () => this.setVisible('visibleEndTime'),
-      area: () => this.setVisible('visibleArea')
+      area: () => this.setVisible('visibleArea'),
+      address: () => this.chooseLocation()
     };
     strategy[type]();
   },
@@ -185,6 +165,31 @@ Page({
   setUnvisible(unvisibleType) {
     this.setData({
       [unvisibleType]: false
+    });
+  },
+
+  /**
+   * 打开地图选择位置
+   */
+  chooseLocation() {
+    wxManager
+      .chooseLocation()
+      .then(location => {
+        const { address, latitude, longitude } = location;
+        this.setData({
+          address: address.split(',')[0], // 如果有逗号分隔截取前半部分
+          latitude: latitude,
+          longitude: longitude
+        });
+      })
+      .catch(err => {
+        this.showLocationModal();
+      });
+  },
+
+  showLocationModal() {
+    PageHelper.showLocationModal().then(() => {
+      this.chooseLocation();
     });
   },
 

@@ -55,7 +55,6 @@ Page({
    */
   onLoad: function(options) {
     this.initData();
-    this.getLocation();
     this.setupState(options);
   },
 
@@ -114,6 +113,8 @@ Page({
             cityName: initValue(res.cityName),
             areaName: initValue(res.areaName),
             selectCity: res.cityName ? `${res.cityName} ${res.areaName}` : '',
+            latitude: res.lat, // TODO: 确定字段
+            longitude: res.lng,
             address: initValue(res.address),
             selectShopType: this.getShopType(res.type),
             logo: initValue(res.logo),
@@ -152,29 +153,6 @@ Page({
       authPhoneSuccess: !!store.phone,
       enterType: options.enterType,
       isTotal: options.enterType === pageFlag.INFO_TOTAL
-    });
-  },
-
-  getLocation() {
-    PageHelper.requestWrapper(wxManager.getLocation())
-      .then(res => {
-        this.setData({
-          latitude: res.latitude,
-          longitude: res.longitude
-        });
-      })
-      .catch(e => {
-        console.log(e);
-        this.showLocationModal();
-      });
-  },
-
-  /**
-   * 定位授权弹窗
-   */
-  showLocationModal() {
-    PageHelper.showLocationModal().then(() => {
-      this.getLocation();
     });
   },
 
@@ -295,7 +273,8 @@ Page({
     const strategy = {
       city: () => this.setVisible('visibleCity'),
       shopType: () => this.setVisible('visibleShopType'),
-      logo: () => this.chooseImage()
+      logo: () => this.chooseImage(),
+      address: () => this.chooseLocation()
     };
     strategy[type]();
   },
@@ -336,6 +315,31 @@ Page({
         floder: floder
       }
     };
+  },
+
+  /**
+   * 打开地图选择位置
+   */
+  chooseLocation() {
+    wxManager
+      .chooseLocation()
+      .then(location => {
+        const { address, latitude, longitude } = location;
+        this.setData({
+          address: address.split(',')[0], // 如果有逗号分隔截取前半部分
+          latitude: latitude,
+          longitude: longitude
+        });
+      })
+      .catch(err => {
+        this.showLocationModal();
+      });
+  },
+
+  showLocationModal() {
+    PageHelper.showLocationModal().then(() => {
+      this.chooseLocation();
+    });
   },
 
   /**
@@ -482,40 +486,38 @@ Page({
   },
 
   /**
-   * 手机号授权回调
+   * 手机号授权
    */
-  onGetPhoneCallback(event) {
-    const { encryptedData, iv } = event.detail;
-    if (encryptedData && iv) {
-      this.requestParsePhone(encryptedData, iv);
-    } else {
-      PageHelper.showFailToast('授权失败');
-    }
-  },
-
-  /**
-   * 解析手机号
-   */
-  requestParsePhone(encryptedData, iv) {
+  onGetPhoneClick() {
+    // 先微信登录
     PageHelper.requestWrapper(wxManager.login())
       .then(code => {
-        return {
-          encrypted: encryptedData,
-          iv: iv,
-          code: code
-        };
+        return code;
       })
-      .then(params => {
-        // 解析手机号
-        PageHelper.requestWrapper(userService.parsePhone(params)).then(phone => {
-          this.setData({
-            authPhoneSuccess: true
-          });
-          // 将手机号存到全局
-          store.phone = phone;
-          this.commitForm();
+      .then(code => {
+        // 授权弹窗
+        PageHelper.showGetPhoneNumberModal().then(result => {
+          this.requestParsePhone(code, result);
         });
       });
+  },
+
+  requestParsePhone(code, result) {
+    const { encryptedData, iv } = result;
+    const params = {
+      encrypted: encryptedData,
+      iv: iv,
+      code: code
+    };
+    // 解析手机号
+    PageHelper.requestWrapper(userService.parsePhone(params)).then(phone => {
+      this.setData({
+        authPhoneSuccess: true
+      });
+      // 将手机号存到全局
+      store.phone = phone;
+      this.commitForm();
+    });
   },
 
   handleSkip() {

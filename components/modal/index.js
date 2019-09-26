@@ -14,6 +14,7 @@ Component({
     hideCancel: false,
     cancelText: '取消',
     confirmText: '确认',
+    openType: '', // 微信开放能力
     custom: false,
     onConfirm: null, // 点击确认回调事件
     onCancel: null // 点击取消回调事件
@@ -35,7 +36,8 @@ Component({
         confirmText: form.confirmText || '确认',
         custom: form.custom || false,
         onConfirm: form.onConfirm || null,
-        onCancel: form.onCancel || null
+        onCancel: form.onCancel || null,
+        openType: form.openType || ''
       });
     },
 
@@ -58,6 +60,18 @@ Component({
 
       if (onConfirm && typeof onConfirm === 'function') {
         return onConfirm();
+      }
+    },
+
+    onGetPhoneCallback(event) {
+      console.log('onGetPhoneCallback', event);
+      const { onConfirm } = this.data;
+      this.setData({
+        show: false
+      });
+
+      if (onConfirm && typeof onConfirm === 'function') {
+        return onConfirm(event.detail);
       }
     }
   }

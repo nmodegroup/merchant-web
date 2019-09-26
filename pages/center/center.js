@@ -34,14 +34,6 @@ Page({
    */
   onLoad: function(options) {
     this.initData();
-    wx.checkSession({
-      success: function(res) {
-        console.log('checkSession', res);
-      },
-      fail: function() {
-        console.log('checkSession-fail');
-      }
-    });
   },
 
   /**
@@ -119,36 +111,35 @@ Page({
   },
 
   /**
-   * 手机号授权回调
+   * 手机号授权
    */
-  handleGetPhoneNUmber(event) {
-    const { encryptedData, iv } = event.detail;
-    if (encryptedData && iv) {
-      this.requestParsePhone(encryptedData, iv);
-    } else {
-      PageHelper.showFailToast('授权失败');
-    }
+  onGetPhoneClick() {
+    // 先微信登录
+    PageHelper.requestWrapper(WxManager.login())
+      .then(code => {
+        return code;
+      })
+      .then(code => {
+        // 授权弹窗
+        PageHelper.showGetPhoneNumberModal().then(result => {
+          this.requestParsePhone(code, result);
+        });
+      });
   },
 
-  /**
-   * 解析手机号
-   */
-  requestParsePhone(encryptedData, iv) {
-    PageHelper.requestWrapper(WxManager.login()).then(code => {
-      const params = {
-        encrypted: encryptedData,
-        iv: iv,
-        code: code
-      };
-
-      // 解析手机请求
-      PageHelper.requestWrapper(userService.parsePhone(params)).then(phone => {
-        PageHelper.showSuccessToast('授权成功');
-        // 将手机号存到全局
-        store.phone = phone;
-        this.setData({
-          phone
-        });
+  requestParsePhone(code, result) {
+    const { encryptedData, iv } = result;
+    const params = {
+      encrypted: encryptedData,
+      iv: iv,
+      code: code
+    };
+    // 解析手机号
+    PageHelper.requestWrapper(userService.parsePhone(params)).then(phone => {
+      // 将手机号存到全局
+      store.phone = phone;
+      this.setData({
+        phone
       });
     });
   },

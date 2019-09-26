@@ -292,6 +292,30 @@ export class PageConfig {
   }
 
   /**
+   * 授权手机号弹窗
+   */
+  showGetPhoneNumberModal() {
+    return new Promise(resolve => {
+      this.currentPage().modal.showModal({
+        content: '为了让您更好的使用系统以及账户更安全，需要获取您的常用联系方式',
+        title: '微信授权',
+        cancelText: '取消',
+        confirmText: '授权获取',
+        hideCancel: false,
+        openType: 'getPhoneNumber',
+        onConfirm: result => {
+          const { encryptedData, iv } = result;
+          if (encryptedData && iv) {
+            resolve(result);
+          } else {
+            this.showFailToast('授权失败');
+          }
+        }
+      });
+    });
+  }
+
+  /**
    * 网络加载失败
    */
   showNetworkFailModal() {
