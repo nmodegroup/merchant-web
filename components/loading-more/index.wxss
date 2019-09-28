@@ -1,0 +1,35 @@
+@import '../../weui.wxss';
+.no-more {
+  height: 100rpx;
+  width: 100%;
+  position: relative;
+}
+
+.no-more-wrapper {
+  padding: 0 30rpx;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-more-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.load-more {
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weui-loadmore__tips {
+  font-size: 24rpx;
+  color: #999;
+}

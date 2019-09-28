@@ -5,6 +5,9 @@ var AUDIT_FAIL = 2; // 审核未通过
 var OPEN = 0; //活动开启状态
 var CLOSE = 1; // 活动关闭状态
 
+var SHELVES = 0; // 已上架
+var UN_SHELVES = 1; // 已被强制下架
+
 /**
  * 剩余桌数展示
  */
@@ -44,10 +47,18 @@ function isAuditSuccessAndClose(auditStatus, onStatus) {
   return parseInt(auditStatus) === AUDIT_SUCCESS && parseInt(onStatus) === CLOSE;
 }
 
+/**
+ * 活动是否已下架
+ */
+function isUnShelves(shelvesStatus) {
+  return parseInt(shelvesStatus) === UN_SHELVES;
+}
+
 module.exports = {
   getRemainTitle: getRemainTitle,
   isAuditing: isAuditing,
   isAuditFail: isAuditFail,
   isAuditSuccessAndOpen: isAuditSuccessAndOpen,
-  isAuditSuccessAndClose: isAuditSuccessAndClose
+  isAuditSuccessAndClose: isAuditSuccessAndClose,
+  isUnShelves: isUnShelves
 };

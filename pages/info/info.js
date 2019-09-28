@@ -113,7 +113,7 @@ Page({
             cityName: initValue(res.cityName),
             areaName: initValue(res.areaName),
             selectCity: res.cityName ? `${res.cityName} ${res.areaName}` : '',
-            latitude: res.lat, // TODO: 确定字段
+            latitude: res.lat,
             longitude: res.lng,
             address: initValue(res.address),
             selectShopType: this.getShopType(res.type),

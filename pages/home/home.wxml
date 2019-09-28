@@ -1,7 +1,7 @@
 <!--pages/home/home.wxml-->
 <wxs src="../../wxs/order.wxs" module="orderModule" />
 
-<view class="home-page">
+<view class="home-page main-container">
     <nav-bar title="NIGHT MODE"></nav-bar>
     <tab tabList="{{ tabList }}" bind:tabclick="handleTabChange"></tab>
     <!-- 今日订单 -->

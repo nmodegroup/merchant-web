@@ -17,8 +17,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    minDate: new Date().getTime(),
-    currentDate: new Date().getTime(),
+    minDate: Date.now(),
+    currentDate: Date.now(),
     quotaList: quotaList,
     title: '创建活动',
     isEdit: false, // 是否编辑状态
@@ -54,6 +54,7 @@ Page({
    */
   onLoad: function(options) {
     this.initData(options);
+    console.log('now', Date.now());
   },
 
   /**
@@ -104,6 +105,8 @@ Page({
       .then(res => {
         this.setData({
           ...res,
+          longitude: res.lng,
+          latitude: res.lat,
           selectArea: isEmpty(res.cityName) ? '' : `${res.cityName} ${res.areaName}`,
           displayBanner: isEmpty(res.banner) ? '' : `${ENV.sourceHost}${res.banner}`,
           displayPost: isEmpty(res.post) ? '' : `${ENV.sourceHost}${res.post}`

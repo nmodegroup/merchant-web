@@ -15,7 +15,7 @@
           <text class="username">{{ nickName || "未知" }}</text>
           <block wx:if="{{ phone }}">
             <view class="phone-auth" bindtap="handleReplacePhone">
-              <text>{{phone}}</text>
+              <text>{{centerModule.transformPhone(phone)}}</text>
               <image src="../../image/center/center_modify.svg"></image>
             </view>
           </block>

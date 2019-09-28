@@ -14,7 +14,9 @@
       <view class="activity-item">
         <view class="banner-wrapper">
           <image src="{{item.banner}}" mode="aspectFill"></image>
-          <view>剩余：{{ activityModule.getRemainTitle(item.num) }}</view>
+          <!-- 已下架隐藏数量显示 -->
+          <view wx:if="{{ !activityModule.isUnShelves(item.shelvesStatus) }}">
+            剩余：{{ activityModule.getRemainTitle(item.num) }}</view>
         </view>
         <view class="activity-info">
           <view class="name-location">
@@ -45,6 +47,12 @@
                 <tag title='审核中' showIcon="{{false}}" bgColor="#456AEC" />
               </view>
             </block>
+            <!-- 已下架 -->
+            <block wx:elif="{{ activityModule.isUnShelves(item.shelvesStatus) }}">
+              <view class="right">
+                <tag title='已下架' showIcon="{{false}}" />
+              </view>
+            </block>
             <!-- 开放预定中 -->
             <block wx:elif="{{ activityModule.isAuditSuccessAndOpen(item.auditStatus, item.onStatus) }}">
               <view class="right">
@@ -69,6 +77,9 @@
         </view>
       </view>
     </block>
+    <!-- 加载状态 -->
+    <loading-more isShowLoadingMore="{{ isShowLoadingMore }}"
+      showNomore="{{ showNomore && activityList.length > 1 }}" />
   </view>
 
   <!-- toast -->

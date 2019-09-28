@@ -3,7 +3,7 @@ function getBusinessStatus(statusChecked) {
 }
 
 function getReserveStatus(reserveChecked) {
-  return reserveChecked ? '当前状态：可预定' : '当前状态：不可预定';
+  return reserveChecked ? '当前状态：已开启' : '当前状态：已关闭';
 }
 
 /**
@@ -41,10 +41,19 @@ function isAuditSuccess(auditStatus) {
   return auditStatus === 1;
 }
 
+/**
+ * 隐藏手机号中间四位
+ * @param phone 手机号
+ */
+function transformPhone(phone) {
+  return phone.substring(0, 3) + '****' + phone.substring(7);
+}
+
 module.exports = {
   getBusinessStatus: getBusinessStatus,
   getReserveStatus: getReserveStatus,
   getAuditStatus: getAuditStatus,
   isAuditFail: isAuditFail,
-  isAuditSuccess: isAuditSuccess
+  isAuditSuccess: isAuditSuccess,
+  transformPhone: transformPhone
 };

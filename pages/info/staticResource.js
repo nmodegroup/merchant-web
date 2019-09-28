@@ -8,7 +8,7 @@ export const TYPE_LIST = [
     type: 2
   },
   {
-    text: '其它',
+    text: '闹吧',
     type: 0
   }
 ];

@@ -12,7 +12,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    activityList: []
+    activityList: [],
+    isShowLoadingMore: false,
+    showNomore: false
   },
 
   /**
@@ -57,6 +59,9 @@ Page({
     if (!this.hasmore) {
       return false;
     }
+    this.setData({
+      isShowLoadingMore: true
+    });
     this.requestActivityList(this.pageNum + 1);
   },
 
@@ -65,7 +70,7 @@ Page({
    */
   initPageConfig() {
     this.pageNum = 1;
-    this.pageSize = 10;
+    this.pageSize = 4;
   },
 
   /**
@@ -88,17 +93,27 @@ Page({
 
   requestActivityList(currentPage = 1) {
     const params = this.queryParams(currentPage);
-    PageHelper.requestWrapper(activityService.getActivityList(params), this.isLoadActivityFirst).then(result => {
-      this.setPageNum(currentPage);
-      const oldList = this.data.activityList;
-      const activityList = this.resolveActivityList(result.list);
-      this.setData({
-        activityList: currentPage === 1 ? activityList : oldList.concat(activityList)
+    PageHelper.requestWrapper(activityService.getActivityList(params), this.isLoadActivityFirst)
+      .then(result => {
+        this.setPageNum(currentPage);
+        const oldList = this.data.activityList;
+        const activityList = this.resolveActivityList(result.list);
+        this.setData({
+          activityList: currentPage === 1 ? activityList : oldList.concat(activityList)
+        });
+        // 更新加载状态
+        this.isLoadActivityFirst = false;
+        this.hasmore = PageHelper.checkHasmore(this.data.activityList.length, result.totalSize);
+        this.setData({
+          showNomore: !this.hasmore,
+          isShowLoadingMore: false
+        });
+      })
+      .catch(() => {
+        this.setData({
+          isShowLoadingMore: false
+        });
       });
-      // 更新加载状态
-      this.isLoadActivityFirst = false;
-      this.hasmore = PageHelper.checkHasmore(this.data.activityList.length, result.totalSize);
-    });
   },
 
   resolveActivityList(list) {

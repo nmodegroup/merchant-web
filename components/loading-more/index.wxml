@@ -1,0 +1,12 @@
+<!--正在加载-->
+<view class='load-more' hidden='{{ !isShowLoadingMore }}'>
+  <view class="weui-loadmore">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips loading__status">加载中....</view>
+  </view>
+</view>
+<view class='no-more' wx:if='{{ showNomore }}'>
+  <view class='no-more-wrapper'>
+    <text class='no-more-text'>我是有底线的~</text>
+  </view>
+</view>
