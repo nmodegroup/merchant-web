@@ -60,7 +60,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* 实时模糊 */
   backdrop-filter: blur(10px);
 }
 
