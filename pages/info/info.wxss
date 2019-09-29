@@ -13,7 +13,7 @@
 
 .input-view {
   margin-right: 60rpx;
-  margin-left: 60rpx;
+  text-align: left;
 }
 
 .skip {
@@ -113,6 +113,7 @@
 /* cover */
 
 .bartender-panel,
+.info-panel,
 .story-panel {
   height: 76rpx;
   line-height: 76rpx;
@@ -207,4 +208,18 @@ view .area-placeholder {
 
 .bartender-name-wrapper .input-view {
   margin-right: 0;
+}
+
+.fee-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fee-wrapper .input-view {
+  flex: 1;
+}
+
+.fee-wrapper > view {
+  margin-right: 30rpx;
 }

@@ -156,7 +156,7 @@ Page({
   },
 
   /**
-   * 切换预定状态
+   * 切换预订状态
    */
   onStatusChange(event) {
     console.log(event);
@@ -174,7 +174,7 @@ Page({
     };
 
     PageHelper.requestWrapper(activityService.changeActivityStatus(params)).then(() => {
-      PageHelper.showSuccessToast(activity.onStatus === ActivityStatus.OPEN ? '已关闭预定' : '已开放预定');
+      PageHelper.showSuccessToast(activity.onStatus === ActivityStatus.OPEN ? '已关闭预订' : '已开放预订');
       const key = `activityList[${index}]`;
       activity.onStatus = activity.onStatus === ActivityStatus.OPEN ? ActivityStatus.CLOSE : ActivityStatus.OPEN;
       this.setData({

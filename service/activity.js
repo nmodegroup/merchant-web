@@ -21,7 +21,7 @@ export function getActivityList(params) {
 }
 
 /**
- * 预定人员列表
+ * 预订人员列表
  */
 export function getActivityUser(params) {
   return new Promise((resolve, reject) => {

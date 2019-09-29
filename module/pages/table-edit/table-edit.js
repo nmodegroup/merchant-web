@@ -2,6 +2,8 @@
 const tableService = require('../../../service/table');
 const { regAllNumber } = require('../../../utils/regular');
 const { PageConfig } = require('../../../utils/page');
+const { isEmpty } = require('../../../utils/global');
+const { debounce } = require('../../../utils/throttle-debounce/index');
 const PageHelper = new PageConfig();
 
 Page({
@@ -18,7 +20,8 @@ Page({
     areaId: '', // 区域id
     tableName: '', // 桌位名
     tableId: '', // 桌位id
-    tableNum: '' // 桌位人数
+    tableNum: '', // 桌位人数
+    verifyed: false // 新建是否可点击
   },
 
   /**
@@ -36,6 +39,7 @@ Page({
   initData(options) {
     // init PageHelper
     PageHelper.setupPageConfig(this);
+    this.setupDebounce();
     // 请求区域列表
     this.requestAreaList();
     const { areaName, areaId, tableName, tableId, tableNum } = options;
@@ -48,6 +52,13 @@ Page({
       tableName: getValue(tableName),
       tableId: getValue(tableId),
       tableNum: getValue(tableNum)
+    });
+  },
+
+  setupDebounce() {
+    /* 输入防抖，func 为需要执行的函数，不传则默认 refreshFormVerify */
+    this.inputDebounce = debounce(300, (func = this.refreshFormVerify) => {
+      func();
     });
   },
 
@@ -67,6 +78,20 @@ Page({
         areaList: res
       });
     });
+  },
+
+  /**
+   * 刷新表单验证状态
+   */
+  refreshFormVerify() {
+    this.setData({
+      verifyed: this.verifyForm()
+    });
+  },
+
+  verifyForm() {
+    const { selectArea, tableName, tableNum } = this.data;
+    return !isEmpty(selectArea.name) && !isEmpty(tableName) && !isEmpty(tableNum);
   },
 
   handleCreateTable(event) {
@@ -100,14 +125,8 @@ Page({
   checkFormData() {
     const { selectArea, tableName, tableNum } = this.data;
     return new Promise((resolve, reject) => {
-      if (!selectArea.id) {
-        return reject('请选择桌位所属区域');
-      }
-      if (!tableName) {
-        return reject('请填写桌位名称');
-      }
-      if (!tableNum) {
-        return reject('请填写桌位最多容纳人数');
+      if (!this.verifyForm()) {
+        return false;
       }
       if (!regAllNumber(tableNum)) {
         return reject('桌位人数填写不正确');
@@ -151,6 +170,7 @@ Page({
         tableNum: value
       });
     }
+    this.refreshFormVerify();
   },
 
   handleCellClick() {
@@ -166,6 +186,7 @@ Page({
       selectArea: value,
       visibleArea: false
     });
+    this.refreshFormVerify();
   },
 
   onCancel() {

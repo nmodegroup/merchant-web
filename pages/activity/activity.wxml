@@ -53,24 +53,24 @@
                 <tag title='已下架' showIcon="{{false}}" />
               </view>
             </block>
-            <!-- 开放预定中 -->
+            <!-- 开放预订中 -->
             <block wx:elif="{{ activityModule.isAuditSuccessAndOpen(item.auditStatus, item.onStatus) }}">
               <view class="right">
                 <view class="switch-wrapper">
                   <van-switch checked="{{true}}" size='18px' active-color='#456AEC' inactive-color='#162766'
                     bind:change="onStatusChange" data-item="{{ item }}" data-index="{{ index }}" />
                 </view>
-                <view class="reserve-status">开放预定中</view>
+                <view class="reserve-status">开放预订中</view>
               </view>
             </block>
-            <!-- 暂停预定 -->
+            <!-- 暂停预订 -->
             <block wx:elif="{{ activityModule.isAuditSuccessAndClose(item.auditStatus, item.onStatus) }}">
               <view class="right">
                 <view class="switch-wrapper">
                   <van-switch checked="{{false}}" size='18px' active-color='#456AEC' inactive-color='#162766'
                     bind:change="onStatusChange" data-item="{{ item }}" data-index="{{ index }}" />
                 </view>
-                <view class="reserve-status">暂停预定</view>
+                <view class="reserve-status">暂停预订</view>
               </view>
             </block>
           </view>

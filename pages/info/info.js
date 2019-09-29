@@ -531,9 +531,9 @@ Page({
     const { shopName, isTotal, latitude, longitude, price } = this.data;
 
     /* 校验门店名称 */
-    if (!regular.regShopName(shopName) || regular.regAllNumber(shopName)) {
-      return PageHelper.showToast('门店名称至少1个字符可包含中文\n字母数字但不能全为数字');
-    }
+    // if (regular.regAllNumber(shopName)) {
+    //   return PageHelper.showToast('门店名称至少1个字符可包含中文\n字母数字但不能全为数字');
+    // }
 
     /* 完善店铺信息需要更多校验 */
     if (isTotal) {

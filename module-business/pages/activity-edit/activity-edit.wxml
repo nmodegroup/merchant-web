@@ -30,7 +30,7 @@
                 placeholder="请输入嘉宾姓名(可多个，用“|”隔开)" bindinput="handleInput" data-type="guest" />
         </cell-input>
         <view class="reserve-count">
-            <view class="reserve-title">限制预定数量</view>
+            <view class="reserve-title">限制预订数量</view>
             <view class="reserve-radio">
                 <van-radio-group value="{{ quotaType }}" bind:change="onRadioChange">
                     <block wx:for="{{ quotaList }}" wx:key="{{ item.name }}">

@@ -6,7 +6,7 @@
             placeholder="请填写区域名称(如：包房，大厅，吧台等)" bindinput="handleInput" />
     </cell-input>
     <block wx:if="{{!isEdit}}">
-        <action-bottom bind:click="handleCreateArea" />
+        <action-bottom enabled="{{ areaName }}" bind:click="handleCreateArea" />
     </block>
     <block wx:if="{{isEdit}}">
         <action-bottom single="{{ false }}" rightText="删除" bind:click="handleEditArea" />

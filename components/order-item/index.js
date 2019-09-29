@@ -19,7 +19,7 @@ Component({
    */
   methods: {
     /**
-     * 等待确认状态时可以确认预定操作，已确认或到点超时状态下可以确认已到达操作
+     * 等待确认状态时可以确认预订操作，已确认或到点超时状态下可以确认已到达操作
      */
     handleConfirm() {
       const myEventDetail = { item: this.data.order };

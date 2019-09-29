@@ -2,6 +2,7 @@
 const tableService = require('../../../service/table');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
+const { isEmpty } = require('../../../utils/global');
 
 Page({
   /**
@@ -11,7 +12,7 @@ Page({
     title: '',
     isEdit: false,
     areaName: '',
-    areaId: ''
+    areaId: '' // 区域 id
   },
 
   /**
@@ -46,6 +47,9 @@ Page({
    */
   handleCreateArea() {
     const { areaName } = this.data;
+    if (isEmpty(areaName)) {
+      return false;
+    }
     if (!areaName || areaName.length < 2 || areaName.length > 10) {
       return PageHelper.showFailToast('区域名2-10个字符\n可包含中文字母数字');
     }

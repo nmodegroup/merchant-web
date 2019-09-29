@@ -13,7 +13,7 @@ export class Folder {
  * 订单类型
  */
 export class OrderType {
-  static TODAY = 1; // 今日预定
+  static TODAY = 1; // 今日预订
   static FUTURE = 2; // 未来订单
   static HISTORY = 3; // 历史订单
 }

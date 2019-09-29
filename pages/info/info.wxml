@@ -1,32 +1,36 @@
 <!--pages/info/info.wxml-->
 <view class="info-page">
     <nav-bar title="认证信息" back="{{ isTotal }}" home="{{ isTotal }}" propagation></nav-bar>
+    <view class="info-panel">店铺信息</view>
     <cell-input title="门店名称">
         <input class="input-view" placeholder-class="placeholder" value="{{shopName}}" placeholder="请输入门店名称"
             bindinput="handleInput" data-type="shopName" />
     </cell-input>
-    <cell title="所在区域" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="city">
+    <cell-left title="所在区域" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="city">
         <text class="{{ selectCity ? 'active' : '' }}">{{selectCity || "请选择所在区域"}}</text>
-    </cell>
-    <cell title="详细地址" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="address">
+    </cell-left>
+    <cell-left title="详细地址" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="address">
         <div class="address {{ address ? 'active' : '' }}">{{address || "门店详细地址"}}</div>
-    </cell>
-    <cell title="所属类型" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="shopType">
+    </cell-left>
+    <cell-left title="所属类型" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="shopType">
         <text class="{{ selectShopType.text ? 'active' : '' }}">{{ selectShopType.text || "请选择门店类型" }}</text>
-    </cell>
+    </cell-left>
     <cell-input title="门店电话">
         <input class="input-view" placeholder-class="placeholder" value="{{shopPhone}}" placeholder="请输入门店电话"
             bindinput="handleInput" data-type="shopPhone" />
     </cell-input>
-    <cell title="品牌LOGO" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="logo">
+    <cell-left title="品牌LOGO" showIcon="{{false}}" bind:cellClick="handleCellClick" data-type="logo">
         <image class="shop-logo" src="{{ logo ? sourceHost + logo : '../../image/user/auth-add.svg' }}"
             mode="aspectFill"></image>
-    </cell>
+    </cell-left>
     <!-- 店铺信息完善 -->
     <block wx:if="{{isTotal}}">
         <cell-input title="人均消费">
-            <input class="input-view" placeholder-class="placeholder" type="digit" value="{{price}}" maxlength="5"
-                placeholder="请输入预估人均消费" bindinput="handleInput" data-type="price" />
+            <view class="fee-wrapper">
+                <input class="input-view" placeholder-class="placeholder" type="digit" value="{{price}}" maxlength="5"
+                    placeholder="请输入预估人均消费" bindinput="handleInput" data-type="price" />
+                <view>元/人</view>
+            </view>
         </cell-input>
         <!-- 封面 -->
         <view class="cover-container">

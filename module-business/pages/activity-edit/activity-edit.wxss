@@ -24,7 +24,7 @@
   margin-left: 60rpx;
 }
 
-/* 限制预定数量 */
+/* 限制预订数量 */
 .reserve-count {
   display: flex;
   flex-direction: row;

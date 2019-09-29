@@ -208,7 +208,7 @@ export class PageConfig {
   }
 
   /**
-   * 订单确认预定弹窗
+   * 订单确认预订弹窗
    */
   showOrderConfirmModal() {
     return new Promise((resolve, reject) => {
@@ -217,6 +217,7 @@ export class PageConfig {
         title: '温馨提示',
         cancelText: '不通过',
         confirmText: '通过',
+        showClose: true,
         hideCancel: false,
         onConfirm: () => {
           resolve();

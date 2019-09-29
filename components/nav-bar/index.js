@@ -50,27 +50,18 @@ Component({
   ready() {
     // 初始化 modal
     this.modal = this.selectComponent('#modal');
-    console.log('modal', this.modal);
     // 计算标题栏和状态栏高度
     wxManager.getSystemInfo().then(systemInfo => {
-      console.log('systemInfo:', systemInfo);
-      const reg = /ios/i;
-      let pt = 20;
-      let h = 44;
-      if (reg.test(systemInfo.system)) {
-        pt = systemInfo.statusBarHeight;
-        h = 44;
-      } else {
-        pt = systemInfo.statusBarHeight;
-        h = 48;
-      }
+      const { statusBarHeight } = systemInfo;
+      const rect = wx.getMenuButtonBoundingClientRect();
+      const titleBarHeight = rect.bottom + rect.top - statusBarHeight * 2;
 
       //计算当前页面是否在栈底
       const pages = getCurrentPages();
       this.setData({
         showBack: this.data.back && pages.length > 1,
-        statusBarHeight: pt,
-        navigationBarHeight: h + pt
+        statusBarHeight,
+        navigationBarHeight: statusBarHeight + titleBarHeight
       });
     });
   },

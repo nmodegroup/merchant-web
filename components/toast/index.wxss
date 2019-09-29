@@ -12,7 +12,7 @@
 
 .wx-toast-content-base {
   background: rgba(255, 255, 255, 0.3);
-  border-radius: 16rpx;
+  border-radius: 8rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,10 +26,9 @@
   z-index: -1;
   top: 0;
   left: 0;
-  border-radius: 16rpx;
+  border-radius: 8rpx;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.3);
   /* 实时模糊 */
   backdrop-filter: blur(10px);
   /* filter: blur(3rpx) saturate(0); */

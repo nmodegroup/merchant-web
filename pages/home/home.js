@@ -11,11 +11,11 @@ Page({
   data: {
     tabList: [
       {
-        title: '今日预定',
+        title: '今日预订',
         type: OrderType.TODAY
       },
       {
-        title: '未来订单',
+        title: '未来预订',
         type: OrderType.FUTURE
       }
     ],
@@ -86,7 +86,7 @@ Page({
   },
 
   /**
-   * 今日预定列表
+   * 今日预订列表
    */
   requestTodayOrderList(pageNum = this.pageNum) {
     const params = this.queryParams(pageNum);
@@ -111,7 +111,7 @@ Page({
   },
 
   /**
-   * 未来预定列表
+   * 未来预订列表
    */
   requestFutureOrderList() {
     PageHelper.requestWrapper(homeService.getFutureOrderList(), this.isLoadFeatureFirst)
@@ -155,7 +155,7 @@ Page({
   },
 
   /**
-   * 确认预定
+   * 确认预订
    */
   handleItemClick(event) {
     const { item } = event.detail;

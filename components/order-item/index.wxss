@@ -74,26 +74,34 @@
   margin-top: 10rpx;
 }
 
-.confirm-btn {
+.confirm-wrapper {
+  position: relative;
   height: 60rpx;
   line-height: 60rpx;
   width: 180rpx;
-  background: rgba(69, 80, 138);
-  position: relative;
-  border-radius: 30rpx;
-  font-size: 24rpx;
-  color: #fff;
-  text-align: center;
 }
 
-.confirm-btn:after {
+.confirm-btn {
+  background: rgba(69, 80, 138);
   position: absolute;
-  content: '';
+  border-radius: 30rpx;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24rpx;
+  text-align: center;
+  color: #fff;
+  z-index: 2;
+}
+
+.btn-bg {
+  position: absolute;
   top: -2rpx;
   left: -2rpx;
   bottom: -2rpx;
   right: -2rpx;
-  border-radius: 30rpx;
+  border-radius: 44rpx;
   background: linear-gradient(225deg, rgba(255, 64, 167, 1) 0%, rgba(210, 51, 255, 1) 45%, rgba(45, 147, 255, 1) 100%);
-  z-index: -1;
+  z-index: 1;
 }

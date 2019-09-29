@@ -8,7 +8,7 @@
 const httpManager = require('../lib/request/httpManager');
 
 /**
- * 预定订单-获取今日预定列表
+ * 预订订单-获取今日预订列表
  */
 export function getTodayOrderList(params) {
   return new Promise((resolve, reject) => {
@@ -28,7 +28,7 @@ export function getTodayOrderList(params) {
 }
 
 /**
- * 预定订单-获取未来预定列表
+ * 预订订单-获取未来预订列表
  */
 export function getFutureOrderList(params) {
   return new Promise((resolve, reject) => {
@@ -48,7 +48,7 @@ export function getFutureOrderList(params) {
 }
 
 /**
- * 预定订单-获取历史预定列表
+ * 预订订单-获取历史预订列表
  */
 export function getHistoryOrderList(params) {
   return new Promise((resolve, reject) => {
@@ -68,7 +68,7 @@ export function getHistoryOrderList(params) {
 }
 
 /**
- * 预定订单-确认/到店
+ * 预订订单-确认/到店
  * type:（1确认通过  2确认不通过  3确认到店）
  */
 export function confirmOrder(params) {

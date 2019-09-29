@@ -9,6 +9,7 @@ Component({
   data: {
     // 弹窗显示控制
     show: false,
+    showClose: false, // 是否显示关闭按钮
     content: '提示内容',
     title: '提示',
     hideCancel: false,
@@ -29,6 +30,7 @@ Component({
     showModal(form) {
       this.setData({
         show: true,
+        showClose: form.showClose || false,
         content: form.content || '',
         title: form.title || '温馨提示',
         hideCancel: form.hideCancel || false,
@@ -61,6 +63,12 @@ Component({
       if (onConfirm && typeof onConfirm === 'function') {
         return onConfirm();
       }
+    },
+
+    close() {
+      this.setData({
+        show: false
+      });
     },
 
     onGetPhoneCallback(event) {

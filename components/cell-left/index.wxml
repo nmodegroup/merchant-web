@@ -1,0 +1,19 @@
+<view
+  class="cell-container cell-extra {{ !showBorder ? '' : showIcon ? 'cell-border' : 'cell-border-two' }} {{ borderRightPadding ? 'cell-border-right-padding' : '' }}"
+  style="backgroundColor: {{ bgColor }}" bindtap="onCellClick">
+  <block wx:if="{{ showIcon }}">
+    <image class="right-icon" src="{{ iconUrl }}"></image>
+  </block>
+  <view class="title-wrapper custom-title">
+    <view class="title">{{ title }}</view>
+    <block wx:if="{{minor}}">
+      <view class="minor">{{ minor }}</view>
+    </block>
+  </view>
+  <view class="slot-fill">
+    <slot></slot>
+  </view>
+  <block wx:if="{{ showArrow }}">
+    <image class="arrow" src="../../image/global/cell_arrow.svg"></image>
+  </block>
+</view>

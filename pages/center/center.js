@@ -49,6 +49,13 @@ Page({
     this.setupUserInfo();
   },
 
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+    this.requestMerchantInfo();
+  },
+
   initData() {
     this.isLoadFirst = true; // 用于判断第二次加载不显示 loading
     PageHelper.setupPageConfig(this);

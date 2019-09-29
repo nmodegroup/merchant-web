@@ -1,6 +1,6 @@
 {
   "enablePullDownRefresh": true,
-  "backgroundTextStyle": "dark",
+  "backgroundTextStyle": "light",
   "usingComponents": {
     "order-item": "/components/order-item/index",
     "tab": "/components/tab/index"

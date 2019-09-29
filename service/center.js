@@ -39,7 +39,7 @@ export function changeBusinessStatus() {
 }
 
 /**
- * 商家预定状态-开启/关闭
+ * 商家预订状态-开启/关闭
  */
 export function changeAppointStatus() {
   return new Promise((resolve, reject) => {

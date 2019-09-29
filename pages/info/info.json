@@ -4,6 +4,7 @@
     "van-popup": "/components/vant-weapp/popup/index",
     "van-area": "/components/vant-weapp/area/index",
     "choose-image": "/components/choose-image/index",
-    "form-button": "/components/form-button/index"
+    "form-button": "/components/form-button/index",
+    "cell-left": "/components/cell-left/index"
   }
 }
