@@ -9,7 +9,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: '',
     isEdit: false,
     areaName: '',
     areaId: '' // 区域 id
@@ -35,11 +34,13 @@ Page({
     // init PageHelper
     PageHelper.setupPageConfig(this);
     this.setData({
-      title: !!id ? '编辑区域' : '新增区域',
       isEdit: !!id,
       areaId: PageHelper.getValue(id),
       areaName: PageHelper.getValue(areaName)
     });
+    wx.setNavigationBarTitle({
+      title: !!id ? '编辑区域' : '新增区域'
+    })
   },
 
   /**

@@ -11,7 +11,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: '',
     isEdit: false,
     areaList: [],
     visibleArea: false,
@@ -46,13 +45,15 @@ Page({
     const isEdit = !!areaId;
     const getValue = PageHelper.getValue;
     this.setData({
-      title: isEdit ? '编辑桌位' : '新增桌位',
       isEdit: isEdit,
       selectArea: this.resolveSelectArea(areaId, areaName),
       tableName: getValue(tableName),
       tableId: getValue(tableId),
       tableNum: getValue(tableNum)
     });
+    wx.setNavigationBarTitle({
+      title: isEdit ? '编辑桌位' : '新增桌位'
+    })
   },
 
   setupDebounce() {

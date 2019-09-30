@@ -1,6 +1,7 @@
 {
   "enablePullDownRefresh": true,
   "backgroundTextStyle": "light",
+  "navigationBarTitleText": "NIGHT MODE",
   "usingComponents": {
     "order-item": "/components/order-item/index",
     "tab": "/components/tab/index"

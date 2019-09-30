@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "换绑手机号",
   "usingComponents": {
     "form-button": "/components/form-button/index"
   }

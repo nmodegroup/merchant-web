@@ -2,7 +2,6 @@
 <wxs src="../../../wxs/order.wxs" module="orderModule" />
 
 <view class="order-list-page">
-  <nav-bar title="订单列表" back home></nav-bar>
   <tab tabList="{{ tabList }}" bind:tabclick="handleTabChange"></tab>
 
   <!-- 今日订单 -->

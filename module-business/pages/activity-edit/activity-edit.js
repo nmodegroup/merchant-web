@@ -20,7 +20,6 @@ Page({
     minDate: Date.now(),
     currentDate: Date.now(),
     quotaList: quotaList,
-    title: '创建活动',
     isEdit: false, // 是否编辑状态
     theme: '', // 活动主题
     beginTime: '', // 活动开始时间
@@ -66,8 +65,10 @@ Page({
     const activityId = options.activityId;
     this.setData({
       isEdit: isEdit(activityId),
-      title: isEdit(activityId) ? '编辑活动' : '创建活动',
       activityId: initValue(activityId)
+    });
+    wx.setNavigationBarTitle({
+      title: isEdit(activityId) ? '编辑活动' : '创建活动'
     });
     PageHelper.setupPageConfig(this);
     this.initDebounce();

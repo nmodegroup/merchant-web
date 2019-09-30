@@ -1,6 +1,5 @@
 <!--module/pages/code/code.wxml-->
 <view class="code-page">
-  <nav-bar title="商家二维码" back home></nav-bar>
   <view class="image-container">
     <image class="code-bg" src="../../image/code-bg.png"></image>
     <view class="code-wrapper">

@@ -2,7 +2,6 @@
 <wxs src="../../../wxs/time.wxs" module="timeModule" />
 
 <view class="arrival-page">
-  <nav-bar title="预约到店时间" back home></nav-bar>
   <block wx:for="{{timeList}}" wx:key="{{item.id}}">
     <van-swipe-cell id="swipe-cell" right-width="{{ 134 }}" async-close bind:close="handleClose">
       <cell cell-extra="cell-extra" title="{{item.time}}" showIcon="{{false}}" showArrow="{{false}}">

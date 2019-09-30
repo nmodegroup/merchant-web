@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "新增时间",
   "usingComponents": {
     "van-checkbox": "/components/vant-weapp/checkbox/index"
   }

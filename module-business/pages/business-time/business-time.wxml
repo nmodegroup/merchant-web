@@ -2,7 +2,6 @@
 <wxs src="../../../wxs/time.wxs" module="timeModule" />
 
 <view class="business-page">
-  <nav-bar title="营业时间" back home></nav-bar>
   <!-- 商铺营业时间 -->
   <block wx:for="{{businessTimeList}}" wx:key="index">
     <cell cell-extra="cell-extra" title="{{ item.begin + ' - ' + item.end }}" minor="{{ item.weekListContent }}"

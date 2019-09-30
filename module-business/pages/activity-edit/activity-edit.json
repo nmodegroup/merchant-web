@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "",
   "usingComponents": {
     "van-popup": "/components/vant-weapp/popup/index",
     "van-datetime-picker": "/components/vant-weapp/datetime-picker/index",

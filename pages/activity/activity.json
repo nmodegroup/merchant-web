@@ -1,6 +1,7 @@
 {
   "enablePullDownRefresh": true,
   "backgroundTextStyle": "light",
+  "navigationBarTitleText": "活动",
   "usingComponents": {
     "loading-more": "/components/loading-more/index"
   }

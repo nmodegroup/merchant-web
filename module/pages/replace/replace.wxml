@@ -1,6 +1,5 @@
 <!--module/pages/replace/replace.wxml-->
 <view class="replace-page">
-    <nav-bar title="换绑手机号" back home></nav-bar>
     <view class="phone-container">
         <!-- 步骤条 -->
         <view class="step-container">

@@ -2,10 +2,11 @@
   "pages": ["pages/auth/auth", "pages/center/center", "pages/activity/activity", "pages/info/info", "pages/home/home"],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#161549",
+    "backgroundColor": "#161549",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "white",
-    "navigationStyle": "custom"
+    "navigationStyle": "default"
   },
   "subpackages": [
     {
@@ -36,7 +37,7 @@
     }
   ],
   "tabBar": {
-    "custom": true,
+    "custom": false,
     "list": [
       {
         "pagePath": "pages/home/home",

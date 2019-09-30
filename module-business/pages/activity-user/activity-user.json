@@ -1,5 +1,6 @@
 {
   "enablePullDownRefresh": true,
   "backgroundTextStyle": "dark",
+  "navigationBarTitleText": "预订详情",
   "usingComponents": {}
 }

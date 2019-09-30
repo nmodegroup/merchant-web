@@ -1,4 +1,3 @@
 <!--module/pages/about/about.wxml-->
 <view class="about">
-  <nav-bar title="关于我们" back home></nav-bar>
 </view>
