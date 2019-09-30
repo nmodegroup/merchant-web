@@ -81,8 +81,24 @@
 
 .image-container {
   width: calc((330 / 375) * 100vw);
-  height: calc((166 / 375) * 100vw);
+  height: calc((158 / 375) * 100vw);
   position: relative;
+}
+
+.info-empty-class {
+  width: calc((330 / 375) * 100vw) !important;
+  height: calc((158 / 375) * 100vw) !important;
+}
+
+.bartender-image-container {
+  width: calc((286 / 375) * 100vw);
+  height: calc((390 / 375) * 100vw);
+  position: relative;
+}
+
+.bartender-empty-class {
+  width: calc((286 / 375) * 100vw) !important;
+  height: calc((390 / 375) * 100vw) !important;
 }
 
 .cover-image,
@@ -130,6 +146,7 @@
 
 .bartender-item {
   display: flex;
+  width: calc((286 / 375) * 100vw);
   flex-direction: column;
   align-items: center;
   padding-right: 20rpx;
@@ -147,7 +164,7 @@ view .area-placeholder {
 }
 
 .bartender-textarea {
-  width: 88vw;
+  width: calc((286 / 375) * 100vw);
   height: 224rpx;
   border: 2rpx solid rgba(255, 255, 255, 0.2);
   border-radius: 8rpx;
@@ -199,7 +216,7 @@ view .area-placeholder {
 /* 调酒师信息 */
 
 .cell-input-custom {
-  width: 88vw;
+  width: calc((286 / 375) * 100vw);
 }
 
 .custom-title {

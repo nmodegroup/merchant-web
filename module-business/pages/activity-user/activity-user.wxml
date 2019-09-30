@@ -5,7 +5,7 @@
         <view class="reserve-container">
             <view class="top">
                 <view class="nickname">{{item.nickName}}</view>
-                <view class="phone">{{item.phone}}</view>
+                <view class="phone" bindtap="makeCall" data-phone="{{ item.phone }}">{{item.phone}}</view>
             </view>
             <view class="bottom">
                 <view class="appoint-time">{{item.appointTime}}</view>

@@ -21,7 +21,7 @@
         <block wx:if="{{ orderModule.isShowConfirmAppoint(order.status) }}">
             <view class="confirm-wrapper">
                 <view class="btn-bg"></view>
-                <view class="confirm-btn" bindtap="handleConfirm">确认预订</view>
+                <view class="confirm-btn" bindtap="handleConfirm">是否通过</view>
             </view>
         </block>
 

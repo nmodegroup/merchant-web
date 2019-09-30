@@ -49,7 +49,8 @@
                         </block>
                         <!-- 未添加图片 -->
                         <block wx:else>
-                            <choose-image title="请上传一张店铺封面" bind:click="handleChooseCover"></choose-image>
+                            <choose-image empty-class="info-empty-class" title="请上传一张店铺封面，尺寸需为375*180"
+                                bind:click="handleChooseCover"></choose-image>
                         </block>
                     </view>
                 </view>
@@ -92,7 +93,7 @@
                             </view>
                         </block>
                         <block wx:if='{{item.img}}'>
-                            <view class="image-container">
+                            <view class="bartender-image-container">
                                 <image class="bartender-image" src="{{ sourceHost + item.img }}" mode="aspectFill">
                                 </image>
                                 <image class="bartender-edit" src="../../image/user/edit.svg"
@@ -101,8 +102,8 @@
                         </block>
                         <!-- 未添加图片 -->
                         <block wx:else>
-                            <choose-image title="请上传一张调酒师个人宣传照片" bind:click="handleChooseBartenderImage"
-                                data-index="{{ index }}"></choose-image>
+                            <choose-image empty-class="bartender-empty-class" title="请上传一张调酒师个人宣传照片\n尺寸需为286*390"
+                                bind:click="handleChooseBartenderImage" data-index="{{ index }}"></choose-image>
                         </block>
                         <image wx:if="{{ item.img || item.desc }}" class="bartender-delete"
                             src="../../image/user/close.svg" bindtap="handleDeleteBartender" data-index="{{index}}">

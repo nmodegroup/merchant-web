@@ -86,26 +86,26 @@
 
 .banner-empty-class {
   width: 100% !important;
-  height: calc(100vw * (166 / 375)) !important;
+  height: calc(100vw * (160 / 375)) !important;
   margin-top: 20rpx;
 }
 
 .banner {
   width: 100%;
-  height: calc(100vw * (166 / 375));
+  height: calc(100vw * (160 / 375));
   border-radius: 8rpx;
   margin-top: 20rpx;
 }
 
 .post-empty-class {
   width: 100% !important;
-  height: calc(100vw * (552 / 375)) !important;
+  height: calc(100vw * (600 / 375)) !important;
   margin-top: 30rpx;
 }
 
 .poster {
   width: 100%;
-  height: calc(100vw * (552 / 375));
+  height: calc(100vw * (600 / 375));
   border-radius: 8rpx;
   margin-top: 30rpx;
 }
