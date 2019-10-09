@@ -4,6 +4,7 @@ const authService = require('../../service/user');
 const pageConstant = require('../../constant/page');
 const pageFlag = require('../../constant/pageFlag');
 const { isEmpty } = require('../../utils/global');
+const log = require('../../lib/log');
 const store = getApp().globalData;
 const { PageConfig } = require('../../utils/page');
 const PageHelper = new PageConfig();
@@ -118,6 +119,9 @@ Page({
         this.Toast.showToast({
           content: e.msg || '登录失败，请重试'
         });
+        // 提交实时信息，检测审核人员登录失败原因
+        log.error(e);
+        throw e;
       });
   },
 

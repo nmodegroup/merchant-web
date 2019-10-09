@@ -3,6 +3,7 @@ const pageConstant = require('../constant/page');
 const pageFlag = require('../constant/pageFlag');
 const { AuditStatus } = require('../constant/global');
 const { isEmpty } = require('./global');
+const log = require('../lib/log');
 const store = getApp().globalData;
 
 export class PageConfig {
@@ -30,10 +31,13 @@ export class PageConfig {
   requestWrapper(service, isShowLoading = true) {
     return new Promise((resolve, reject) => {
       if (isShowLoading) {
+        log.info('requestWrapper:loading');
         wxManager.showLoading('加载中');
       }
+      log.info('requestWrapper:开始加载');
       service
         .then(res => {
+          log.info('requestWrapper:加载成功');
           if (isShowLoading) {
             wxManager.hideLoading();
           }
@@ -41,6 +45,7 @@ export class PageConfig {
           resolve(res);
         })
         .catch(res => {
+          log.info('requestWrapper:加载失败');
           if (isShowLoading) {
             wxManager.hideLoading();
           }

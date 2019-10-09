@@ -65,6 +65,12 @@ Page({
     this.requestActivityList(this.pageNum + 1);
   },
 
+  onShareAppMessage() {
+    return {
+      path: PageConstant.AUTH_URL
+    };
+  },
+
   /**
    * 初始化或重置页码数据
    */

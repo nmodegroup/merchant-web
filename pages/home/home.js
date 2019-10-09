@@ -3,6 +3,7 @@ const { OrderType, OrderActionStatus } = require('../../constant/global');
 const homeService = require('../../service/home');
 const { PageConfig } = require('../../utils/page');
 const PageHelper = new PageConfig();
+const PageConstant = require('../../constant/page');
 
 Page({
   /**
@@ -60,6 +61,12 @@ Page({
       return false;
     }
     this.sendLoadMOreRequest();
+  },
+
+  onShareAppMessage() {
+    return {
+      path: PageConstant.AUTH_URL
+    };
   },
 
   initData() {
