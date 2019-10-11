@@ -73,7 +73,6 @@ Page({
     this.isLoadTodayFirst = true;
     this.isLoadFeatureFirst = true;
     PageHelper.setupPageConfig(this);
-    PageHelper.showOrderConfirmModal(); // TODO:
   },
 
   sendRefreshRequest() {
