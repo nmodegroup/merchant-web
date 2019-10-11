@@ -1,5 +1,6 @@
 <!--module-business/pages/week/week.wxml-->
 <view class="business-edit-page">
+    <nav-bar title="新增时间" home back propagation></nav-bar>
     <block wx:for="{{ weekList }}" wx:key="index">
         <cell title="{{ item.title }}" showBorder="{{ true }}" showIcon="{{false}}" showArrow="{{false}}"
             bind:cellClick="handleCellClick" data-item="{{ item }}" data-index="{{ index }}">

@@ -1,5 +1,6 @@
 <!--module/pages/business-time-edit/busine.wxml-->
 <view class="business-edit-page">
+    <nav-bar title="营业时间" home back propagation></nav-bar>
     <view class="time-picker-container">
         <view class="time-label">营业开始</view>
         <van-datetime-picker item-height="30" type="time" show-toolbar="{{ false }}" bind:input="handleStartInput"

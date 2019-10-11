@@ -2,6 +2,7 @@
 <wxs src="../../wxs/activity.wxs" module="activityModule" />
 
 <view class="main-container">
+  <nav-bar title="活动"></nav-bar>
   <view class="activity-page">
     <!-- 创建活动 -->
     <view class="create-activity" bindtap="handleCreateActivity">

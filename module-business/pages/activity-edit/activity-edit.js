@@ -65,9 +65,7 @@ Page({
     const activityId = options.activityId;
     this.setData({
       isEdit: isEdit(activityId),
-      activityId: initValue(activityId)
-    });
-    wx.setNavigationBarTitle({
+      activityId: initValue(activityId),
       title: isEdit(activityId) ? '编辑活动' : '创建活动'
     });
     PageHelper.setupPageConfig(this);

@@ -4,9 +4,9 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#161549",
     "backgroundColor": "#161549",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle": "white",
-    "navigationStyle": "default"
+    "navigationStyle": "custom"
   },
   "subpackages": [
     {
@@ -37,7 +37,7 @@
     }
   ],
   "tabBar": {
-    "custom": true,
+    "custom": false,
     "list": [
       {
         "pagePath": "pages/home/home",

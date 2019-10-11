@@ -1,5 +1,6 @@
 <!--module/pages/area-edit/area-edit.wxml-->
 <view class="area-edit-page">
+    <nav-bar title="{{ title }}" home back propagation></nav-bar>
     <cell-input title="区域名称">
         <input class="input-view" placeholder-class="placeholder" value="{{areaName}}"
             placeholder="请填写区域名称(如：包房，大厅，吧台等)" bindinput="handleInput" />

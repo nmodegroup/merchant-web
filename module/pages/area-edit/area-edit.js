@@ -36,11 +36,9 @@ Page({
     this.setData({
       isEdit: !!id,
       areaId: PageHelper.getValue(id),
-      areaName: PageHelper.getValue(areaName)
-    });
-    wx.setNavigationBarTitle({
+      areaName: PageHelper.getValue(areaName),
       title: !!id ? '编辑区域' : '新增区域'
-    })
+    });
   },
 
   /**

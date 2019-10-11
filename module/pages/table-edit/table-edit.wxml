@@ -1,5 +1,6 @@
 <!--module/pages/table-edit/table-edit.wxml-->
 <view class="table-edit-page">
+    <nav-bar title="{{ title }}" home back propagation></nav-bar>
     <cell title="区域名称" showIcon="{{false}}" bind:cellClick="handleCellClick">
         <text
             class="area-name {{ selectArea.name ? '' : 'disactive' }}">{{ selectArea.name ? selectArea.name : "请选择区域"}}</text>

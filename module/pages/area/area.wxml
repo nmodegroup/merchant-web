@@ -1,5 +1,6 @@
 <!--module/pages/area/area.wxml-->
 <view class="area-page">
+    <nav-bar title="区域管理" home back></nav-bar>
     <block wx:for="{{areaList}}" wx:key="index">
         <cell title="{{item.name}}" showIcon="{{ false }}" data-item="{{item}}" bind:cellClick="handleCellClick">
         </cell>

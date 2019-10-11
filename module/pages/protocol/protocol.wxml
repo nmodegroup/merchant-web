@@ -1,5 +1,6 @@
 <!--module/pages/help/help.wxml-->
 <view class="help-page">
+  <nav-bar title="用户协议" home back></nav-bar>
   <view class='QA-container'>
     <view wx:for='{{ protocolList }}' class='item middle-margin' wx:key='title'>
       <view class='QA-title'>{{ item.title }}</view>

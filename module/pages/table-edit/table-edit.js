@@ -49,11 +49,9 @@ Page({
       selectArea: this.resolveSelectArea(areaId, areaName),
       tableName: getValue(tableName),
       tableId: getValue(tableId),
-      tableNum: getValue(tableNum)
-    });
-    wx.setNavigationBarTitle({
+      tableNum: getValue(tableNum),
       title: isEdit ? '编辑桌位' : '新增桌位'
-    })
+    });
   },
 
   setupDebounce() {

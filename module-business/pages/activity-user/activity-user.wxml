@@ -1,5 +1,6 @@
 <!--module-business/pages/activity-user/activity-user.wxml-->
 <view class="activity-user-page">
+    <nav-bar title="预订详情" home back></nav-bar>
     <block wx:for="{{userList}}" wx:key="index">
         <view class="reserve-container">
             <view class="top">

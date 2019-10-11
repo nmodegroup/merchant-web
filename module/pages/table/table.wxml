@@ -1,5 +1,6 @@
 <!--module/pages/table/table.wxml-->
 <view class="table-page">
+    <nav-bar title="桌位管理" home back></nav-bar>
     <block wx:for="{{tableList}}" wx:for-item="areaItem" wx:key="index">
         <view class="table-wrapper">
             <view class="table-panel">{{areaItem.name}}</view>

@@ -1,5 +1,4 @@
 {
-  "navigationBarTitleText": "预约到店时间",
   "usingComponents": {
     "van-swipe-cell": "/components/vant-weapp/swipe-cell/index",
     "select": "/components/select/index"

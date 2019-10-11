@@ -1,1 +1,16 @@
-<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1569770991364" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4192" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64"><defs><style type="text/css"></style></defs><path d="M512 1015.994C233.612 1015.994 8.006 790.412 8.006 512 8.006 233.612 233.612 8.006 512 8.006c278.412 0 503.994 225.606 503.994 503.994 0 278.412-225.582 503.994-503.994 503.994z m0-936.727C273.617 79.267 79.267 273.617 79.267 512S273.617 944.733 512 944.733 944.733 750.383 944.733 512 750.383 79.267 512 79.267zM548.794 512l195.212-195.188c9.588-9.612 9.588-25.6 0-36.818l-1.606-1.582a25.111 25.111 0 0 0-35.188 0L512 475.206 316.812 279.994a25.111 25.111 0 0 0-35.212 0l-1.606 1.606c-9.588 9.612-9.588 25.6 0 36.794L475.23 512 280.017 707.212c-9.588 9.588-9.588 25.6 0 36.77l1.606 1.63c9.612 9.588 25.6 9.588 35.212 0L512 548.77l195.212 195.212c9.588 9.588 25.6 9.588 35.188 0l1.606-1.606c9.588-9.589 9.588-25.6 0-36.794L548.77 512z" p-id="4193" fill="#ffffff"></path></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="10px" viewBox="0 0 11 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>mdpi/icon_close</title>
+    <desc>Created with Sketch.</desc>
+    <g id="定位(尚未开放)" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5" stroke-linecap="round">
+        <g id="当前城市尚未开放-弹窗" transform="translate(-303.000000, -267.000000)" fill-rule="nonzero" stroke="#FFFFFF">
+            <g id="弹窗" transform="translate(53.000000, 257.000000)">
+                <g id="icon_close" transform="translate(250.000000, 10.000000)">
+                    <path d="M0.794745676,0.4448622 L9.62377968,9.27389621" id="Path"></path>
+                    <path d="M0.794745676,0.4448622 L9.62377968,9.27389621" id="Path" transform="translate(5.209263, 4.859379) scale(-1, 1) translate(-5.209263, -4.859379) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

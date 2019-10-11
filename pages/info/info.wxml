@@ -1,5 +1,6 @@
 <!--pages/info/info.wxml-->
 <view class="info-page">
+    <nav-bar title="认证信息" home back propagation></nav-bar>
     <view class="info-panel">店铺信息</view>
     <cell-input title="门店名称">
         <input class="input-view" placeholder-class="placeholder" value="{{shopName}}" placeholder="请输入门店名称"
