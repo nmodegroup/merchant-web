@@ -6,6 +6,10 @@
   position: relative;
 }
 
+.main-container {
+  background-image: url('https://upload-images.jianshu.io/upload_images/4240944-138af8fd0a075eda.png');
+}
+
 .arrival-time {
   font-size: 24rpx;
   color: rgba(255, 255, 255, 0.5);

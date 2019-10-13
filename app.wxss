@@ -118,7 +118,7 @@ page {
 /* TODO: 图片替换 */
 .main-container {
   min-height: 100%;
-  background-image: url('https://upload-images.jianshu.io/upload_images/4240944-60d66b900c092b07.png');
+  background-image: url('https://upload-images.jianshu.io/upload_images/4240944-94846eb98c263a02.png');
   background-repeat: repeat;
   background-size: 100%;
 }

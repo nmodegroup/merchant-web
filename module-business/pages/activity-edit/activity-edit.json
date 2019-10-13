@@ -6,6 +6,7 @@
     "van-area": "/components/vant-weapp/area/index",
     "van-radio": "/components/vant-weapp/radio/index",
     "van-radio-group": "/components/vant-weapp/radio-group/index",
-    "choose-image": "/components/choose-image/index"
+    "choose-image": "/components/choose-image/index",
+    "cell-left": "/components/cell-left/index"
   }
 }

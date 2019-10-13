@@ -21,7 +21,7 @@
 
 .input-view {
   margin-right: 60rpx;
-  margin-left: 60rpx;
+  text-align: left;
 }
 
 /* 限制预订数量 */
@@ -29,7 +29,7 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 30rpx 60rpx 0 30rpx;
+  padding: 30rpx 30rpx 0 30rpx;
   position: relative;
 }
 

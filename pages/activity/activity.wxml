@@ -71,7 +71,7 @@
                     <van-switch checked="{{false}}" size='18px' active-color='#456AEC' inactive-color='#162766'
                       bind:change="onStatusChange" data-item="{{ item }}" data-index="{{ index }}" />
                   </view>
-                  <view class="reserve-status">暂停预订</view>
+                  <view class="reserve-status">暂停预订中</view>
                 </view>
               </block>
             </view>

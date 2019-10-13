@@ -1,6 +1,6 @@
 {
   "enablePullDownRefresh": true,
-  "backgroundTextStyle": "dark",
+  "backgroundTextStyle": "light",
   "navigationBarTitleText": "订单列表",
   "usingComponents": {
     "order-item": "/components/order-item/index",

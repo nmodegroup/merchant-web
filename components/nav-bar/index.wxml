@@ -17,7 +17,7 @@
       <view class='title'>{{title}}</view>
     </view>
   </view>
-  <view wx:if="{{showHolder}}" style="height: {{navigationBarHeight}}px;background:#15153e" />
+  <view wx:if="{{showHolder}}" style="height: {{navigationBarHeight}}px;background:transparent" />
 </view>
 
 <!-- 删除弹窗 -->
