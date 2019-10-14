@@ -74,6 +74,11 @@
   margin-top: 10rpx;
 }
 
+.user-info > text {
+  color: #62d5ff;
+  text-decoration: underline;
+}
+
 .confirm-wrapper {
   position: relative;
   height: 60rpx;

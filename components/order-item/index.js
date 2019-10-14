@@ -1,3 +1,5 @@
+const WxManager = require('../../utils/wxManager');
+
 Component({
   /**
    * 组件的属性列表
@@ -29,6 +31,11 @@ Component({
     handleArrive() {
       const myEventDetail = { item: this.data.order };
       this.triggerEvent('arriveClick', myEventDetail);
+    },
+
+    onMakePhoneCall(event) {
+      const { phone } = event.currentTarget.dataset;
+      WxManager.makePhoneCall(phone);
     }
   }
 });
