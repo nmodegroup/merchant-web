@@ -20,6 +20,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isIphoneX: false,
     enterType: pageFlag.INFO_TOTAL,
     sourceHost: ENV.sourceHost,
     isTotal: false, // false：提交基本信息，true：提交店铺信息
@@ -82,7 +83,8 @@ Page({
     this.defaultBartenders = createEmptyObjArray(5);
     this.setData({
       covers: this.defaultCovers,
-      bartenders: this.defaultBartenders
+      bartenders: this.defaultBartenders,
+      isIphoneX: store.isIphoneX
     });
   },
 
@@ -113,8 +115,8 @@ Page({
             cityName: initValue(res.cityName),
             areaName: initValue(res.areaName),
             selectCity: res.cityName ? `${res.cityName} ${res.areaName}` : '',
-            latitude: res.lat,
-            longitude: res.lng,
+            latitude: initValue(res.lat),
+            longitude: initValue(res.lng),
             address: initValue(res.address),
             selectShopType: this.getShopType(res.type),
             logo: initValue(res.logo),

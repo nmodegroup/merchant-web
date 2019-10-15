@@ -53,7 +53,6 @@ Page({
    */
   onLoad: function(options) {
     this.initData(options);
-    console.log('now', Date.now());
   },
 
   /**
@@ -408,7 +407,7 @@ Page({
       params.id = activityId;
     }
     PageHelper.requestWrapper(activityService.createOrEditActivy(params)).then(() => {
-      PageHelper.requestSuccessCallback(isEdit ? '活动编辑成功' : '创建成功\n您的活动信息需要平台审核\n请耐心等待');
+      PageHelper.requestSuccessCallback(isEdit ? '活动编辑成功\n您的活动信息需要平台审核\n请耐心等待' : '创建成功\n您的活动信息需要平台审核\n请耐心等待');
     });
   },
 

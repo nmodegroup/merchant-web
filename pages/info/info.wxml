@@ -133,12 +133,15 @@
     <view class="commit-wrapper">
         <block wx:if="{{isTotal}}">
             <action-bottom single="{{ true }}" enabled="{{ verifyed }}" rightText="确认提交" bind:click="commitForm" />
+            <!-- 不可见的授权手机号按钮，授权成功后隐藏 -->
+            <button class="btn-auth-phone-fixed {{ isIphoneX ? 'phone-fixed-height' : ''  }}"
+                wx:if="{{verifyed && !authPhoneSuccess}}" bindtap="onGetPhoneClick"></button>
         </block>
         <block wx:else>
             <form-button enabled="{{ verifyed }}" bind:click="commitForm" buttonText="确认提交" />
+            <!-- 不可见的授权手机号按钮，授权成功后隐藏 -->
+            <button class="btn-auth-phone" wx:if="{{verifyed && !authPhoneSuccess}}" bindtap="onGetPhoneClick"></button>
         </block>
-        <!-- 不可见的授权手机号按钮，授权成功后隐藏 -->
-        <button class="btn-auth-phone" wx:if="{{verifyed && !authPhoneSuccess}}" bindtap="onGetPhoneClick"></button>
     </view>
     <block wx:if="{{ !isTotal }}">
         <view class="skip" bindtap="handleSkip">跳过</view>
