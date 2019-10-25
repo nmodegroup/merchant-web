@@ -22,8 +22,8 @@ Page({
   },
   imgParam: {
     mchLogo: {//商家logo 设计图98*75
-      width: 196,
-      height: 150
+      width: 300,
+      height: 230
     },
     mchBanner: {//商家banner 设计图375*180
       width: 300,
