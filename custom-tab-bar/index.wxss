@@ -30,12 +30,14 @@
   align-items: center;
   flex-direction: column;
 }
-
 .tab-bar-item image {
   width: 90rpx;
   height: 90rpx;
 }
-
+/* .tab-bar-item image {
+  width: 10rpx;
+  height:20rpx;
+} */
 .tab-bar-item view {
   font-size: 10rpx;
 }

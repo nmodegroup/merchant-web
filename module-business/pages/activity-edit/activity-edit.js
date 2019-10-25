@@ -10,6 +10,7 @@ const { Folder } = require('../../../constant/global');
 const ENV = require('../../../lib/request/env');
 const { quotaList } = require('./data');
 const { PageConfig } = require('../../../utils/page');
+const pageConstant = require('../../../constant/page');
 const PageHelper = new PageConfig();
 
 Page({
@@ -269,31 +270,65 @@ Page({
    */
   handleChooseBanner() {
     wxManager.chooseImage().then(res => {
-      this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_ACTIVITY_BANNER).then(res => {
-        this.setData({
-          banner: res,
-          displayBanner: `${ENV.sourceHost}${res}`
-        });
-        this.refreshFormVerify();
-      });
+      let tempFilePaths = res.tempFilePaths;
+      let params = {
+        type: 'activityBanner',
+        src: tempFilePaths[0],
+        callBack: 'callbackBanner'
+      }
+      wxManager.navigateTo(pageConstant.UPLOAD, params);
+      // this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_ACTIVITY_BANNER).then(res => {
+      //   this.setData({
+      //     banner: res,
+      //     displayBanner: `${ENV.sourceHost}${res}`
+      //   });
+      //   this.refreshFormVerify();
+      // });
     });
   },
-
+  
+  // 选择宣传图片剪切回调
+  callbackBanner (img) {
+    this.uploadImage(img, Folder.FILE_FOLDER_ACTIVITY_BANNER).then(res => {
+      this.setData({
+        banner: res,
+        displayBanner: `${ENV.sourceHost}${res}`
+      });
+      this.refreshFormVerify();
+    });
+  },
   /**
    * 选择海报
    */
   handleChoosePoster() {
     wxManager.chooseImage().then(res => {
-      this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_ACTIVITY_BANNER).then(res => {
-        this.setData({
-          post: res,
-          displayPost: `${ENV.sourceHost}${res}`
-        });
-        this.refreshFormVerify();
-      });
+      let tempFilePaths = res.tempFilePaths;
+      let params = {
+        type: 'activityPost',
+        src: tempFilePaths[0],
+        callBack: 'callbackPoster'
+      }
+      wxManager.navigateTo(pageConstant.UPLOAD, params);
+      // this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_ACTIVITY_BANNER).then(res => {
+      //   this.setData({
+      //     post: res,
+      //     displayPost: `${ENV.sourceHost}${res}`
+      //   });
+      //   this.refreshFormVerify();
+      // });
     });
   },
 
+  // 选择海报剪切回调
+  callbackPoster(img) {
+    this.uploadImage(img, Folder.FILE_FOLDER_ACTIVITY_BANNER).then(res => {
+      this.setData({
+        post: res,
+        displayPost: `${ENV.sourceHost}${res}`
+      });
+      this.refreshFormVerify();
+    });
+  },
   /**
    * 通用上传
    * @param {string} imageUrl 图片地址

@@ -44,3 +44,7 @@ export const SPECIAL_DATE_URL = '/module-business/pages/special-date/special-dat
 export const WEEK_URL = '/module-business/pages/week/week';
 
 export const ACTIVITY_EDIT_URL = '/module-business/pages/activity-edit/activity-edit';
+
+//  图片裁剪
+export const UPLOAD = '/pages/upload/upload';
+

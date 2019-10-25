@@ -291,8 +291,14 @@ Page({
     wxManager
       .chooseImage()
       .then(res => {
-        const tempFilePaths = res.tempFilePaths;
-        this.requestUploadLogoImage(tempFilePaths[0]);
+        let tempFilePaths = res.tempFilePaths;
+        let params = {
+          type: 'mchLogo',
+          src: tempFilePaths[0],
+          callBack: 'requestUploadLogoImage'
+        }
+        wxManager.navigateTo(pageConstant.UPLOAD, params);
+        // this.requestUploadLogoImage(tempFilePaths[0]);
       })
       .catch(e => {
         console.error(e);
@@ -385,15 +391,26 @@ Page({
    */
   handleChooseCover() {
     wxManager.chooseImage().then(res => {
-      this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_COVER).then(result => {
-        this.fillCovers.push({
-          img: result
-        });
-        this.updateCovers();
-      });
+      let tempFilePaths = res.tempFilePaths;
+      let params = {
+        type: 'mchBanner',
+        src: tempFilePaths[0],
+        callBack: 'callbackCover'
+      }
+      wxManager.navigateTo(pageConstant.UPLOAD, params);
     });
   },
-
+  /**
+   * 封面图片剪切回调
+   */
+  callbackCover(img) {
+    this.uploadImage(img, Folder.FILE_FOLDER_COVER).then(result => {
+      this.fillCovers.push({
+        img: result
+      });
+      this.updateCovers();
+    });
+  },
   /**
    * 通用上传
    * @param {string} imageUrl 图片地址
@@ -414,11 +431,28 @@ Page({
   handleEditCover(event) {
     const { index } = event.currentTarget.dataset;
     wxManager.chooseImage().then(res => {
-      this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_COVER).then(result => {
+      let tempFilePaths = res.tempFilePaths;
+      let params = {
+        type: 'mchBanner',
+        src: tempFilePaths[0],
+        index: index,
+        callBack: 'callbackEditCover'
+      }
+      wxManager.navigateTo(pageConstant.UPLOAD, params);
+      // this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_COVER).then(result => {
+      //   this.fillCovers[index].img = result;
+      //   this.updateCovers();
+      // });
+
+    });
+  },
+
+  // 编辑封面剪切回调
+  callbackEditCover(img, index) {
+     this.uploadImage(img, Folder.FILE_FOLDER_COVER).then(result => {
         this.fillCovers[index].img = result;
         this.updateCovers();
       });
-    });
   },
 
   /**
@@ -453,10 +487,27 @@ Page({
    */
   uploadBartenderImage(index) {
     wxManager.chooseImage().then(res => {
-      this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_BARTENDER).then(result => {
-        this.defaultBartenders[index].img = result;
-        this.updateBartenders();
-      });
+      let tempFilePaths = res.tempFilePaths;
+      let params = {
+        type: 'mchBartender',
+        src: tempFilePaths[0],
+        index: index,
+        callBack: 'callbackBartende'
+      }
+      wxManager.navigateTo(pageConstant.UPLOAD, params);
+      // this.uploadImage(res.tempFilePaths[0], Folder.FILE_FOLDER_BARTENDER).then(result => {
+      //   this.defaultBartenders[index].img = result;
+      //   this.updateBartenders();
+      // });
+    });
+  },
+
+  // 上传调酒师宣传照剪切回调
+
+  callbackBartende (img, index) {
+    this.uploadImage(img, Folder.FILE_FOLDER_BARTENDER).then(result => {
+      this.defaultBartenders[index].img = result;
+      this.updateBartenders();
     });
   },
 
