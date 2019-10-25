@@ -30,6 +30,11 @@ page{
     line-height: 50px;
 }
 
+/* 底部兼容iphoneX */
+.safe-area__padding {
+  padding-bottom: 34px;
+}
+
 .cropper-buttons .upload, .cropper-buttons .getCropperImage{
     width: 50%;
     text-align: center;

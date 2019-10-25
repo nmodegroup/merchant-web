@@ -1,9 +1,8 @@
 import WeCropper from '../we-cropper/we-cropper.js';
-
+const WxManager = require('../../utils/wxManager');
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
-const height = device.windowHeight - 100
-
+const height = device.windowHeight - 168
 Page({
   data: {
     cropperOpt: {
@@ -18,12 +17,13 @@ Page({
         width: 256,
         height: 409.6
       }
-    }
+    },
+    isIphoneX: false
   },
   imgParam: {
     mchLogo: {//商家logo 设计图98*75
-      width: 98,
-      height: 75
+      width: 196,
+      height: 150
     },
     mchBanner: {//商家banner 设计图375*180
       width: 300,
@@ -83,6 +83,7 @@ Page({
   },
   onLoad(option) {
     this.countSzie(option)
+    this.getSystemInfo()
   },
   //计算剪切范围
   countSzie (option) {
@@ -93,11 +94,10 @@ Page({
     let imgH = this.imgParam[type].height
     let renderH = ''//剪切框高度
     let renderW = ''//剪切框高度
-    let maxHeight = height-50 //最大高度
+    let maxHeight = height-84 //最大高度
     if (imgH > maxHeight) {
       renderH = maxHeight
       renderW = (maxHeight / imgH * imgW)
-      console.log('renderW计算', renderW)
     } else {
       renderH = imgH
       renderW = imgW
@@ -142,5 +142,15 @@ Page({
         console.log(`current canvas context:`, ctx)
       })
       .updateCanvas()
+  },
+  //获取机型修改底部样式
+  getSystemInfo() {
+    WxManager.getSystemInfoSync().then(({ model, screenHeight }) => {
+      const iphoneX = /iphone x/i.test(model)
+      const iphoneNew = /iPhone11/i.test(model) && screenHeight === 812
+      this.setData({
+        isIphoneX: iphoneX || iphoneNew
+      })
+    })
   }
 })

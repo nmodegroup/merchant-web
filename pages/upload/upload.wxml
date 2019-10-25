@@ -2,7 +2,7 @@
 
 <view class="cropper-wrapper">
     <template is="we-cropper" data="{{...cropperOpt}}"/>
-    <view class="cropper-buttons">
+    <view class="cropper-buttons {{isIphoneX ? 'safe-area__padding' : ''}}">
         <view
                 class="upload"
                 bindtap="uploadTap">
