@@ -3,6 +3,7 @@ const WxManager = require('../../utils/wxManager');
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 168
+const cutWidth = device.windowWidth - 50
 Page({
   data: {
     cropperOpt: {
@@ -20,26 +21,26 @@ Page({
     },
     isIphoneX: false
   },
-  imgParam: {
+  imgParam: { //剪切图左右两边预留25px
     mchLogo: {//商家logo 设计图98*75
-      width: 300,
-      height: 230
+      width: cutWidth,
+      height: cutWidth / 98 * 75
     },
     mchBanner: {//商家banner 设计图375*180
-      width: 300,
-      height: 300/375*180
+      width: cutWidth,
+      height: cutWidth / 375 * 180
     },
     mchBartender: {//调酒师图片 设计图286*390
-      width:286,
-      height:390
+      width: cutWidth,
+      height: cutWidth / 286 * 390
     },
     activityBanner: {//活动封面图 设计图375*180
-      width: 300,
-      height: 300 / 375 * 180
+      width: cutWidth,
+      height: cutWidth / 375 * 180
     },
     activityPost: {//活动宣传图 设计图345*600
-      width: 300,
-      height: 300/345*600
+      width: cutWidth,
+      height: cutWidth / 345 * 600
     },
     callBack: '',//回调函数名字
     index: ''//编辑回调下标
