@@ -3,7 +3,7 @@ const WxManager = require('../../utils/wxManager');
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 168
-const cutWidth = device.windowWidth - 50
+const cutWidth = device.windowWidth - 20
 Page({
   data: {
     cropperOpt: {
