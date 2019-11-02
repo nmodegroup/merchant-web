@@ -200,7 +200,7 @@ Page({
     PageHelper.checkAuditStatus()
       .then(() => {
         this.modal.showModal({
-          content: appointOpen ? '确定要关闭预约吗？' : '确定要开启预约吗？',
+          content: appointOpen ? '确定要关闭自动接单吗？' : '确定要开启自动接单吗？',
           cancelText: '点错了',
           confirmText: appointOpen ? '确定关闭' : '确定开启',
           hideCancel: false,
