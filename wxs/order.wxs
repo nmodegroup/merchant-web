@@ -8,9 +8,14 @@
 var TODAY = 1; // 今日预订
 var FUTURE = 2; // 未来订单
 var HISTORY = 3; // 历史订单
+var REMIND = 4;//今日排位
 
 function isToday(type) {
   return TODAY === type;
+}
+
+function isRemind(type) {
+  return REMIND === type;
 }
 
 function isFuture(type) {

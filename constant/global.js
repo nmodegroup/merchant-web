@@ -16,6 +16,7 @@ export class OrderType {
   static TODAY = 1; // 今日预订
   static FUTURE = 2; // 未来订单
   static HISTORY = 3; // 历史订单
+  static REMIND = 4; // 今日排位
 }
 
 /**

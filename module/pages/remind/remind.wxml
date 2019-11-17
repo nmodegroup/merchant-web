@@ -1,8 +1,8 @@
 <!--pages/home/home.wxml-->
-<wxs src="../../wxs/order.wxs" module="orderModule" />
+<wxs src="../../../wxs/order.wxs" module="orderModule" />
 
 <view class="home-page main-container">
-    <nav-bar title="NIGHT MODE"></nav-bar>
+    <nav-bar title="排位订单"></nav-bar>
     <tab tabList="{{ tabList }}" bind:tabclick="handleTabChange"></tab>
     <!-- 今日订单 -->
     <block wx:if="{{ orderModule.isToday(selectType) }}">

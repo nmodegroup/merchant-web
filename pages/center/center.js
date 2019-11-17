@@ -269,7 +269,8 @@ Page({
       order: () => this.navigation(PageConstant.ORDER_URL),
       qrCode: () => this.goCodePage(),
       protocol: () => this.navigation(PageConstant.PROTOCOL_URL),
-      contact: () => this.makePhoneCall()
+      contact: () => this.makePhoneCall(),
+      remind: () => this.navigation(PageConstant.REMIND_URL)
     };
     return cellStrategy[type] ? cellStrategy[type]() : console.error('type error');
   },

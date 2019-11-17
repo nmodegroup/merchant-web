@@ -1,9 +1,9 @@
 // pages/home/home.js
-const { OrderType, OrderActionStatus } = require('../../constant/global');
-const homeService = require('../../service/home');
-const { PageConfig } = require('../../utils/page');
+const { OrderType, OrderActionStatus } = require('../../../constant/global');
+const homeService = require('../../../service/home');
+const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
-const PageConstant = require('../../constant/page');
+const PageConstant = require('../../../constant/page');
 
 Page({
   /**
@@ -12,15 +12,11 @@ Page({
   data: {
     tabList: [
       {
-        title: '今日预订',
+        title: '正在排位',
         type: OrderType.TODAY
       },
       {
-        title: '今日排位',
-        type: OrderType.REMIND
-      },
-      {
-        title: '未来预订',
+        title: '历史排位',
         type: OrderType.FUTURE
       }
     ],
@@ -32,7 +28,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.initData();
     this.resetQuery();
     this.sendRefreshRequest();
@@ -41,7 +37,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
         selected: 0
@@ -52,7 +48,7 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     this.resetQuery();
     this.sendRefreshRequest();
   },
@@ -60,7 +56,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
     if (!this.hasmore) {
       return false;
     }
@@ -82,8 +78,7 @@ Page({
   sendRefreshRequest() {
     const refreshStrategy = {
       [OrderType.TODAY]: () => this.requestTodayOrderList(),
-      [OrderType.FUTURE]: () => this.requestFutureOrderList(),
-      [OrderType.REMIND]: () => this.requestRemindOrderList(),
+      [OrderType.FUTURE]: () => this.requestFutureOrderList()
     };
     const func = refreshStrategy[this.data.selectType];
     return func ? func() : '';
@@ -201,14 +196,5 @@ Page({
         this.sendRefreshRequest();
       })
       .catch(err => console.log(err));
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-    return {
-      path: PageConstant.AUTH_URL
-    };
   }
 });

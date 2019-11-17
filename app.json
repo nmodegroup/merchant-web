@@ -1,5 +1,12 @@
 {
-  "pages": ["pages/auth/auth", "pages/center/center", "pages/activity/activity", "pages/info/info", "pages/home/home", "pages/upload/upload"],
+  "pages": [
+    "pages/auth/auth",
+    "pages/center/center",
+    "pages/activity/activity",
+    "pages/info/info",
+    "pages/home/home",
+    "pages/upload/upload"
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#161549",
@@ -20,7 +27,8 @@
         "pages/table-edit/table-edit",
         "pages/area/area",
         "pages/area-edit/area-edit",
-        "pages/replace/replace"
+        "pages/replace/replace",
+        "pages/remind/remind"
       ]
     },
     {

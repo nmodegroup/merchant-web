@@ -22,7 +22,8 @@ Component({
    */
   methods: {
     handleTabChange(event) {
-      console.log(event);
+      console.log(this.data.tabList)
+      console.log('event', event);
       const { tab, index } = event.currentTarget.dataset;
       const { selectIndex } = this.data;
       // 已经选中不处理

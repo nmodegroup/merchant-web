@@ -15,6 +15,8 @@ export const ABOUT_URL = '/module/pages/about/about';
 
 export const ORDER_URL = '/module/pages/order/order';
 
+export const REMIND_URL = '/module/pages/remind/remind';
+
 export const QR_CODE_URL = '/module/pages/code/code';
 
 export const PROTOCOL_URL = '/module/pages/protocol/protocol';

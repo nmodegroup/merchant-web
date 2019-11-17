@@ -72,6 +72,7 @@ Component({
         reserve: '../../image/center/center_reserve.svg',
         arrivalTime: '../../image/center/center_arrival_time.svg',
         order: '../../image/center/center_order.svg',
+        remind: '../../image/center/center_order.svg',
         qrCode: '../../image/center/center_qr_code.svg',
         protocol: '../../image/center/center_about.svg',
         contact: '../../image/center/center_contact.svg',
