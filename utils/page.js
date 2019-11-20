@@ -235,6 +235,28 @@ export class PageConfig {
   }
 
   /**
+   * 排位通过预订弹窗
+   */
+  showOrderRemindModal () {
+    return new Promise((resolve, reject) => {
+      this.currentPage().modal.showModal({
+        content: '确认为用户通过预订吗？',
+        title: '温馨提示',
+        cancelText: '不通过',
+        confirmText: '通过',
+        showClose: true,
+        hideCancel: false,
+        onConfirm: () => {
+          resolve();
+        },
+        onCancel: () => {
+          reject();
+        }
+      });
+    });
+  }
+
+  /**
    * 订单确认到店弹窗
    */
   showOrderArrivalModal() {

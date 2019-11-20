@@ -26,7 +26,8 @@ Page({
     ],
     selectType: OrderType.TODAY,
     todayList: [],
-    futureList: []
+    futureList: [],
+    remindList:  []
   },
 
   /**
@@ -153,6 +154,7 @@ Page({
           this.setData({
             remindList: res.list
           });
+          console.log(this.data.remindList)
         } else {
           this.setData({
             remindList: remindList.concat(res.list)
@@ -184,6 +186,7 @@ Page({
   handleTabChange(event) {
     console.log(event);
     const { type } = event.detail;
+    console.log(type)
     this.setData({
       selectType: type
     });
@@ -232,9 +235,10 @@ Page({
    * 排位通过预订
    */
   handleRemindClick(event) {
-    const { item } = event.detail;
+    console.log(event)
+    let  id = event.currentTarget.dataset.id;
     PageHelper.showOrderRemindModal().then(() => {
-      this.requestPassOrder(item.id);
+      this.requestPassOrder(id);
     });
   },
 

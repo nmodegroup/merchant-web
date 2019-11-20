@@ -95,6 +95,7 @@ module.exports = {
   isToday: isToday,
   isFuture: isFuture,
   isHistory: isHistory,
+  isRemind: isRemind,
   getOrderStatusTitle: getOrderStatusTitle,
   isShowConfirmAppoint: isShowConfirmAppoint,
   isShowArrive: isShowArrive,

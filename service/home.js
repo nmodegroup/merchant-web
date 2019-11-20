@@ -116,7 +116,7 @@ export function confirmOrder(params) {
 export function passRemind(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .put({
+      .post({
         url: '/merchant/remind/table',
         params: params,
         contentType: httpManager.FORM_URLENCODED

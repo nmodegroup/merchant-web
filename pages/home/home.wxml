@@ -15,7 +15,7 @@
     <!-- 今日排位 -->
     <block wx:if="{{ orderModule.isRemind(selectType) }}">
         <block wx:for="{{remindList}}" wx:key="index">
-            <view class="arrival-time">排位时间：{{ item.orderTime }}</view>
+            <view class="arrival-time-title">排位时间：{{ item.orderTime }}</view>
             <view class="item">
               <view class="name-status">
                   <view class="table-name">预计人数{{item.remindNum}}</view>
@@ -28,10 +28,10 @@
                           <text>{{ orderModule.formatPhone(item.phone) }}</text>
                       </view>
                   </view>
-                  <block wx:if="{{ orderModule.isShowConfirmAppoint(order.status) }}">
+                  <block>
                       <view class="confirm-wrapper">
                           <view class="btn-bg"></view>
-                          <view class="confirm-btn" bindtap="handleRemindClick">通过预订</view>
+                          <view class="confirm-btn" data-id="{{item.id}}" bindtap="handleRemindClick">通过预订</view>
                       </view>
                   </block>
               </view>
@@ -42,7 +42,7 @@
     <!-- 未来订单 -->
     <block wx:if="{{ orderModule.isFuture(selectType) }}">
         <block wx:for="{{futureList}}" wx:key="index">
-            <view class="arrival-time">到店日期：{{ item.arriveDate }}</view>
+            <view class="arrival-time-title">到店日期：{{ item.arriveDate }}</view>
             <block wx:for="{{item.orders}}" wx:key="orderIndex" wx:for-item="orderItem" wx:for-index="orderIndex">
                 <order-item order="{{orderItem}}" bind:itemClick="handleItemClick"
                     bind:arriveClick="handleArriveClick" />
