@@ -76,6 +76,21 @@ function formatPhone(phone) {
   return phone.substring(0, 3) + '****' + phone.substring(7);
 }
 
+//排位信息状态
+function remindStatus(status) {
+  if (status == 0) {
+    return '排位中'
+  } else if (status == 1) {
+    return '自行取消'
+  } else if (status == 2) {
+    return '系统取消'
+  } else if (status == 3) {
+    return '已转预订单'
+  } else {
+    return ''
+  }
+}
+
 module.exports = {
   isToday: isToday,
   isFuture: isFuture,
@@ -83,5 +98,6 @@ module.exports = {
   getOrderStatusTitle: getOrderStatusTitle,
   isShowConfirmAppoint: isShowConfirmAppoint,
   isShowArrive: isShowArrive,
-  formatPhone: formatPhone
+  formatPhone: formatPhone,
+  remindStatus: remindStatus
 };

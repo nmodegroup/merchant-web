@@ -28,6 +28,27 @@ export function getTodayOrderList(params) {
 }
 
 /**
+ * 预订订单-获取今日排位列表
+ */
+export function getRemindOrderList(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .get({
+        url: '/merchant/remind/orders', // https://easy-mock.com/mock/5d4fcefa5bff847d28d02903/merchant/table/order/today
+        params: params,
+        contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
+
+
+/**
  * 预订订单-获取未来预订列表
  */
 export function getFutureOrderList(params) {
@@ -76,6 +97,27 @@ export function confirmOrder(params) {
     httpManager
       .put({
         url: '/merchant/table/order',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
+
+/**
+ * 预订订单-确认/到店
+ * type:（1确认通过  2确认不通过  3确认到店）
+ */
+export function passRemind(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .put({
+        url: '/merchant/remind/table',
         params: params,
         contentType: httpManager.FORM_URLENCODED
       })

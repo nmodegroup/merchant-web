@@ -70,8 +70,7 @@ Page({
   },
 
   initData() {
-    this.isLoadTodayFirst = true;
-    this.isLoadFeatureFirst = true;
+    this.isLoadRemindFirst = true;
     PageHelper.setupPageConfig(this);
   },
 
@@ -93,45 +92,74 @@ Page({
   },
 
   /**
-   * 今日预订列表
+   * 正在排位
    */
   requestTodayOrderList(pageNum = this.pageNum) {
-    const params = this.queryParams(pageNum);
-    PageHelper.requestWrapper(homeService.getTodayOrderList(params), this.isLoadTodayFirst)
+    const params = this.queryParams(pageNum)
+    params.type = 2 //1今日排位  2正在排位  3历史排位
+    PageHelper.requestWrapper(homeService.getRemindOrderList(params), this.isLoadRemindFirst)
       .then(res => {
         // 更新加载状态
-        this.isLoadTodayFirst = false;
+        this.isLoadRemindFirst = false;
         this.pageNum = pageNum;
-        const { todayList } = this.data;
+        const { remindList } = this.data;
         if (pageNum === 1) {
           this.setData({
-            todayList: res.list
+            remindList: res.list
           });
         } else {
           this.setData({
-            todayList: todayList.concat(res.list)
+            remindList: remindList.concat(res.list)
           });
         }
-        this.hasmore = PageHelper.checkHasmore(this.data.todayList.length, res.totalSize);
+        this.hasmore = PageHelper.checkHasmore(this.data.remindList.length, res.totalSize);
       })
       .catch(err => console.log(err));
   },
 
   /**
-   * 未来预订列表
+   * 历史排位
    */
-  requestFutureOrderList() {
-    PageHelper.requestWrapper(homeService.getFutureOrderList(), this.isLoadFeatureFirst)
+  requestFutureOrderList(pageNum = this.pageNum) {
+    const params = this.queryParams(pageNum)
+    params.type = 3 //1今日排位  2正在排位  3历史排位
+    PageHelper.requestWrapper(homeService.getRemindOrderList(params), this.isLoadRemindFirst)
       .then(res => {
         // 更新加载状态
-        this.isLoadFeatureFirst = false;
-        this.setData({
-          futureList: res
-        });
+        this.isLoadRemindFirst = false;
+        this.pageNum = pageNum;
+        const { remindList } = this.data;
+        if (pageNum === 1) {
+          this.setData({
+            remindList: res.list
+          });
+        } else {
+          this.setData({
+            remindList: remindList.concat(res.list)
+          });
+        }
+        this.hasmore = PageHelper.checkHasmore(this.data.remindList.length, res.totalSize);
       })
       .catch(err => console.log(err));
   },
+  /**
+   * 排位通过预订
+   */
+  handleRemindClick(event) {
+    const { item } = event.detail;
+    PageHelper.showOrderRemindModal().then(() => {
+      this.requestPassOrder(item.id);
+    });
+  },
 
+  requestPassOrder(orderId) {
+    PageHelper.requestWrapper(homeService.passRemind({ id: orderId }))
+      .then(() => {
+        PageHelper.showSuccessToast('操作成功');
+        this.sendRefreshRequest();
+      })
+      .catch(err => console.log(err));
+  },
   /**
    * query 参数
    */

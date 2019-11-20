@@ -75,6 +75,7 @@ Page({
 
   initData() {
     this.isLoadTodayFirst = true;
+    this.isLoadRemindFirst = true;
     this.isLoadFeatureFirst = true;
     PageHelper.setupPageConfig(this);
   },
@@ -133,6 +134,31 @@ Page({
         this.setData({
           futureList: res
         });
+      })
+      .catch(err => console.log(err));
+  },
+   /**
+   * 今日排位列表
+   */
+  requestRemindOrderList(pageNum = this.pageNum) {
+    const params = this.queryParams(pageNum)
+    params.type = 1 //1今日排位  2正在排位  3历史排位
+    PageHelper.requestWrapper(homeService.getRemindOrderList(params), this.isLoadRemindFirst)
+      .then(res => {
+        // 更新加载状态
+        this.isLoadRemindFirst = false;
+        this.pageNum = pageNum;
+        const { remindList } = this.data;
+        if (pageNum === 1) {
+          this.setData({
+            remindList: res.list
+          });
+        } else {
+          this.setData({
+            remindList: remindList.concat(res.list)
+          });
+        }
+        this.hasmore = PageHelper.checkHasmore(this.data.todayList.length, res.totalSize);
       })
       .catch(err => console.log(err));
   },
@@ -202,7 +228,24 @@ Page({
       })
       .catch(err => console.log(err));
   },
+  /**
+   * 排位通过预订
+   */
+  handleRemindClick(event) {
+    const { item } = event.detail;
+    PageHelper.showOrderRemindModal().then(() => {
+      this.requestPassOrder(item.id);
+    });
+  },
 
+  requestPassOrder(orderId) {
+    PageHelper.requestWrapper(homeService.passRemind({ id: orderId}))
+      .then(() => {
+        PageHelper.showSuccessToast('操作成功');
+        this.sendRefreshRequest();
+      })
+      .catch(err => console.log(err));
+  },
   /**
    * 用户点击右上角分享
    */
