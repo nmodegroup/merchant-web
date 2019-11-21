@@ -85,7 +85,8 @@ Page({
 
   sendLoadMOreRequest() {
     const loadMoreStrategy = {
-      [OrderType.TODAY]: () => this.requestTodayOrderList(this.pageNum + 1)
+      [OrderType.TODAY]: () => this.requestTodayOrderList(this.pageNum + 1),
+      [OrderType.FUTURE]: () => this.requestFutureOrderList(this.pageNum + 1)
     };
     const func = loadMoreStrategy[this.data.selectType];
     return func ? func() : '';

@@ -93,7 +93,8 @@ Page({
 
   sendLoadMOreRequest() {
     const loadMoreStrategy = {
-      [OrderType.TODAY]: () => this.requestTodayOrderList(this.pageNum + 1)
+      [OrderType.TODAY]: () => this.requestTodayOrderList(this.pageNum + 1),
+      [OrderType.REMIND]: () => this.requestRemindOrderList(this.pageNum + 1)
     };
     const func = loadMoreStrategy[this.data.selectType];
     return func ? func() : '';
@@ -154,13 +155,12 @@ Page({
           this.setData({
             remindList: res.list
           });
-          console.log(this.data.remindList)
         } else {
           this.setData({
             remindList: remindList.concat(res.list)
           });
         }
-        this.hasmore = PageHelper.checkHasmore(this.data.todayList.length, res.totalSize);
+        this.hasmore = PageHelper.checkHasmore(this.data.remindList.length, res.totalSize);
       })
       .catch(err => console.log(err));
   },
@@ -188,9 +188,7 @@ Page({
   },
 
   handleTabChange(event) {
-    console.log(event);
     const { type } = event.detail;
-    console.log(type)
     this.setData({
       selectType: type
     });
@@ -239,7 +237,6 @@ Page({
    * 排位通过预订
    */
   handleRemindClick(event) {
-    console.log(event)
     let  id = event.currentTarget.dataset.id;
     PageHelper.showOrderRemindModal().then(() => {
       this.requestPassOrder(id);

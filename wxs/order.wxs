@@ -81,10 +81,12 @@ function remindStatus(status) {
   if (status == 0) {
     return '排位中'
   } else if (status == 1) {
-    return '自行取消'
+    return '已提醒'
   } else if (status == 2) {
-    return '系统取消'
+    return '自行取消'
   } else if (status == 3) {
+    return '系统取消'
+  } else if (status == 4) {
     return '已转预订单'
   } else {
     return ''
