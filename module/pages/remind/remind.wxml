@@ -2,12 +2,12 @@
 <wxs src="../../../wxs/order.wxs" module="orderModule" />
 
 <view class="home-page main-container">
-    <nav-bar title="排位订单"></nav-bar>
+    <nav-bar title="排位订单" home back></nav-bar>
     <tab tabList="{{ tabList }}" bind:tabclick="handleTabChange"></tab>
     <!-- 正在排位 -->
     <block wx:if="{{ orderModule.isToday(selectType) }}">
         <block wx:for="{{remindList}}" wx:key="index">
-            <view class="arrival-time">排位时间：{{ item.orderTime }}</view>
+            <view class="arrival-time-title">排位时间：{{ item.orderTime }}</view>
             <view class="item">
               <view class="name-status">
                   <view class="table-name">预计人数{{item.remindNum}}</view>
@@ -20,10 +20,10 @@
                           <text>{{ orderModule.formatPhone(item.phone) }}</text>
                       </view>
                   </view>
-                  <block wx:if="{{ orderModule.isShowConfirmAppoint(order.status) }}">
+                   <block>
                       <view class="confirm-wrapper">
                           <view class="btn-bg"></view>
-                          <view class="confirm-btn" bindtap="handleRemindClick">通过预订</view>
+                          <view class="confirm-btn" data-id="{{item.id}}" bindtap="handleRemindClick">通过预订</view>
                       </view>
                   </block>
               </view>
@@ -33,7 +33,7 @@
     <!-- 历史排位 -->
     <block wx:if="{{ orderModule.isFuture(selectType) }}">
         <block wx:for="{{remindList}}" wx:key="index">
-        <view class="arrival-time">排位时间：{{ item.orderTime }}</view>
+        <view class="arrival-time-title">排位时间：{{ item.orderTime }}</view>
             <view class="item">
               <view class="name-status">
                   <view class="table-name">预计人数{{item.remindNum}}</view>
@@ -46,12 +46,6 @@
                           <text>{{ orderModule.formatPhone(item.phone) }}</text>
                       </view>
                   </view>
-                  <block wx:if="{{ orderModule.isShowConfirmAppoint(order.status) }}">
-                      <view class="confirm-wrapper">
-                          <view class="btn-bg"></view>
-                          <view class="confirm-btn" bindtap="handleRemindClick">通过预订</view>
-                      </view>
-                  </block>
               </view>
           </view>
         </block>

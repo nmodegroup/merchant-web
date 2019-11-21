@@ -164,7 +164,11 @@ Page({
       })
       .catch(err => console.log(err));
   },
-
+  //拨打电话
+  onMakePhoneCall(event) {
+    const { phone } = event.currentTarget.dataset;
+    WxManager.makePhoneCall(phone);
+  },
   /**
    * query 参数
    */

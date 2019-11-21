@@ -143,15 +143,15 @@ Page({
       .catch(err => console.log(err));
   },
   /**
-   * 排位通过预订
-   */
+    * 排位通过预订
+    */
   handleRemindClick(event) {
-    const { item } = event.detail;
+    let id = event.currentTarget.dataset.id;
     PageHelper.showOrderRemindModal().then(() => {
-      this.requestPassOrder(item.id);
+      this.requestPassOrder(id);
     });
   },
-
+  
   requestPassOrder(orderId) {
     PageHelper.requestWrapper(homeService.passRemind({ id: orderId }))
       .then(() => {
@@ -169,7 +169,11 @@ Page({
       pageSize: this.pageSize
     };
   },
-
+  //拨打电话
+  onMakePhoneCall(event) {
+    const { phone } = event.currentTarget.dataset;
+    WxManager.makePhoneCall(phone);
+  },
   /**
    * 重置页码和每页数量
    */
@@ -187,42 +191,5 @@ Page({
 
     this.resetQuery();
     this.sendRefreshRequest();
-  },
-
-  /**
-   * 确认预订
-   */
-  handleItemClick(event) {
-    const { item } = event.detail;
-    PageHelper.showOrderConfirmModal()
-      .then(() => {
-        this.requestConfirmOrder(item.id, OrderActionStatus.CONFIRM);
-      })
-      .catch(() => {
-        this.requestConfirmOrder(item.id, OrderActionStatus.CONFIRM_NOT);
-      });
-  },
-
-  /**
-   * 确认已到店
-   */
-  handleArriveClick(event) {
-    const { item } = event.detail;
-    PageHelper.showOrderArrivalModal().then(() => {
-      this.requestConfirmOrder(item.id, OrderActionStatus.ARRIVAL);
-    });
-  },
-
-  requestConfirmOrder(orderId, actionType) {
-    const params = {
-      id: orderId,
-      type: actionType
-    };
-    PageHelper.requestWrapper(homeService.confirmOrder(params))
-      .then(() => {
-        PageHelper.showSuccessToast('操作成功');
-        this.sendRefreshRequest();
-      })
-      .catch(err => console.log(err));
   }
 });
