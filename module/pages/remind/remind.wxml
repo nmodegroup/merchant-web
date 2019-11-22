@@ -1,7 +1,7 @@
 <!--pages/home/home.wxml-->
 <wxs src="../../../wxs/order.wxs" module="orderModule" />
 
-<view class="home-page main-container">
+<view class="home-page">
     <nav-bar title="排位订单" home back></nav-bar>
     <tab tabList="{{ tabList }}" bind:tabclick="handleTabChange"></tab>
     <!-- 正在排位 -->
