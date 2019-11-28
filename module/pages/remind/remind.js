@@ -4,7 +4,7 @@ const homeService = require('../../../service/home');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
 const PageConstant = require('../../../constant/page');
-
+const WxManager = require('../../../utils/wxManager');
 Page({
   /**
    * 页面的初始数据
@@ -172,6 +172,7 @@ Page({
   },
   //拨打电话
   onMakePhoneCall(event) {
+    console.log(event)
     const { phone } = event.currentTarget.dataset;
     WxManager.makePhoneCall(phone);
   },
