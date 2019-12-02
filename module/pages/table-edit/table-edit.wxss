@@ -1,5 +1,39 @@
 /* module/pages/table-edit/table-edit.wxss */
-
+.create-block {
+  display: flex;
+  font-size: 26rpx;
+}
+.create-block-item {
+  color: rgba(255, 255, 255, 0.5);
+  margin-right: 60rpx;
+  display: flex;
+  align-items: center;
+}
+.create-block-item.last-item {
+  margin-right: 0;
+}
+.create-block-item.active {
+  color: rgba(255, 255, 255, 1);
+}
+.cricle {
+  width:22rpx;
+  height:22rpx;
+  border:2rpx solid rgba(138,138,158,0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10rpx;
+}
+.cricle.active {
+  border-color: rgba(255,255,255,1);
+}
+.cricle .cricle-con {
+  width:10rpx;
+  height:10rpx;
+  background:rgba(255,255,255,1);
+  border-radius: 50%;
+}
 .area-name {
   color: rgba(255, 255, 255, 1);
   font-size: 26rpx;
@@ -11,4 +45,50 @@
 
 .input-view {
   margin-right: 60rpx;
+}
+.serial {
+
+}
+.serial .serial-cell {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 38rpx;
+}
+.serial-cell.last-serial-cell {
+  margin-bottom: 0;
+}
+.serial-cell.active {
+   color: rgba(255, 255, 255, 1);
+}
+.serial-cell .serial-cell-way{
+  display: flex;
+  align-items: center;
+}
+.serial-cell .serial-cell-block {
+  display: flex;
+  align-items: center;
+}
+.serial-cell .serial-cell-lab {
+  display: inline-block;
+  margin-right: 20rpx;
+  line-height: 1;
+}
+.serial-cell-block .serial-block-input{
+  width: 100rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  border-radius: 4rpx;
+  border: 1rpx solid rgba(255,255,255,0.5);
+  text-align: center;
+}
+ .serial-block-input.sigin-input{
+   margin-right: 20rpx;
+ }
+.serial-cell-block .dart-cloumn {
+  width: 20rpx;
+  height: 2rpx;
+  background: rgba(255,255,255,0.5);
+  margin: 0 10rpx;
 }

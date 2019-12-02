@@ -117,3 +117,23 @@ export function deleteTable(params) {
       });
   });
 }
+
+/**
+ * 批量新增桌位
+ */
+export function createTables(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .post({
+        url: '/merchant/tables',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}

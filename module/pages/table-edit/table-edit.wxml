@@ -1,11 +1,74 @@
 <!--module/pages/table-edit/table-edit.wxml-->
 <view class="table-edit-page">
     <nav-bar title="{{ title }}" home back propagation></nav-bar>
+    <cell title="创建方式" showIcon="{{false}}" showArrow="{{false}}" wx:if="{{!isEdit}}">
+      <view class="create-block">
+        <view class="create-block-item {{ createWay==='sigin'? 'active': ''}}" bindtap="handleSelectCreate" id="sigin">
+          <view class="cricle {{ createWay==='sigin'? 'active': ''}}">
+            <view class="cricle-con" wx:if="{{createWay === 'sigin'}}"></view>
+          </view>
+          <text>单个创建</text>
+        </view>
+        <view class="create-block-item last-item {{ createWay==='multiple'? 'active': ''}}" bindtap="handleSelectCreate" id="multiple">
+          <view class="cricle {{ createWay==='multiple'? 'active': ''}}">
+            <view class="cricle-con" wx:if="{{createWay === 'multiple'}}"></view>
+          </view>
+          <text>批量创建</text>
+        </view>
+      </view>
+    </cell>
     <cell title="区域名称" showIcon="{{false}}" bind:cellClick="handleCellClick">
         <text
             class="area-name {{ selectArea.name ? '' : 'disactive' }}">{{ selectArea.name ? selectArea.name : "请选择区域"}}</text>
     </cell>
-    <cell-input title="桌位名称">
+    <block wx:if="{{createWay==='multiple'}}" >
+    <cell title="编号方式" showIcon="{{false}}" showArrow="{{false}}" wx:if="{{!isEdit}}">
+      <view class="serial">
+        <view class="serial-cell {{ numType===1? 'active': ''}}">
+          <view class="serial-cell-way" bindtap="handleSelectWay" id="1">
+            <view class="cricle {{ numType===1? 'active': ''}}">
+              <view class="cricle-con" wx:if="{{numType === 1}}"></view>
+            </view>
+            <text class="serial-cell-lab">数字</text>
+          </view>
+          <view class="serial-cell-block">
+            <view class="serial-block-input" bindtap="handleSelectNum" data-type="num" data-id="1" data-space="left">{{ methodsInfo.startNum }}</view>
+            <view class="dart-cloumn"></view>
+            <view class="serial-block-input" bindtap="handleSelectNum" data-type="num" data-id="1" data-space="right">{{ methodsInfo.endNum }}</view>
+          </view>
+        </view>
+
+        <view class="serial-cell {{ numType===2? 'active': ''}}">
+         <view class="serial-cell-way" bindtap="handleSelectWay" id="2">
+            <view class="cricle {{ numType===2? 'active': ''}}">
+              <view class="cricle-con" wx:if="{{numType === 2}}"></view>
+            </view>
+            <text class="serial-cell-lab">字母</text>
+          </view>
+          <view class="serial-cell-block">
+            <view class="serial-block-input" bindtap="handleSelectNum" data-type="code" data-id="2" data-space="left">{{ methodsInfo.startStr }}</view>
+            <view class="dart-cloumn"></view>
+            <view class="serial-block-input" bindtap="handleSelectNum" data-type="code" data-id="2" data-space="right">{{ methodsInfo.endStr }}</view>
+          </view>
+        </view>
+        <view class="serial-cell last-serial-cell {{ numType===3? 'active': ''}}">
+          <view class="serial-cell-way" bindtap="handleSelectWay" id="3">
+            <view class="cricle {{ numType===3? 'active': ''}}">
+              <view class="cricle-con" wx:if="{{numType === 3}}"></view>
+            </view>
+            <text class="serial-cell-lab">组合</text>
+          </view>
+          <view class="serial-cell-block">
+            <view class="serial-block-input sigin-input" bindtap="handleSelectNum" data-type="code" data-id="3" data-space="left">{{ methodsInfo.str }}</view>
+            <view class="serial-block-input" bindtap="handleSelectNum" data-type="num" data-id="3" data-space="center">{{ methodsInfo.startStrNum }}</view>
+            <view class="dart-cloumn"></view>
+            <view class="serial-block-input" bindtap="handleSelectNum" data-type="num" data-id="3" data-space="right">{{ methodsInfo.endStrNum }}</view>
+          </view>
+        </view>
+      </view>
+    </cell>
+     </block>
+    <cell-input title="桌位名称" wx:if="{{createWay==='sigin' || isEdit}}">
         <input class="input-view" placeholder-class="placeholder" value="{{tableName}}" placeholder="请填写桌位名称（例如编号，花名等)"
             bindinput="handleInput" data-type="name" />
     </cell-input>
@@ -22,7 +85,7 @@
     </block>
     <!-- 区域选择 -->
     <van-popup show="{{visibleArea}}" position="bottom" overlay-style="background:rgba(0,0,0,0.5)">
-        <van-picker show-toolbar title="选择区域" columns="{{ areaList }}" value-key="name" bind:cancel="onCancel"
+        <van-picker show-toolbar title="{{titleWay}}" columns="{{ columnList }}" value-key="name" bind:cancel="onCancel"
             bind:confirm="onConfirm" />
     </van-popup>
     <!-- toast -->
