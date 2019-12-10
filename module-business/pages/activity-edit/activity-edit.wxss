@@ -74,7 +74,9 @@
   border-bottom: 2rpx solid rgba(255, 255, 255, 0.2);
   /* padding-bottom: 6rpx; */
 }
-
+.cost-input {
+  width: 150rpx;
+}
 .placeholder-quota {
   color: rgba(255, 255, 255, 0.5);
 }
