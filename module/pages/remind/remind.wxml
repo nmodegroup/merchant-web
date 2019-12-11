@@ -15,7 +15,7 @@
               </view>
               <view class="user-time-action">
                   <view class="user-time-info">
-                      <view class="arrival-time">预计到店时间：{{item.appointTime}}</view>
+                      <view class="arrival-time">可接受到店时间：{{item.appointTime}}</view>
                       <view class="user-info" bindtap="onMakePhoneCall" data-phone="{{item.phone}}">{{item.nickName + " " }}
                           <text>{{ orderModule.formatPhone(item.phone) }}</text>
                       </view>
@@ -41,7 +41,7 @@
               </view>
               <view class="user-time-action">
                   <view class="user-time-info">
-                      <view class="arrival-time">预计到店时间：{{item.appointTime}}</view>
+                      <view class="arrival-time">可接受到店时间：{{item.appointTime}}</view>
                       <view class="user-info" bindtap="onMakePhoneCall" data-phone="{{item.phone}}">{{item.nickName + " " }}
                           <text>{{ orderModule.formatPhone(item.phone) }}</text>
                       </view>
