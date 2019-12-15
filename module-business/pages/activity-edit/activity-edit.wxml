@@ -31,54 +31,49 @@
                 bindinput="handleInput" data-type="guest" />
         </cell-input>
         <view class="reserve-count">
+            <view class="reserve-title">活动费用</view>
+            <van-radio-group value="{{ isCharge }}" bind:change="onChangeChargeType">
+              <block wx:for="{{ chargeType }}" wx:key="{{ item.name }}">
+                <view class="radio-item">
+                  <van-radio name="{{ item.name }}" use-icon-slot>
+                    <image class="radio-custom-icon" slot="icon"
+                    src="{{ isCharge === item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">
+                    </image>
+                  </van-radio>
+                  <view>{{ item.title }}</view>
+                  <input name="isCharge" class="quota-input cost-input"
+                    placeholder-class="placeholder-quota" placeholder="输入门票价格"
+                    type="number"
+                    bindinput="handleInput" data-type="charges"
+                    value="{{ charges }}"
+                    wx:if="{{ item.name == 1}}" 
+                    />
+                  <view wx:if="{{ item.name == 1}}" >元/人</view>
+                </view>
+              </block>
+            </van-radio-group>
+        </view>
+        <view class="reserve-count">
             <view class="reserve-title">限制预订数量</view>
             <view class="reserve-radio">
                 <van-radio-group value="{{ quotaType }}" bind:change="onRadioChange">
-                    <block wx:for="{{ quotaList }}" wx:key="{{ item.name }}">
+                    <block wx:for="{{ quotaList }}" 
+                    wx:key="{{ item.name }}" 
+                    wx:if="{{ !(isCharge == 1 && item.name ==1) }}">
                         <view class="radio-item">
+                            <van-radio name="{{ item.name }}" use-icon-slot>
+                              <image class="radio-custom-icon" slot="icon"
+                                  src="{{ quotaType === item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">
+                                </image>
+                            </van-radio>
                             <view>{{ item.title }}</view>
                             <input name="quotaType" class="quota-input" wx:if="{{ item.name === 2 && quotaType === 2 }}"
                                 placeholder-class="placeholder-quota" placeholder="输入数量" value="{{ quota }}"
                                 type="number" bindinput="handleInput" data-type="quota" />
-                            <van-radio name="{{ item.name }}" use-icon-slot>
-                                <image class="radio-custom-icon" slot="icon"
-                                    src="{{ quotaType === item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">
-                                </image>
-                            </van-radio>
                         </view>
                     </block>
                 </van-radio-group>
             </view>
-        </view>
-        <view class="reserve-count">
-            <view class="reserve-title">活动费用</view>
-            <van-radio-group>
-              <block>
-                <view class="radio-item">
-                  <view>免费参加</view>
-                  <van-radio use-icon-slot>
-                      <image class="radio-custom-icon" slot="icon"
-                          src="/image/activity/radio-unselect.svg">
-                      </image>
-                  </van-radio>
-                </view>
-              </block>
-              <block>
-                <view class="radio-item">
-                  <view>付费参加</view>
-                  <input name="quotaType" class="quota-input cost-input"
-                                placeholder-class="placeholder-quota" placeholder="输入门票价格"
-                                type="number" />
-                  <view>元/人</view>
-
-                  <van-radio use-icon-slot>
-                      <image class="radio-custom-icon" slot="icon"
-                          src="/image/activity/radio-unselect.svg">
-                      </image>
-                  </van-radio>
-                </view>
-              </block>
-            </van-radio-group>
         </view>
         <view class="activity-image-container">
             <view>活动图片</view>

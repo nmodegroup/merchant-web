@@ -5,10 +5,10 @@ const dateUtil = require('../../../utils/date');
 const regular = require('../../../utils/regular');
 const wxManager = require('../../../utils/wxManager');
 const { debounce } = require('../../../utils/throttle-debounce/index');
-const { QuotaType } = require('../../../constant/global');
+const { QuotaType, IsChargeType } = require('../../../constant/global');
 const { Folder } = require('../../../constant/global');
 const ENV = require('../../../lib/request/env');
-const { quotaList } = require('./data');
+const { quotaList, chargeType } = require('./data');
 const { PageConfig } = require('../../../utils/page');
 const pageConstant = require('../../../constant/page');
 const PageHelper = new PageConfig();
@@ -21,6 +21,7 @@ Page({
     minDate: Date.now(),
     currentDate: Date.now(),
     quotaList: quotaList,
+    chargeType: chargeType,
     isEdit: false, // 是否编辑状态
     theme: '', // 活动主题
     beginTime: '', // 活动开始时间
@@ -32,6 +33,8 @@ Page({
     address: '', // 详细地址
     phone: '', // 联系电话
     guest: '', // 嘉宾信息
+    isCharge: "", // 是否收费（0不收费， 1收费）
+    charges: "", // 收费金额
     quotaType: '', // 限制预订数量类型（0不限 1按系统已有桌位限制 2按固定名额限制）
     quota: '', // 预订限额数量
     banner: '', // 活动宣传 banner 图 url
@@ -253,7 +256,20 @@ Page({
       visibleArea: false
     });
   },
-
+  /**
+   * 活动费用切换
+  */
+  onChangeChargeType(event){
+    console.log(event)
+    this.setData({
+      isCharge: parseInt(event.detail)
+    });
+    if (Number(event.detail) == 1) {
+      if (this.data.quotaType == 1) {
+        this.setData({ quotaType: "" })
+      }
+    }
+  },
   /**
    * 限制预订切换
    */
@@ -363,7 +379,7 @@ Page({
   },
 
   verifyedFrom() {
-    const { theme, beginTime, endTime, cityId, address, phone, guest, quotaType, banner, post } = this.data;
+    const { theme, beginTime, endTime, cityId, address, phone, guest, quotaType, isCharge, banner, post } = this.data;
     return (
       !isEmpty(theme) &&
       !isEmpty(beginTime) &&
@@ -373,6 +389,7 @@ Page({
       !isEmpty(phone) &&
       !isEmpty(guest) &&
       !isEmpty(quotaType) &&
+      !isEmpty(isCharge) &&
       !isEmpty(banner) &&
       !isEmpty(post)
     );
@@ -412,7 +429,7 @@ Page({
    * 提交表单
    */
   commitForm() {
-    const { theme, phone, quotaType, quota, longitude, latitude } = this.data;
+    const { theme, phone, isCharge, charges, quotaType, quota, longitude, latitude } = this.data;
     if (!this.verifyedFrom()) {
       return false;
     }
@@ -420,6 +437,11 @@ Page({
     /* 校验门店名称 */
     if (theme.length === 0 || theme.length > 15 || regular.regAllNumber(theme)) {
       return PageHelper.showToast('活动主题1-15个字符可包含中文\n字母数字但不能全为数字');
+    } 
+
+    /* 收费需要填写金额 */
+    if (isCharge === IsChargeType.FREE && isEmpty(charges)) {
+      return PageHelper.showToast('请输入活动费用金额');
     }
 
     /* 按固定名额限制需要填写限额数量 */
@@ -458,6 +480,8 @@ Page({
       address,
       phone,
       guest,
+      isCharge,
+      charges,
       quotaType,
       quota,
       banner,
@@ -476,6 +500,8 @@ Page({
       address,
       phone,
       guest,
+      isCharge,
+      charges,
       quotaType,
       quota,
       banner,

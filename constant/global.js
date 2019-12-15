@@ -46,6 +46,13 @@ export class AppointStatus {
   static OPEN = 0;
   static CLOSE = 1;
 }
+/**
+ * 活动费用类型（0不收费， 1收费）
+*/
+export class IsChargeType {
+  static FREE = 0;
+  static CHARGE = 1;
+}
 
 /**
  * 限制预订数量类型（0不限 1按系统已有桌位限制 2按固定名额限制）
