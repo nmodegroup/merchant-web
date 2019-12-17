@@ -170,3 +170,30 @@
 .reserve-status {
   font-size: 20rpx;
 }
+
+.charge-block {
+  position: absolute;
+  width: 250rpx;
+  height: 54rpx;
+  left: 0;
+  top: 0!important;
+}
+.charge-block.free-block {
+  width: 140rpx;
+}
+.charge-block image{
+  width: 100%;
+  height: 100%;
+}
+.charge-block__text{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 54rpx;
+  line-height: 54rpx;
+  color: #fff;
+  font-size: 30rpx;
+  text-align: center;
+
+}

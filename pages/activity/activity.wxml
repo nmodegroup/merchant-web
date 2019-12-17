@@ -14,6 +14,11 @@
       <view class="item-layout">
         <view class="activity-item">
           <view class="banner-wrapper">
+          <view class="charge-block {{ item.isCharge == 0?'free-block': ''}}">
+            <image src="../../image/activity/icon_biaoqian_chang.png" wx:if="{{item.isCharge == 1}}"></image>
+            <image src="../../image/activity/icon_biaoqian_duan.png" wx:if="{{item.isCharge == 0}}"></image>
+            <view class="charge-block__text">{{activityModule.charge(item)}}</view>
+          </view>
             <image src="{{item.banner}}" mode="aspectFill"></image>
             <!-- 已下架隐藏数量显示 -->
             <view wx:if="{{ !activityModule.isUnShelves(item.shelvesStatus) }}">

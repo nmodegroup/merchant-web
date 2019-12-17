@@ -54,11 +54,23 @@ function isUnShelves(shelvesStatus) {
   return parseInt(shelvesStatus) === UN_SHELVES;
 }
 
+/**
+ * 活动费用
+*/
+function charge(item) {
+  if (item.isCharge == 0) {
+    return "Free"
+  } else if (item.isCharge == 1){
+    return "Ticket：¥" + item.charges
+  }
+}
+
 module.exports = {
   getRemainTitle: getRemainTitle,
   isAuditing: isAuditing,
   isAuditFail: isAuditFail,
   isAuditSuccessAndOpen: isAuditSuccessAndOpen,
   isAuditSuccessAndClose: isAuditSuccessAndClose,
-  isUnShelves: isUnShelves
+  isUnShelves: isUnShelves,
+  charge: charge
 };

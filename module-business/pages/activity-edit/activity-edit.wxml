@@ -46,6 +46,7 @@
                     type="number"
                     bindinput="handleInput" data-type="charges"
                     value="{{ charges }}"
+                    maxlength="5"
                     wx:if="{{ item.name == 1}}" 
                     />
                   <view wx:if="{{ item.name == 1}}" >元/人</view>
