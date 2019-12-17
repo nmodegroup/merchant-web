@@ -95,7 +95,16 @@ Page({
   },
   handleSelectWay(e){
     const type = Number(e.currentTarget.id);
-    this.setData({ numType: type })
+    let methodsInfo = {
+      startNum: "",
+      endNum: "",
+      startStr: "",
+      endStr: "",
+      str: "",
+      startStrNum: "",
+      endStrNum: "",
+    };
+    this.setData({ numType: type, methodsInfo })
   },
   handleSelectNum(e){
     const type = e.currentTarget.dataset.type;
@@ -108,7 +117,7 @@ Page({
       // if (id === 3) {
       //   columnList = this.data.numStrList;
       // } else {
-        columnList = this.data.numList;
+      columnList = this.data.numStrList;
       // }
       titleWay = "选择数字";
     } else if (type === "code") {
