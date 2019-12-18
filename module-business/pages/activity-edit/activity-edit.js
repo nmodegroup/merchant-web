@@ -268,6 +268,10 @@ Page({
       if (this.data.quotaType == 1) {
         this.setData({ quotaType: "" })
       }
+    } else {
+      this.setData({
+        charges:""
+      });
     }
   },
   /**
