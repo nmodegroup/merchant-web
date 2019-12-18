@@ -43,7 +43,7 @@
                   <view>{{ item.title }}</view>
                   <input name="isCharge" class="quota-input cost-input"
                     placeholder-class="placeholder-quota" placeholder="输入门票价格"
-                    type="number"
+                    type="digit"
                     bindinput="handleInput" data-type="charges"
                     value="{{ charges }}"
                     maxlength="5"
