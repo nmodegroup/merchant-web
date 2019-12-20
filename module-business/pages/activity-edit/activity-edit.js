@@ -451,8 +451,8 @@ Page({
     /* 按固定名额限制需要填写限额数量 */
     if (quotaType === QuotaType.FIXED_LIMIT && isEmpty(quota)) {
       return PageHelper.showToast('请输入预订限额数量');
-    } else if (quotaType === QuotaType.FIXED_LIMIT && quota == 0) {
-      return PageHelper.showToast('预订限额数量不能为0');
+    } else if (quotaType === QuotaType.FIXED_LIMIT && quota <= 0) {
+      return PageHelper.showToast('预订限额数量不能小于0');
     }
 
     /* 地址位置授权校验 */
