@@ -51,6 +51,9 @@
   color: rgba(255, 255, 255, 0.8);
   /* flex: 1; */
 }
+.reserve-title__label{
+  color: rgba(255, 255, 255, 0.8);
+}
 
 .radio-item {
   font-size: 24rpx;

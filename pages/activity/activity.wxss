@@ -194,6 +194,8 @@
   line-height: 54rpx;
   color: #fff;
   font-size: 30rpx;
-  text-align: center;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+
 
 }

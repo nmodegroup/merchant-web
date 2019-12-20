@@ -40,7 +40,7 @@
                     src="{{ isCharge === item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">
                     </image>
                   </van-radio>
-                  <view>{{ item.title }}</view>
+                  <view class="reserve-title__label">{{ item.title }}</view>
                   <input name="isCharge" class="quota-input cost-input"
                     placeholder-class="placeholder-quota" placeholder="输入门票价格"
                     type="digit"
@@ -49,7 +49,7 @@
                     maxlength="5"
                     wx:if="{{ item.name == 1}}" 
                     />
-                  <view wx:if="{{ item.name == 1}}" >元/人</view>
+                  <view wx:if="{{ item.name == 1}}" class="reserve-title__label" >元/人</view>
                 </view>
               </block>
             </van-radio-group>
@@ -67,7 +67,7 @@
                                   src="{{ quotaType === item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">
                                 </image>
                             </van-radio>
-                            <view>{{ item.title }}</view>
+                            <view class="reserve-title__label">{{ item.title }}</view>
                             <input name="quotaType" class="quota-input" wx:if="{{ item.name === 2 && quotaType === 2 }}"
                                 placeholder-class="placeholder-quota" placeholder="输入数量" value="{{ quota }}"
                                 type="number" bindinput="handleInput" data-type="quota" />
