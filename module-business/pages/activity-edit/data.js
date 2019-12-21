@@ -12,3 +12,13 @@ export const quotaList = [
     name: 2
   }
 ];
+export const chargeType = [
+  {
+    title: "免费参加",
+    name: 0
+  },
+  {
+    title: "付费参加",
+    name: 1
+  }
+]

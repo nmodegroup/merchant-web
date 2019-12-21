@@ -46,9 +46,13 @@
 }
 
 .reserve-title {
+  min-width: 215rpx;
   font-size: 28rpx;
   color: rgba(255, 255, 255, 0.8);
-  flex: 1;
+  /* flex: 1; */
+}
+.reserve-title__label{
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .radio-item {
@@ -58,11 +62,11 @@
   flex-direction: row;
   align-items: center;
   margin-bottom: 30rpx;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
 }
 
 .radio-item > view {
-  margin-right: 10rpx;
+  margin-left: 10rpx;
 }
 
 .quota-input {
@@ -74,7 +78,9 @@
   border-bottom: 2rpx solid rgba(255, 255, 255, 0.2);
   /* padding-bottom: 6rpx; */
 }
-
+.cost-input {
+  width: 150rpx;
+}
 .placeholder-quota {
   color: rgba(255, 255, 255, 0.5);
 }

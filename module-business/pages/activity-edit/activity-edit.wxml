@@ -31,20 +31,46 @@
                 bindinput="handleInput" data-type="guest" />
         </cell-input>
         <view class="reserve-count">
+            <view class="reserve-title">活动费用</view>
+            <van-radio-group value="{{ isCharge }}" bind:change="onChangeChargeType">
+              <block wx:for="{{ chargeType }}" wx:key="{{ item.name }}">
+                <view class="radio-item">
+                  <van-radio name="{{ item.name }}" use-icon-slot>
+                    <image class="radio-custom-icon" slot="icon"
+                    src="{{ isCharge === item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">
+                    </image>
+                  </van-radio>
+                  <view class="reserve-title__label">{{ item.title }}</view>
+                  <input name="isCharge" class="quota-input cost-input"
+                    placeholder-class="placeholder-quota" placeholder="输入门票价格"
+                    type="digit"
+                    bindinput="handleInput" data-type="charges"
+                    value="{{ charges }}"
+                    maxlength="5"
+                    wx:if="{{ item.name == 1}}" 
+                    />
+                  <view wx:if="{{ item.name == 1}}" class="reserve-title__label" >元/人</view>
+                </view>
+              </block>
+            </van-radio-group>
+        </view>
+        <view class="reserve-count">
             <view class="reserve-title">限制预订数量</view>
             <view class="reserve-radio">
                 <van-radio-group value="{{ quotaType }}" bind:change="onRadioChange">
-                    <block wx:for="{{ quotaList }}" wx:key="{{ item.name }}">
+                    <block wx:for="{{ quotaList }}" 
+                    wx:key="{{ item.name }}" 
+                    wx:if="{{ !(isCharge == 1 && item.name ==1) }}">
                         <view class="radio-item">
-                            <view>{{ item.title }}</view>
+                            <van-radio name="{{ item.name }}" use-icon-slot>
+                              <image class="radio-custom-icon" slot="icon"
+                                  src="{{ quotaType === item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">
+                                </image>
+                            </van-radio>
+                            <view class="reserve-title__label">{{ item.title }}</view>
                             <input name="quotaType" class="quota-input" wx:if="{{ item.name === 2 && quotaType === 2 }}"
                                 placeholder-class="placeholder-quota" placeholder="输入数量" value="{{ quota }}"
                                 type="number" bindinput="handleInput" data-type="quota" />
-                            <van-radio name="{{ item.name }}" use-icon-slot>
-                                <image class="radio-custom-icon" slot="icon"
-                                    src="{{ quotaType === item.name ? '/image/activity/radio-select.svg' : '/image/activity/radio-unselect.svg' }}">
-                                </image>
-                            </van-radio>
                         </view>
                     </block>
                 </van-radio-group>

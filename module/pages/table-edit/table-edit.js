@@ -113,11 +113,10 @@ Page({
     let columnList = [];
     let titleWay = "";
     if (type === "num") {
-      // 暂时注释后期可能会放出来
       // if (id === 3) {
-      //   columnList = this.data.numStrList;
+        columnList = this.data.numStrList;
       // } else {
-      columnList = this.data.numStrList;
+      //   columnList = this.data.numList;
       // }
       titleWay = "选择数字";
     } else if (type === "code") {
