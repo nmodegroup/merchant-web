@@ -1,0 +1,8 @@
+<!--module-business/pages/activity-cancel/activity-cancel.wxml-->
+<view class="activity-user-page">
+  <nav-bar title="{{ title }}" back></nav-bar>
+  <view>
+  
+  </view>
+</view>
+

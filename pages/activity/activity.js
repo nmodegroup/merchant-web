@@ -148,7 +148,9 @@ Page({
       });
     }
   },
-
+  handleCancelActivity(){
+    
+  },
   handleCreateActivity() {
     PageHelper.checkAuditStatus().then(() => {
       wxManager.navigateTo(PageConstant.ACTIVITY_EDIT_URL);

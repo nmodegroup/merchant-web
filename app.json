@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/activity-cancel/activity-cancel",
     "pages/auth/auth",
     "pages/center/center",
     "pages/activity/activity",
@@ -34,6 +35,7 @@
     {
       "root": "module-business",
       "pages": [
+        "pages/activity-cancel/activity-cancel",
         "pages/arrival-time/arrival-time",
         "pages/business-time/business-time",
         "pages/business-time-edit/business-time-edit",
@@ -45,7 +47,7 @@
     }
   ],
   "tabBar": {
-    "custom": true,
+    "custom": false,
     "list": [
       {
         "pagePath": "pages/home/home",
