@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "cell-group": "/components/cell-group/cell-group"
+  }
+}

@@ -1,0 +1,10 @@
+<view class="cell-group">
+  <view class="cell-group__item item-title">
+    <view class="cell-group__item__left">0456 7566 1381</view>
+    <view class="cell-group__item__right">核销时间：2019.5.20 19:31</view>
+  </view>
+  <view class="cell-group__item item-tips">
+    <view class="cell-group__item__left">0456 7566 1381</view>
+    <view class="cell-group__item__right">核销时间：2019.5.20 19:31</view>
+  </view>
+</view>

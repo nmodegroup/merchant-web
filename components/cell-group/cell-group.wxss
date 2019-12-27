@@ -1,0 +1,27 @@
+.cell-group {
+  padding: 36rpx 0;
+}
+.cell-group__item{
+  height: 50rpx;
+  line-height: 50rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.cell-group__item.item-title{
+  font-size: 36rpx;
+  color:rgba(255,255,255,0.8);
+}
+.cell-group__item.item-tips {
+  margin-top: 15rpx;
+  font-size: 26rpx;
+  color:rgba(255,255,255,0.5);
+}
+.cell-group__item__left,.cell-group__item__right{
+  flex: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.cell-group__item__right{
+  text-align: right;
+}

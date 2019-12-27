@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/coupon-code/coupon-code",
+    "pages/cancel-record/cancel-record",
     "pages/activity-cancel/activity-cancel",
     "pages/auth/auth",
     "pages/center/center",

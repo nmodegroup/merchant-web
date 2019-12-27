@@ -1,0 +1,29 @@
+<!--pages/coupon-code/coupon-code.wxml-->
+<view class="page">
+  <nav-bar title="核销记录" back></nav-bar>
+  <view class="coupon-code">
+    <view class="activity-block">
+      <view class="activity-block__name">520情人节派对</view>
+      <view class="activity-block__tips">深圳BBR酒吧 | 2019.5.20 20:00</view>
+    </view>
+    <view class="code-block">
+      <view class="code-block__all">
+        <view class="cell-block__item">
+          <image class="cell-block__item__image" src="../../image/activity/radio-unselect.svg"></image>
+          <text class="cell-block__item__text">全选</text>
+        </view>
+      </view>
+      <view>
+        <view class="cell-block__item">
+          <image class="cell-block__item__image" src="../../image/activity/radio-select.svg"></image>
+          <text class="cell-block__item__text">1243 2345 3425</text>
+        </view>
+        <view class="cell-block__item">
+          <image class="cell-block__item__image" src="../../image/activity/radio-unselect.svg"></image>
+          <text class="cell-block__item__text">1243 2345 3425</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <action-bottom single="{{ false }}" enabled="{{ true }}" leftText="重新扫码" rightText="确认核销" />
+</view>

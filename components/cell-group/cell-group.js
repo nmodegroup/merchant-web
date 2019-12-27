@@ -21,8 +21,7 @@ Component({
     enabled: {
       type: Boolean,
       value: true
-    },
-    
+    }
   },
 
   /**
@@ -42,10 +41,6 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    handleClick(event) {
-      const { type } = event.currentTarget.dataset;
-      const myEventDetail = { type: type };
-      this.triggerEvent('click', myEventDetail);
-    }
+
   }
 });
