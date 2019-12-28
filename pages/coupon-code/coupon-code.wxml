@@ -25,5 +25,5 @@
       </view>
     </view>
   </view>
-  <action-bottom single="{{ false }}" enabled="{{ true }}" leftText="重新扫码" rightText="确认核销" />
+  <bottom-button primary bindclick="onButton"></bottom-button>
 </view>

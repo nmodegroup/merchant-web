@@ -28,6 +28,14 @@ Page({
   onShow: function () {
 
   },
+  onButton(event){
+    const type = event.detail.type;
+    if (type === 'right') {
+
+    } else {
+      
+    }
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

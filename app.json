@@ -81,7 +81,8 @@
     "action-bottom": "/components/action-bottom/index",
     "cell-input": "/components/cell-input/index",
     "toast": "/components/toast/index",
-    "modal": "/components/modal/index"
+    "modal": "/components/modal/index",
+    "bottom-button": "/components/bottom-button/bottom-button"
   },
   "sitemapLocation": "sitemap.json",
   "permission": {

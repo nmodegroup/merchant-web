@@ -1,0 +1,12 @@
+<view class="button-wrap {{ both ? 'button-both': ''}}">
+  <view 
+   class="button-wrap__item item-default item-plain" 
+   bindtap="handleClick"
+   data-type="left"
+   >重新扫码</view>
+  <view 
+   class="button-wrap__item {{ primary?'item-primary':''}}" 
+   bindtap="handleClick"
+   data-type="right"
+  >确认核销</view>
+</view>
