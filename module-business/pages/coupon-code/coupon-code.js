@@ -12,7 +12,8 @@ Page({
   data: {
     selectIndex: 0,
     list: [],
-    qrText: ""
+    qrText: "",
+    codeIds: ""
   },
 
   /**
@@ -44,6 +45,17 @@ Page({
         this.isLoadActivityFirst = false
       })
   },
+  putCancelTicket(){
+    const params = {
+      codeIds: this.data.codeIds,
+    }
+    PageHelper.requestWrapper(
+      activityService.putCancelTicket(params)
+    )
+    .then( result => {
+      console.log(result)
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -57,7 +69,7 @@ Page({
   onButton(event) {
     const type = event.detail.type;
     if (type === 'right') {
-
+      this.putCancelTicket()
     } else {
 
     }

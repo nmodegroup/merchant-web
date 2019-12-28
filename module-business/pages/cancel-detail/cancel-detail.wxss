@@ -1,0 +1,7 @@
+/* module-business/pages/cancel-detail/cancel-detail.wxss */
+.group-block {
+  padding: 0 30rpx;
+}
+.group-block__item{
+  border-bottom: 1rpx solid rgba(255,255,255,0.1);
+}

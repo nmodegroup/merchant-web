@@ -1,12 +1,12 @@
 {
   "pages": [
+    "pages/cancel-record/cancel-record",
     "pages/auth/auth",
     "pages/center/center",
     "pages/activity/activity",
     "pages/info/info",
     "pages/home/home",
-    "pages/upload/upload",
-    "pages/cancel-record/cancel-record"
+    "pages/upload/upload"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -44,6 +44,7 @@
         "pages/activity-edit/activity-edit",
         "pages/activity-cancel/activity-cancel",
         "pages/cancel-record/cancel-record",
+        "pages/cancel-detail/cancel-detail",
         "pages/coupon-code/coupon-code"
       ]
     }

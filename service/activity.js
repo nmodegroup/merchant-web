@@ -138,6 +138,25 @@ export function getActivityCancelList(params) {
       });
   });
 }
+/**
+ * 核销详情
+*/
+export function getActivityCancelDetail(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .get({
+        url: '/merchant/activity/cf/detail',
+        params: params,
+        contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+}
 
 /**
  * 扫码后的劵码
@@ -149,6 +168,25 @@ export function getActivityCancelTicket(params) {
         url: '/merchant/activity/ticket/info',
         params: params,
         contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+}
+/**
+ * 确认核销
+*/
+export function putCancelTicket(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .put({
+        url: '/merchant/activity/charge/off',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
       })
       .then(res => {
         resolve(res);

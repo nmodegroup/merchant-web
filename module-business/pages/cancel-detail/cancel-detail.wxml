@@ -1,0 +1,11 @@
+<!--module-business/pages/cancel-detail/cancel-detail.wxml-->
+<view class="page">
+  <nav-bar title="核销详情" back></nav-bar>
+  <view class="group-block">
+    <view>
+      <view class="group-block__item">
+        <cell-group/>
+      </view>
+    </view>
+  </view>
+</view>
