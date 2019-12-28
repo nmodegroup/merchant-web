@@ -1,0 +1,11 @@
+/* module-business/pages/cancel-record/cancel-record.wxss */
+.page {
+  width: 100%;
+  height: 100%;
+}
+.group-block {
+  padding: 40rpx 30rpx;
+}
+.group-block__item {
+  margin-bottom: 20rpx;
+}

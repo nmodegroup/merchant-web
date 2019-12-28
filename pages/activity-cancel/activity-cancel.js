@@ -1,4 +1,7 @@
 // module-business/pages/activity-cancel/activity-cancel.js
+const activityService = require('../../service/activity');
+const { PageConfig } = require('../../utils/page');
+const PageHelper = new PageConfig();
 Page({
 
   /**
@@ -12,7 +15,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.isLoadActivityFirst = true;
+    this.initPageConfig();
+    PageHelper.setupPageConfig(this);
   },
 
   /**
@@ -26,7 +31,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getCancelList()
+  },
+  initPageConfig() {
+    this.pageNum = 1;
+    this.pageSize = 15;
+  },
+  getCancelList(){
+    const params = {
+      pageNum: this.pageNum,
+      pageSize: this.pageSize
+    }
+    PageHelper.requestWrapper(
+      activityService.getActivityList(params), 
+      this.isLoadActivityFirst
+      )
+      .then(result => {
+        console.log(result)
+      })
   },
 
   /**

@@ -25,5 +25,9 @@
       </view>
     </scroll-view>
   </view>
+    <!-- toast -->
+  <toast id="toast"></toast>
+  <!-- 定位弹窗 -->
+  <modal id="modal"></modal>
 </view>
 

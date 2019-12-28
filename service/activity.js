@@ -119,3 +119,42 @@ export function deleteActivy(params) {
       });
   });
 }
+/**
+ * 活动-核销
+*/
+export function getActivityCancelList(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .get({
+        url: '/merchant/activity/cf/page',
+        params: params,
+        contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+}
+
+/**
+ * 扫码后的劵码
+*/
+export function getActivityCancelTicket(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .get({
+        url: '/merchant/activity/ticket/info',
+        params: params,
+        contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+}

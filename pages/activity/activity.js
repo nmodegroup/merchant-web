@@ -149,7 +149,9 @@ Page({
     }
   },
   handleCancelActivity(){
-    
+    PageHelper.checkAuditStatus().then(() => {
+      wxManager.navigateTo(PageConstant.ACTIVITY_CANCEL_URL);
+    });
   },
   handleCreateActivity() {
     PageHelper.checkAuditStatus().then(() => {

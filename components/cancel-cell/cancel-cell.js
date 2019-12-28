@@ -9,18 +9,21 @@ Component({
       type: Boolean,
       value: true
     },
-    leftText: {
+    name: {
       type: String,
-      value: '保存'
+      value: ''
     },
-    rightText: {
+    date: {
       type: String,
-      value: '确认创建'
+      value: ''
     },
-    /* 按钮是否高亮 */
-    enabled: {
-      type: Boolean,
-      value: true
+    sellNum: {
+      type: Number,
+      value: 0
+    },
+    useNum: {
+      type: Number,
+      value: 0
     }
   },
 

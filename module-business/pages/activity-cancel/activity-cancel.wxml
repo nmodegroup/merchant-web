@@ -1,7 +1,41 @@
 <!--module-business/pages/activity-cancel/activity-cancel.wxml-->
-<view class="activity-user-page">
+<view>
   <nav-bar title="{{ title }}" back></nav-bar>
-  <view>
-  
+  <view class="main-block">
+    <scroll-view scroll-y="true">
+      <view class="operate-block" bindtap="scanQrCode">
+        <image class="cancel-icon" src="../../../image/activity/icon_cancel.png"></image>
+        <view class="operate-block__title">扫码核销</view>
+        <view class="operate-block__tips">提醒顾客提前在“我的-活动单”中打开券码</view>
+      </view>
+      <view class="item-block">
+        <view class="item-block__title" bindtap="goMoreData">
+          <view class="item-block__title__tip">核销记录</view>
+          <image class="item-block__title__arrow" src="../../../image/global/cell_arrow.svg"></image>
+        </view>
+        <view class="item-block__item"
+        wx:for="{{ list }}"
+        wx:key="{{index}}"
+        >
+          <cancel-cell
+          name="{{ item.theme}}"
+          date="{{ item.date }}"
+          sellNum="{{ item.sellNum }}"
+          useNum="{{ item.useNum }}"
+          />
+        </view>
+        <!-- <view class="item-block__item">
+          <cancel-cell/>
+        </view>
+        <view class="item-block__item">
+          <cancel-cell/>
+        </view> -->
+      </view>
+    </scroll-view>
   </view>
+    <!-- toast -->
+  <toast id="toast"></toast>
+  <!-- 定位弹窗 -->
+  <modal id="modal"></modal>
 </view>
+

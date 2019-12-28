@@ -1,6 +1,5 @@
-// module-business/pages/activity-cancel/activity-cancel.js
+// module-business/pages/cancal-record/cancal-record.js
 const wxManager = require('../../../utils/wxManager');
-const PageConstant = require('../../../constant/page');
 const activityService = require('../../../service/activity');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
@@ -11,14 +10,16 @@ Page({
    */
   data: {
     title: "活动核销",
-    list: []
+    list: [],
+    isShowLoadingMore: false,
+    showNomore: false
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.toast = this.selectComponent('#toast');
     this.isLoadActivityFirst = true;
     this.initPageConfig();
     PageHelper.setupPageConfig(this);
@@ -50,32 +51,26 @@ Page({
       activityService.getActivityCancelList(params),
       this.isLoadActivityFirst
     )
-      .then(result => {
-        console.log(result)
-        let { list } = this.data.list
-        if (this.pageNum <= 1) {
-          list = result.list
-        } else {
-          list = list.concat(result.list)
-        }
-        this.setData({ list })
-        this.isLoadActivityFirst = false;
-      })
-  },
-  goMoreData(){
-    wxManager.navigateTo(PageConstant.ACTIVITY_CANCEL_RECORD_URL)
-  },
-  scanQrCode(){
-    wxManager.scanCode((res)=> {
-
-    }, (err) => {
-      console.log(err)
-      if (err && err.msg) {
-        this.toast.showToast({
-          content: err.msg
-        });
+    .then(result => {
+      console.log(result)
+      let { list } = this.data.list
+      if (this.pageNum <= 1) {
+        list = result.list
+      } else {
+        list = list.concat(result.list)
+        this.isShowLoadingMore = false;
       }
+      if (result.list.length < this.pageSize) {
+        this.setData({
+          showNomore: true
+        })
+      }
+      this.setData({ list })
+      this.isLoadActivityFirst = false;
     })
+  },
+  goMoreData() {
+    wxManager.navigateTo("")
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -102,7 +97,11 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    const { isShowLoadingMore, showNomore } = this.data;
+    if (isShowLoadingMore || showNomore) return
+    this.setData({ isShowLoadingMore: true })
+    this.pageNum++;
+    this.getCancelList()
   },
 
   /**

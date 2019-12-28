@@ -353,3 +353,21 @@ export function showModal({ title = '', content }) {
     });
   });
 }
+/**
+ * 扫码
+*/
+
+export function scanCode(resolve, reject){
+  wx.scanCode({
+    success(res) {
+      console.log(res)
+      resolve(res)
+    },
+    fail(err){
+      console.error(err)
+      reject({
+        msg: "扫码失败"
+      })
+    }
+  })
+}

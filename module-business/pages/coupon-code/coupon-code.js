@@ -1,4 +1,4 @@
-// module-business/pages/activity-cancel/activity-cancel.js
+// module-business/pages/coupon-code/coupon-code.js
 const wxManager = require('../../../utils/wxManager');
 const PageConstant = require('../../../constant/page');
 const activityService = require('../../../service/activity');
@@ -10,18 +10,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: "活动核销",
-    list: []
+    selectIndex: 0,
+    list: [],
+    qrText: ""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.toast = this.selectComponent('#toast');
     this.isLoadActivityFirst = true;
-    this.initPageConfig();
     PageHelper.setupPageConfig(this);
+    if (options.qrText) {
+      this.setData({ qrText: options.qrText })
+    }
   },
 
   /**
@@ -30,52 +32,41 @@ Page({
   onReady: function () {
 
   },
-
+  getActivityCancelTicket(){
+    const params = {
+      qrText: this.data.qrText,
+    }
+    PageHelper.requestWrapper(
+      activityService.getActivityCancelTicket(params),
+      this.isLoadActivityFirst
+    )
+      .then(result => {
+        this.isLoadActivityFirst = false
+      })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getCancelList()
+    const { list } = this.data
+    list.map (item => {
+      item.select = true
+    }) 
   },
-  initPageConfig() {
-    this.pageNum = 1;
-    this.pageSize = 15;
-  },
-  getCancelList() {
-    const params = {
-      pageNum: this.pageNum,
-      pageSize: this.pageSize
-    }
-    PageHelper.requestWrapper(
-      activityService.getActivityCancelList(params),
-      this.isLoadActivityFirst
-    )
-      .then(result => {
-        console.log(result)
-        let { list } = this.data.list
-        if (this.pageNum <= 1) {
-          list = result.list
-        } else {
-          list = list.concat(result.list)
-        }
-        this.setData({ list })
-        this.isLoadActivityFirst = false;
-      })
-  },
-  goMoreData(){
-    wxManager.navigateTo(PageConstant.ACTIVITY_CANCEL_RECORD_URL)
-  },
-  scanQrCode(){
-    wxManager.scanCode((res)=> {
+  
+  onButton(event) {
+    const type = event.detail.type;
+    if (type === 'right') {
 
-    }, (err) => {
-      console.log(err)
-      if (err && err.msg) {
-        this.toast.showToast({
-          content: err.msg
-        });
-      }
-    })
+    } else {
+
+    }
+  },
+  selcetAllCode(){
+
+  },
+  selectCode(){
+
   },
   /**
    * 生命周期函数--监听页面隐藏

@@ -11,6 +11,10 @@ Component({
     showNomore: {
       type: Boolean,
       value: false
+    },
+    moreTips: {
+      type: String,
+      value: "我是有底线的~"
     }
   },
 

@@ -46,6 +46,8 @@ export const SPECIAL_DATE_URL = '/module-business/pages/special-date/special-dat
 export const WEEK_URL = '/module-business/pages/week/week';
 
 export const ACTIVITY_EDIT_URL = '/module-business/pages/activity-edit/activity-edit';
+export const ACTIVITY_CANCEL_URL = '/module-business/pages/activity-cancel/activity-cancel';
+export const ACTIVITY_CANCEL_RECORD_URL = '/module-business/pages/cancel-record/cancel-record';
 
 //  图片裁剪
 export const UPLOAD = '/pages/upload/upload';

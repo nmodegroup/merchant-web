@@ -1,12 +1,12 @@
 <view class="cell-block">
   <view class="cell-block__top">
-    <view class="cell-block__top__name">5.20情人节活动</view>
-    <view class="cell-block__top__date">活动时间：2019.5.20 20:00</view>
+    <view class="cell-block__top__name">{{ name }}</view>
+    <view class="cell-block__top__date">活动时间：{{ date }}</view>
   </view>
   <view class="cell-block__bottom">
-    <view class="cell-block__bottom__tips">售卖数量：355张</view>
+    <view class="cell-block__bottom__tips">售卖数量：{{ sellNum }}张</view>
     <view class="line"></view>
-    <view class="cell-block__bottom__tips">核销数量：300张</view>
+    <view class="cell-block__bottom__tips">核销数量：{{ useNum }}张</view>
   </view>
   <view class="more-block">
     <image class="more-block__image" src="../../image/activity/icon_more.png"></image>
