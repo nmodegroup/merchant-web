@@ -1,5 +1,6 @@
 // module-business/pages/cancal-record/cancal-record.js
 const wxManager = require('../../../utils/wxManager');
+const PageConstant = require('../../../constant/page');
 const activityService = require('../../../service/activity');
 const { PageConfig } = require('../../../utils/page');
 const PageHelper = new PageConfig();
@@ -13,7 +14,6 @@ Page({
     list: [],
     isShowLoadingMore: false,
     showNomore: false
-
   },
 
   /**
@@ -69,8 +69,13 @@ Page({
       this.isLoadActivityFirst = false;
     })
   },
-  goMoreData() {
-    wxManager.navigateTo("")
+  tapGodetail(e) {
+    console.log(e)
+    const dataset = e.currentTarget.dataset;
+    wxManager.navigateTo(
+      PageConstant.ACTIVITY_CANCEL_DETAIL_URL, 
+      { id: dataset.id }
+    )
   },
   /**
    * 生命周期函数--监听页面隐藏

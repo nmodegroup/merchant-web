@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/cancel-record/cancel-record",
     "pages/auth/auth",
     "pages/center/center",
     "pages/activity/activity",

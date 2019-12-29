@@ -5,23 +5,30 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    single: {
-      type: Boolean,
-      value: true
-    },
-    leftText: {
+    titleLeft: {
       type: String,
-      value: '保存'
+      value: 'left title'
     },
-    rightText: {
+    titleRight: {
       type: String,
-      value: '确认创建'
+      value: 'right title'
     },
-    /* 按钮是否高亮 */
-    enabled: {
-      type: Boolean,
-      value: true
-    }
+    twoTipsLeft: {
+      type: String,
+      value: 'twoTipsLeft'
+    },
+    twoTipsRight: {
+      type: String,
+      value: 'twoTipsRight'
+    },
+    threeTipsLeft: {
+      type: String,
+      value: 'threeTipsLeft'
+    },
+    threeTipsRight: {
+      type: String,
+      value: 'threeTipsRight'
+    },
   },
 
   /**

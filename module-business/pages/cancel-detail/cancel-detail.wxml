@@ -3,8 +3,19 @@
   <nav-bar title="核销详情" back></nav-bar>
   <view class="group-block">
     <view>
+      <view class="group-block__item"
+      wx:for="{{ list }}"
+      wx:key="{{ index }}"
+      >
+        <cell-group
+         titleLeft="{{ item.code }}"
+         twoTipsLeft="{{ item.theme }}"
+         twoTipsRight="{{ item.date }}"
+        />
+      </view>
       <view class="group-block__item">
-        <cell-group/>
+        <cell-group
+        />
       </view>
     </view>
   </view>

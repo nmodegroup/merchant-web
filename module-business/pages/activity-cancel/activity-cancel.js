@@ -65,10 +65,21 @@ Page({
   goMoreData(){
     wxManager.navigateTo(PageConstant.ACTIVITY_CANCEL_RECORD_URL)
   },
+  tapGodetail(e) {
+    const dataset = e.currentTarget.dataset;
+    wxManager.navigateTo(
+      PageConstant.ACTIVITY_CANCEL_DETAIL_URL,
+      { id: dataset.id }
+    )
+  },
   scanQrCode(){
     wxManager.scanCode((res)=> {
-
+      
     }, (err) => {
+      wxManager.navigateTo(
+        PageConstant.ACTIVITY_COUPON_CODE_URL,
+        { qrText: "" }
+      )
       console.log(err)
       if (err && err.msg) {
         this.toast.showToast({

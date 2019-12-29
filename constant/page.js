@@ -48,6 +48,8 @@ export const WEEK_URL = '/module-business/pages/week/week';
 export const ACTIVITY_EDIT_URL = '/module-business/pages/activity-edit/activity-edit';
 export const ACTIVITY_CANCEL_URL = '/module-business/pages/activity-cancel/activity-cancel';
 export const ACTIVITY_CANCEL_RECORD_URL = '/module-business/pages/cancel-record/cancel-record';
+export const ACTIVITY_CANCEL_DETAIL_URL = '/module-business/pages/cancel-detail/cancel-detail';
+export const ACTIVITY_COUPON_CODE_URL = '/module-business/pages/coupon-code/coupon-code';
 
 //  图片裁剪
 export const UPLOAD = '/pages/upload/upload';

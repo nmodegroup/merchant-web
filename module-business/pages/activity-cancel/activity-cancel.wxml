@@ -16,6 +16,8 @@
         <view class="item-block__item"
         wx:for="{{ list }}"
         wx:key="{{index}}"
+        bindtap="tapGodetail"
+        data-id="{{ item.id }}"
         >
           <cancel-cell
           name="{{ item.theme}}"

@@ -3,27 +3,50 @@
   <nav-bar title="劵码确认" back></nav-bar>
   <view class="coupon-code">
     <view class="activity-block">
-      <view class="activity-block__name">520情人节派对</view>
-      <view class="activity-block__tips">深圳BBR酒吧 | 2019.5.20 20:00</view>
+      <view class="activity-block__name">{{ name }}</view>
+      <view class="activity-block__tips">{{ theme}} | {{ date }}</view>
     </view>
     <view class="code-block">
       <view class="code-block__all">
         <view class="cell-block__item" bindtap="selcetAllCode">
-          <image class="cell-block__item__image" src="../../../image/activity/radio-unselect.svg"></image>
+          <image class="cell-block__item__image" 
+           src="../../../image/activity/radio-unselect.svg"
+           wx:if="{{ !selectedAll }}"
+          ></image>
+          <image class="cell-block__item__image" 
+           src="../../../image/activity/radio-select.svg"
+           wx:else
+          ></image>
           <text class="cell-block__item__text">全选</text>
         </view>
       </view>
       <view>
-        <view class="cell-block__item" bindtap="selectCode">
-          <image class="cell-block__item__image" src="../../../image/activity/radio-select.svg"></image>
-          <text class="cell-block__item__text">1243 2345 3425</text>
-        </view>
-        <view class="cell-block__item">
-          <image class="cell-block__item__image" src="../../../image/activity/radio-unselect.svg"></image>
-          <text class="cell-block__item__text">1243 2345 3425</text>
+        <view class="cell-block__item" 
+         wx:for="{{ codes }}"
+         wx:key="{{ index}}"
+         data-index="{{ index }}"
+         data-status="{{ item.status}}"
+         data-selected="{{ item.selected }}"
+         bindtap="selectCode"
+        >
+          <image class="cell-block__item__image" 
+           src="../../../image/activity/radio-select.svg"
+           wx:if="{{ item.selected }}"
+          ></image>
+          <image class="cell-block__item__image" 
+           src="../../../image/activity/radio-unselect.svg"
+           wx:else
+          ></image>
+          <text class="cell-block__item__text {{ item.status != 0?'over-text':'' }}">{{ item.code }}</text>
         </view>
       </view>
     </view>
   </view>
   <bottom-button primary bindclick="onButton"></bottom-button>
+
+  <!-- toast -->
+  <toast id="toast"></toast>
+  <!-- 定位弹窗 -->
+  <modal id="modal"></modal>
+  
 </view>

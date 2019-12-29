@@ -47,6 +47,10 @@ Page({
       this.isLoadActivityFirst
     ).then( result => {
       console.log(result)
+      result.map( item => {
+        item.code = item.code.replace(/\s/g, '').replace(/(.{4})/g, "$1 ")
+      })
+      this.setData({ list: result })
       this.isLoadActivityFirst = false
     })
   },
