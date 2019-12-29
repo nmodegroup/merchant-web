@@ -26,12 +26,6 @@
           useNum="{{ item.useNum }}"
           />
         </view>
-        <!-- <view class="item-block__item">
-          <cancel-cell/>
-        </view>
-        <view class="item-block__item">
-          <cancel-cell/>
-        </view> -->
       </view>
     </scroll-view>
   </view>
