@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+    "loading-more": "/components/loading-more/index",
     "cell-group": "/components/cell-group/cell-group"
   }
 }

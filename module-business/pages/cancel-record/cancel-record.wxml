@@ -24,7 +24,7 @@
      moreTips="没有更多了~" 
     />
   </view>
-   <!-- toast -->
+  <!-- toast -->
   <toast id="toast"></toast>
 
   <!-- 定位弹窗 -->

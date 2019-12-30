@@ -10,9 +10,10 @@ Page({
    */
   data: {
     list: [],
+    id: "",
     isShowLoadingMore: false,
     showNomore: false,
-    id: ""
+    moreTips: "没有更多了~"
   },
 
   /**
@@ -20,6 +21,8 @@ Page({
    */
   onLoad: function (options) {
     this.isLoadActivityFirst = true
+    this.initPageConfig()
+    PageHelper.setupPageConfig(this);
     if (options.id) {
       this.setData({ id: options.id })
     }
@@ -38,19 +41,41 @@ Page({
   onShow: function () {
     this.getActivityCancelDetail()
   },
+  initPageConfig() {
+    this.pageNum = 1;
+    this.pageSize = 15;
+  },
   getActivityCancelDetail(){
     const params = {
-     id: this.data.id
+      id: this.data.id,
+      pageNum: this.pageNum,
+      pageSize: this.pageSize
     }
     PageHelper.requestWrapper(
       activityService.getActivityCancelDetail(params),
       this.isLoadActivityFirst
     ).then( result => {
       console.log(result)
-      result.map( item => {
+      let { list } = this.data.list
+      result.list.map(item => {
         item.code = item.code.replace(/\s/g, '').replace(/(.{4})/g, "$1 ")
       })
-      this.setData({ list: result })
+      if (this.pageNum <= 1){
+        list = result.list
+      } else {
+        list = list.concat(result.list)
+        this.isShowLoadingMore = false;
+      }
+      if (result.list.length < this.pageSize) {
+        this.setData({
+          showNomore: true
+        })
+      }
+      if (list.length <= 0) {
+        console.log(list)
+        this.setData({ moreTips: "暂无数据", showNomore: true })
+      }
+      this.setData({ list })
       this.isLoadActivityFirst = false
     })
   },
@@ -79,7 +104,11 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    const { isShowLoadingMore, showNomore } = this.data;
+    if (isShowLoadingMore || showNomore) return
+    this.setData({ isShowLoadingMore: true })
+    this.pageNum++;
+    this.getActivityCancelDetail()
   },
 
   /**
