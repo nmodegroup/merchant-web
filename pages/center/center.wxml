@@ -26,29 +26,51 @@
       </view>
     </view>
     <!-- 店铺桌位 -->
-    <view class="item-row">
-      <view class='col-item' bindtap="handleColClick" data-type="shop">
-        <image class='col-image' src="../../image/center/center_shop.png"></image>
-        <text>店铺信息</text>
-        <!-- 已认证 -->
-        <block wx:if="{{ centerModule.isAuditSuccess(auditStatus) }}">
-          <tag title='{{ centerModule.getAuditStatus(auditStatus) }}' showIcon="{{ true }}"
-            iconPath="/image/toast/icon_succed.svg" bgColor="#456AEC" />
-        </block>
-        <!-- 未认证、认证审核中、审核未通过 -->
-        <block wx:else>
-          <tag title='{{ centerModule.getAuditStatus(auditStatus) }}'
-            showIcon="{{ centerModule.isAuditFail(auditStatus) }}" iconPath="/image/global/icon_reason.svg"
-            bind:tagClick="handleTagClick" />
-        </block>
+    <view class="item-block">
+      <view class="item-row">
+        <view class='col-item' bindtap="handleColClick" data-type="shop">
+          <image class='col-image' src="../../image/center/center_shop.png"></image>
+          <text>店铺信息</text>
+          <!-- 已认证 -->
+          <block wx:if="{{ centerModule.isAuditSuccess(auditStatus) }}">
+            <tag title='{{ centerModule.getAuditStatus(auditStatus) }}' showIcon="{{ true }}"
+              iconPath="/image/toast/icon_succed.svg" bgColor="#456AEC" />
+          </block>
+          <!-- 未认证、认证审核中、审核未通过 -->
+          <block wx:else>
+            <tag title='{{ centerModule.getAuditStatus(auditStatus) }}'
+              showIcon="{{ centerModule.isAuditFail(auditStatus) }}" iconPath="/image/global/icon_reason.svg"
+              bind:tagClick="handleTagClick" />
+          </block>
+        </view>
+        <view class="line">
+          <view></view>
+        </view>
+        <view class='col-item' bindtap="handleColClick" data-type="table">
+          <image class='col-image' src="/image/center/center_seat.png"></image>
+          <text>桌位管理</text>
+          <tag custom-tag-class="{{ isTable ? 'tag-unvisible' : '' }}" title='未设定' />
+        </view>
       </view>
-      <view class="line">
-        <view></view>
-      </view>
-      <view class='col-item' bindtap="handleColClick" data-type="table">
-        <image class='col-image' src="/image/center/center_seat.png"></image>
-        <text>桌位管理</text>
-        <tag custom-tag-class="{{ isTable ? 'tag-unvisible' : '' }}" title='未设定' />
+      <view class="account-block">
+        <view class="account-block__top">
+          <text class="account-block__top__balance">余额(元)</text>
+          <view class="account-block__top__right" bindtap="handleLookAccount">
+            <text class="account-block__top__more">查看账单</text>
+            <image class="arrow" src="../../image/global/cell_arrow.svg"></image>
+          </view>
+        </view>
+        <view class="account-block__amount">343.09</view>
+        <view class="account-block__bottom">
+          <view class="account-block__bottom__left">
+            <text class="account-block__bottom__left__total">累计收益(元)</text>
+            <text class="account-block__bottom__left__amount">31223.34</text>
+          </view>
+          <view class="account-block__bottom__btn">
+            <view class="btn-bg"></view>
+            <view class="btn">提现</view>
+          </view>
+        </view>
       </view>
     </view>
     <!-- 营业管理 -->

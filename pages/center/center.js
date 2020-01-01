@@ -278,7 +278,9 @@ Page({
   navigation(path, params) {
     WxManager.navigateTo(path, params);
   },
-
+  handleLookAccount(){
+    this.navigation(PageConstant.ACCOUNT_URL)
+  },
   goCodePage() {
     const { shareImg } = this.data;
     PageHelper.checkAuditStatus().then(() => {

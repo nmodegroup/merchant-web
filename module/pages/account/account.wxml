@@ -1,0 +1,18 @@
+<!--module/pages/account/account.wxml-->
+<view class="page"> 
+  <nav-bar title="{{ title }}" back></nav-bar>
+  <view class="account-block">
+    <view class="nav-block">
+      <view class="nav-block__cell">全部</view>
+      <view class="nav-block__cell">收入</view>
+      <view class="nav-block__cell">支出</view>
+    </view>
+    <view class="account-block__content">
+    
+    </view>
+  </view>
+  <!-- toast -->
+  <toast id="toast"></toast>
+  <!-- 定位弹窗 -->
+  <modal id="modal"></modal>
+</view>
