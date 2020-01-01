@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "loading-more": "/components/loading-more/index"
+    "loading-more": "/components/loading-more/index",
+    "nav-sub": "/components/nav-sub/index",
+    "cell-group": "/components/cell-group/cell-group"
   }
 }

@@ -1,14 +1,45 @@
 <!--module/pages/account/account.wxml-->
 <view class="page"> 
-  <nav-bar title="{{ title }}" back></nav-bar>
+  <nav-bar title="账单" back></nav-bar>
   <view class="account-block">
-    <view class="nav-block">
-      <view class="nav-block__cell">全部</view>
-      <view class="nav-block__cell">收入</view>
-      <view class="nav-block__cell">支出</view>
+   <view class="account-block__nav">
+    <nav-sub
+     list="{{ subNav }}"
+     selectIndex="{{ selectIndex }}"
+     bindonSubItem="onSubItem"
+    />
     </view>
     <view class="account-block__content">
-    
+      <view class="account-item">
+        <cell-group/>
+      </view>
+      <view class="account-item">
+        <cell-group/>
+      </view>
+      <view class="account-item">
+        <cell-group/>
+      </view>
+      <view class="account-item">
+        <cell-group/>
+      </view>
+      <view class="account-item">
+        <cell-group/>
+      </view>
+      <view class="account-item">
+        <cell-group/>
+      </view>
+      <view class="account-item">
+        <cell-group/>
+      </view>
+      <view class="account-item">
+        <cell-group/>
+      </view>
+      <!-- 加载状态 -->
+      <loading-more 
+       isShowLoadingMore="{{ isShowLoadingMore }}"
+       showNomore="{{ showNomore }}"
+       moreTips="没有更多了~" 
+      />
     </view>
   </view>
   <!-- toast -->

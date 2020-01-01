@@ -1,0 +1,56 @@
+<!--module/pages/draw-deposit/draw-deposit.wxml-->
+<view class="page">
+  <nav-bar title="提现" back></nav-bar>
+  <view class="draw-block">
+    <view class="draw-block__opertion">
+      <view class="draw-item item-line">
+        <view class="draw-item__cell">
+          <text class="draw-item__cell__lab">到账账户</text>
+          <text class="draw-item__cell__text">微信零钱</text>
+        </view>
+      </view>
+      <view class="draw-item">
+        <view class="draw-item__cell">
+          <text class="draw-item__cell__lab">提现金额</text>
+        </view>
+        <view class="draw-item__cell cell-line weui-cell__wrap">
+          <view class="draw-item__cell__symbol">￥</view>
+          <view class="weui-cell weui-cell_input">
+            <input class="weui-input" 
+             type="digit" 
+             placeholder="今日剩余可提现额度¥5000" 
+             bindinput="bindKeyInput"
+            />
+          </view>
+        </view>
+        <view class="draw-item__cell">
+          <view class="draw-item__cell__small cell-small">
+            <text class="draw-item__cell__small__tips">总余额</text>
+            <text>¥5000.00</text>
+          </view>
+          <view class="draw-item__cell__small">
+            <text class="draw-item__cell__small__tips">可提现金额</text>
+            <text>¥2763.46</text>
+          </view>
+        </view>
+      </view>
+      <view class="draw-btn">
+        <action-bottom
+          rightText="提现"
+          draw-common="draw-common"
+          draw-container="draw-container"
+          enabled="{{ enabled }}"
+          bindclick="onClickBtn"
+        />
+      </view>
+    </view>
+    <view class="draw-block__rule">
+      <view class="rule-tips rule-title">提现规则（仅为样式）</view>
+      <view class="rule-tips">1.提现办理时间:每日9:00-18:00。</view>
+      <view class="rule-tips">2.最高提现额度:根据用户选择的银行卡和提现方式不同有不同的额度,请以提现时的页面提示为准。</view>
+      <view class="rule-tips">3.提现到账时间:提现成功后一般将在1-3个工作日到账,周末顺延。如逾期未到账，请查询银行卡出入账明细和机惠网个人中心余额是否有退回。</view>
+      <view class="rule-tips">4.为保障您的财产安全只能使用公司对公账户或本人本地银行卡。 </view>
+      <view class="rule-tips">5.如在提现过程中有任何疑问，请致电机惠网客服电话：400-8237-365。</view>
+    </view>
+  </view>
+</view>

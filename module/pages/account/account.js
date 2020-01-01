@@ -1,11 +1,31 @@
 // module/pages/account/account.js
+const wxManager = require('../../../utils/wxManager');
+const PageConstant = require('../../../constant/page');
+const activityService = require('../../../service/activity');
+const { PageConfig } = require('../../../utils/page');
+const PageHelper = new PageConfig();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    subNav: [
+      {
+        type: "all",
+        name: "全部"
+      },
+      {
+        type: "earn",
+        name: "收入"
+      }, {
+        type: "disburse",
+        name: "支出"
+      }
+    ],
+    selectIndex: 0,
+    isShowLoadingMore: false,
+    showNomore: false
   },
 
   /**
@@ -13,7 +33,9 @@ Page({
    */
   onLoad: function (options) {
     this.toast = this.selectComponent('#toast');
-
+    this.isLoadActivityFirst = true;
+    this.initPageConfig();
+    PageHelper.setupPageConfig(this);
   },
 
   /**
@@ -29,7 +51,20 @@ Page({
   onShow: function () {
 
   },
-
+  initPageConfig() {
+    this.pageNum = 1;
+    this.pageSize = 15;
+  },
+  onSubItem(e){
+    const { type } = e.detail
+    this.data.subNav.map( (item, index) => {
+      if (item.type === type) {
+        this.setData({
+          selectIndex: index
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

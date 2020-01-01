@@ -33,6 +33,8 @@ export const REPLACE_PHONE_URL = '/module/pages/replace/replace';
 
 export const ACCOUNT_URL = '/module/pages/account/account';
 
+export const DRAW_DEPOSIT_URL = '/module/pages/draw-deposit/draw-deposit';
+
 /* 分包 module-business */
 
 export const BUSINESS_TIME_URL = '/module-business/pages/business-time/business-time';

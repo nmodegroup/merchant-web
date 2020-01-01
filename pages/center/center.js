@@ -281,6 +281,9 @@ Page({
   handleLookAccount(){
     this.navigation(PageConstant.ACCOUNT_URL)
   },
+  handleDraw(){
+    this.navigation(PageConstant.DRAW_DEPOSIT_URL)
+  }, 
   goCodePage() {
     const { shareImg } = this.data;
     PageHelper.checkAuditStatus().then(() => {
