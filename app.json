@@ -49,7 +49,7 @@
     }
   ],
   "tabBar": {
-    "custom": false,
+    "custom": true,
     "list": [
       {
         "pagePath": "pages/home/home",

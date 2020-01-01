@@ -26,6 +26,7 @@ Page({
     this.toast = this.selectComponent('#toast');
     this.isLoadActivityFirst = true;
     PageHelper.setupPageConfig(this);
+    console.log(options.qrText)
     if (options.qrText) {
       this.setData({ qrText: options.qrText })
     }

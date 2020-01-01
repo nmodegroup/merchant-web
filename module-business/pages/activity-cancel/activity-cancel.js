@@ -75,12 +75,12 @@ Page({
   scanQrCode(){
     wxManager.scanCode((res)=> {
       console.log(res)
+      console.log(res.result)
       wxManager.navigateTo(
         PageConstant.ACTIVITY_COUPON_CODE_URL,
         { qrText: res.result }
       )
     }, (err) => {
-     
       console.log(err)
       if (err && err.msg) {
         this.toast.showToast({

@@ -9,8 +9,8 @@
             </view>
             <view class="bottom">
                 <view class="appoint-time">{{item.appointTime}}</view>
-                <view class="table-name-num" wx:if="{{item.tableAreaName}}">
-                    {{item.tableAreaName + '-' + item.tableNum + '人位'}}</view>
+                <view class="table-name-num" wx:if="{{ item.num }}">
+                    {{ "购买" + item.num + "张" }}</view>
             </view>
         </view>
     </block>

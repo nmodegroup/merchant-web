@@ -359,6 +359,7 @@ export function showModal({ title = '', content }) {
 
 export function scanCode(resolve, reject){
   wx.scanCode({
+    scanType: "qrCode",
     success(res) {
       console.log(res)
       resolve(res)
