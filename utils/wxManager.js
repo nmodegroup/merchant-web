@@ -366,6 +366,9 @@ export function scanCode(resolve, reject){
     },
     fail(err){
       console.error(err)
+      if (err && err.errMsg === "scanCode:fail cancel") {
+        return
+      }
       reject({
         msg: "扫码失败"
       })

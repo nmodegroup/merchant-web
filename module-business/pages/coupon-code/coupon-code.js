@@ -43,7 +43,7 @@ Page({
    */
   onShow: function () {
     this.getActivityCancelTicket()
-    this.initData()
+    // this.initData()
     
   },
   initData(){
@@ -104,6 +104,13 @@ Page({
         })
         this.setData({ name, theme, date, codes })
         this.isLoadActivityFirst = false
+      }).catch( err => {
+        if (err) {
+          const tipsTimer = setTimeout( () => {
+            clearTimeout(tipsTimer)
+            wxManager.navigateBack()
+          }, 2000)
+        }
       })
   },
   putCancelTicket() {
@@ -115,11 +122,24 @@ Page({
     )
       .then(result => {
         console.log(result)
+        this.toast.showToast({
+          content: "核销成功"
+        });
+        const timer = setTimeout( () => {
+          clearTimeout(timer)
+          wxManager.navigateTo(
+            PageConstant.ACTIVITY_CANCEL_URL,
+          )
+        }, 1000)
       })
   },
   scanQrCode() {
     wxManager.scanCode((res) => {
-
+      console.log(res)
+      wxManager.navigateTo(
+        PageConstant.ACTIVITY_COUPON_CODE_URL,
+        { qrText: res.result }
+      )
     }, (err) => {
       console.log(err)
       if (err && err.msg) {
