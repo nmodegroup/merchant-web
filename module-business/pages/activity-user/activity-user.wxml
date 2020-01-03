@@ -16,7 +16,7 @@
           </view>
       </block>
     </view>
-    <view class="btn-block">
+    <view class="btn-block" wx:if="{{ btnShow }}">
       <view class="btn-block__item">预订人数： {{ peopleNum }}</view>
       <view class="btn-block__item">购买数量： {{ ticketNum }}</view>
     </view>
