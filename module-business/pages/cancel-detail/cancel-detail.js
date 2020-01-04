@@ -64,7 +64,9 @@ Page({
         list = result.list
       } else {
         list = list.concat(result.list)
-        this.isShowLoadingMore = false;
+        this.setData({
+          isShowLoadingMore: false
+        })
       }
       if (result.list.length < this.pageSize) {
         this.setData({
