@@ -56,7 +56,7 @@ Page({
       this.isLoadActivityFirst
     ).then( result => {
       console.log(result)
-      let { list } = this.data.list
+      let { list } = this.data
       result.list.map(item => {
         item.code = item.code.replace(/\s/g, '').replace(/(.{4})/g, "$1 ")
       })
