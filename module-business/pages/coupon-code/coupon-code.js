@@ -90,9 +90,7 @@ Page({
         });
         const timer = setTimeout( () => {
           clearTimeout(timer)
-          wxManager.redirectTo(
-            PageConstant.ACTIVITY_CANCEL_URL,
-          )
+          wxManager.navigateBack()
         }, 1000)
       })
   },

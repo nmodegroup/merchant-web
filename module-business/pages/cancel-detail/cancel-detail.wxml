@@ -11,7 +11,7 @@
         <cell-group
          titleLeft="{{ item.code }}"
          twoTipsLeft="{{ item.theme }}"
-         twoTipsRight="{{ item.date }}"
+         twoTipsRight="{{ '核销时间：' + item.date }}"
         />
       </view>
       <!-- <view class="group-block__item">

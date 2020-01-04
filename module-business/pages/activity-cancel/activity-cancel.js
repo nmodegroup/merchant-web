@@ -76,7 +76,7 @@ Page({
     wxManager.scanCode((res)=> {
       console.log(res)
       console.log(res.result)
-      wxManager.redirectTo(
+      wxManager.navigateTo(
         PageConstant.ACTIVITY_COUPON_CODE_URL,
         { qrText: res.result }
       )
