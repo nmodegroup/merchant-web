@@ -26,7 +26,10 @@ Page({
     auditStatus: AuditStatus.NOT_AUDIT,
     appointStatus: 1,
     reason: '',
-    shareImg: ''
+    shareImg: '',
+    balance: 0,
+    totalEarnAmount: 0,
+    withdrawalAmount: 0
   },
 
   /**
@@ -66,8 +69,8 @@ Page({
     this.isLoadFirst = true; // 用于判断第二次加载不显示 loading
     PageHelper.setupPageConfig(this);
     this.setupScroll();
+    this.getBalance();
   },
-
   setupUserInfo() {
     this.setData({
       nickName: store.userInfo.nickName,
@@ -86,6 +89,21 @@ Page({
         navBgColor: `rgba(22, 21, 73, ${event.scrollTop / this.scrollHeight})`
       });
     });
+  },
+  /*
+  * 余额信息
+  */
+  getBalance(){
+    PageHelper.requestWrapper(centerService.getBalance()).then( res => {
+      console.log(res)
+      let { balance, totalEarnAmount, withdrawalAmount } = this.data;
+      balance = res.balance;
+      totalEarnAmount = res.total;
+      withdrawalAmount = res.withdrawal;
+      this.setData({ balance, totalEarnAmount, withdrawalAmount })
+    }).catch( err => {
+     console.error(err)
+    })
   },
 
   /**

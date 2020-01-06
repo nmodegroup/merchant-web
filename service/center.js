@@ -56,3 +56,22 @@ export function changeAppointStatus() {
       });
   });
 }
+
+/**
+ * 商家--余额
+*/
+export function getBalance() {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .get({
+        url: '/merchant/account/balance',
+        contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
