@@ -6,7 +6,7 @@
 .coupon-code {
   width: 100%;
   box-sizing: border-box;
-  padding: 0 30rpx;
+  padding: 0 30rpx 100rpx;
 }
 .activity-block{
   padding-top: 60rpx;

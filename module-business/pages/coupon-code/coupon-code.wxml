@@ -1,7 +1,7 @@
 <!--module-business/pages/coupon-code/coupon-code.wxml-->
 <view class="page">
   <nav-bar title="劵码确认" back></nav-bar>
-  <view class="coupon-code">
+  <view class="coupon-code" wx:if="{{ pageShow }}">
     <view class="activity-block">
       <view class="activity-block__name">{{ name }}</view>
       <view class="activity-block__tips">{{ theme}} | {{ date }}</view>
@@ -42,7 +42,11 @@
       </view>
     </view>
   </view>
-  <bottom-button primary bindclick="onButton"></bottom-button>
+  <bottom-button 
+   wx:if="{{ pageShow }}"
+   primary 
+   bindclick="onButton"
+  ></bottom-button>
 
   <!-- toast -->
   <toast id="toast"></toast>

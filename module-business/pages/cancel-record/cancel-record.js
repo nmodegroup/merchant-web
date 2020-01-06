@@ -52,13 +52,14 @@ Page({
       this.isLoadActivityFirst
     )
     .then(result => {
-      console.log(result)
-      let { list } = this.data.list
+      let { list } = this.data
       if (this.pageNum <= 1) {
         list = result.list
       } else {
         list = list.concat(result.list)
-        this.isShowLoadingMore = false;
+        this.setData({
+          isShowLoadingMore: false
+        })
       }
       if (result.list.length < this.pageSize) {
         this.setData({
@@ -70,7 +71,6 @@ Page({
     })
   },
   tapGodetail(e) {
-    console.log(e)
     const dataset = e.currentTarget.dataset;
     wxManager.navigateTo(
       PageConstant.ACTIVITY_CANCEL_DETAIL_URL, 

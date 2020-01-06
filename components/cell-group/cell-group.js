@@ -7,27 +7,27 @@ Component({
   properties: {
     titleLeft: {
       type: String,
-      value: 'left title'
+      value: ''
     },
     titleRight: {
       type: String,
-      value: 'right title'
+      value: ''
     },
     twoTipsLeft: {
       type: String,
-      value: 'twoTipsLeft'
+      value: ''
     },
     twoTipsRight: {
       type: String,
-      value: 'twoTipsRight'
+      value: ''
     },
     threeTipsLeft: {
       type: String,
-      value: 'threeTipsLeft'
+      value: ''
     },
     threeTipsRight: {
       type: String,
-      value: 'threeTipsRight'
+      value: ''
     },
   },
 

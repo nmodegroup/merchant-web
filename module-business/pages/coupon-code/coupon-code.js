@@ -16,7 +16,8 @@ Page({
     date: "",
     codes: [],
     qrText: "",
-    codeIds: ""
+    codeIds: "",
+    pageShow: false
   },
 
   /**
@@ -43,46 +44,6 @@ Page({
    */
   onShow: function () {
     this.getActivityCancelTicket()
-    this.initData()
-    
-  },
-  initData(){
-    let info = {
-      name: "闷闷没锁",
-      theme: "xxx活动",
-      date: "2019.12.11",
-      codes: [
-        {
-          id: "12",
-          code: "564654654985256",
-          status: 0
-        },
-        {
-          id: "13",
-          code: "564654654985256",
-          status: 1
-        },
-        {
-          id: "14",
-          code: "564654654985256",
-          status: 2
-        },
-        {
-          id: "15",
-          code: "564654654985256",
-          status: 3
-        }
-      ]
-    }
-    let { name, theme, date, codes } = info;
-    codes.map(item => {
-      if (item.status === 1) {
-        item.selected = true;
-      } else {
-        item.selected = false;
-      }
-    })
-    this.setData({ name, theme, date, codes })
   },
   getActivityCancelTicket() {
     const params = {
@@ -96,14 +57,22 @@ Page({
         console.log(result)
         let { name, theme, date, codes } = result;
         codes.map(item => {
+          item.code = item.code.replace(/\s/g, '').replace(/(.{4})/g, "$1 ");
           if (item.status === 1) {
             item.selected = true;
           } else {
             item.selected = false;
           }
         })
-        this.setData({ name, theme, date, codes })
+        this.setData({ name, theme, date, codes, pageShow: true })
         this.isLoadActivityFirst = false
+      }).catch( err => {
+        if (err) {
+          const tipsTimer = setTimeout( () => {
+            clearTimeout(tipsTimer)
+            wxManager.navigateBack()
+          }, 2000)
+        }
       })
   },
   putCancelTicket() {
@@ -115,11 +84,23 @@ Page({
     )
       .then(result => {
         console.log(result)
+        this.toast.showToast({
+          icon: "success",
+          content: "券码核销成功"
+        });
+        const timer = setTimeout( () => {
+          clearTimeout(timer)
+          wxManager.navigateBack()
+        }, 1000)
       })
   },
   scanQrCode() {
     wxManager.scanCode((res) => {
-
+      console.log(res)
+      wxManager.redirectTo(
+        PageConstant.ACTIVITY_COUPON_CODE_URL,
+        { qrText: res.result }
+      )
     }, (err) => {
       console.log(err)
       if (err && err.msg) {
@@ -143,12 +124,19 @@ Page({
     const dataset = e.currentTarget.dataset;
     const { index, status, selected } = dataset;
     console.log(dataset)
-    let { codes } = this.data;
+    let { codes, selectedAll } = this.data;
     // 券码状态(0待使用  1已使用  2已失效  3已过期)
     if (codes[Number(index)].status == 0) {
       codes[Number(index)].selected = !codes[Number(index)].selected;
       this.setData({ codes })
     }
+    let flag = true;
+    codes.map(item => {
+      if (item.status == 0 && !item.selected) {
+        flag = false
+      }
+    })
+    this.setData({ selectedAll: flag })
   },
   onButton(event) {
     const type = event.detail.type;

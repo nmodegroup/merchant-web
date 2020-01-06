@@ -40,6 +40,22 @@ export function getActivityUser(params) {
   });
 }
 
+export function getActivityData(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .get({
+        url: '/merchant/activity/data',
+        params: params,
+        contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+}
 /**
  * 活动-开启/关闭
  */

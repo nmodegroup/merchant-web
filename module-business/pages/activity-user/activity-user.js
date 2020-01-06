@@ -9,7 +9,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userList: []
+    userList: [],
+    peopleNum: 0,
+    ticketNum: 0,
+    btnShow: false
   },
 
   /**
@@ -20,6 +23,7 @@ Page({
     PageHelper.setupPageConfig(this);
     this.initPageConfig();
     this.requestUserList();
+    this.getActivityData()
   },
 
   /**
@@ -82,7 +86,20 @@ Page({
       this.hasmore = PageHelper.checkHasmore(this.data.userList, result.totalSize);
     });
   },
-
+  getActivityData(){
+    const params = { id: this.id}
+    PageHelper.requestWrapper(activityService.getActivityData(params)).then(result => {
+      console.log(result)
+      const { peopleNum, ticketNum, btnShow } = this.data
+      if (Object.values(result).length > 0) {
+        this.setData({
+          btnShow: true,
+          peopleNum: result.peopleNum,
+          ticketNum: result.ticketNum
+        })
+      }
+    })
+  },
   makeCall(event) {
     wxManager.makePhoneCall(event.currentTarget.dataset.phone);
   }

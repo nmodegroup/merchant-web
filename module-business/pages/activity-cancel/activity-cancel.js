@@ -52,7 +52,7 @@ Page({
     )
       .then(result => {
         console.log(result)
-        let { list } = this.data.list
+        let { list } = this.data
         if (this.pageNum <= 1) {
           list = result.list
         } else {
