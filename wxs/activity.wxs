@@ -64,6 +64,20 @@ function charge(item) {
     return "Ticket：¥" + item.charges
   }
 }
+// 账单
+function showTextPrice(money, type){
+  if (type == -1) {
+    if (money >= 0) {
+      return "+" + money
+    } else {
+      return money
+    }
+  } else if (type == 0) {
+    return "+" + money
+  } else {
+    return money
+  }
+}
 
 module.exports = {
   getRemainTitle: getRemainTitle,
@@ -72,5 +86,6 @@ module.exports = {
   isAuditSuccessAndOpen: isAuditSuccessAndOpen,
   isAuditSuccessAndClose: isAuditSuccessAndClose,
   isUnShelves: isUnShelves,
-  charge: charge
+  charge: charge,
+  showTextPrice: showTextPrice
 };

@@ -53,4 +53,6 @@
       <view class="rule-tips">5.如在提现过程中有任何疑问，请致电机惠网客服电话：400-8237-365。</view>
     </view>
   </view>
+  <!-- toast -->
+  <toast id="toast"></toast>
 </view>
