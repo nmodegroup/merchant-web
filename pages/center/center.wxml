@@ -60,11 +60,11 @@
             <image class="arrow" src="../../image/global/cell_arrow.svg"></image>
           </view>
         </view>
-        <view class="account-block__amount">343.09</view>
+        <view class="account-block__amount">{{ centerModule.parseFloatText(balance) }}</view>
         <view class="account-block__bottom">
           <view class="account-block__bottom__left">
             <text class="account-block__bottom__left__total">累计收益(元)</text>
-            <text class="account-block__bottom__left__amount">31223.34</text>
+            <text class="account-block__bottom__left__amount">{{ centerModule.parseFloatText(totalEarnAmount) }}</text>
           </view>
           <view class="account-block__bottom__btn" bindtap="handleDraw">
             <view class="btn-bg"></view>
