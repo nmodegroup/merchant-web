@@ -1,4 +1,5 @@
 <!--module/pages/draw-deposit/draw-deposit.wxml-->
+<wxs src="../../../wxs/center.wxs" module="centerModule" />
 <view class="page">
   <nav-bar title="提现" back></nav-bar>
   <view class="draw-block">
@@ -20,17 +21,18 @@
              type="digit" 
              placeholder="今日剩余可提现额度¥5000" 
              bindinput="bindKeyInput"
+             value="{{ value }}"
             />
           </view>
         </view>
         <view class="draw-item__cell">
           <view class="draw-item__cell__small cell-small">
             <text class="draw-item__cell__small__tips">总余额</text>
-            <text>¥5000.00</text>
+            <text>￥{{ centerModule.parseFloatText(balance) }}</text>
           </view>
           <view class="draw-item__cell__small">
             <text class="draw-item__cell__small__tips">可提现金额</text>
-            <text>¥2763.46</text>
+            <text>￥{{ centerModule.parseFloatText(withdrawalAmount) }}</text>
           </view>
         </view>
       </view>

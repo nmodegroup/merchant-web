@@ -8,7 +8,7 @@
     <view class="cell-group__item__right">{{ twoTipsRight }}</view>
   </view>
   <view class="cell-group__item item-tips" wx:if="{{ threeTipsLeft !=='' || threeTipsRight !== ''}}">
-    <view class="cell-group__item__left">{{ threeTipsLeft }}</view>
+    <view class="cell-group__item__left three-left">{{ threeTipsLeft }}</view>
     <view class="cell-group__item__right">{{ threeTipsRight }}</view>
   </view>
 </view>
