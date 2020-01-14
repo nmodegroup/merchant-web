@@ -19,7 +19,7 @@
           <view class="weui-cell weui-cell_input">
             <input class="weui-input" 
              type="digit" 
-             placeholder="今日剩余可提现额度¥5000" 
+             placeholder="今日剩余可提现额度¥{{ todayWithdrawalAmount }}" 
              bindinput="bindKeyInput"
              value="{{ value }}"
             />
