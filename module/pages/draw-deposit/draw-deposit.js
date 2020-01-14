@@ -12,7 +12,7 @@ Page({
     enabled: false,
     amount: 0,
     balance: 0,
-    totalEarnAmount: 0,
+    todayWithdrawalAmount: 0,
     withdrawalAmount: 0,
     value: ""
   },
@@ -28,7 +28,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.getBalance()
+    this.getExtractAmount()
   },
 
   /**
@@ -45,16 +45,16 @@ Page({
   },
   onClickBtn(){
     if (!this.data.enabled) return
-    const { amount } = this.data;
+    const { amount, todayWithdrawalAmount } = this.data;
     if (amount < 1) {
       this.toast.showToast({
         content: "单次提现金额不能低于1元"
       });
       return
     }
-    if (amount > 5000) {
+    if (amount > todayWithdrawalAmount) {
       this.toast.showToast({
-        content: "每日提现金额不能超过5000元"
+        content: "今日提现金额不能超过" + todayWithdrawalAmount + "元"
       });
       return
     }
@@ -70,14 +70,14 @@ Page({
   /*
 * 余额信息
 */
-  getBalance() {
-    PageHelper.requestWrapper(centerService.getBalance()).then(res => {
+  getExtractAmount() {
+    PageHelper.requestWrapper(centerService.getExtractAmount()).then(res => {
       console.log(res)
-      let { balance, totalEarnAmount, withdrawalAmount } = this.data;
+      let { balance, todayWithdrawalAmount, withdrawalAmount } = this.data;
       balance = res.balance;
-      totalEarnAmount = res.total;
+      todayWithdrawalAmount = res.todayWithdrawal;
       withdrawalAmount = res.withdrawal;
-      this.setData({ balance, totalEarnAmount, withdrawalAmount })
+      this.setData({ balance, todayWithdrawalAmount, withdrawalAmount })
     }).catch(err => {
       console.error(err)
     })

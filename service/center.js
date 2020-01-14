@@ -96,10 +96,30 @@ export function getStatement(params) {
       });
   });
 }
+
+/**
+ * 提现-获取可提现金额。
+*/
+export function getExtractAmount(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .get({
+        url: '/merchant/account/extract',
+        params: params,
+        contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
+
 /**
  * 提现
 */
-
 export function postExtract(params) {
   return new Promise((resolve, reject) => {
     httpManager

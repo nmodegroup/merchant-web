@@ -99,7 +99,7 @@ Page({
       let { balance, totalEarnAmount, withdrawalAmount } = this.data;
       balance = res.balance;
       totalEarnAmount = res.total;
-      withdrawalAmount = res.withdrawal;
+      withdrawalAmount = res.withdrawal ? res.withdrawal: 0;
       this.setData({ balance, totalEarnAmount, withdrawalAmount })
     }).catch( err => {
      console.error(err)
