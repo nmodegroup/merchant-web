@@ -14,7 +14,7 @@ Page({
     balance: 0,
     todayWithdrawalAmount: 0,
     withdrawalAmount: 0,
-    value: ""
+    text: ""
   },
 
   /**
@@ -36,11 +36,27 @@ Page({
    */
   onShow: function () {
   },
+  regTest(val){
+    val = val.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");//只允许存在一个点
+    val = val.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');//只能输入两个小数
+    //需要注意$3处（‘\d\d).’）的那个点，见下图
+    if (val.indexOf(".") < 0 && val != "") { //此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+      val = parseFloat(val);   //parseFloat：字符串中第一个小数点是有效的，而第二个小数点就是无效的了
+    } else if (val.indexOf(".") == 0) {
+      val = val.replace(/[^$#$]/g, "0."); //将. 变为0.  ！！！！
+      val = val.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
+    }
+    return val
+  },
   bindKeyInput(e){
+    let { text } = this.data
     const { value } = e.detail
+    e.detail.value = this.regTest(value)
+    text = e.detail.value
     this.setData({
-      enabled: value.length > 0,
-      amount: value * 1
+      enabled: String(text).length > 0,
+      amount: text * 1,
+      text
     })
   },
   onClickBtn(){

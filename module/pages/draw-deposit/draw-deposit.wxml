@@ -21,7 +21,7 @@
              type="digit" 
              placeholder="今日剩余可提现额度¥{{ todayWithdrawalAmount }}" 
              bindinput="bindKeyInput"
-             value="{{ value }}"
+             value="{{ text }}"
             />
           </view>
         </view>
