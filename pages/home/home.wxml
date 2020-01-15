@@ -49,7 +49,6 @@
             </block>
         </block>
     </block>
-
     <!-- toast -->
     <toast id="toast"></toast>
     <!-- modal -->

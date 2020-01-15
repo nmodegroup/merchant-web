@@ -1,0 +1,16 @@
+<view class="dialog-block" wx:if="{{ show&&showDialog }}">
+  <view class="mask-layer" bindtap="maskLayer"></view>
+  <view class="dialog-block__content">
+    <view wx:if="{{ type === 'show' }}">
+      <view class="dialog-block__content__info">
+        <slot></slot>
+      </view>
+      <view class="close" bindtap="close">
+        <image src="../../images/close.png"></image>
+      </view>
+    </view>
+    <view wx:if="{{ type === 'confirm' }}">
+      
+    </view>
+  </view>
+</view>
