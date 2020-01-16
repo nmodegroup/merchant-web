@@ -68,6 +68,12 @@ Page({
       });
       return
     }
+    if (todayWithdrawalAmount <= 0) {
+      this.toast.showToast({
+        content: "今日提现额度已达上限"
+      });
+      return
+    }
     if (amount > todayWithdrawalAmount) {
       this.toast.showToast({
         content: "今日剩余提现金额不能超过" + todayWithdrawalAmount + "元"
