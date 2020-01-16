@@ -50,6 +50,7 @@ Page({
     }
     this.requestMerchantInfo();
     this.setupUserInfo();
+    this.getBalance();
   },
 
   /**
@@ -57,6 +58,7 @@ Page({
    */
   onPullDownRefresh: function() {
     this.requestMerchantInfo();
+    this.getBalance();
   },
 
   onShareAppMessage() {
@@ -69,7 +71,6 @@ Page({
     this.isLoadFirst = true; // 用于判断第二次加载不显示 loading
     PageHelper.setupPageConfig(this);
     this.setupScroll();
-    this.getBalance();
   },
   setupUserInfo() {
     this.setData({
