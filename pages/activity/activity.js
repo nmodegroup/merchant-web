@@ -107,6 +107,7 @@ Page({
         this.setData({
           activityList: currentPage === 1 ? activityList : oldList.concat(activityList)
         });
+        console.log(result)
         // 更新加载状态
         this.isLoadActivityFirst = false;
         this.hasmore = PageHelper.checkHasmore(this.data.activityList.length, result.totalSize);
