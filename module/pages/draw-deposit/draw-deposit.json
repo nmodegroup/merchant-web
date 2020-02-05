@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "action-bottom": "/components/action-bottom/index"
+  }
+}

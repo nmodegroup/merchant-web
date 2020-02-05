@@ -31,6 +31,10 @@ export const AREA_EDIT_URL = '/module/pages/area-edit/area-edit';
 
 export const REPLACE_PHONE_URL = '/module/pages/replace/replace';
 
+export const ACCOUNT_URL = '/module/pages/account/account';
+
+export const DRAW_DEPOSIT_URL = '/module/pages/draw-deposit/draw-deposit';
+
 /* 分包 module-business */
 
 export const BUSINESS_TIME_URL = '/module-business/pages/business-time/business-time';
@@ -46,6 +50,14 @@ export const SPECIAL_DATE_URL = '/module-business/pages/special-date/special-dat
 export const WEEK_URL = '/module-business/pages/week/week';
 
 export const ACTIVITY_EDIT_URL = '/module-business/pages/activity-edit/activity-edit';
+
+export const ACTIVITY_CANCEL_URL = '/module-business/pages/activity-cancel/activity-cancel';
+
+export const ACTIVITY_CANCEL_RECORD_URL = '/module-business/pages/cancel-record/cancel-record';
+
+export const ACTIVITY_CANCEL_DETAIL_URL = '/module-business/pages/cancel-detail/cancel-detail';
+
+export const ACTIVITY_COUPON_CODE_URL = '/module-business/pages/coupon-code/coupon-code';
 
 //  图片裁剪
 export const UPLOAD = '/pages/upload/upload';

@@ -40,6 +40,22 @@ export function getActivityUser(params) {
   });
 }
 
+export function getActivityData(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .get({
+        url: '/merchant/activity/data',
+        params: params,
+        contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+}
 /**
  * 活动-开启/关闭
  */
@@ -110,6 +126,83 @@ export function deleteActivy(params) {
         url: '/merchant/activity',
         params: params,
         contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+}
+/**
+ * 活动-核销
+*/
+export function getActivityCancelList(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .get({
+        url: '/merchant/activity/cf/page',
+        params: params,
+        contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+}
+/**
+ * 核销详情
+*/
+export function getActivityCancelDetail(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .get({
+        url: '/merchant/activity/cf/detail',
+        params: params,
+        contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+}
+
+/**
+ * 扫码后的劵码
+*/
+export function getActivityCancelTicket(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .get({
+        url: '/merchant/activity/ticket/info',
+        params: params,
+        contentType: httpManager.JSON
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+}
+/**
+ * 确认核销
+*/
+export function putCancelTicket(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .put({
+        url: '/merchant/activity/charge/off',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
       })
       .then(res => {
         resolve(res);

@@ -28,7 +28,9 @@
         "pages/area/area",
         "pages/area-edit/area-edit",
         "pages/replace/replace",
-        "pages/remind/remind"
+        "pages/remind/remind",
+        "pages/account/account",
+        "pages/draw-deposit/draw-deposit"
       ]
     },
     {
@@ -40,7 +42,11 @@
         "pages/activity-user/activity-user",
         "pages/special-date/special-date",
         "pages/week/week",
-        "pages/activity-edit/activity-edit"
+        "pages/activity-edit/activity-edit",
+        "pages/activity-cancel/activity-cancel",
+        "pages/cancel-record/cancel-record",
+        "pages/cancel-detail/cancel-detail",
+        "pages/coupon-code/coupon-code"
       ]
     }
   ],
@@ -77,7 +83,8 @@
     "action-bottom": "/components/action-bottom/index",
     "cell-input": "/components/cell-input/index",
     "toast": "/components/toast/index",
-    "modal": "/components/modal/index"
+    "modal": "/components/modal/index",
+    "bottom-button": "/components/bottom-button/bottom-button"
   },
   "sitemapLocation": "sitemap.json",
   "permission": {

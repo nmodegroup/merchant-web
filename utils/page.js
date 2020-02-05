@@ -242,7 +242,7 @@ export class PageConfig {
       this.currentPage().modal.showModal({
         content: '确认为用户通过预订吗？',
         title: '温馨提示',
-        cancelText: '不通过',
+        cancelText: '返回',
         confirmText: '通过',
         showClose: true,
         hideCancel: false,

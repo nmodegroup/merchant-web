@@ -1,0 +1,92 @@
+/* module/pages/draw-deposit/draw-deposit.wxss */
+.page {
+  width: 100%;
+  height: 100%;
+}
+.draw-block {
+  width: 100%;
+  padding: 30rpx 30rpx 10rpx;
+  box-sizing: border-box;
+}
+.draw-block__opertion {
+  width: 100%;
+  height:582rpx;
+  background:rgba(0,0,0,0.34);
+  border-radius:16rpx;
+}
+.draw-item {
+  padding: 40rpx 30rpx;
+}
+.draw-item.item-line,
+.draw-item__cell.cell-line {
+  border-bottom: 2rpx solid rgba(255, 255, 255, 0.1); 
+}
+.draw-item__cell {
+  display: flex;
+  align-items: center;
+}
+.draw-item__cell__lab {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.5);
+  margin-right: 40rpx;
+}
+.draw-item__cell__text {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.8);
+}
+.draw-item__cell__symbol {
+  font-size: 40rpx;
+  color:rgba(255,255,255,0.8);
+  margin-right: 20rpx;
+}
+.weui-cell__wrap {
+  margin-top: 20rpx;
+  padding: 20rpx 0;
+}
+.weui-cell_input {
+  width: 500rpx;
+}
+.weui-cell_input .weui-input {
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  color:rgba(255,255,255,0.8);
+}
+.draw-item__cell__small {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+  margin-top: 30rpx;
+}
+.draw-item__cell__small.cell-small{
+  margin-right: 40rpx;
+}
+.draw-item__cell__small__tips{
+  margin-right: 20rpx;
+}
+.draw-btn{
+  width: 100%;
+  height: 88rpx;
+  position: relative;
+  margin-top: 20rpx;
+}
+.draw-container {
+  position: initial!important;
+  background: rgba(115, 127, 194, 0)!important;
+}
+.draw-common{
+  height: 88rpx!important;
+  line-height: 88rpx!important;
+  font-size: 34rpx!important;
+}
+.draw-block__rule {
+  margin-top: 60rpx;
+}
+.rule-title{
+  margin-bottom: 15rpx;
+}
+.rule-tips {
+  font-size: 26rpx;
+  line-height: 42rpx;
+  color:rgba(255,255,255,0.5);
+  font-family:PingFangSC-Regular,PingFang SC;
+}

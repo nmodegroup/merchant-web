@@ -1,0 +1,56 @@
+<!--module-business/pages/coupon-code/coupon-code.wxml-->
+<view class="page">
+  <nav-bar title="劵码确认" back></nav-bar>
+  <view class="coupon-code" wx:if="{{ pageShow }}">
+    <view class="activity-block">
+      <view class="activity-block__name">{{ theme }}</view>
+      <view class="activity-block__tips">{{ name }} | {{ date }}</view>
+    </view>
+    <view class="code-block">
+      <view class="code-block__all">
+        <view class="cell-block__item" bindtap="selcetAllCode">
+          <image class="cell-block__item__image" 
+           src="../../../image/activity/radio-unselect.svg"
+           wx:if="{{ !selectedAll }}"
+          ></image>
+          <image class="cell-block__item__image" 
+           src="../../../image/activity/radio-select.svg"
+           wx:else
+          ></image>
+          <text class="cell-block__item__text">全选</text>
+        </view>
+      </view>
+      <view>
+        <view class="cell-block__item" 
+         wx:for="{{ codes }}"
+         wx:key="{{ index}}"
+         data-index="{{ index }}"
+         data-status="{{ item.status}}"
+         data-selected="{{ item.selected }}"
+         bindtap="selectCode"
+        >
+          <image class="cell-block__item__image" 
+           src="../../../image/activity/radio-select.svg"
+           wx:if="{{ item.selected }}"
+          ></image>
+          <image class="cell-block__item__image" 
+           src="../../../image/activity/radio-unselect.svg"
+           wx:else
+          ></image>
+          <text class="cell-block__item__text {{ item.status != 0?'over-text':'' }}">{{ item.code }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <bottom-button 
+   wx:if="{{ pageShow }}"
+   primary 
+   bindclick="onButton"
+  ></bottom-button>
+
+  <!-- toast -->
+  <toast id="toast"></toast>
+  <!-- 定位弹窗 -->
+  <modal id="modal"></modal>
+  
+</view>

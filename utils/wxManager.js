@@ -353,3 +353,25 @@ export function showModal({ title = '', content }) {
     });
   });
 }
+/**
+ * 扫码
+*/
+
+export function scanCode(resolve, reject){
+  wx.scanCode({
+    scanType: "qrCode",
+    success(res) {
+      console.log(res)
+      resolve(res)
+    },
+    fail(err){
+      console.error(err)
+      if (err && err.errMsg === "scanCode:fail cancel") {
+        return
+      }
+      reject({
+        msg: "扫码失败"
+      })
+    }
+  })
+}

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "loading-more": "/components/loading-more/index",
+    "cancel-cell": "/components/cancel-cell/cancel-cell"
+  }
+}

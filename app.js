@@ -1,5 +1,6 @@
 //app.js
 const { Event } = require('./lib/event');
+const ald = require('./utils/ald-stat.js')
 
 App({
   onLaunch: function() {},

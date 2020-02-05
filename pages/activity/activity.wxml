@@ -5,9 +5,15 @@
   <nav-bar title="活动"></nav-bar>
   <view class="activity-page">
     <!-- 创建活动 -->
-    <view class="create-activity" bindtap="handleCreateActivity">
-      <image src="../../image/activity/icon_add.svg"></image>
-      <text>创建活动</text>
+    <view class="activity-block create-activity">
+      <view class="activity-block__create" bindtap="handleCreateActivity">
+        <image src="../../image/activity/icon_add.png"></image>
+        <text>创建活动</text>
+      </view>
+      <view class="activity-block__cancel" bindtap="handleCancelActivity">
+        <image src="../../image/activity/icon_cancel.png"></image>
+        <text>活动核销</text>
+      </view>
     </view>
     <!-- 活动列表 -->
     <block wx:for="{{activityList}}" wx:key="index">

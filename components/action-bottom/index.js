@@ -4,6 +4,7 @@ Component({
   /**
    * 组件的属性列表
    */
+  externalClasses: ['draw-container', 'draw-common'],
   properties: {
     single: {
       type: Boolean,
@@ -21,7 +22,8 @@ Component({
     enabled: {
       type: Boolean,
       value: true
-    }
+    },
+    
   },
 
   /**
