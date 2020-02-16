@@ -48,6 +48,12 @@ function isAuditSuccess(auditStatus) {
 function transformPhone(phone) {
   return phone.substring(0, 3) + '****' + phone.substring(7);
 }
+/**
+ * 保留小数
+*/
+function parseFloatText(value, num=2){
+  return parseFloat(value).toFixed(num)
+}
 
 module.exports = {
   getBusinessStatus: getBusinessStatus,
@@ -55,5 +61,6 @@ module.exports = {
   getAuditStatus: getAuditStatus,
   isAuditFail: isAuditFail,
   isAuditSuccess: isAuditSuccess,
-  transformPhone: transformPhone
+  transformPhone: transformPhone,
+  parseFloatText: parseFloatText
 };

@@ -26,7 +26,10 @@ Page({
     auditStatus: AuditStatus.NOT_AUDIT,
     appointStatus: 1,
     reason: '',
-    shareImg: ''
+    shareImg: '',
+    balance: 0,
+    totalEarnAmount: 0,
+    withdrawalAmount: 0
   },
 
   /**
@@ -47,6 +50,7 @@ Page({
     }
     this.requestMerchantInfo();
     this.setupUserInfo();
+    this.getBalance();
   },
 
   /**
@@ -54,6 +58,7 @@ Page({
    */
   onPullDownRefresh: function() {
     this.requestMerchantInfo();
+    this.getBalance();
   },
 
   onShareAppMessage() {
@@ -67,7 +72,6 @@ Page({
     PageHelper.setupPageConfig(this);
     this.setupScroll();
   },
-
   setupUserInfo() {
     this.setData({
       nickName: store.userInfo.nickName,
@@ -86,6 +90,21 @@ Page({
         navBgColor: `rgba(22, 21, 73, ${event.scrollTop / this.scrollHeight})`
       });
     });
+  },
+  /*
+  * 余额信息
+  */
+  getBalance(){
+    PageHelper.requestWrapper(centerService.getBalance()).then( res => {
+      console.log(res)
+      let { balance, totalEarnAmount, withdrawalAmount } = this.data;
+      balance = res.balance;
+      totalEarnAmount = res.total;
+      withdrawalAmount = res.withdrawal ? res.withdrawal: 0;
+      this.setData({ balance, totalEarnAmount, withdrawalAmount })
+    }).catch( err => {
+     console.error(err)
+    })
   },
 
   /**
@@ -278,7 +297,12 @@ Page({
   navigation(path, params) {
     WxManager.navigateTo(path, params);
   },
-
+  handleLookAccount(){
+    this.navigation(PageConstant.ACCOUNT_URL)
+  },
+  handleDraw(){
+    this.navigation(PageConstant.DRAW_DEPOSIT_URL)
+  }, 
   goCodePage() {
     const { shareImg } = this.data;
     PageHelper.checkAuditStatus().then(() => {

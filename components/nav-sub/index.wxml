@@ -1,0 +1,8 @@
+<view class="nav-block">
+  <block wx:for="{{ list}}" wx:key="{{ index}}">
+    <view class="nav-block__cell {{ index === selectIndex? 'active': ''}}"
+     data-type="{{ item.type }}"
+     bindtap="tapSubItem"
+    >{{ item.name}}</view>
+  </block>
+</view>

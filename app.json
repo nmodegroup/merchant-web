@@ -28,7 +28,9 @@
         "pages/area/area",
         "pages/area-edit/area-edit",
         "pages/replace/replace",
-        "pages/remind/remind"
+        "pages/remind/remind",
+        "pages/account/account",
+        "pages/draw-deposit/draw-deposit"
       ]
     },
     {
