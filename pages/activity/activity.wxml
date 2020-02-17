@@ -7,11 +7,11 @@
     <!-- 创建活动 -->
     <view class="activity-block create-activity">
       <view class="activity-block__create" bindtap="handleCreateActivity">
-        <image src="../../image/activity/icon_add.png"></image>
+        <image src="/image/activity/icon_add.png"></image>
         <text>创建活动</text>
       </view>
       <view class="activity-block__cancel" bindtap="handleCancelActivity">
-        <image src="../../image/activity/icon_cancel.png"></image>
+        <image src="/image/activity/icon_cancel.png"></image>
         <text>活动核销</text>
       </view>
     </view>
@@ -21,8 +21,8 @@
         <view class="activity-item">
           <view class="banner-wrapper">
           <view class="charge-block {{ item.isCharge == 0?'free-block': ''}}">
-            <image src="../../image/activity/icon_biaoqian_chang.png" wx:if="{{item.isCharge == 1}}"></image>
-            <image src="../../image/activity/icon_biaoqian_duan.png" wx:if="{{item.isCharge == 0}}"></image>
+            <image src="/image/activity/icon_biaoqian_chang.png" wx:if="{{item.isCharge == 1}}"></image>
+            <image src="/image/activity/icon_biaoqian_duan.png" wx:if="{{item.isCharge == 0}}"></image>
             <view class="charge-block__text">{{activityModule.charge(item)}}</view>
           </view>
             <image src="{{item.banner}}" mode="aspectFill"></image>
@@ -34,7 +34,7 @@
             <view class="name-location">
               <view class="activity-name">{{item.theme}}</view>
               <view class="activity-location">
-                <image src="../../image/activity/icon_location.svg"></image>
+                <image src="/image/activity/icon_location.svg"></image>
                 <text>{{ item.areaName }}</text>
               </view>
             </view>

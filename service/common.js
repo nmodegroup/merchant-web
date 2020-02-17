@@ -1,19 +1,75 @@
+
 const httpManager = require('../lib/request/httpManager');
 
 /**
  * 上传图片
  */
-export function uploadImage(params) {
+
+// export function uploadImage(params) {
+//   return new Promise((resolve, reject) => {
+//     httpManager
+//       .upload({
+//         url: '/common/upload',
+//         formData: _formData,
+//         filePath: params.filePath,
+//         name: params.name
+//       })
+//       .then(res => {
+//         console.log('service:', res);
+//         resolve(res);
+//       })
+//       .catch(e => {
+//         reject(e);
+//       });
+//   });
+// }
+
+/**
+ * 上传图片--- oss改版
+ */
+export async function uploadImage(params) {
+  console.log(params)
+  const ossFileSign = await getOssFileSign(params.formData)
+  console.log(ossFileSign)
+  const { policy, OSSAccessKeyId, success_action_status, signature, url, key } = ossFileSign
+  let _formData = Object.assign(
+    params.formData, {
+      key,
+      policy,
+      OSSAccessKeyId,
+      success_action_status,
+      signature
+    })
+  return new Promise((resolve, reject) => {
+    wx.uploadFile({
+      url: 'https://oss.nightmodeplus.com',
+      filePath: params.filePath,
+      name: 'file',
+      formData: _formData,
+      success: res => {
+        console.log(res)
+        resolve(key)
+      },
+      fail: (err) => {
+        console.log(err)
+        reject({ code: -1, msg: '上传失败', data: '' });
+      }
+    });
+  });
+}
+
+/**
+ * oss文件上传获取签名
+ * */ 
+export function getOssFileSign(params) {
   return new Promise((resolve, reject) => {
     httpManager
-      .upload({
-        url: '/common/upload',
-        formData: params.formData,
-        filePath: params.filePath,
-        name: params.name
+      .get({
+        url: '/common/file/sign',
+        params: params,
+        contentType: httpManager.JSON
       })
       .then(res => {
-        console.log('service:', res);
         resolve(res);
       })
       .catch(e => {
@@ -21,6 +77,7 @@ export function uploadImage(params) {
       });
   });
 }
+
 
 /**
  * 短信发送
