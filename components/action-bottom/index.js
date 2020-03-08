@@ -23,7 +23,11 @@ Component({
       type: Boolean,
       value: true
     },
-    
+    /*按钮调整*/
+    newStyle: {
+      type: Boolean,
+      value: false
+    }
   },
 
   /**

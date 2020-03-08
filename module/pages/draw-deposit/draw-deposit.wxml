@@ -47,7 +47,7 @@
       </view>
     </view>
     <view class="draw-block__rule">
-      <view class="rule-tips rule-title">提现规则（仅为样式）</view>
+      <view class="rule-tips rule-title">提现规则</view>
       <view class="rule-tips">1.提现办理时间:每日9:00-18:00。</view>
       <view class="rule-tips">2.最高提现额度:根据用户选择的银行卡和提现方式不同有不同的额度,请以提现时的页面提示为准。</view>
       <view class="rule-tips">3.提现到账时间:提现成功后一般将在1-3个工作日到账,周末顺延。如逾期未到账，请查询银行卡出入账明细和机惠网个人中心余额是否有退回。</view>

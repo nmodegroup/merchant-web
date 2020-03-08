@@ -1,0 +1,40 @@
+<!--module/pages/shop-code/index.wxml-->
+<view class="shop-page">
+  <nav-bar title="商家二维码" back></nav-bar>
+  <view class="shop-main">
+    <view class="shop-block">
+      <view class="replace-bg" bindtap="tapReplaceBg">
+        <image class="replace-bg__image" src="/module/image/code-btn-bg.png"></image>
+        <text class="replace-bg__label">重新选择</text>
+      </view>
+      <block wx:if="{{ codeBgUrl }}">
+        <image class="code-bg" src="{{ codeBgUrl }}"></image>
+      </block>
+      <block wxx:else>
+        <view class="shop-block__upload">
+          <image class="upload-icon" 
+          src="/module/image/add-upload.png" bindtap="handleChooseCodeBg"></image>
+          <view class="shop-block__upload__tips">请选择一张图片</view>
+        </view>
+        <view class="upload-rule">
+          <view class="upload-rule__label">图片上传说明</view>
+          <view class="upload-rule__label">1.图片尺寸为375px*620px</view>
+          <view class="upload-rule__label">2.图片格式为PNG或JPG</view>
+          <view class="upload-rule__label">3.图片文件大小不超过3M</view>
+          <view class="upload-rule__label">4.图片上传后需要经过平台审核</view>
+        </view>
+      </block>
+    </view>
+    <view class="draw-btn">
+        <action-bottom
+          rightText="确认上传"
+          draw-common="draw-common"
+          draw-container="draw-container"
+          enabled="{{ enabled }}"
+          bindclick="onClickBtn"
+        />
+      </view>
+  </view>
+  <!-- toast -->
+  <toast id="toast"></toast>
+</view>

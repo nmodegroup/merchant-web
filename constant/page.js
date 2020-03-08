@@ -35,6 +35,8 @@ export const ACCOUNT_URL = '/module/pages/account/account';
 
 export const DRAW_DEPOSIT_URL = '/module/pages/draw-deposit/draw-deposit';
 
+export const SHOP_CODE_URL = '/module/pages/shop-code/index';
+
 /* 分包 module-business */
 
 export const BUSINESS_TIME_URL = '/module-business/pages/business-time/business-time';

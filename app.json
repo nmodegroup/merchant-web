@@ -30,7 +30,8 @@
         "pages/replace/replace",
         "pages/remind/remind",
         "pages/account/account",
-        "pages/draw-deposit/draw-deposit"
+        "pages/draw-deposit/draw-deposit",
+        "pages/shop-code/index"
       ]
     },
     {
@@ -51,7 +52,7 @@
     }
   ],
   "tabBar": {
-    "custom": true,
+    "custom": false,
     "list": [
       {
         "pagePath": "pages/home/home",

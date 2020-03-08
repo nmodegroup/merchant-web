@@ -2,14 +2,28 @@
 <view class="code-page">
   <nav-bar title="商家二维码" home back></nav-bar>
   <view class="image-container">
-    <image class="code-bg" src="../../image/code-bg.png"></image>
+    <!-- <image class="code-bg" src="../../image/code-bg.png"></image> -->
+    <image class="code-bg" src="{{ codeBgUrl }}"></image>
     <view class="code-wrapper">
       <image class="code-image" src="{{ codeImageUrl }}"></image>
+    </view>
+    <view class="shop-name">深圳BBR酒吧</view>
+    <view class="replace-bg" bindtap="tapReplaceBg">
+      <image class="replace-bg__image" src="/module/image/code-btn-bg.png"></image>
+      <text class="replace-bg__label">更换背景</text>
     </view>
   </view>
   <!-- canvas 绘制 -->
   <canvas canvas-id='myCanvas' class='canvas'></canvas>
-  <view class='btn-commit' bindtap='handleSaveImage'>保存到相册</view>
+  <view>
+    <action-bottom
+     newStyle="{{ true }}" 
+     single="{{ false }}" 
+     leftText="下载商家码" 
+     rightText="保存到相册"
+     bindclick="handleCodeImage"></action-bottom>
+    <!-- <view class='btn-commit' bindtap='handleSaveImage'>保存到相册</view> -->
+  </view>
 
   <!-- toast -->
   <toast id="toast"></toast>

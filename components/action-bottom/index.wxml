@@ -1,5 +1,6 @@
 <!--components/action-buttom/index.wxml-->
 <view class="action-container draw-container {{ isIphoneX ? 'safe-area__padding' : '' }}">
+  <block wx:if="{{ !newStyle }}">
     <block wx:if="{{!single}}">
         <view class="btn-common left-btn" bindtap="handleClick" data-type="left">
             {{leftText}}
@@ -14,4 +15,22 @@
             <view class="enable">{{rightText}}</view>
         </view>
     </block>
+  </block>
+
+  <block wx:else>
+    <block>
+        <view class="btn-common right-btn disable draw-common" wx:if="{{ !enabled }}" bindtap="handleClick" data-type="left">
+            {{leftText}}
+        </view>
+        <view class="btn-common right-btn draw-common" wx:else bindtap="handleClick" data-type="left" style="margin-right: 20rpx">
+            <view class="enable-bg"></view>
+            <view class="enable">{{leftText}}</view>
+        </view>
+    </block>
+    <block wx:if="{{!single}}">
+        <view class="btn-common left-btn" bindtap="handleClick" data-type="right" style="margin-right: 0">
+            {{rightText}}
+        </view>
+    </block>
+  </block>
 </view>
