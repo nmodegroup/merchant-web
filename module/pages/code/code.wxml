@@ -15,6 +15,7 @@
   </view>
   <!-- canvas 绘制 -->
   <canvas canvas-id='myCanvas' class='canvas'></canvas>
+  <canvas canvas-id='myCodeCanvas' class='canvas-code'></canvas>
   <view>
     <action-bottom
      newStyle="{{ true }}" 

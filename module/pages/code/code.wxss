@@ -52,6 +52,13 @@
   top: 9999rpx;
   left: 0;
 }
+.canvas-code {
+  width: 88px;
+  height: 88px;
+  position: fixed;
+  top: 9999rpx;
+  left: 0;
+}
 
 .btn-commit {
   height: 76rpx;
