@@ -5,7 +5,7 @@ const wxManager = require('../../../utils/wxManager');
 const httpManager = require('../../../lib/request/httpManager');
 const ENV = require('../../../lib/request/env');
 const PageConstant = require('../../../constant/page');
-const { getShopCodeBg } = require('../../../service/shop'); 
+const { getShopCodeBg, codeKnow } = require('../../../service/shop'); 
 Page({
   /**
    * 页面的初始数据
@@ -14,7 +14,10 @@ Page({
     codeBgUrl: '',
     codeImageUrl: '',
     shopName: '',
-    clickBtn: ""
+    clickBtn: "",
+    state: "",
+    showDialog: false,
+    bgId: ""
   },
 
   /**
@@ -39,7 +42,10 @@ Page({
         this.setData({
           codeBgUrl: `${ENV.sourceHost}${res.backImg}`,
           codeImageUrl: `${ENV.sourceHost}${res.codeImg}`,
-          shopName: res.name
+          shopName: res.name,
+          state: res.status,
+          showDialog: res.isFirst == 1,
+          bgId: res.id
         })
       })
       .catch(err => {
@@ -58,10 +64,19 @@ Page({
       this.handleSaveImage()
     }
   },
+  handleKnow(){
+    this.setData({ showDialog: false })
+    PageHelper.requestWrapper(codeKnow({ id: this.data.bgId }))
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  },
   handleSaveImage() {
     this.startDraw();
   },
-
   startDraw() {
     Promise.all([this.queryCanvasRect(), this.downloadCodeImage()])
       .then(result => {

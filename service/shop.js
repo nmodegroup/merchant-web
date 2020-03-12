@@ -97,3 +97,23 @@ export function saveCodeBg(params) {
       });
   });
 }
+
+/**
+ * 
+ */
+export function codeKnow(params) {
+  return new Promise((resolve, reject) => {
+    httpManager
+      .put({
+        url: '/merchant/code/konw',
+        params: params,
+        contentType: httpManager.FORM_URLENCODED
+      })
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}

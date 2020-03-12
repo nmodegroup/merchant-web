@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "商家二维码",
   "usingComponents": {
-      "action-bottom": "/components/action-bottom/index"
+      "action-bottom": "/components/action-bottom/index",
+      "dialog": "/components/dialog/dialog"
   }
 }
