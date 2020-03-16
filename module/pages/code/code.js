@@ -12,7 +12,7 @@ Page({
    */
   data: {
     codeBgUrl: '',
-    codeImageUrl: '',
+    codeImageUrl: 'https://oss.nightmodeplus.com/dev/merchant/cover/2020/03/08/1a74670ee7754ae0806797c9d0262aebE3qL.png',
     shopName: '',
     clickBtn: "",
     state: "",
@@ -25,9 +25,9 @@ Page({
    */
   onLoad: function(options) {
     PageHelper.setupPageConfig(this);
-    this.setData({
-      codeImageUrl: `${ENV.sourceHost}${options.shareImg}`
-    });
+    // this.setData({
+    //   codeImageUrl: `${ENV.sourceHost}${options.shareImg}`
+    // });
     this.getShopCodeBgWrap()
   },
 
@@ -190,6 +190,7 @@ Page({
     const codeImagePath = result[1];
     // canvas 宽高
     const { height, width } = rect;
+    console.log(rect, codeImagePath)
     // 背景色
     const WHITE_COLOR = '#FFFFFF';
     // code 半径
@@ -198,25 +199,26 @@ Page({
     // canvas 上下文
     const ctx = wx.createCanvasContext('myCodeCanvas', this);
     ctx.setFillStyle(WHITE_COLOR);
-    ctx.fillRect(0, 0, height, width);
+    ctx.fillRect(0, 0, height + 40, width);
     
     // 二维码背景圆，圆的原点x坐标，y坐标，半径，起始弧度，终止弧度
-    const arcRadius = 44;
-    ctx.arc(0.5 * width, 0.5 * height, arcRadius, 0, 2 * Math.PI);
-    ctx.setFillStyle(WHITE_COLOR);
-    ctx.fill();
+    // const arcRadius = 44;
+    // ctx.arc(0.5 * width, 0.5 * height, arcRadius, 0, 2 * Math.PI);
+    // ctx.setFillStyle(WHITE_COLOR);
+    // ctx.fill();
 
     // 绘制二维码，图片路径，左上角x坐标，左上角y坐标，宽，高
-    // ctx.drawImage(codeImagePath, 112, 330, 2 * codeRadius, 2 * codeRadius);
-    // ctx.restore();
+    ctx.drawImage(codeImagePath, 6.5, 6.5, 2 * codeRadius, 2 * codeRadius);
+    ctx.restore();
 
     // 绘制商家店铺名称
-    // const shopName = this.data.shopName;
-    // ctx.setFontSize(12);
-    // ctx.setTextAlign('center');
-    // ctx.setFillStyle(WHITE_COLOR);
-    // ctx.setGlobalAlpha(0.8);
-    // ctx.fillText(shopName, 150, 430);
+    const shopName = this.data.shopName;
+    const BLACK = "#000"
+    ctx.setFontSize(10);
+    ctx.setTextAlign('center');
+    ctx.setFillStyle(BLACK);
+    ctx.setGlobalAlpha(0.8);
+    ctx.fillText(shopName, 44, 100);
     //绘制到 canvas 上
     ctx.draw(false, () => {
       this.saveCanvasImage("myCodeCanvas");
@@ -227,7 +229,7 @@ Page({
    */
   saveCanvasImage(domId) {
     wx.canvasToTempFilePath({
-      canvasId: 'myCanvas',
+      canvasId: domId,
       success: res => {
         this.setData({
           shareImageUrl: res.tempFilePath

@@ -54,7 +54,7 @@
 }
 .canvas-code {
   width: 88px;
-  height: 88px;
+  height: 128px;
   position: fixed;
   top: 9999rpx;
   left: 0;
