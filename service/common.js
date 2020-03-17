@@ -28,9 +28,7 @@ const httpManager = require('../lib/request/httpManager');
  * 上传图片--- oss改版
  */
 export async function uploadImage(params) {
-  console.log(params)
   const ossFileSign = await getOssFileSign(params.formData)
-  console.log(ossFileSign)
   const { policy, OSSAccessKeyId, success_action_status, signature, url, key } = ossFileSign
   let _formData = Object.assign(
     params.formData, {

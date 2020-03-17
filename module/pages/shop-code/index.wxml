@@ -3,7 +3,7 @@
   <nav-bar title="商家二维码" back></nav-bar>
   <view class="shop-main">
     <view class="shop-block">
-      <view class="replace-bg" bindtap="tapReplaceBg">
+      <view class="replace-bg" bindtap="tapReplaceBg" wx:if="{{ codeBgUrl }}">
         <image class="replace-bg__image" src="/module/image/code-btn-bg.png"></image>
         <text class="replace-bg__label">重新选择</text>
       </view>

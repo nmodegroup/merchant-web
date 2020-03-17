@@ -84,10 +84,11 @@ Page({
     if (!enabled) return;
       PageHelper.requestWrapper(saveCodeBg({ imgPath: codeBgPath }))
       .then(res => {
-        console.log("上传成功")
+        // PageHelper.showSuccessToast("上传成功");
+        wxManager.redirectTo(PageConstant.QR_CODE_URL);
       })
       .catch(err => {
-        PageHelper.showFailToast('上传失败，请重试');
+        PageHelper.showFailToast(err.msg);
       });
   }
 });

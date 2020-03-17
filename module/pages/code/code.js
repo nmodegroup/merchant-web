@@ -12,7 +12,7 @@ Page({
    */
   data: {
     codeBgUrl: '',
-    codeImageUrl: 'https://oss.nightmodeplus.com/dev/merchant/cover/2020/03/08/1a74670ee7754ae0806797c9d0262aebE3qL.png',
+    codeImageUrl: '',
     shopName: '',
     clickBtn: "",
     state: "",
@@ -25,9 +25,6 @@ Page({
    */
   onLoad: function(options) {
     PageHelper.setupPageConfig(this);
-    // this.setData({
-    //   codeImageUrl: `${ENV.sourceHost}${options.shareImg}`
-    // });
     this.getShopCodeBgWrap()
   },
 
@@ -157,7 +154,6 @@ Page({
     ctx.setFillStyle(WHITE_COLOR);
     ctx.fillRect(0, 0, height, width);
 
-    // ctx.drawImage('/module/image/code-bg.png', 0, 0, width, height);
     ctx.drawImage(this.data.codeBgUrl, 0, 0, width, height);
 
     // 二维码背景圆，圆的原点x坐标，y坐标，半径，起始弧度，终止弧度
@@ -167,8 +163,8 @@ Page({
     ctx.fill();
 
     // 绘制二维码，图片路径，左上角x坐标，左上角y坐标，宽，高
-    // ctx.drawImage(codeImagePath, 112, 330, 2 * codeRadius, 2 * codeRadius);
-    // ctx.restore();
+    ctx.drawImage(this.data.codeImageUrl, 112, 330, 2 * codeRadius, 2 * codeRadius);
+    ctx.restore();
 
     // 绘制商家店铺名称
     const shopName = this.data.shopName;
@@ -190,7 +186,6 @@ Page({
     const codeImagePath = result[1];
     // canvas 宽高
     const { height, width } = rect;
-    console.log(rect, codeImagePath)
     // 背景色
     const WHITE_COLOR = '#FFFFFF';
     // code 半径
@@ -199,7 +194,7 @@ Page({
     // canvas 上下文
     const ctx = wx.createCanvasContext('myCodeCanvas', this);
     ctx.setFillStyle(WHITE_COLOR);
-    ctx.fillRect(0, 0, height + 40, width);
+    ctx.fillRect(0, 0, height, width);
     
     // 二维码背景圆，圆的原点x坐标，y坐标，半径，起始弧度，终止弧度
     // const arcRadius = 44;
