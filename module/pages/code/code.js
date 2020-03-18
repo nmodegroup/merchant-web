@@ -55,11 +55,6 @@ Page({
     this.setData({ clickBtn: type }, () => {
       this.handleSaveImage()
     })
-    if (type === "left") { // 下载
-      
-    } else { // 保存
-      this.handleSaveImage()
-    }
   },
   handleKnow(){
     this.setData({ showDialog: false })
@@ -79,7 +74,8 @@ Page({
       .then(result => {
         this.drawCanvas(result);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error(err)
         PageHelper.showFailToast('保存失败，请重试');
       });
   },
@@ -163,7 +159,7 @@ Page({
     ctx.fill();
 
     // 绘制二维码，图片路径，左上角x坐标，左上角y坐标，宽，高
-    ctx.drawImage(this.data.codeImageUrl, 112, 330, 2 * codeRadius, 2 * codeRadius);
+    ctx.drawImage(codeImagePath, 112, 330, 2 * codeRadius, 2 * codeRadius);
     ctx.restore();
 
     // 绘制商家店铺名称
@@ -194,7 +190,8 @@ Page({
     // canvas 上下文
     const ctx = wx.createCanvasContext('myCodeCanvas', this);
     ctx.setFillStyle(WHITE_COLOR);
-    ctx.fillRect(0, 0, height, width);
+    ctx.fillRect(0, 0, height + 10, width + 20);
+    console.log(rect)
     
     // 二维码背景圆，圆的原点x坐标，y坐标，半径，起始弧度，终止弧度
     // const arcRadius = 44;
