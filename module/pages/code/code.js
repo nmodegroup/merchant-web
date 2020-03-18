@@ -70,7 +70,7 @@ Page({
     this.startDraw();
   },
   startDraw() {
-    Promise.all([this.queryCanvasRect(), this.downloadCodeImage()])
+    Promise.all([this.queryCanvasRect(), this.downloadCodeImage(), this.downloadCodeImage('right')])
       .then(result => {
         this.drawCanvas(result);
       })
@@ -80,12 +80,18 @@ Page({
       });
   },
 
-  downloadCodeImage() {
+  downloadCodeImage(query) {
     return new Promise((resolve, reject) => {
-      const { codeImageUrl } = this.data;
-      const params = {
-        url: codeImageUrl
+      const { codeImageUrl, codeBgUrl } = this.data;
+      let params = {
+        url: ""
       };
+      if (query && query=='right'){
+        params.url = codeBgUrl
+      } else {
+        params.url = codeImageUrl
+      }
+      
       PageHelper.requestWrapper(httpManager.download(params))
         .then(res => {
           resolve(res.tempFilePath);
@@ -138,6 +144,8 @@ Page({
     const rect = result[0];
     // code 图片路径
     const codeImagePath = result[1];
+    // 背景图路径
+    const codeBgPath = result[2];
     // canvas 宽高
     const { height, width } = rect;
     // 背景色
@@ -149,9 +157,8 @@ Page({
     const ctx = wx.createCanvasContext('myCanvas', this);
     ctx.setFillStyle(WHITE_COLOR);
     ctx.fillRect(0, 0, height, width);
-
-    ctx.drawImage(this.data.codeBgUrl, 0, 0, width, height);
-
+    ctx.drawImage(codeBgPath, 0, 0, width, height);
+    ctx.restore();
     // 二维码背景圆，圆的原点x坐标，y坐标，半径，起始弧度，终止弧度
     const arcRadius = 44;
     ctx.arc(0.5 * width, 368, arcRadius, 0, 2 * Math.PI);
