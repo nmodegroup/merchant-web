@@ -25,16 +25,6 @@
      bindclick="handleCodeImage"></action-bottom>
     <!-- <view class='btn-commit' bindtap='handleSaveImage'>保存到相册</view> -->
   </view>
-  <dialog show="{{ showDialog }}" type="confirm">
-    <view class="result-block">
-      <view class="result-block__tips" wx:if="{{ state == 0 }}">背景图片审核中，审核通过后系统将会替换成最新背景</view>
-      <view class="result-block__tips"  wx:if="{{ state == 2 }}">您的背景图片审核未通过，系统为您还原为上一张背景图。您可重新上传新的背景图</view>
-      <view class="result-block__tips"  wx:if="{{ state == 1 }}">您的背景图片审核已通过，已为您替换成最新的背景图</view>
-      <view class="result-btn">
-        <view class="result-btn__item" bindtap="handleKnow">我知道了</view>
-      </view>
-    </view>
-  </dialog>
   <!-- toast -->
   <toast id="toast"></toast>
 

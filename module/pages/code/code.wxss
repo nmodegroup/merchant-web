@@ -28,12 +28,12 @@
   justify-content: center;
 }
 .shop-name {
+  text-align: center;
   color:rgba(255,255,255,0.8);
   background-color: rgba(0,0,0,0.5);
   font-size: 24rpx;
-  height: 40rpx;
   line-height: 40rpx;
-  padding: 0 20rpx;
+  padding: 1px 20rpx;
   border-radius: 10rpx;
   position: absolute;
   left: 50%;
@@ -102,42 +102,4 @@
   color: #fff;
   line-height: 68rpx;
   text-align: center;
-}
-
-.result-block {
-  width: 570rpx;
-  height: 480rpx;
-  color: #fff;
-  background:rgba(255,255,255,0.3);
-  border-radius: 16rpx;
-  padding: 130rpx 30rpx 30rpx;
-  box-sizing: border-box;
-  text-align: center;
-  position: relative;
-}
-.result-block__tips {
-  font-size: 32rpx;
-  line-height: 50rpx;
-}
-.result-btn {
-  width:480rpx;
-  height:80rpx;
-  display: flex;
-  align-items: center;
-  font-size: 30rpx;
-  position: absolute;
-  bottom: 30rpx;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.result-btn__item{
-  text-align: center;
-  height: 100%;
-  flex: 1;
-  background:rgba(255,255,255,1);
-  border-radius: 40rpx;
-  color: rgba(0,0,0,1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

@@ -17,7 +17,8 @@ Page({
     clickBtn: "",
     state: "",
     showDialog: false,
-    bgId: ""
+    bgId: "",
+    reason: ""
   },
 
   /**
@@ -42,13 +43,38 @@ Page({
           shopName: res.name,
           state: res.status,
           showDialog: res.isFirst == 1,
-          bgId: res.id
+          bgId: res.id,
+          reason: res.reason
+        }, () => {
+          if (this.data.showDialog == 1) {
+            this.showModal()
+          }
         })
+       
       })
       .catch(err => {
         console.log(err)
         // PageHelper.showFailToast('保存失败，请重试');
       });
+  },
+  showModal(){
+    let tips = "";
+    const { state, reason } = this.data;
+    if (state == 0) {
+      tips = "背景图片审核中，审核通过后系统将会替换成最新背景"
+    } else if (state == 1) {
+      tips = "您的背景图片审核已通过，已为您替换成最新的背景图"
+    } else if (state == 2) {
+      tips = reason
+    }
+    this.modal.showModal({
+      content: tips,
+      hideCancel: true,
+      confirmText: '我知道了',
+      onConfirm: () => {
+        this.handleKnow()
+      }
+    });
   },
   handleCodeImage(e){
     const type = e.detail.type;
@@ -197,7 +223,7 @@ Page({
     // canvas 上下文
     const ctx = wx.createCanvasContext('myCodeCanvas', this);
     ctx.setFillStyle(WHITE_COLOR);
-    ctx.fillRect(0, 0, height + 10, width + 20);
+    ctx.fillRect(0, 0, width, height + 20);
     console.log(rect)
     
     // 二维码背景圆，圆的原点x坐标，y坐标，半径，起始弧度，终止弧度
@@ -213,11 +239,11 @@ Page({
     // 绘制商家店铺名称
     const shopName = this.data.shopName;
     const BLACK = "#000"
-    ctx.setFontSize(10);
+    ctx.setFontSize(8);
     ctx.setTextAlign('center');
     ctx.setFillStyle(BLACK);
     ctx.setGlobalAlpha(0.8);
-    ctx.fillText(shopName, 44, 100);
+    ctx.fillText(shopName, 44, 95);
     //绘制到 canvas 上
     ctx.draw(false, () => {
       this.saveCanvasImage("myCodeCanvas");
