@@ -44,7 +44,7 @@ Page({
     },
     shopCodeBg: { // 商家二维码底图 设计图310 * 513
       width: cutWidth,
-      height: cutWidth / 375 * 620
+      height: cutWidth / 300 * 496
     },
     callBack: '',//回调函数名字
     index: ''//编辑回调下标
