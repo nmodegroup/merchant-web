@@ -44,7 +44,7 @@ Page({
           state: res.status,
           showDialog: res.isFirst == 1,
           bgId: res.id,
-          reason: res.reason
+          reason: res.reason ? res.reason: ""
         }, () => {
           if (this.data.showDialog == 1) {
             this.showModal()
@@ -233,17 +233,18 @@ Page({
     // ctx.fill();
 
     // 绘制二维码，图片路径，左上角x坐标，左上角y坐标，宽，高
-    ctx.drawImage(codeImagePath, 6.5, 6.5, 2 * codeRadius, 2 * codeRadius);
+    ctx.drawImage(codeImagePath, 16.5, 6.5, 2 * codeRadius, 2 * codeRadius);
     ctx.restore();
 
     // 绘制商家店铺名称
     const shopName = this.data.shopName;
+    // "吨吨 High Light Whisky&Cocktail Bar 哈哈"
     const BLACK = "#000"
-    ctx.setFontSize(8);
+    ctx.setFontSize(6);
     ctx.setTextAlign('center');
     ctx.setFillStyle(BLACK);
     ctx.setGlobalAlpha(0.8);
-    ctx.fillText(shopName, 44, 95);
+    ctx.fillText(shopName, 54, 95);
     //绘制到 canvas 上
     ctx.draw(false, () => {
       this.saveCanvasImage("myCodeCanvas");
