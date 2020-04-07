@@ -42,7 +42,7 @@ Page({
       width: cutWidth,
       height: cutWidth / 345 * 600
     },
-    shopCodeBg: { // 商家二维码底图 设计图310 * 513
+    shopCodeBg: { // 商家二维码底图 设计图300 * 496
       width: cutWidth,
       height: cutWidth / 300 * 496
     },
