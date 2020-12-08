@@ -7,7 +7,7 @@
   width: 600rpx;
   height: 992rpx;
   background:rgba(0,0,0,0.34);
-  opacity:0.8;
+  /* opacity:0.8; */
   margin: 30rpx auto 0;
   overflow: hidden;
   position: relative;
@@ -35,7 +35,7 @@
   height:264rpx;
   border-radius:12rpx;
   border:2rpx solid rgba(255,255,255,0.1);
-  margin: 160rpx auto 0;
+  margin: 138rpx auto 0;
   padding: 22rpx 40rpx;
   box-sizing: border-box;
 }
